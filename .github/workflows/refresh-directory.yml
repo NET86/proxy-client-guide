@@ -22,7 +22,6 @@ jobs:
     if: github.repository == 'NET86/proxy-client-guide' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
-    environment: refresh-production
     steps:
       - name: Check out triggering revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -40,18 +39,18 @@ jobs:
 
       - name: Configure refresh deploy key
         env:
-          REFRESH_PRODUCTION_DEPLOY_KEY: ${{ secrets.REFRESH_PRODUCTION_DEPLOY_KEY }}
+          REFRESH_DEPLOY_KEY: ${{ secrets.REFRESH_DEPLOY_KEY }}
         run: |
           set -euo pipefail
-          if [ -z "${REFRESH_PRODUCTION_DEPLOY_KEY:-}" ]; then
-            echo "REFRESH_PRODUCTION_DEPLOY_KEY is not configured." >&2
+          if [ -z "${REFRESH_DEPLOY_KEY:-}" ]; then
+            echo "REFRESH_DEPLOY_KEY is not configured." >&2
             exit 1
           fi
           ssh_dir="$RUNNER_TEMP/refresh-ssh"
           key_path="$ssh_dir/deploy_key"
           known_hosts_path="$ssh_dir/known_hosts"
           install -d -m 700 "$ssh_dir"
-          printf '%s\n' "$REFRESH_PRODUCTION_DEPLOY_KEY" > "$key_path"
+          printf '%s\n' "$REFRESH_DEPLOY_KEY" > "$key_path"
           chmod 600 "$key_path"
           printf '%s\n' '[ssh.github.com]:443 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' > "$known_hosts_path"
           chmod 600 "$known_hosts_path"

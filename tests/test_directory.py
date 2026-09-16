@@ -1036,12 +1036,12 @@ class WorkflowTests(unittest.TestCase):
         self.assertLess(text.index("--audit"), text.index(push))
         self.assertGreater(text.index("--health-check"), text.index(push))
 
-    def test_refresh_uses_main_only_environment_deploy_key_for_writes(self):
+    def test_refresh_uses_repository_deploy_key_for_writes(self):
         text = (ROOT / ".github/workflows/refresh-directory.yml").read_text(encoding="utf-8")
         self.assertIn("permissions:\n  contents: read", text)
-        self.assertIn("environment: refresh-production", text)
-        self.assertIn("secrets.REFRESH_PRODUCTION_DEPLOY_KEY", text)
-        self.assertNotIn("secrets.REFRESH_DEPLOY_KEY", text)
+        self.assertNotIn("environment:", text)
+        self.assertIn("secrets.REFRESH_DEPLOY_KEY", text)
+        self.assertNotIn("secrets.REFRESH_PRODUCTION_DEPLOY_KEY", text)
         self.assertIn("ssh://git@ssh.github.com:443/${GITHUB_REPOSITORY}.git", text)
         self.assertIn("StrictHostKeyChecking=yes", text)
         self.assertNotIn("git fetch --no-tags", text)

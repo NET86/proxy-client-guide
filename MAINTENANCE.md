@@ -16,7 +16,7 @@
 
 1. 从当前 `main` 核验官方来源并生成 README/observations。
 2. 对确定的身份异常、来源失效等情况先隐藏不可信下载入口。
-3. 如生成文件发生变化，用 `refresh-production` Environment 中的仓库专用 deploy key 普通 push 到 `main`。
+3. 如生成文件发生变化，用仓库专用 deploy key 普通 push 到 `main`。
 4. 执行 health gate；异常会让 workflow 失败并保留可见状态。
 
 Refresh 只写 `README.md` 和 `data/observations.json`。如果 push 恰好与新的 `main` 冲突，本次任务直接失败，不在同一个 run 中重放代码或复杂合并；下一次定时运行会从新的 `main` 重新核验并自动恢复。
@@ -68,7 +68,7 @@ git diff --check
 
 - 普通上游网络故障：不人工改数据，等待下一次 Refresh。
 - Refresh push 冲突：不强推、不 rebase 自动生成提交，等待下一次定时任务。
-- deploy key / Environment 配置损坏：修复 GitHub 设置后手动 dispatch 一次 Refresh。
+- deploy key 或对应仓库 secret 配置损坏：修复 GitHub 设置后手动 dispatch 一次 Refresh。
 - 身份异常：保持下载入口隐藏，人工确认官方迁移后通过 PR 更新静态 pin。
 - workflow 自身修改：合并后手动 dispatch 一次当前 `main` 的 Refresh 做真实验收。
 
