@@ -1,0 +1,834 @@
+{
+  "version": 2,
+  "last_run_at": "2026-09-16T00:43:39Z",
+  "clients": {
+    "flclash": {
+      "source": {
+        "state": "ok",
+        "repo_id": 678716433,
+        "owner_id": 66918471,
+        "full_name": "chen08209/FlClash",
+        "last_activity_at": "2026-09-14T02:45:42Z",
+        "scope": "sha256:3a8573b2685beed1ae8ad039780b39d058f8f933d6622859fff4c0737e542fc7",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v0.8.98",
+        "published_at": "2026-09-14T03:20:30Z",
+        "release_id": 388129466,
+        "asset_count": 16,
+        "scope": "sha256:f4c1ba19139cd4bcd987611c39d6c9c02432599c127e56a4a5c7c9f87207bc7d",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:ccd2e4698eadc901fd410ada92639de8860d5ad64efc85fb4573d0d4255d88f9",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "clash-verge-rev": {
+      "source": {
+        "state": "ok",
+        "repo_id": 721767116,
+        "owner_id": 152534467,
+        "full_name": "clash-verge-rev/clash-verge-rev",
+        "last_activity_at": "2026-09-16T09:42:08Z",
+        "scope": "sha256:f339214748de0f2f93cdda3b27a9e0d8c106aaa32cf742e083395e539be82c08",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T09:52:29Z",
+        "last_success_at": "2026-09-16T09:52:29Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v2.5.2",
+        "published_at": "2026-07-19T17:00:26Z",
+        "release_id": 356382939,
+        "asset_count": 23,
+        "scope": "sha256:5029bc2c14e0302e125c3c35e658d2687cd101d22334b622c88d97ef4930437f",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:86eb4c858134a6ab1f8b168476b7d57f5846b96d13d631cfaf7f7368f20cb793",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "clashmi": {
+      "source": {
+        "state": "ok",
+        "repo_id": 966153123,
+        "owner_id": 131734194,
+        "full_name": "KaringX/clashmi",
+        "last_activity_at": "2026-09-16T03:58:16Z",
+        "scope": "sha256:846e53533eb371e1fd5a79efbd95e7bf3f8b6d8fc1147951d68b4f504e93d7c5",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T04:47:02Z",
+        "last_success_at": "2026-09-16T04:47:02Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v1.0.29.1503",
+        "published_at": "2026-09-02T01:37:32Z",
+        "release_id": 380917279,
+        "asset_count": 9,
+        "scope": "sha256:a006484844bfd43930cc3188e4aa3f6201bd9514711692051669573800ba594d",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:e3ba12c5a028ec7d9b40ac203a0649b3a5e33546d9f481e0dcd3e38031117e61",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "hako": {
+      "source": {
+        "state": "ok",
+        "repo_id": 1302702957,
+        "owner_id": 305755057,
+        "full_name": "TokenPLS/Hako-Client",
+        "last_activity_at": "2026-09-07T07:46:34Z",
+        "scope": "sha256:c9e1c157298eca6c1a2f0496901f9bab27c2cbe72d9e455a445fa32a140e7119",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "1.0.7",
+        "published_at": "2026-09-14T23:03:01Z",
+        "seller": "OmniWide Media Limited",
+        "track_id": 6794257189,
+        "scope": "sha256:ef7202e2d0e7a246b98bac11c8705797b840234a0e8a849b646576ff597086d8",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:6883f4715fd021371b0c0f8d11fdc04f7f091607f015eff0537624e36545b4ab",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "clashx-meta": {
+      "source": {
+        "state": "ok",
+        "repo_id": 502510490,
+        "owner_id": 84378451,
+        "full_name": "MetaCubeX/ClashX.Meta",
+        "last_activity_at": "2026-09-14T14:23:11Z",
+        "scope": "sha256:118c0f92916e50e0cc44f25dbd9fefb3d562983c5ca6a2d86439ea75af21156c",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v1.4.45",
+        "published_at": "2026-09-14T14:23:24Z",
+        "release_id": 388459720,
+        "asset_count": 1,
+        "scope": "sha256:15fd49b67dbde6ae9c9483f23d95fed986c111abcde2239c4720bea4a6c85805",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:a007c25bddf2305c4fd153f2f0ca92ff18bfed6b7cc2ea7f85d8167bb620473c",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "clash-meta-android": {
+      "source": {
+        "state": "ok",
+        "repo_id": 500719319,
+        "owner_id": 84378451,
+        "full_name": "MetaCubeX/ClashMetaForAndroid",
+        "last_activity_at": "2026-09-15T16:55:10Z",
+        "scope": "sha256:90e8aa9e3bc1d935812d84d68add4a4dec7f46e4b0ec19cf3f78675160bb95dc",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v2.11.34",
+        "published_at": "2026-09-14T13:24:09Z",
+        "release_id": 388415874,
+        "asset_count": 6,
+        "scope": "sha256:e2578bb9d1f25295c83b91581aac0cd34c2c0e73c457636946c2edec4fce9e92",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:7f1d5049742b3294accb086e7f81899a39e7311ef871dd8f3ec2f434262536ad",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "clash-nyanpasu": {
+      "source": {
+        "state": "ok",
+        "repo_id": 716838500,
+        "owner_id": 159686715,
+        "full_name": "libnyanpasu/clash-nyanpasu",
+        "last_activity_at": "2026-09-16T10:17:42Z",
+        "scope": "sha256:ce06957c5c328b63644c10e5cf959f7297da42badd7404468d357b13f9e33595",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v1.6.1",
+        "published_at": "2024-09-07T16:48:05Z",
+        "release_id": 173977471,
+        "asset_count": 18,
+        "scope": "sha256:919292040f7f22bafc663f6d97db2c961da2f84c544a5f2ed86f570b2e89dff2",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:f8fd3053b7129229425e262943e39a7f38d770c6b2e84711342d0ea32231cb6c",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "clash-party": {
+      "source": {
+        "state": "ok",
+        "repo_id": 836976013,
+        "owner_id": 181477152,
+        "full_name": "mihomo-party-org/clash-party",
+        "last_activity_at": "2026-09-15T12:37:13Z",
+        "scope": "sha256:c013ee8927f65fb48bad4e44b52d943d7ccdf3d5b702c699d20ceaee0705877c",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v2.0.2",
+        "published_at": "2026-08-14T15:07:21Z",
+        "release_id": 370650680,
+        "asset_count": 81,
+        "scope": "sha256:5c243a1375c0e0bf4ce8856c7bf459910ae8211880294c8eda275745d1eb22c3",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:4d1da0e9f58258879b989bfc640d815be44a8f9bbc3c0eacea1a1de280bd88f8",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "sparkle": {
+      "source": {
+        "state": "ok",
+        "repo_id": 838206019,
+        "owner_id": 95160953,
+        "full_name": "xishang0128/sparkle",
+        "last_activity_at": "2026-09-14T15:37:52Z",
+        "scope": "sha256:9b557635cc8040321cf4502faa349bcfd3a7321d09af10cb2aff7f1e73f458e0",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "1.26.8",
+        "published_at": "2026-09-03T04:58:27Z",
+        "release_id": 379677951,
+        "asset_count": 16,
+        "scope": "sha256:b1f49aee72b1870e0ee334736cfc05bc84565faa1988eeaa862bfd4fdca66016",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:ca203e7e13780e8863c01b075f08cef211c40fda8889d39fc819205d3af45d8f",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "metacubexd": {
+      "source": {
+        "state": "ok",
+        "repo_id": 664925328,
+        "owner_id": 84378451,
+        "full_name": "MetaCubeX/metacubexd",
+        "last_activity_at": "2026-09-15T22:14:00Z",
+        "scope": "sha256:c1a020b868ab2bbcf79d0c9f81812ca62008315c096a3d187e6dea6d099b0663",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v1.273.1",
+        "published_at": "2026-09-10T06:51:06Z",
+        "release_id": 386059708,
+        "asset_count": 18,
+        "scope": "sha256:afc11bc848fc436775d383914d57f133435c7a8cac32b0e77ac3105b2a1134ed",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:6bcec503d22d9ebe2ce93b5d2093b294f5f2ed1ab9f16c7ccf11048cb20dea0e",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "bettbox": {
+      "source": {
+        "state": "ok",
+        "repo_id": 1088809592,
+        "owner_id": 197630331,
+        "full_name": "appshubcc/Bettbox",
+        "last_activity_at": "2026-09-16T06:42:41Z",
+        "scope": "sha256:0571fe6960ed222807913744c3dd17faa0d7f86693b5121062f3cb691706cdc1",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T09:52:29Z",
+        "last_success_at": "2026-09-16T09:52:29Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v1.19.1",
+        "published_at": "2026-09-09T15:56:57Z",
+        "release_id": 385658564,
+        "asset_count": 17,
+        "scope": "sha256:9ca47adc59d40e9081de98a6fcf3da851c9811a3f00150a870f2d0af07143f64",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:1125dd73d81d290ceeff4de3fc5da3836ce04f4315527911b3c5f5b5aeeb8f1d",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "asteriskmeta": {
+      "source": {
+        "state": "ok",
+        "repo_id": 1262202400,
+        "owner_id": 85885147,
+        "full_name": "Asterisk4Magisk/AsteriskMETA",
+        "last_activity_at": "2026-09-16T00:03:01Z",
+        "scope": "sha256:408b05e242a31bfbea14c4c9639a69b9b4decf9cb67f26482ea2fe563e9f3781",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v1.2.8",
+        "published_at": "2026-09-13T18:57:10Z",
+        "release_id": 388000736,
+        "asset_count": 5,
+        "scope": "sha256:8300efaaab427c2396ce2658ced159af5356e89ebf58e84f574bae1fcfc0d29f",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:bef774e9f266d86cc2edfd80bd8f63ee2c9956cca00cd975ef9ff14812ed757d",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "nyx": {
+      "source": {
+        "state": "ok",
+        "repo_id": 1208155903,
+        "owner_id": 95867489,
+        "full_name": "BX-Team/Nyx",
+        "last_activity_at": "2026-09-16T06:23:32Z",
+        "scope": "sha256:9560f42372f93e36b65686e71f1d4a67e50593d8a146242f5fff19a7b9e15bc3",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T09:52:29Z",
+        "last_success_at": "2026-09-16T09:52:29Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v2.1.0",
+        "published_at": "2026-08-20T00:23:24Z",
+        "release_id": 373419025,
+        "asset_count": 6,
+        "scope": "sha256:1201c5d843154dad1798b7850d106a14a54824232fa5c89375f4e78fe2d00546",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:0164f5fc289971c7f1097d8aa117451f0077d129728aecba1429c780f2ee9c4d",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "hiddify": {
+      "source": {
+        "state": "ok",
+        "repo_id": 643504282,
+        "owner_id": 126981719,
+        "full_name": "hiddify/hiddify-app",
+        "last_activity_at": "2026-08-10T17:43:24Z",
+        "scope": "sha256:447ea9b2a3d6b6ebe8586bc094e5fa49ee6ca550d3aa7ea7c2211152290a5761",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v4.1.1",
+        "published_at": "2026-03-05T17:22:57Z",
+        "release_id": 293596470,
+        "asset_count": 12,
+        "scope": "sha256:94b3a74b8bf5ea65f13bf9fb37cc33e22d725d04986b4454d7356fb0e8ab7a6a",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:d4b2a9a9815bc94b5ac9f4eff7a1d9769bf3ba38931fe2ef9a93a584522953e9",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "karing": {
+      "source": {
+        "state": "ok",
+        "repo_id": 714929749,
+        "owner_id": 131734194,
+        "full_name": "KaringX/karing",
+        "last_activity_at": "2026-09-16T01:31:57Z",
+        "scope": "sha256:1b76b41a9111df8a16e87c1cd9978f1d7744061881c7d5ec76724c1d82dd626d",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T02:50:47Z",
+        "last_success_at": "2026-09-16T02:50:47Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v1.2.25.2802",
+        "published_at": "2026-09-10T02:20:39Z",
+        "release_id": 385948837,
+        "asset_count": 10,
+        "scope": "sha256:6e38c83c2c8f95732c3d3a041f7b2b01b5ff1390fb16b4a035bd3093f7d30447",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:1e098b688e299bbe3b8bacfd01cccc0109d3671d5794f307c690922abbec04ae",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "v2rayn": {
+      "source": {
+        "state": "ok",
+        "repo_id": 199570071,
+        "owner_id": 31833384,
+        "full_name": "2dust/v2rayN",
+        "last_activity_at": "2026-09-14T18:47:38Z",
+        "scope": "sha256:fed4b10a4ba62f312be68ef9d5539aa346e18488fe6b9c274dffd753d19bdca8",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "7.24.9",
+        "published_at": "2026-08-29T02:47:27Z",
+        "release_id": 378854248,
+        "asset_count": 39,
+        "scope": "sha256:4e9bd71d22f3e142f0f1861d5caa1031a0d44693b559ae159edc4f9c913a9160",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:521049511b9377b618c7471b6a08fef068e7a6bb7035ab02232bfb67141f8188",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "nekobox-android": {
+      "source": {
+        "state": "ok",
+        "repo_id": 609535399,
+        "owner_id": 95122236,
+        "full_name": "MatsuriDayo/NekoBoxForAndroid",
+        "last_activity_at": "2026-02-09T03:54:59Z",
+        "scope": "sha256:5cba1e086e69e658d226e57e8e4a9b3e479f775bce35f79d941ab5865ee01871",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "1.4.2",
+        "published_at": "2026-02-09T03:55:00Z",
+        "release_id": 284263676,
+        "asset_count": 4,
+        "scope": "sha256:68655ae1cc39054336a991a3ec56ffcb79cfdafada7013aeb9d9935c4a0b42b2",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:b817f65a4d9352a59cab8446342a0be2f4f4500c2a87dcb5b0e2403fed2ec2be",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "shadowrocket": {
+      "source": {
+        "state": "ok",
+        "seller": "Shadow Launch Technology Limited",
+        "track_id": 932747118,
+        "last_activity_at": "2026-09-07T04:14:10Z",
+        "scope": "sha256:2a0df78a42d6dcb96e339af603d76e5813d0394d93d60c650a3734dfa8adf0f7",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "2.2.92",
+        "published_at": "2026-09-07T04:14:10Z",
+        "seller": "Shadow Launch Technology Limited",
+        "track_id": 932747118,
+        "scope": "sha256:42812b6d890ef1ed8d65d9d1db86e022e6a1eb1142ff59369425081b5728f718",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "surge": {
+      "source": {
+        "state": "ok",
+        "seller": "Surge Networks Inc.",
+        "track_id": 1442620678,
+        "last_activity_at": "2026-09-13T23:50:44Z",
+        "scope": "sha256:5fe2a1fbbe9f80c56b9c727b65d0cab33da55a298af587f0a7e07fcdcbca689a",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "5.22.1",
+        "published_at": "2026-09-13T23:50:44Z",
+        "seller": "Surge Networks Inc.",
+        "track_id": 1442620678,
+        "scope": "sha256:925b429965ba834da98d8429945a2629a8e12507e371f7bc519b0f2a7dee2fe3",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "clash-verge-legacy": {
+      "source": {
+        "state": "archived",
+        "repo_id": 434826774,
+        "owner_id": 27361820,
+        "full_name": "zzzgydi/clash-verge",
+        "last_activity_at": "2023-11-03T08:00:47Z",
+        "scope": "sha256:d35e90e263935115dcd30a10e27d7fafa729f406c7b125a8618b6576dcbd522c",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      },
+      "historical_release": {
+        "state": "ok",
+        "tag": "v1.3.8",
+        "release_id": 127230375,
+        "scope": "sha256:9d22915dcbb11e510f84814b4508d7c2f144fc8de23a8c427881368dbf6c69c2",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T00:43:39Z",
+        "last_success_at": "2026-09-16T00:43:39Z"
+      }
+    },
+    "stash": {
+      "source": {
+        "state": "ok",
+        "seller": "Stash Networks Limited",
+        "track_id": 1596063349,
+        "last_activity_at": "2026-07-16T17:06:42Z",
+        "scope": "sha256:a0097f0ccb7bb6e2839881effbec36e29da612f9372c24047b63ba30d7765286",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "3.4.1",
+        "published_at": "2026-07-16T17:06:42Z",
+        "seller": "Stash Networks Limited",
+        "track_id": 1596063349,
+        "scope": "sha256:c90f663f2e8d808d39f0c8f9929c00fd4631bcff882ab95fb09c848050e884be",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "quantumult-x": {
+      "source": {
+        "state": "ok",
+        "seller": "Cross Utility Ltd",
+        "track_id": 1443988620,
+        "last_activity_at": "2026-09-15T07:05:52Z",
+        "scope": "sha256:31b9a340271d3798aba4aee657e464b3a033971a084f9844e0674d7df124fdec",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "1.8.0",
+        "published_at": "2026-09-15T07:05:52Z",
+        "seller": "Cross Utility Ltd",
+        "track_id": 1443988620,
+        "scope": "sha256:5b1669eb2d6db26c84a29e2f6f273f1a23509c1e5dda578003e0c7d675789291",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "loon": {
+      "source": {
+        "state": "ok",
+        "seller": "Loon Lab Limited",
+        "track_id": 1373567447,
+        "last_activity_at": "2026-06-25T19:46:51Z",
+        "scope": "sha256:655ef666a434dcaed1ef1956e749a389eeeacd3f05c92be2f818d74b96c6c5e0",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "3.5.0",
+        "published_at": "2026-06-25T19:46:51Z",
+        "seller": "Loon Lab Limited",
+        "track_id": 1373567447,
+        "scope": "sha256:4bdb6072e06fff37afcbe3c3c45af938ae42c6236225c7cae1d06b7235c38f06",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "egern": {
+      "source": {
+        "state": "ok",
+        "seller": "BYTE CROSSING LTD",
+        "track_id": 1616105820,
+        "last_activity_at": "2026-07-23T17:04:21Z",
+        "scope": "sha256:c541de3b1d561b36ea3c00e702a5cc1efa337eed1a945e0730ab6e21c21bf894",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "2.20.0",
+        "published_at": "2026-07-23T17:04:21Z",
+        "seller": "BYTE CROSSING LTD",
+        "track_id": 1616105820,
+        "scope": "sha256:4b1b3dd6b37535dc4165defcf4bb425a1b40573af7c757496ac26d6814957554",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "anyportal": {
+      "source": {
+        "state": "ok",
+        "repo_id": 868373513,
+        "owner_id": 183787731,
+        "full_name": "AnyPortal/AnyPortal",
+        "last_activity_at": "2025-10-17T13:09:40Z",
+        "scope": "sha256:5d3cc2635c49608c2419128b1a23841255098c38740775894cb23c4c017439b1",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v0.6.31+105",
+        "published_at": "2025-10-17T13:09:40Z",
+        "release_id": 255251052,
+        "asset_count": 10,
+        "scope": "sha256:0a7bbe61412017efebc5bd9b2c61c9c5a14b954cc60201e2a0e614dc406ed566",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:3c37be5afd999eee08f18637df3914dd57c24d3b0ccd099a1e07bfb8a7d02a29",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    },
+    "sing-box": {
+      "source": {
+        "state": "ok",
+        "repo_id": 509091576,
+        "owner_id": 83217677,
+        "full_name": "SagerNet/sing-box",
+        "last_activity_at": "2026-09-16T10:04:21Z",
+        "scope": "sha256:94ed8831c76c3090271f1e1d013198fed4156e925aa24fdeed3cb2ab8522d8d9",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      },
+      "release": {
+        "state": "ok",
+        "version": "v1.14.1",
+        "published_at": "2026-09-15T00:06:50Z",
+        "release_id": 388540831,
+        "asset_count": 167,
+        "scope": "sha256:379b3db61bd459e535dca33506c11617ef7ebc2f4a2c46831715c14ad0cf4ac7",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      },
+      "core_evidence": {
+        "state": "ok",
+        "scope": "sha256:3298a7925f0ec7eac3a5c8a88e05405e89176aeb475c588862f5ef7ec9696800",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "observed_at": "2026-09-16T11:16:36Z",
+        "last_success_at": "2026-09-16T11:16:36Z"
+      }
+    }
+  },
+  "health": {
+    "attempted": 26,
+    "succeeded": 26,
+    "coverage": 1.0,
+    "anomalies": [],
+    "attempted_last_run": 26,
+    "succeeded_last_run": 26
+  }
+}

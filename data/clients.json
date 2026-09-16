@@ -1,0 +1,853 @@
+{
+  "version": 3,
+  "scope": {
+    "native": "以 Mihomo/Clash 为主要内核的客户端。",
+    "compatible": "兼容 Clash 配置或包含 Mihomo 的多内核客户端。",
+    "other": "其他具有代表性的代理客户端。",
+    "legacy": "已停更、合并或官方来源不可用的历史项目。"
+  },
+  "clients": [
+    {
+      "id": "flclash",
+      "name": "FlClash",
+      "category": "native",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": true,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "chen08209/FlClash",
+      "official_repo_id": 678716433,
+      "official_owner_id": 66918471,
+      "download_url": "https://github.com/chen08209/FlClash/releases",
+      "core": "Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/chen08209/FlClash/main/core/common.go",
+          "patterns": [
+            "github\\.com/metacubex/mihomo/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clash-verge-rev",
+      "name": "Clash Verge Rev",
+      "category": "native",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "clash-verge-rev/clash-verge-rev",
+      "official_repo_id": 721767116,
+      "official_owner_id": 152534467,
+      "download_url": "https://github.com/clash-verge-rev/clash-verge-rev/releases",
+      "core": "Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/dev/docs/README_en.md",
+          "patterns": [
+            "embedded.*mihomo.*core"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clashmi",
+      "name": "ClashMi",
+      "category": "native",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": true,
+        "ios": true,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "KaringX/clashmi",
+      "official_repo_id": 966153123,
+      "official_owner_id": 131734194,
+      "download_url": "https://github.com/KaringX/clashmi/releases",
+      "core": "Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/KaringX/clashmi/main/README.md",
+          "patterns": [
+            "内置Mihomo内核"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hako",
+      "name": "Clash（Hako）",
+      "category": "native",
+      "platforms": {
+        "windows": false,
+        "macos": true,
+        "android": false,
+        "ios": true,
+        "linux": false,
+        "tvos": true
+      },
+      "source_type": "github",
+      "github_repo": "TokenPLS/Hako-Client",
+      "official_repo_id": 1302702957,
+      "official_owner_id": 305755057,
+      "app_store_id": "6794257189",
+      "app_store_seller": "OmniWide Media Limited",
+      "release_source": "app_store",
+      "download_url": "https://apps.apple.com/app/id6794257189",
+      "website_url": "https://clash.md/",
+      "core": "Hako（基于 Mihomo）",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/TokenPLS/Hako-Client/main/README.md",
+          "patterns": [
+            "powered by the Hako kernel"
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/TokenPLS/Hako/main/README.md",
+          "patterns": [
+            "based on.*mihomo"
+          ]
+        }
+      ],
+      "notes": [
+        "Apple 各平台版本可能不同；详情版本取美区 App Store。"
+      ]
+    },
+    {
+      "id": "clashx-meta",
+      "name": "ClashX Meta",
+      "category": "native",
+      "platforms": {
+        "windows": false,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": false,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "MetaCubeX/ClashX.Meta",
+      "official_repo_id": 502510490,
+      "official_owner_id": 84378451,
+      "download_url": "https://github.com/MetaCubeX/ClashX.Meta/releases",
+      "core": "Clash",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/MetaCubeX/ClashX.Meta/master/ClashX/goClash/go.mod",
+          "patterns": [
+            "github\\.com/Dreamacro/clash"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clash-meta-android",
+      "name": "Clash Meta for Android",
+      "category": "native",
+      "platforms": {
+        "windows": false,
+        "macos": false,
+        "android": true,
+        "ios": false,
+        "linux": false,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "MetaCubeX/ClashMetaForAndroid",
+      "official_repo_id": 500719319,
+      "official_owner_id": 84378451,
+      "download_url": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases",
+      "core": "Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/MetaCubeX/ClashMetaForAndroid/main/README.md",
+          "patterns": [
+            "A Graphical user interface of.*Clash\\.Meta"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clash-nyanpasu",
+      "name": "Clash Nyanpasu",
+      "category": "native",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "libnyanpasu/clash-nyanpasu",
+      "official_repo_id": 716838500,
+      "official_owner_id": 159686715,
+      "download_url": "https://github.com/libnyanpasu/clash-nyanpasu/releases",
+      "core": "Clash Premium / Mihomo / Clash Rust / Meow",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/main/README.md",
+          "patterns": [
+            "Clash Premium",
+            "Mihomo",
+            "Clash Rust",
+            "Meow"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clash-party",
+      "name": "Clash-Party",
+      "category": "native",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "mihomo-party-org/clash-party",
+      "official_repo_id": 836976013,
+      "official_owner_id": 181477152,
+      "download_url": "https://github.com/mihomo-party-org/clash-party/releases",
+      "core": "Smart Core / Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/mihomo-party-org/clash-party/smart_core/README.md",
+          "patterns": [
+            "Smart.*内核",
+            "Mihomo"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sparkle",
+      "name": "Sparkle",
+      "category": "native",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "xishang0128/sparkle",
+      "official_repo_id": 838206019,
+      "official_owner_id": 95160953,
+      "download_url": "https://github.com/xishang0128/sparkle/releases",
+      "core": "Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/xishang0128/sparkle/master/README.md",
+          "patterns": [
+            "Another.*Mihomo.*GUI",
+            "内置.*Mihomo.*内核"
+          ]
+        }
+      ],
+      "notes": [
+        "项目由 Clash-Party 分支演化，目前作为独立项目维护。"
+      ]
+    },
+    {
+      "id": "metacubexd",
+      "name": "MetaCubeXD",
+      "category": "native",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "MetaCubeX/metacubexd",
+      "official_repo_id": 664925328,
+      "official_owner_id": 84378451,
+      "download_url": "https://github.com/MetaCubeX/metacubexd/releases",
+      "core": "Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/MetaCubeX/metacubexd/main/README.md",
+          "patterns": [
+            "desktop app.*bundles its own mihomo kernel"
+          ]
+        }
+      ],
+      "notes": [
+        "同时提供 Web Dashboard；桌面版捆绑并管理 Mihomo 内核。"
+      ]
+    },
+    {
+      "id": "bettbox",
+      "name": "Bettbox",
+      "category": "native",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": true,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "appshubcc/Bettbox",
+      "official_repo_id": 1088809592,
+      "official_owner_id": 197630331,
+      "download_url": "https://github.com/appshubcc/Bettbox/releases",
+      "core": "Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/appshubcc/Bettbox/main/README.md",
+          "patterns": [
+            "Another Better Mihomo Client",
+            "使用Mihomo.*内核"
+          ]
+        }
+      ],
+      "notes": [
+        "基于 FlClash 早期版本演化的独立项目。"
+      ]
+    },
+    {
+      "id": "asteriskmeta",
+      "name": "AsteriskMETA",
+      "category": "native",
+      "platforms": {
+        "windows": false,
+        "macos": false,
+        "android": true,
+        "ios": false,
+        "linux": false,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "Asterisk4Magisk/AsteriskMETA",
+      "official_repo_id": 1262202400,
+      "official_owner_id": 85885147,
+      "download_url": "https://github.com/Asterisk4Magisk/AsteriskMETA/releases",
+      "core": "Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/main/README.md",
+          "patterns": [
+            "Android Mihomo GUI client powered by",
+            "Runs the local Mihomo executable"
+          ]
+        }
+      ],
+      "notes": [
+        "Android Mihomo GUI，支持无 Root VPN 与 Root 透明代理模式。"
+      ]
+    },
+    {
+      "id": "nyx",
+      "name": "Nyx",
+      "category": "native",
+      "platforms": {
+        "windows": true,
+        "macos": false,
+        "android": false,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "BX-Team/Nyx",
+      "official_repo_id": 1208155903,
+      "official_owner_id": 95867489,
+      "download_url": "https://github.com/BX-Team/Nyx/releases",
+      "core": "Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/BX-Team/Nyx/master/README.md",
+          "patterns": [
+            "desktop GUI for the.*Mihomo.*proxy core"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hiddify",
+      "name": "Hiddify",
+      "category": "compatible",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": true,
+        "ios": true,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "hiddify/hiddify-app",
+      "official_repo_id": 643504282,
+      "official_owner_id": 126981719,
+      "download_url": "https://github.com/hiddify/hiddify-app/releases",
+      "core": "sing-box",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/hiddify/hiddify-app/main/README.md",
+          "patterns": [
+            "based on.*Sing-box"
+          ]
+        }
+      ],
+      "compatibility_note": "基于 sing-box；并非 Mihomo 客户端。"
+    },
+    {
+      "id": "karing",
+      "name": "Karing",
+      "category": "compatible",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": true,
+        "ios": true,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "KaringX/karing",
+      "official_repo_id": 714929749,
+      "official_owner_id": 131734194,
+      "download_url": "https://github.com/KaringX/karing/releases",
+      "core": "sing-box",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/KaringX/karing/main/README.md",
+          "patterns": [
+            "modified sing-box core"
+          ]
+        }
+      ],
+      "compatibility_note": "基于 sing-box；支持完整 Clash 和部分 Clash.Meta 配置。"
+    },
+    {
+      "id": "v2rayn",
+      "name": "v2rayN",
+      "category": "compatible",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "2dust/v2rayN",
+      "official_repo_id": 199570071,
+      "official_owner_id": 31833384,
+      "download_url": "https://github.com/2dust/v2rayN/releases",
+      "core": "Xray / sing-box / Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/2dust/v2rayN/master/README.md",
+          "patterns": [
+            "Xray",
+            "sing-box"
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/wiki/2dust/v2rayN/Release-files-introduction.md",
+          "patterns": [
+            "mihomo"
+          ]
+        }
+      ],
+      "compatibility_note": "多内核客户端，包含 Mihomo/Clash 能力。"
+    },
+    {
+      "id": "nekobox-android",
+      "name": "NekoBox for Android",
+      "category": "compatible",
+      "platforms": {
+        "windows": false,
+        "macos": false,
+        "android": true,
+        "ios": false,
+        "linux": false,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "MatsuriDayo/NekoBoxForAndroid",
+      "official_repo_id": 609535399,
+      "official_owner_id": 95122236,
+      "download_url": "https://github.com/MatsuriDayo/NekoBoxForAndroid/releases",
+      "core": "sing-box",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/MatsuriDayo/NekoBoxForAndroid/main/README.md",
+          "patterns": [
+            "sing-box / universal proxy toolchain"
+          ]
+        }
+      ],
+      "minimum_system": "Android 5.0（API 21）及以上",
+      "compatibility_note": "可解析 ClashMeta、v2rayN 等订阅节点，不导入其分流规则。",
+      "notes": [
+        "Google Play 版本自 2024-05 起不再由原项目维护；仅保留官方 GitHub 下载页。"
+      ]
+    },
+    {
+      "id": "shadowrocket",
+      "name": "Shadowrocket",
+      "category": "other",
+      "platforms": {
+        "windows": false,
+        "macos": true,
+        "android": false,
+        "ios": true,
+        "linux": false,
+        "tvos": true
+      },
+      "source_type": "app_store",
+      "app_store_id": "932747118",
+      "app_store_seller": "Shadow Launch Technology Limited",
+      "website_url": "https://shadowlaunch.com/",
+      "download_url": "https://apps.apple.com/us/app/shadowrocket/id932747118",
+      "core": "专有实现"
+    },
+    {
+      "id": "surge",
+      "name": "Surge",
+      "category": "other",
+      "platforms": {
+        "windows": false,
+        "macos": true,
+        "android": false,
+        "ios": true,
+        "linux": false,
+        "tvos": true
+      },
+      "source_type": "app_store",
+      "app_store_id": "1442620678",
+      "app_store_seller": "Surge Networks Inc.",
+      "website_url": "https://nssurge.com/",
+      "download_url": "https://apps.apple.com/us/app/surge-5/id1442620678",
+      "core": "专有实现",
+      "notes": [
+        "Surge Mac 与 Surge iOS/tvOS 独立发布，使用同一核心与配置格式；详情版本取美区 Surge 5 App Store。"
+      ]
+    },
+    {
+      "id": "clash-verge-legacy",
+      "name": "Clash Verge",
+      "category": "legacy",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "github",
+      "github_repo": "zzzgydi/clash-verge",
+      "official_repo_id": 434826774,
+      "official_owner_id": 27361820,
+      "download_url": "https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8",
+      "source_lifecycle": "discontinued",
+      "historical_release": {
+        "tag": "v1.3.8",
+        "release_id": 127230375,
+        "assets": [
+          {
+            "name": "Clash.Verge_1.3.8_x64-setup.exe",
+            "id": 133182144,
+            "size": 22756405
+          },
+          {
+            "name": "Clash.Verge_1.3.8_x64.dmg",
+            "id": 133181482,
+            "size": 30219420
+          },
+          {
+            "name": "clash-verge_1.3.8_amd64.deb",
+            "id": 133181389,
+            "size": 35622344
+          }
+        ]
+      },
+      "notes": [
+        "原官方仓库已归档；保留可核验的 v1.3.8 原官方下载页。"
+      ]
+    },
+    {
+      "id": "cfw-legacy",
+      "name": "Clash for Windows",
+      "category": "legacy",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": true,
+        "tvos": false
+      },
+      "source_type": "manual",
+      "download_url": "",
+      "source_lifecycle": "discontinued",
+      "source_note": "原官方仓库不可用；第三方链接仅作历史资料。",
+      "third_party_archives": [
+        {
+          "label": "第三方历史资料",
+          "url": "https://github.com/clashdownload/Clash_for_Windows/releases/tag/0.20.39"
+        }
+      ]
+    },
+    {
+      "id": "clashx-legacy",
+      "name": "ClashX",
+      "category": "legacy",
+      "platforms": {
+        "windows": false,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": false,
+        "tvos": false
+      },
+      "source_type": "manual",
+      "download_url": "",
+      "source_lifecycle": "discontinued",
+      "source_note": "原官方仓库不可用；第三方链接仅作历史资料。",
+      "third_party_archives": [
+        {
+          "label": "第三方历史资料",
+          "url": "https://github.com/clashbk/clashx/releases/tag/1.96.2"
+        }
+      ]
+    },
+    {
+      "id": "clashx-pro-legacy",
+      "name": "ClashX Pro",
+      "category": "legacy",
+      "platforms": {
+        "windows": false,
+        "macos": true,
+        "android": false,
+        "ios": false,
+        "linux": false,
+        "tvos": false
+      },
+      "source_type": "manual",
+      "download_url": "",
+      "source_lifecycle": "discontinued",
+      "source_note": "未找到可与第三方历史包对应的原项目源码；不提供下载入口。",
+      "third_party_archives": [
+        {
+          "label": "第三方历史资料",
+          "url": "https://github.com/clashdownload/ClashX_Pro/releases/tag/1.97.0.4"
+        }
+      ]
+    },
+    {
+      "id": "cfa-legacy",
+      "name": "Clash for Android",
+      "category": "legacy",
+      "platforms": {
+        "windows": false,
+        "macos": false,
+        "android": true,
+        "ios": false,
+        "linux": false,
+        "tvos": false
+      },
+      "source_type": "manual",
+      "download_url": "",
+      "source_lifecycle": "discontinued",
+      "source_note": "原官方仓库不可用；第三方链接仅作历史资料。",
+      "third_party_archives": [
+        {
+          "label": "第三方历史资料",
+          "url": "https://github.com/clashdownload/Clash_for_Android/releases/tag/2.5.12"
+        }
+      ]
+    },
+    {
+      "id": "clashn-legacy",
+      "name": "ClashN",
+      "category": "legacy",
+      "platforms": {
+        "windows": true,
+        "macos": false,
+        "android": false,
+        "ios": false,
+        "linux": false,
+        "tvos": false
+      },
+      "source_type": "manual",
+      "repository_url": "https://github.com/2dust/clashN",
+      "download_url": "",
+      "source_lifecycle": "merged",
+      "source_note": "相关能力已合并至 v2rayN；仅保留历史记录。",
+      "core": "Mihomo"
+    },
+    {
+      "id": "stash",
+      "name": "Stash",
+      "category": "compatible",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": true,
+        "ios": true,
+        "tvos": true,
+        "linux": false
+      },
+      "source_type": "app_store",
+      "app_store_id": "1596063349",
+      "app_store_seller": "Stash Networks Limited",
+      "website_url": "https://stash.ws/",
+      "release_source": "app_store",
+      "download_url": "https://apps.apple.com/us/app/id1596063349",
+      "download_page_url": "https://stash.ws/download",
+      "core": "专有实现",
+      "compatibility_note": "完整兼容 Clash Premium 配置格式，使用独立实现。",
+      "notes": [
+        "Windows/Android 目前为早期版本。"
+      ]
+    },
+    {
+      "id": "quantumult-x",
+      "name": "Quantumult X",
+      "category": "other",
+      "platforms": {
+        "windows": false,
+        "macos": true,
+        "android": false,
+        "ios": true,
+        "tvos": true,
+        "linux": false
+      },
+      "source_type": "app_store",
+      "app_store_id": "1443988620",
+      "app_store_seller": "Cross Utility Ltd",
+      "website_url": "https://quantumult.app/",
+      "download_url": "https://apps.apple.com/us/app/id1443988620",
+      "core": "专有实现"
+    },
+    {
+      "id": "loon",
+      "name": "Loon",
+      "category": "other",
+      "platforms": {
+        "windows": false,
+        "macos": true,
+        "android": false,
+        "ios": true,
+        "tvos": true,
+        "linux": false
+      },
+      "source_type": "app_store",
+      "app_store_id": "1373567447",
+      "app_store_seller": "Loon Lab Limited",
+      "website_url": "https://docs.nsloon.com/",
+      "download_url": "https://apps.apple.com/us/app/id1373567447",
+      "core": "专有实现",
+      "notes": [
+        "App Store 版支持 Apple Silicon Mac；另有 Loon4Mac。"
+      ]
+    },
+    {
+      "id": "egern",
+      "name": "Egern",
+      "category": "other",
+      "platforms": {
+        "windows": false,
+        "macos": true,
+        "android": false,
+        "ios": true,
+        "tvos": false,
+        "linux": false
+      },
+      "source_type": "app_store",
+      "app_store_id": "1616105820",
+      "app_store_seller": "BYTE CROSSING LTD",
+      "website_url": "https://egernapp.com/",
+      "download_url": "https://apps.apple.com/us/app/id1616105820",
+      "core": "专有实现"
+    },
+    {
+      "id": "anyportal",
+      "name": "AnyPortal",
+      "category": "compatible",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": true,
+        "ios": false,
+        "tvos": false,
+        "linux": true
+      },
+      "source_type": "github",
+      "github_repo": "AnyPortal/AnyPortal",
+      "official_repo_id": 868373513,
+      "official_owner_id": 183787731,
+      "download_url": "https://github.com/AnyPortal/AnyPortal/releases",
+      "core": "V2Ray / Xray / sing-box / Mihomo",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/AnyPortal/AnyPortal/main/README.md",
+          "patterns": [
+            "v2ray.*xray.*sing-box.*clash.*mihomo"
+          ]
+        }
+      ],
+      "compatibility_note": "多内核客户端，兼容 Clash/Mihomo。"
+    },
+    {
+      "id": "sing-box",
+      "name": "sing-box",
+      "category": "other",
+      "platforms": {
+        "windows": true,
+        "macos": true,
+        "android": true,
+        "ios": true,
+        "tvos": true,
+        "linux": true
+      },
+      "source_type": "github",
+      "github_repo": "SagerNet/sing-box",
+      "official_repo_id": 509091576,
+      "official_owner_id": 83217677,
+      "download_url": "https://github.com/SagerNet/sing-box/releases",
+      "core": "sing-box",
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-box/testing/README.md",
+          "patterns": [
+            "The universal proxy platform"
+          ]
+        }
+      ],
+      "compatibility_note": "官方图形客户端覆盖 Android、Apple 平台、Windows 与 Linux。"
+    }
+  ]
+}

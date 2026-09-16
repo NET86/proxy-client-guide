@@ -1,0 +1,1068 @@
+import copy
+import datetime as dt
+import io
+import json
+import sys
+import tempfile
+import unittest
+import urllib.error
+from pathlib import Path
+from unittest.mock import patch
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+import build_readme as d
+
+NOW = dt.datetime(2026, 9, 15, 8, 0, tzinfo=dt.timezone.utc)
+STAMP = d.iso(NOW)
+
+
+class CatalogTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.clients = d.load_clients(ROOT / "data" / "clients.json")
+        cls.by_id = {client["id"]: client for client in cls.clients}
+
+    def test_stable_ids_unique(self):
+        self.assertEqual(len(self.by_id), len(self.clients))
+
+    def test_scope_is_explicit(self):
+        self.assertEqual(self.by_id["karing"]["category"], "compatible")
+        self.assertEqual(self.by_id["hiddify"]["category"], "compatible")
+        self.assertEqual(self.by_id["stash"]["category"], "compatible")
+        self.assertEqual(self.by_id["anyportal"]["category"], "compatible")
+        self.assertEqual(self.by_id["shadowrocket"]["category"], "other")
+        self.assertEqual(self.by_id["surge"]["category"], "other")
+        self.assertEqual(self.by_id["sing-box"]["category"], "other")
+        self.assertEqual(self.by_id["clash-verge-legacy"]["category"], "legacy")
+
+    def test_catalog_has_no_commercial_category(self):
+        self.assertNotIn("commercial", {client["category"] for client in self.clients})
+
+    def test_native_candidates_added(self):
+        for cid in ("sparkle", "metacubexd", "bettbox", "asteriskmeta", "nyx"):
+            self.assertIn(cid, self.by_id)
+            self.assertEqual(self.by_id[cid]["category"], "native")
+
+    def test_representative_clients_are_normalized(self):
+        self.assertEqual(self.by_id["hako"]["platforms"]["tvos"], True)
+        self.assertEqual(self.by_id["stash"]["core"], "专有实现")
+        self.assertEqual(self.by_id["surge"]["name"], "Surge")
+        self.assertEqual(self.by_id["surge"]["core"], "专有实现")
+        self.assertEqual(self.by_id["shadowrocket"]["core"], "专有实现")
+        self.assertEqual(self.by_id["quantumult-x"]["core"], "专有实现")
+        self.assertEqual(self.by_id["loon"]["core"], "专有实现")
+        self.assertEqual(self.by_id["egern"]["core"], "专有实现")
+        self.assertEqual(self.by_id["sing-box"]["core"], "sing-box")
+        self.assertEqual(self.by_id["anyportal"]["core"], "V2Ray / Xray / sing-box / Mihomo")
+        self.assertTrue(self.by_id["sing-box"]["platforms"]["tvos"])
+        self.assertTrue(self.by_id["stash"]["platforms"]["windows"])
+        self.assertEqual(self.by_id["stash"]["download_page_url"], "https://stash.ws/download")
+
+    def test_active_directory_entries_pass_entry_gate(self):
+        for client in self.clients:
+            if client["category"] == "legacy":
+                self.assertIn(client.get("source_lifecycle"), {"discontinued", "merged"})
+                continue
+            self.assertEqual(client.get("source_lifecycle", "active"), "active")
+            self.assertNotEqual(client["source_type"], "manual")
+            self.assertTrue(client.get("download_url"), client["name"])
+            self.assertTrue(any(client["platforms"].values()), client["name"])
+
+    def test_loader_rejects_active_entry_without_official_download(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(client for client in payload["clients"] if client["id"] == "flclash")
+        target["download_url"] = ""
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "requires an official download/store URL"):
+                d.load_clients(path)
+
+    def test_loader_rejects_entry_without_supported_platform(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(client for client in payload["clients"] if client["id"] == "flclash")
+        target["platforms"] = {key: False for key in d.PLATFORMS}
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "at least one supported platform"):
+                d.load_clients(path)
+
+    def test_active_derivative_failover_removed(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        raw = json.dumps(payload, ensure_ascii=False).lower()
+        self.assertNotIn('"backups"', raw)
+        for name in ("flclashx", "slothclash", "clashfest"):
+            self.assertNotIn(name, raw)
+
+    def test_no_direct_binary_urls(self):
+        for client in self.clients:
+            self.assertNotIn("/releases/download/", client.get("download_url", "").lower())
+            for archive in client.get("third_party_archives", []):
+                self.assertNotIn("/releases/download/", archive["url"].lower())
+
+    def test_unverified_legacy_archives_not_main_downloads(self):
+        for cid in ("cfw-legacy", "clashx-legacy", "clashx-pro-legacy", "cfa-legacy"):
+            self.assertEqual(self.by_id[cid]["download_url"], "")
+            self.assertTrue(self.by_id[cid].get("third_party_archives"))
+
+    def test_clash_verge_uses_original_historical_release(self):
+        client = self.by_id["clash-verge-legacy"]
+        self.assertEqual(client["github_repo"], "zzzgydi/clash-verge")
+        self.assertEqual(client["historical_release"]["release_id"], 127230375)
+        self.assertIn("zzzgydi/clash-verge/releases/tag/v1.3.8", client["download_url"])
+
+    def test_all_github_sources_have_repo_and_owner_pins(self):
+        for client in self.clients:
+            if client["source_type"] == "github":
+                self.assertIsInstance(client["official_repo_id"], int)
+                self.assertIsInstance(client["official_owner_id"], int)
+
+    def test_active_github_core_claims_have_evidence(self):
+        for client in self.clients:
+            if client["source_type"] == "github" and client.get("source_lifecycle", "active") == "active" and "core" in client:
+                self.assertTrue(client.get("core_evidence"), client["name"])
+
+    def test_loader_rejects_active_github_core_without_evidence(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(client for client in payload["clients"] if client["id"] == "bettbox")
+        target.pop("core_evidence", None)
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "core claim requires"):
+                d.load_clients(path)
+
+    def test_app_store_identity_has_seller_pin(self):
+        for client in self.clients:
+            if client["source_type"] == "app_store" or client.get("release_source") == "app_store":
+                self.assertTrue(client["app_store_id"].isdigit())
+                self.assertTrue(client["app_store_seller"])
+
+    def test_loader_rejects_github_download_outside_pinned_repo(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(client for client in payload["clients"] if client["id"] == "flclash")
+        target["download_url"] = "https://github.com/attacker/FlClash/releases"
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "pinned official repository"):
+                d.load_clients(path)
+
+    def test_loader_rejects_github_releases_prefix_spoof(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(client for client in payload["clients"] if client["id"] == "flclash")
+        target["download_url"] = "https://github.com/chen08209/FlClash/releases-evil"
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "pinned official repository"):
+                d.load_clients(path)
+
+    def test_loader_rejects_app_store_download_for_different_app_id(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(client for client in payload["clients"] if client["id"] == "hako")
+        target["download_url"] = "https://apps.apple.com/app/id123456789"
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "pinned app_store_id"):
+                d.load_clients(path)
+
+    def test_loader_rejects_app_store_id_substring_spoof(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(client for client in payload["clients"] if client["id"] == "hako")
+        target["download_url"] = "https://apps.apple.com/app/id67942571890"
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "pinned app_store_id"):
+                d.load_clients(path)
+
+    def test_loader_rejects_noncanonical_github_repo_path(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(client for client in payload["clients"] if client["id"] == "flclash")
+        target["github_repo"] = "chen08209/FlClash/releases) malicious"
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "canonical owner/repository"):
+                d.load_clients(path)
+
+
+class RequestRetryTests(unittest.TestCase):
+    def test_json_transient_network_failure_retries_once(self):
+        response = io.BytesIO(b'{"ok": true}')
+        with patch.object(d.urllib.request, "urlopen", side_effect=[urllib.error.URLError("tls eof"), response]) as opener:
+            with patch.object(d.time, "sleep") as sleeper:
+                self.assertEqual(d.request_json("https://example.invalid/test", attempts=2), {"ok": True})
+        self.assertEqual(opener.call_count, 2)
+        sleeper.assert_called_once()
+
+    def test_text_transient_network_failure_retries_once(self):
+        class TextResponse(io.BytesIO):
+            class Headers:
+                @staticmethod
+                def get_content_charset():
+                    return "utf-8"
+            headers = Headers()
+
+        response = TextResponse("Mihomo".encode("utf-8"))
+        with patch.object(d.urllib.request, "urlopen", side_effect=[urllib.error.URLError("tls eof"), response]) as opener:
+            with patch.object(d.time, "sleep") as sleeper:
+                self.assertEqual(d.request_text("https://example.invalid/test", attempts=2), "Mihomo")
+        self.assertEqual(opener.call_count, 2)
+        sleeper.assert_called_once()
+
+    def test_404_is_not_retried(self):
+        error = urllib.error.HTTPError("https://example.invalid/missing", 404, "missing", {}, None)
+        with patch.object(d.urllib.request, "urlopen", side_effect=error) as opener:
+            self.assertIsNone(d.request_json("https://example.invalid/missing", attempts=2))
+        self.assertEqual(opener.call_count, 1)
+
+
+class AuditTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.clients = d.load_clients(ROOT / "data" / "clients.json")
+        cls.by_id = {client["id"]: client for client in cls.clients}
+
+    def repo(self, client, **updates):
+        value = {
+            "id": client.get("official_repo_id", 1),
+            "full_name": client["github_repo"],
+            "owner": {"id": client.get("official_owner_id", 2)},
+            "archived": False,
+            "disabled": False,
+            "pushed_at": "2026-09-14T00:00:00Z",
+        }
+        value.update(updates)
+        return value
+
+    @staticmethod
+    def release(version="v9", published="2026-09-14T00:00:00Z", rid=99, assets=None):
+        if assets is None:
+            assets = [{"id": rid * 10 + 1, "name": "client.bin", "size": 100, "state": "uploaded"}]
+        return {
+            "id": rid,
+            "tag_name": version,
+            "published_at": published,
+            "draft": False,
+            "prerelease": False,
+            "assets": assets,
+        }
+
+    @staticmethod
+    def evidence(_url):
+        return "Mihomo Clash Premium Clash Rust Meow Smart 内核 embedded mihomo core github.com/metacubex/mihomo/ 内置Mihomo内核 based on Sing-box powered by the Hako kernel based on mihomo github.com/Dreamacro/clash A Graphical user interface of Clash.Meta modified sing-box core Xray sing-box sing-box / universal proxy toolchain"
+
+    @staticmethod
+    def scoped_source(client, **updates):
+        value = {
+            "scope": d.source_scope(client),
+            "state": "ok",
+            "observation_state": "fresh",
+            "last_success_at": STAMP,
+            "observed_at": STAMP,
+            "last_activity_at": "2026-09-14T00:00:00Z",
+            "consecutive_failures": 0,
+        }
+        value.update(updates)
+        return value
+
+    @staticmethod
+    def scoped_release(client, **updates):
+        value = {
+            "scope": d.release_scope(client),
+            "state": "ok",
+            "observation_state": "fresh",
+            "last_success_at": STAMP,
+            "observed_at": STAMP,
+            "version": "v10",
+            "published_at": "2026-09-14T00:00:00Z",
+            "release_id": 100,
+            "asset_count": 1,
+            "consecutive_failures": 0,
+        }
+        value.update(updates)
+        return value
+
+    def test_repo_id_reuse_is_confirmed_bad(self):
+        client = self.by_id["flclash"]
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release()
+            return self.repo(client, id=-1)
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "identity_mismatch")
+        self.assertTrue(issues)
+
+    def test_repo_owner_transfer_is_confirmed_bad(self):
+        client = self.by_id["flclash"]
+        out, _, ok = d.audit_github(
+            client, {}, None, NOW,
+            lambda url, token=None: self.repo(client, owner={"id": -1}),
+            self.evidence,
+        )
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "identity_mismatch")
+
+    def test_repo_canonical_name_change_is_review_gate(self):
+        client = self.by_id["flclash"]
+        out, _, ok = d.audit_github(
+            client, {}, None, NOW,
+            lambda url, token=None: self.repo(client, full_name="attacker/FlClash"),
+            self.evidence,
+        )
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "identity_mismatch")
+
+    def test_404_is_deterministic_negative_evidence(self):
+        client = self.by_id["flclash"]
+        out, issues, ok = d.audit_github(client, {}, None, NOW, lambda *args: None, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "missing")
+        self.assertTrue(issues)
+        self.assertFalse(d.source_trusted(client, out, NOW))
+
+    def test_transient_failure_preserves_lkg(self):
+        client = self.by_id["flclash"]
+        old = {
+            "source": self.scoped_source(
+                client,
+                last_success_at="2026-09-14T00:00:00Z",
+                observed_at="2026-09-14T00:00:00Z",
+            )
+        }
+        out, issues, ok = d.audit_github(
+            client, old, None, NOW,
+            lambda *args: (_ for _ in ()).throw(OSError("timeout")),
+            self.evidence,
+        )
+        self.assertFalse(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(out["source"]["state"], "ok")
+        self.assertEqual(out["source"]["observation_state"], "error")
+        self.assertEqual(out["source"]["last_activity_at"], old["source"]["last_activity_at"])
+        self.assertTrue(d.source_trusted(client, out, NOW))
+
+    def test_schema_change_is_observation_error_not_negative_fact(self):
+        client = self.by_id["flclash"]
+        old = {"source": self.scoped_source(client, last_success_at="2026-09-14T00:00:00Z", observed_at="2026-09-14T00:00:00Z")}
+        out, _, ok = d.audit_github(client, old, None, NOW, lambda *args: {}, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "ok")
+        self.assertEqual(out["source"]["observation_state"], "error")
+
+    def test_active_archived_repo_is_anomaly_but_source_link_remains_trusted(self):
+        client = self.by_id["flclash"]
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release()
+            return self.repo(client, archived=True)
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "archived")
+        self.assertTrue(issues)
+        self.assertTrue(d.source_trusted(client, out, NOW))
+
+    def test_release_rollback_preserves_previous_version(self):
+        client = self.by_id["flclash"]
+        old = {
+            "source": self.scoped_source(client),
+            "release": self.scoped_release(
+                client,
+                published_at="2026-09-14T12:00:00Z",
+                last_success_at="2026-09-14T12:00:00Z",
+                observed_at="2026-09-14T12:00:00Z",
+            ),
+        }
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v9", "2026-09-01T00:00:00Z")
+            return self.repo(client)
+        out, issues, ok = d.audit_github(client, old, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["release"]["version"], "v10")
+        self.assertEqual(out["release"]["state"], "rollback")
+        self.assertTrue(issues)
+
+    def test_latest_release_disappearance_is_anomaly(self):
+        client = self.by_id["flclash"]
+        old = {"release": {"state": "ok", "version": "v10", "published_at": "2026-09-14"}}
+        def api(url, token=None):
+            return None if "/releases/latest" in url else self.repo(client)
+        out, issues, ok = d.audit_github(client, old, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["release"]["state"], "missing")
+        self.assertTrue(issues)
+
+    def test_first_observation_without_latest_release_is_anomaly(self):
+        client = self.by_id["flclash"]
+        def api(url, token=None):
+            return None if "/releases/latest" in url else self.repo(client)
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["release"]["state"], "missing")
+        self.assertTrue(any("no latest release" in issue for issue in issues))
+        _, download = d.links_for(client, out, NOW)
+        self.assertEqual(download, "")
+
+    def test_latest_release_without_usable_assets_is_anomaly(self):
+        client = self.by_id["flclash"]
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v10", "2026-09-14T00:00:00Z", 100, [])
+            return self.repo(client)
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["release"]["state"], "assets_missing")
+        self.assertNotIn("asset_count", out["release"])
+        self.assertEqual(out["release"]["observed_asset_count"], 0)
+        self.assertTrue(any("no usable uploaded assets" in issue for issue in issues))
+        self.assertEqual(d.links_for(client, out, NOW)[1], "")
+
+    def test_same_tag_release_recreation_is_anomaly(self):
+        client = self.by_id["flclash"]
+        old = {"release": self.scoped_release(client)}
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v10", "2026-09-14T00:00:00Z", 101)
+            return self.repo(client)
+        out, issues, ok = d.audit_github(client, old, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["release"]["state"], "identity_mismatch")
+        self.assertEqual(out["release"]["release_id"], 100)
+        self.assertEqual(out["release"]["observed_release_id"], 101)
+        self.assertTrue(any("recreated under the same tag" in issue for issue in issues))
+        self.assertEqual(d.links_for(client, out, NOW)[1], "")
+
+    def test_clash_verge_archived_original_release_is_valid(self):
+        client = self.by_id["clash-verge-legacy"]
+        history = client["historical_release"]
+        assets = [dict(asset, state="uploaded") for asset in history["assets"]]
+        def api(url, token=None):
+            if "/releases/tags/" in url:
+                return self.release("v1.3.8", "2023-10-30T17:38:38Z", history["release_id"], assets)
+            return self.repo(client, archived=True, pushed_at="2023-11-03T08:00:47Z")
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertTrue(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(out["source"]["state"], "archived")
+        self.assertEqual(out["historical_release"]["state"], "ok")
+
+    def test_historical_release_recreation_is_blocked(self):
+        client = self.by_id["clash-verge-legacy"]
+        def api(url, token=None):
+            if "/releases/tags/" in url:
+                return self.release("v1.3.8", "2023-10-30T17:38:38Z", 999, [])
+            return self.repo(client, archived=True, pushed_at="2023-11-03T08:00:47Z")
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["historical_release"]["state"], "identity_mismatch")
+        self.assertTrue(issues)
+
+    def test_historical_asset_reupload_is_blocked(self):
+        client = self.by_id["clash-verge-legacy"]
+        history = client["historical_release"]
+        assets = [dict(asset, state="uploaded") for asset in history["assets"]]
+        assets[0]["id"] += 1
+        def api(url, token=None):
+            if "/releases/tags/" in url:
+                return self.release("v1.3.8", "2023-10-30T17:38:38Z", history["release_id"], assets)
+            return self.repo(client, archived=True, pushed_at="2023-11-03T08:00:47Z")
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["historical_release"]["state"], "asset_mismatch")
+        self.assertTrue(issues)
+
+    def test_core_evidence_mismatch_is_anomaly(self):
+        client = self.by_id["flclash"]
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release()
+            return self.repo(client)
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, lambda _url: "unrelated text")
+        self.assertFalse(ok)
+        self.assertEqual(out["core_evidence"]["state"], "mismatch")
+        self.assertTrue(issues)
+
+    def test_app_store_seller_transfer_is_identity_failure(self):
+        client = self.by_id["shadowrocket"]
+        payload = {"resultCount": 1, "results": [{"trackId": 932747118, "sellerName": "Different Seller", "version": "3", "currentVersionReleaseDate": "2026-09-15T00:00:00Z"}]}
+        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload)
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "identity_mismatch")
+        self.assertTrue(issues)
+
+    def test_app_store_region_missing_is_not_global_delisting_claim(self):
+        client = self.by_id["shadowrocket"]
+        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: {"resultCount": 0, "results": []})
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "unknown")
+        self.assertEqual(out["source"]["observation_state"], "unverified")
+        self.assertEqual(out["source"]["unverified_reason"], "region_missing")
+        self.assertTrue(issues)
+        status, _ = d.activity_status(client, out, NOW)
+        self.assertEqual(status, "❓")
+        repository, download = d.links_for(client, out, NOW)
+        self.assertEqual(repository, client["website_url"])
+        self.assertEqual(download, "")
+
+    def test_coverage_below_95_percent_degrades_health(self):
+        clients = []
+        for index in range(20):
+            clients.append({
+                "id": f"x{index}", "name": f"X{index}", "category": "native",
+                "platforms": {key: False for key in d.PLATFORMS},
+                "source_type": "github", "github_repo": f"o/r{index}",
+                "official_repo_id": 100 + index, "official_owner_id": 200 + index,
+                "download_url": f"https://github.com/o/r{index}/releases"
+            })
+        failed = {0, 1}
+        def api(url, token=None):
+            repo = url.split("/repos/")[1].split("/")[1]
+            index = int(repo[1:])
+            if index in failed and "/releases/" not in url:
+                raise OSError("down")
+            if "/releases/latest" in url:
+                return self.release(rid=300 + index)
+            return {"id": 100 + index, "full_name": f"o/r{index}", "owner": {"id": 200 + index}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
+        out = d.audit(clients, {"version": 1, "clients": {}}, api, lambda _url: "", NOW)
+        self.assertEqual(out["health"]["succeeded"], 18)
+        self.assertTrue(any("coverage" in issue for issue in out["health"]["anomalies"]))
+
+    def test_concurrent_audit_persists_catalog_order(self):
+        clients = [
+            {
+                "id": "remote-a", "name": "Remote A", "category": "native",
+                "platforms": {key: False for key in d.PLATFORMS},
+                "source_type": "github", "github_repo": "o/a",
+                "official_repo_id": 101, "official_owner_id": 201,
+                "download_url": "https://github.com/o/a/releases",
+            },
+            {
+                "id": "manual-middle", "name": "Manual", "category": "legacy",
+                "platforms": {key: False for key in d.PLATFORMS},
+                "source_type": "manual", "download_url": "",
+                "source_lifecycle": "discontinued",
+            },
+            {
+                "id": "remote-b", "name": "Remote B", "category": "native",
+                "platforms": {key: False for key in d.PLATFORMS},
+                "source_type": "github", "github_repo": "o/b",
+                "official_repo_id": 102, "official_owner_id": 202,
+                "download_url": "https://github.com/o/b/releases",
+            },
+        ]
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                rid = 301 if "/o/a/" in url else 302
+                return self.release("v1", "2026-09-14T00:00:00Z", rid)
+            if "/o/a" in url:
+                return {"id": 101, "full_name": "o/a", "owner": {"id": 201}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
+            return {"id": 102, "full_name": "o/b", "owner": {"id": 202}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
+        out = d.audit(clients, {"version": 1, "clients": {}}, api, lambda _url: "", NOW)
+        self.assertEqual(list(out["clients"]), ["remote-a", "remote-b"])
+        self.assertNotIn("manual-middle", out["clients"])
+        self.assertEqual(out["health"]["succeeded"], 2)
+        self.assertEqual(out["health"]["anomalies"], [])
+
+    def test_one_failure_of_twenty_meets_95_percent_coverage(self):
+        clients = []
+        for index in range(20):
+            clients.append({
+                "id": f"x{index}", "name": f"X{index}", "category": "native",
+                "platforms": {key: False for key in d.PLATFORMS},
+                "source_type": "github", "github_repo": f"o/r{index}",
+                "official_repo_id": 100 + index, "official_owner_id": 200 + index,
+                "download_url": f"https://github.com/o/r{index}/releases"
+            })
+        def api(url, token=None):
+            repo = url.split("/repos/")[1].split("/")[1]
+            index = int(repo[1:])
+            if index == 0 and "/releases/" not in url:
+                raise OSError("down")
+            if "/releases/latest" in url:
+                return self.release(rid=300 + index)
+            return {"id": 100 + index, "full_name": f"o/r{index}", "owner": {"id": 200 + index}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
+        out = d.audit(clients, {"version": 1, "clients": {}}, api, lambda _url: "", NOW)
+        self.assertEqual(out["health"]["coverage"], 0.95)
+        self.assertFalse(any("below" in issue for issue in out["health"]["anomalies"]))
+        self.assertTrue(any("unresolved source state unknown" in issue for issue in out["health"]["anomalies"]))
+
+    def test_one_transient_failure_with_lkg_is_tolerated(self):
+        clients = []
+        for index in range(20):
+            clients.append({
+                "id": f"x{index}", "name": f"X{index}", "category": "native",
+                "platforms": {key: False for key in d.PLATFORMS},
+                "source_type": "github", "github_repo": f"o/r{index}",
+                "official_repo_id": 100 + index, "official_owner_id": 200 + index,
+                "download_url": f"https://github.com/o/r{index}/releases",
+            })
+        previous = {
+            "version": d.OBSERVATION_VERSION,
+            "last_run_at": STAMP,
+            "clients": {
+                "x0": {
+                    "source": self.scoped_source(clients[0]),
+                    "release": self.scoped_release(
+                        clients[0],
+                        version="v1",
+                        published_at="2026-09-14T00:00:00Z",
+                        release_id=300,
+                    ),
+                }
+            },
+            "health": {"attempted": 20, "succeeded": 20, "coverage": 1.0, "anomalies": []},
+        }
+        def api(url, token=None):
+            repo = url.split("/repos/")[1].split("/")[1]
+            index = int(repo[1:])
+            if index == 0 and "/releases/" not in url:
+                raise OSError("transient")
+            if "/releases/latest" in url:
+                return self.release("v1", "2026-09-14T00:00:00Z", 300 + index)
+            return {"id": 100 + index, "full_name": f"o/r{index}", "owner": {"id": 200 + index}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
+        out = d.audit(clients, previous, api, lambda _url: "", NOW)
+        self.assertEqual(out["health"]["coverage"], 0.95)
+        self.assertEqual(out["health"]["succeeded_last_run"], 19)
+        self.assertEqual(out["health"]["anomalies"], [])
+        self.assertEqual(out["clients"]["x0"]["source"]["state"], "ok")
+        self.assertEqual(out["clients"]["x0"]["source"]["observation_state"], "error")
+
+    def test_release_activity_is_derived_without_mutating_source_fact(self):
+        client = {
+            "id": "synthetic", "name": "Synthetic", "category": "native",
+            "platforms": {key: False for key in d.PLATFORMS},
+            "source_type": "github", "github_repo": "o/r",
+            "official_repo_id": 101, "official_owner_id": 202,
+            "download_url": "https://github.com/o/r/releases",
+        }
+        pushed = "2026-01-01T00:00:00Z"
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v1", "2026-09-14T12:00:00Z", 303)
+            return {"id": 101, "full_name": "o/r", "owner": {"id": 202}, "archived": False, "disabled": False, "pushed_at": pushed}
+        first = d.audit([client], {"version": 1, "clients": {}}, api, lambda _url: "", NOW)
+        self.assertEqual(first["clients"]["synthetic"]["source"]["last_activity_at"], pushed)
+        status, _ = d.activity_status(client, first["clients"]["synthetic"], NOW)
+        self.assertEqual(status, "🟢")
+        second = d.audit([client], first, api, lambda _url: "", NOW + dt.timedelta(hours=2))
+        self.assertEqual(second, first)
+
+    def test_discontinued_github_unarchived_first_observation_is_not_permanent_alarm(self):
+        client = copy.deepcopy(self.by_id["clash-verge-legacy"])
+        history = client["historical_release"]
+        assets = [dict(asset, state="uploaded") for asset in history["assets"]]
+        def api(url, token=None):
+            if "/releases/tags/" in url:
+                return self.release("v1.3.8", "2023-10-30T17:38:38Z", history["release_id"], assets)
+            return self.repo(client, archived=False, pushed_at="2026-09-15T00:00:00Z")
+        out = d.audit([client], {"version": d.OBSERVATION_VERSION, "clients": {}}, api, self.evidence, NOW)
+        source = out["clients"][client["id"]]["source"]
+        self.assertEqual(source["state"], "ok")
+        self.assertNotIn("lifecycle_review_required", source)
+        self.assertFalse(any("lifecycle review" in issue for issue in out["health"]["anomalies"]))
+
+    def test_same_day_healthy_audit_is_byte_stable(self):
+        client = {
+            "id": "synthetic", "name": "Synthetic", "category": "native",
+            "platforms": {key: False for key in d.PLATFORMS},
+            "source_type": "github", "github_repo": "o/r",
+            "official_repo_id": 101, "official_owner_id": 202,
+            "download_url": "https://github.com/o/r/releases",
+        }
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v1", "2026-09-14T00:00:00Z", 303)
+            return {"id": 101, "full_name": "o/r", "owner": {"id": 202}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
+        first = d.audit([client], {"version": 1, "clients": {}}, api, lambda _url: "", NOW)
+        second = d.audit([client], first, api, lambda _url: "", NOW + dt.timedelta(hours=2))
+        self.assertEqual(second, first)
+
+    def test_next_day_healthy_audit_refreshes_daily_heartbeat(self):
+        client = {
+            "id": "synthetic", "name": "Synthetic", "category": "native",
+            "platforms": {key: False for key in d.PLATFORMS},
+            "source_type": "github", "github_repo": "o/r",
+            "official_repo_id": 101, "official_owner_id": 202,
+            "download_url": "https://github.com/o/r/releases",
+        }
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v1", "2026-09-14T00:00:00Z", 303)
+            return {"id": 101, "full_name": "o/r", "owner": {"id": 202}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
+        first = d.audit([client], {"version": 1, "clients": {}}, api, lambda _url: "", NOW)
+        next_day = NOW + dt.timedelta(days=1)
+        second = d.audit([client], first, api, lambda _url: "", next_day)
+        self.assertNotEqual(second["last_run_at"], first["last_run_at"])
+        self.assertEqual(d.parse_time(second["last_run_at"]).date(), next_day.date())
+        self.assertEqual(d.parse_time(second["clients"]["synthetic"]["source"]["last_success_at"]).date(), next_day.date())
+
+    def test_same_day_recovery_updates_immediately(self):
+        client = {
+            "id": "synthetic", "name": "Synthetic", "category": "native",
+            "platforms": {key: False for key in d.PLATFORMS},
+            "source_type": "github", "github_repo": "o/r",
+            "official_repo_id": 101, "official_owner_id": 202,
+            "download_url": "https://github.com/o/r/releases",
+        }
+        def healthy(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v1", "2026-09-14T00:00:00Z", 303)
+            return {"id": 101, "full_name": "o/r", "owner": {"id": 202}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
+        first = d.audit([client], {"version": 1, "clients": {}}, healthy, lambda _url: "", NOW)
+        failed = d.audit([client], first, lambda *args: (_ for _ in ()).throw(OSError("temporary")), lambda _url: "", NOW + dt.timedelta(hours=1))
+        recovered_at = NOW + dt.timedelta(hours=2)
+        recovered = d.audit([client], failed, healthy, lambda _url: "", recovered_at)
+        self.assertEqual(recovered["clients"]["synthetic"]["source"]["observation_state"], "fresh")
+        self.assertEqual(d.parse_time(recovered["clients"]["synthetic"]["source"]["last_success_at"]), recovered_at)
+        self.assertEqual(recovered["health"]["anomalies"], [])
+
+    def test_stale_transient_failure_is_health_anomaly(self):
+        client = copy.deepcopy(self.by_id["flclash"])
+        old = {
+            "version": d.OBSERVATION_VERSION,
+            "clients": {"flclash": {"source": self.scoped_source(
+                client,
+                last_success_at="2026-09-01T00:00:00Z",
+                observed_at="2026-09-01T00:00:00Z",
+                last_activity_at="2026-09-01T00:00:00Z",
+            )}},
+        }
+        out = d.audit([client], old, lambda *args: (_ for _ in ()).throw(OSError("down")), self.evidence, NOW)
+        self.assertTrue(any("source evidence stale" in issue for issue in out["health"]["anomalies"]))
+
+    def test_stale_release_failure_is_independently_visible(self):
+        client = copy.deepcopy(self.by_id["flclash"])
+        old = {
+            "version": d.OBSERVATION_VERSION,
+            "clients": {
+                "flclash": {
+                    "source": self.scoped_source(client),
+                    "release": self.scoped_release(
+                        client,
+                        version="v1",
+                        published_at="2026-09-01T00:00:00Z",
+                        last_success_at="2026-09-01T00:00:00Z",
+                        observed_at="2026-09-01T00:00:00Z",
+                    ),
+                }
+            },
+        }
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                raise OSError("release endpoint down")
+            return self.repo(client)
+        out = d.audit([client], old, api, self.evidence, NOW)
+        self.assertTrue(any("release evidence stale" in issue for issue in out["health"]["anomalies"]))
+
+    def test_stale_core_evidence_failure_is_independently_visible(self):
+        client = copy.deepcopy(self.by_id["flclash"])
+        old = {
+            "version": d.OBSERVATION_VERSION,
+            "clients": {
+                "flclash": {
+                    "source": self.scoped_source(client),
+                    "core_evidence": {
+                        "scope": d.core_evidence_scope(client),
+                        "state": "ok",
+                        "observation_state": "fresh",
+                        "observed_at": "2026-09-01T00:00:00Z",
+                        "last_success_at": "2026-09-01T00:00:00Z",
+                    },
+                }
+            },
+        }
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release()
+            return self.repo(client)
+        out = d.audit([client], old, api, lambda _url: (_ for _ in ()).throw(OSError("evidence endpoint down")), NOW)
+        self.assertTrue(any("core_evidence evidence stale" in issue for issue in out["health"]["anomalies"]))
+
+    def test_persisted_identity_failure_remains_health_anomaly(self):
+        client = copy.deepcopy(self.by_id["flclash"])
+        old = {
+            "version": d.OBSERVATION_VERSION,
+            "clients": {
+                "flclash": {
+                    "source": self.scoped_source(
+                        client,
+                        state="identity_mismatch",
+                        observation_state="verified_negative",
+                    )
+                }
+            },
+        }
+        out = d.audit([client], old, lambda *args: (_ for _ in ()).throw(OSError("temporary outage")), self.evidence, NOW)
+        self.assertTrue(any("unresolved source state identity_mismatch" in issue for issue in out["health"]["anomalies"]))
+
+
+class RenderTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.clients = d.load_clients(ROOT / "data" / "clients.json")
+        cls.by_id = {client["id"]: client for client in cls.clients}
+
+    def base_observations(self):
+        records = {}
+        for client in self.clients:
+            if client["source_type"] == "manual":
+                continue
+            state = "archived" if client["id"] == "clash-verge-legacy" else "ok"
+            record = {
+                "source": {
+                    "scope": d.source_scope(client),
+                    "state": state,
+                    "observation_state": "fresh",
+                    "observed_at": STAMP,
+                    "last_success_at": STAMP,
+                    "last_activity_at": "2026-09-14T00:00:00Z",
+                    "consecutive_failures": 0,
+                }
+            }
+            if client.get("historical_release"):
+                record["historical_release"] = {
+                    "scope": d.historical_release_scope(client),
+                    "state": "ok",
+                    "observation_state": "fresh",
+                    "observed_at": STAMP,
+                    "last_success_at": STAMP,
+                    "tag": client["historical_release"]["tag"],
+                    "release_id": client["historical_release"]["release_id"],
+                    "consecutive_failures": 0,
+                }
+            elif client.get("release_source", client["source_type"]) in {"github", "app_store"}:
+                record["release"] = {
+                    "scope": d.release_scope(client),
+                    "state": "ok",
+                    "observation_state": "fresh",
+                    "observed_at": STAMP,
+                    "last_success_at": STAMP,
+                    "version": "v1",
+                    "published_at": "2026-09-14T00:00:00Z",
+                    "consecutive_failures": 0,
+                }
+            if client.get("core_evidence"):
+                record["core_evidence"] = {
+                    "scope": d.core_evidence_scope(client),
+                    "state": "ok",
+                    "observation_state": "fresh",
+                    "observed_at": STAMP,
+                    "last_success_at": STAMP,
+                    "consecutive_failures": 0,
+                }
+            records[client["id"]] = record
+        return {
+            "version": d.OBSERVATION_VERSION,
+            "last_run_at": STAMP,
+            "clients": records,
+            "health": {"attempted": 0, "succeeded": 0, "coverage": 1.0, "anomalies": []},
+        }
+
+    def test_confirmed_bad_source_is_not_clickable(self):
+        observations = self.base_observations()
+        observations["clients"]["flclash"]["source"]["state"] = "identity_mismatch"
+        text = d.render_readme(self.clients, observations, NOW)
+        row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
+        self.assertIn("| — | — |", row)
+
+    def test_transient_failure_keeps_link_until_stale(self):
+        observations = self.base_observations()
+        observations["clients"]["flclash"]["source"]["observation_state"] = "error"
+        observations["clients"]["flclash"]["source"]["consecutive_failures"] = 1
+        text = d.render_readme(self.clients, observations, NOW)
+        row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
+        self.assertIn("❓ 待确认", row)
+        self.assertIn("github.com/chen08209/FlClash", row)
+
+    def test_clash_verge_original_release_remains_preferred(self):
+        observations = self.base_observations()
+        text = d.render_readme(self.clients, observations, NOW)
+        row = next(line for line in text.splitlines() if line.startswith("| Clash Verge |"))
+        self.assertIn("zzzgydi/clash-verge", row)
+        self.assertNotIn("clashbk/Clash_Verge", row)
+
+    def test_unverified_legacy_mirror_not_main_download(self):
+        observations = self.base_observations()
+        text = d.render_readme(self.clients, observations, NOW)
+        row = next(line for line in text.splitlines() if line.startswith("| Clash for Windows |"))
+        self.assertTrue(row.rstrip().endswith("| — | — |"))
+        self.assertIn("第三方历史资料", text)
+
+    def test_evidence_freshness_ages_without_network(self):
+        observations = self.base_observations()
+        source = observations["clients"]["flclash"]["source"]
+        source["last_success_at"] = "2026-09-01T00:00:00Z"
+        status, reason = d.activity_status(self.by_id["flclash"], observations["clients"]["flclash"], NOW)
+        self.assertEqual(status, "❓")
+        self.assertIn("7 天", reason)
+
+    def test_activity_age_is_derived_not_cached(self):
+        observations = self.base_observations()
+        source = observations["clients"]["flclash"]["source"]
+        source["last_success_at"] = STAMP
+        source["last_activity_at"] = "2026-02-01T00:00:00Z"
+        observations["clients"]["flclash"]["release"]["published_at"] = "2026-02-01T00:00:00Z"
+        status, _ = d.activity_status(self.by_id["flclash"], observations["clients"]["flclash"], NOW)
+        self.assertEqual(status, "🟡")
+
+    def test_long_inactive_status_uses_clock_not_orange(self):
+        observations = self.base_observations()
+        record = observations["clients"]["flclash"]
+        record["source"]["last_activity_at"] = "2025-01-01T00:00:00Z"
+        record["release"]["published_at"] = "2025-01-01T00:00:00Z"
+        status, _ = d.activity_status(self.by_id["flclash"], record, NOW)
+        self.assertEqual(status, "🕒")
+
+    def test_render_is_deterministic(self):
+        observations = self.base_observations()
+        self.assertEqual(d.render_readme(self.clients, observations, NOW), d.render_readme(self.clients, observations, NOW))
+
+    def test_status_display_is_cross_platform_clear(self):
+        text = d.render_readme(self.clients, self.base_observations(), NOW)
+        self.assertNotIn("🟠", text)
+        self.assertNotIn("⚪", text)
+        self.assertIn("🕒 一年以上未更新", text)
+        self.assertIn("❓ 待确认", text)
+
+    def test_detail_sections_use_consistent_fields_and_collapsed_notes(self):
+        text = d.render_readme(self.clients, self.base_observations(), NOW)
+        hako = text.split("### Clash（Hako）\n", 1)[1].split("\n### ", 1)[0]
+        self.assertIn("- 分类：", hako)
+        self.assertIn("- 状态：", hako)
+        self.assertIn("- 平台：macOS / iOS / tvOS", hako)
+        self.assertIn("- 内核：Hako（基于 Mihomo）", hako)
+        self.assertEqual(hako.count("- 备注："), 1)
+        self.assertNotIn("- 内核/实现：", text)
+        self.assertNotIn("Surge for iOS", text)
+        self.assertIn("## 其他代表性代理客户端", text)
+        self.assertIn("| Stash |", text)
+        self.assertIn("| AnyPortal |", text)
+        stash_row = next(line for line in text.splitlines() if line.startswith("| Stash |"))
+        self.assertIn("[下载页](https://stash.ws/download)", stash_row)
+        self.assertNotIn("🟡 半年至一年未更新｜半年至一年未更新", text)
+        self.assertNotIn("🔴 历史项目｜历史项目", text)
+
+    def test_legacy_table_labels_are_consistent(self):
+        text = d.render_readme(self.clients, self.base_observations(), NOW)
+        verge = next(line for line in text.splitlines() if line.startswith("| Clash Verge |"))
+        clashn = next(line for line in text.splitlines() if line.startswith("| ClashN |"))
+        self.assertIn("[原官方项目]", verge)
+        self.assertIn("[原官方下载页]", verge)
+        self.assertIn("[原项目]", clashn)
+        self.assertTrue(clashn.rstrip().endswith("| — |"))
+
+    def test_detail_sections_keep_bare_urls(self):
+        text = d.render_readme(self.clients, self.base_observations(), NOW)
+        section = text.split("### Clash Verge\n", 1)[1].split("\n### ", 1)[0]
+        self.assertIn("[https://github.com/zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge)", section)
+        self.assertIn("[https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8](https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8)", section)
+
+    def test_readme_avoids_maintenance_jargon(self):
+        text = d.render_readme(self.clients, self.base_observations(), NOW)
+        for jargon in ("`LKG`", "`scope`", "`pin`", "canonical `", " unverified ", " failover", "lookup", "报警"):
+            self.assertNotIn(jargon, text)
+
+    def test_readme_exposes_evidence_age(self):
+        self.assertIn("核验：", d.render_readme(self.clients, self.base_observations(), NOW))
+
+    def test_evidence_summary_includes_release_and_core_freshness(self):
+        client = self.by_id["flclash"]
+        observations = {
+            "clients": {
+                "flclash": {
+                    "source": {"scope": d.source_scope(client), "last_success_at": "2026-09-15T01:00:00Z"},
+                    "release": {"scope": d.release_scope(client), "last_success_at": "2026-09-10T01:00:00Z"},
+                    "core_evidence": {"scope": d.core_evidence_scope(client), "last_success_at": "2026-09-14T01:00:00Z"},
+                }
+            }
+        }
+        summary = d.evidence_summary([client], observations, NOW)
+        self.assertIn("成功记录 2026-09-10 至 2026-09-15", summary)
+        self.assertIn("2026-09-15", summary)
+
+    def test_readme_surfaces_release_and_core_anomalies(self):
+        observations = self.base_observations()
+        record = observations["clients"]["flclash"]
+        record["release"] = {
+            "state": "rollback", "version": "v1", "published_at": "2026-09-01",
+            "observation_state": "fresh", "last_success_at": STAMP,
+        }
+        record["core_evidence"] = {
+            "state": "mismatch", "observation_state": "fresh", "last_success_at": STAMP,
+        }
+        text = d.render_readme(self.clients, observations, NOW)
+        section = text.split("### FlClash", 1)[1].split("### ", 1)[0]
+        self.assertIn("版本时间早于已确认记录", section)
+        self.assertIn("内核说明发生变化", section)
+
+    def test_health_gate_rederives_instead_of_trusting_cached_anomalies(self):
+        observations = self.base_observations()
+        observations["health"]["anomalies"] = ["stale cached anomaly"]
+        d.health_check(self.clients, observations, NOW)
+
+    def test_health_gate_detects_current_stale_evidence_even_if_cached_green(self):
+        observations = self.base_observations()
+        observations["health"]["anomalies"] = []
+        observations["clients"]["flclash"]["release"]["last_success_at"] = "2026-09-01T00:00:00Z"
+        with self.assertRaisesRegex(ValueError, "release evidence stale"):
+            d.health_check(self.clients, observations, NOW)
+
+    def test_atomic_write_failure_preserves_old_file(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "state.json"
+            path.write_text("old\n", encoding="utf-8")
+            with patch.object(d.os, "replace", side_effect=OSError("crash")):
+                with self.assertRaises(OSError):
+                    d.atomic_write_text(path, "new\n")
+            self.assertEqual(path.read_text(encoding="utf-8"), "old\n")
+
+
+class WorkflowTests(unittest.TestCase):
+    def test_validate_requires_generated_readme_check(self):
+        text = (ROOT / ".github/workflows/validate.yml").read_text(encoding="utf-8")
+        self.assertIn("scripts/build_readme.py --check", text)
+        self.assertIn("scripts/check_commit_identity.py", text)
+
+    def test_refresh_publishes_safe_state_before_health_gate(self):
+        text = (ROOT / ".github/workflows/refresh-directory.yml").read_text(encoding="utf-8")
+        push = 'git push "$REFRESH_PUSH_URL" HEAD:main'
+        self.assertLess(text.index("--audit"), text.index(push))
+        self.assertGreater(text.index("--health-check"), text.index(push))
+
+    def test_refresh_uses_main_only_environment_deploy_key_for_writes(self):
+        text = (ROOT / ".github/workflows/refresh-directory.yml").read_text(encoding="utf-8")
+        self.assertIn("permissions:\n  contents: read", text)
+        self.assertIn("environment: refresh-production", text)
+        self.assertIn("secrets.REFRESH_PRODUCTION_DEPLOY_KEY", text)
+        self.assertNotIn("secrets.REFRESH_DEPLOY_KEY", text)
+        self.assertIn("ssh://git@ssh.github.com:443/${GITHUB_REPOSITORY}.git", text)
+        self.assertIn("StrictHostKeyChecking=yes", text)
+        self.assertNotIn("git fetch --no-tags", text)
+        self.assertNotIn("merge-base --is-ancestor", text)
+        self.assertIn("Remove refresh deploy key material", text)
+        self.assertNotIn("contents: write", text)
+        self.assertNotIn("http.https://github.com/.extraheader", text)
+        self.assertNotIn("GH_TOKEN:", text)
+
+    def test_checkout_is_pinned_and_credentials_not_persisted(self):
+        expected = "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1"
+        for path in (ROOT / ".github/workflows").glob("*.yml"):
+            text = path.read_text(encoding="utf-8")
+            self.assertIn(expected, text)
+            self.assertIn("persist-credentials: false", text)
+
+    def test_refresh_never_force_pushes(self):
+        text = (ROOT / ".github/workflows/refresh-directory.yml").read_text(encoding="utf-8")
+        self.assertNotIn("--force", text)
+        self.assertNotIn("push -f", text)
+
+
+if __name__ == "__main__":
+    unittest.main()
