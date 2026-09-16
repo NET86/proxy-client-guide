@@ -878,7 +878,7 @@ class RenderTests(unittest.TestCase):
         observations["clients"]["flclash"]["source"]["consecutive_failures"] = 1
         text = d.render_readme(self.clients, observations, NOW)
         row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
-        self.assertIn("❓ 待确认", row)
+        self.assertIn("| ❓ |", row)
         self.assertIn("github.com/chen08209/FlClash", row)
 
     def test_clash_verge_original_release_remains_preferred(self):
@@ -930,6 +930,9 @@ class RenderTests(unittest.TestCase):
         self.assertNotIn("⚪", text)
         self.assertIn("🕒 一年以上未更新", text)
         self.assertIn("❓ 待确认", text)
+        flclash_row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
+        self.assertIn("| 🟢 |", flclash_row)
+        self.assertNotIn("🟢 活跃", flclash_row)
 
     def test_detail_sections_use_consistent_fields_and_collapsed_notes(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
@@ -944,8 +947,13 @@ class RenderTests(unittest.TestCase):
         self.assertIn("## 其他代表性代理客户端", text)
         self.assertIn("| Stash |", text)
         self.assertIn("| AnyPortal |", text)
+        self.assertIn("| 官方来源 |", text)
+        self.assertIn("来源类型不等同于开源许可证", text)
         stash_row = next(line for line in text.splitlines() if line.startswith("| Stash |"))
+        self.assertIn("[官网](https://stash.ws/)", stash_row)
         self.assertIn("[下载页](https://stash.ws/download)", stash_row)
+        flclash_row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
+        self.assertIn("[官方仓库](https://github.com/chen08209/FlClash)", flclash_row)
         self.assertNotIn("🟡 半年至一年未更新｜半年至一年未更新", text)
         self.assertNotIn("🔴 历史项目｜历史项目", text)
 
@@ -953,7 +961,7 @@ class RenderTests(unittest.TestCase):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
         verge = next(line for line in text.splitlines() if line.startswith("| Clash Verge |"))
         clashn = next(line for line in text.splitlines() if line.startswith("| ClashN |"))
-        self.assertIn("[原官方项目]", verge)
+        self.assertIn("[原官方仓库]", verge)
         self.assertIn("[原官方下载页]", verge)
         self.assertIn("[原项目]", clashn)
         self.assertTrue(clashn.rstrip().endswith("| — |"))
@@ -961,6 +969,7 @@ class RenderTests(unittest.TestCase):
     def test_detail_sections_keep_bare_urls(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
         section = text.split("### Clash Verge\n", 1)[1].split("\n### ", 1)[0]
+        self.assertIn("- 官方来源：", section)
         self.assertIn("[https://github.com/zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge)", section)
         self.assertIn("[https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8](https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8)", section)
 

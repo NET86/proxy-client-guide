@@ -8,6 +8,7 @@
 > 页面仅在自动核验或人工更新后变化；核验时间超过 7 天时，请重新确认项目状态和下载链接。
 
 > 🟢 活跃；🟡 半年至一年未更新；🕒 一年以上未更新；❓ 待确认；🔴 历史项目。
+> “官方来源”中的“官方仓库”表示项目提供公开代码仓库；“官网”表示主要官方入口。来源类型不等同于开源许可证。
 > 第三方历史资料不作为官方下载来源。
 
 ## 收录原则
@@ -19,54 +20,54 @@
 
 ## Mihomo / Clash 客户端
 
-| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 来源 | 下载 |
+| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
-| Clash（Hako） | 🟢 活跃 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官方项目](https://github.com/TokenPLS/Hako-Client) | [App Store](https://apps.apple.com/app/id6794257189) |
-| ClashMi | 🟢 活跃 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方项目](https://github.com/KaringX/clashmi) | [下载页](https://github.com/KaringX/clashmi/releases) |
-| Bettbox | 🟢 活跃 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方项目](https://github.com/appshubcc/Bettbox) | [下载页](https://github.com/appshubcc/Bettbox/releases) |
-| FlClash | 🟢 活跃 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方项目](https://github.com/chen08209/FlClash) | [下载页](https://github.com/chen08209/FlClash/releases) |
-| Clash Nyanpasu | 🟢 活跃 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方项目](https://github.com/libnyanpasu/clash-nyanpasu) | [下载页](https://github.com/libnyanpasu/clash-nyanpasu/releases) |
-| Clash Verge Rev | 🟢 活跃 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方项目](https://github.com/clash-verge-rev/clash-verge-rev) | [下载页](https://github.com/clash-verge-rev/clash-verge-rev/releases) |
-| Clash-Party | 🟢 活跃 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方项目](https://github.com/mihomo-party-org/clash-party) | [下载页](https://github.com/mihomo-party-org/clash-party/releases) |
-| MetaCubeXD | 🟢 活跃 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方项目](https://github.com/MetaCubeX/metacubexd) | [下载页](https://github.com/MetaCubeX/metacubexd/releases) |
-| Sparkle | 🟢 活跃 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方项目](https://github.com/xishang0128/sparkle) | [下载页](https://github.com/xishang0128/sparkle/releases) |
-| ClashX Meta | 🟢 活跃 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | [官方项目](https://github.com/MetaCubeX/ClashX.Meta) | [下载页](https://github.com/MetaCubeX/ClashX.Meta/releases) |
-| Nyx | 🟢 活跃 | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方项目](https://github.com/BX-Team/Nyx) | [下载页](https://github.com/BX-Team/Nyx/releases) |
-| AsteriskMETA | 🟢 活跃 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方项目](https://github.com/Asterisk4Magisk/AsteriskMETA) | [下载页](https://github.com/Asterisk4Magisk/AsteriskMETA/releases) |
-| Clash Meta for Android | 🟢 活跃 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方项目](https://github.com/MetaCubeX/ClashMetaForAndroid) | [下载页](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
+| Clash（Hako） | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/TokenPLS/Hako-Client) | [App Store](https://apps.apple.com/app/id6794257189) |
+| ClashMi | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/clashmi) | [下载页](https://github.com/KaringX/clashmi/releases) |
+| Bettbox | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/appshubcc/Bettbox) | [下载页](https://github.com/appshubcc/Bettbox/releases) |
+| FlClash | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/chen08209/FlClash) | [下载页](https://github.com/chen08209/FlClash/releases) |
+| Clash Nyanpasu | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/libnyanpasu/clash-nyanpasu) | [下载页](https://github.com/libnyanpasu/clash-nyanpasu/releases) |
+| Clash Verge Rev | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/clash-verge-rev/clash-verge-rev) | [下载页](https://github.com/clash-verge-rev/clash-verge-rev/releases) |
+| Clash-Party | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/mihomo-party-org/clash-party) | [下载页](https://github.com/mihomo-party-org/clash-party/releases) |
+| MetaCubeXD | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/MetaCubeX/metacubexd) | [下载页](https://github.com/MetaCubeX/metacubexd/releases) |
+| Sparkle | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/xishang0128/sparkle) | [下载页](https://github.com/xishang0128/sparkle/releases) |
+| ClashX Meta | 🟢 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashX.Meta) | [下载页](https://github.com/MetaCubeX/ClashX.Meta/releases) |
+| Nyx | 🟢 | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/BX-Team/Nyx) | [下载页](https://github.com/BX-Team/Nyx/releases) |
+| AsteriskMETA | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/Asterisk4Magisk/AsteriskMETA) | [下载页](https://github.com/Asterisk4Magisk/AsteriskMETA/releases) |
+| Clash Meta for Android | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashMetaForAndroid) | [下载页](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
 
 ## Clash 兼容 / 多内核客户端
 
-| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 来源 | 下载 |
+| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
-| Stash | 🟢 活跃 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | [官网](https://stash.ws/) | [下载页](https://stash.ws/download) |
-| Hiddify | 🟢 活跃 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方项目](https://github.com/hiddify/hiddify-app) | [下载页](https://github.com/hiddify/hiddify-app/releases) |
-| Karing | 🟢 活跃 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方项目](https://github.com/KaringX/karing) | [下载页](https://github.com/KaringX/karing/releases) |
-| v2rayN | 🟢 活跃 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方项目](https://github.com/2dust/v2rayN) | [下载页](https://github.com/2dust/v2rayN/releases) |
-| AnyPortal | 🟡 半年至一年未更新 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方项目](https://github.com/AnyPortal/AnyPortal) | [下载页](https://github.com/AnyPortal/AnyPortal/releases) |
-| NekoBox for Android | 🟡 半年至一年未更新 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方项目](https://github.com/MatsuriDayo/NekoBoxForAndroid) | [下载页](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases) |
+| Stash | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | [官网](https://stash.ws/) | [下载页](https://stash.ws/download) |
+| Hiddify | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/hiddify/hiddify-app) | [下载页](https://github.com/hiddify/hiddify-app/releases) |
+| Karing | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/karing) | [下载页](https://github.com/KaringX/karing/releases) |
+| v2rayN | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/2dust/v2rayN) | [下载页](https://github.com/2dust/v2rayN/releases) |
+| AnyPortal | 🟡 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/AnyPortal/AnyPortal) | [下载页](https://github.com/AnyPortal/AnyPortal/releases) |
+| NekoBox for Android | 🟡 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MatsuriDayo/NekoBoxForAndroid) | [下载页](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases) |
 
 ## 其他代表性代理客户端
 
-| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 来源 | 下载 |
+| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
-| sing-box | 🟢 活跃 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方项目](https://github.com/SagerNet/sing-box) | [下载页](https://github.com/SagerNet/sing-box/releases) |
-| Loon | 🟢 活跃 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://docs.nsloon.com/) | [App Store](https://apps.apple.com/us/app/id1373567447) |
-| Quantumult X | 🟢 活跃 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://quantumult.app/) | [App Store](https://apps.apple.com/us/app/id1443988620) |
-| Shadowrocket | 🟢 活跃 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://shadowlaunch.com/) | [App Store](https://apps.apple.com/us/app/shadowrocket/id932747118) |
-| Surge | 🟢 活跃 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://nssurge.com/) | [App Store](https://apps.apple.com/us/app/surge-5/id1442620678) |
-| Egern | 🟢 活跃 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | [官网](https://egernapp.com/) | [App Store](https://apps.apple.com/us/app/id1616105820) |
+| sing-box | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/SagerNet/sing-box) | [下载页](https://github.com/SagerNet/sing-box/releases) |
+| Loon | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://docs.nsloon.com/) | [App Store](https://apps.apple.com/us/app/id1373567447) |
+| Quantumult X | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://quantumult.app/) | [App Store](https://apps.apple.com/us/app/id1443988620) |
+| Shadowrocket | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://shadowlaunch.com/) | [App Store](https://apps.apple.com/us/app/shadowrocket/id932747118) |
+| Surge | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://nssurge.com/) | [App Store](https://apps.apple.com/us/app/surge-5/id1442620678) |
+| Egern | 🟢 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | [官网](https://egernapp.com/) | [App Store](https://apps.apple.com/us/app/id1616105820) |
 
 ## 历史项目
 
-| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 来源 | 下载 |
+| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
-| Clash for Windows | 🔴 历史项目 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | — | — |
-| Clash Verge | 🔴 历史项目 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [原官方项目](https://github.com/zzzgydi/clash-verge) | [原官方下载页](https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8) |
-| ClashX | 🔴 历史项目 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | — | — |
-| ClashX Pro | 🔴 历史项目 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | — | — |
-| ClashN | 🔴 历史项目 | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | [原项目](https://github.com/2dust/clashN) | — |
-| Clash for Android | 🔴 历史项目 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | — | — |
+| Clash for Windows | 🔴 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | — | — |
+| Clash Verge | 🔴 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [原官方仓库](https://github.com/zzzgydi/clash-verge) | [原官方下载页](https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8) |
+| ClashX | 🔴 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | — | — |
+| ClashX Pro | 🔴 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | — | — |
+| ClashN | 🔴 | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | [原项目](https://github.com/2dust/clashN) | — |
+| Clash for Android | 🔴 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | — | — |
 
 ## 项目详情
 
@@ -78,7 +79,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：Android
 - 内核：Mihomo
-- 来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
+- 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
 - 版本：v1.2.8（2026-09-13）
 - 备注：Android Mihomo GUI，支持无 Root VPN 与 Root 透明代理模式。
@@ -89,7 +90,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Android / Linux
 - 内核：Mihomo
-- 来源：[https://github.com/appshubcc/Bettbox](https://github.com/appshubcc/Bettbox)
+- 官方来源：[https://github.com/appshubcc/Bettbox](https://github.com/appshubcc/Bettbox)
 - 下载：[https://github.com/appshubcc/Bettbox/releases](https://github.com/appshubcc/Bettbox/releases)
 - 版本：v1.19.1（2026-09-09）
 - 备注：基于 FlClash 早期版本演化的独立项目。
@@ -100,7 +101,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：Android
 - 内核：Mihomo
-- 来源：[https://github.com/MetaCubeX/ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid)
+- 官方来源：[https://github.com/MetaCubeX/ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid)
 - 下载：[https://github.com/MetaCubeX/ClashMetaForAndroid/releases](https://github.com/MetaCubeX/ClashMetaForAndroid/releases)
 - 版本：v2.11.34（2026-09-14）
 
@@ -110,7 +111,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Linux
 - 内核：Clash Premium / Mihomo / Clash Rust / Meow
-- 来源：[https://github.com/libnyanpasu/clash-nyanpasu](https://github.com/libnyanpasu/clash-nyanpasu)
+- 官方来源：[https://github.com/libnyanpasu/clash-nyanpasu](https://github.com/libnyanpasu/clash-nyanpasu)
 - 下载：[https://github.com/libnyanpasu/clash-nyanpasu/releases](https://github.com/libnyanpasu/clash-nyanpasu/releases)
 - 版本：v1.6.1（2024-09-07）
 
@@ -120,7 +121,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Linux
 - 内核：Mihomo
-- 来源：[https://github.com/clash-verge-rev/clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)
+- 官方来源：[https://github.com/clash-verge-rev/clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)
 - 下载：[https://github.com/clash-verge-rev/clash-verge-rev/releases](https://github.com/clash-verge-rev/clash-verge-rev/releases)
 - 版本：v2.5.2（2026-07-19）
 
@@ -130,7 +131,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Linux
 - 内核：Smart Core / Mihomo
-- 来源：[https://github.com/mihomo-party-org/clash-party](https://github.com/mihomo-party-org/clash-party)
+- 官方来源：[https://github.com/mihomo-party-org/clash-party](https://github.com/mihomo-party-org/clash-party)
 - 下载：[https://github.com/mihomo-party-org/clash-party/releases](https://github.com/mihomo-party-org/clash-party/releases)
 - 版本：v2.0.2（2026-08-14）
 
@@ -140,7 +141,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / Windows / Android / Linux
 - 内核：Mihomo
-- 来源：[https://github.com/KaringX/clashmi](https://github.com/KaringX/clashmi)
+- 官方来源：[https://github.com/KaringX/clashmi](https://github.com/KaringX/clashmi)
 - 下载：[https://github.com/KaringX/clashmi/releases](https://github.com/KaringX/clashmi/releases)
 - 版本：v1.0.29.1503（2026-09-02）
 
@@ -150,7 +151,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS
 - 内核：Clash
-- 来源：[https://github.com/MetaCubeX/ClashX.Meta](https://github.com/MetaCubeX/ClashX.Meta)
+- 官方来源：[https://github.com/MetaCubeX/ClashX.Meta](https://github.com/MetaCubeX/ClashX.Meta)
 - 下载：[https://github.com/MetaCubeX/ClashX.Meta/releases](https://github.com/MetaCubeX/ClashX.Meta/releases)
 - 版本：v1.4.45（2026-09-14）
 
@@ -160,7 +161,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / tvOS
 - 内核：Hako（基于 Mihomo）
-- 来源：[https://github.com/TokenPLS/Hako-Client](https://github.com/TokenPLS/Hako-Client)
+- 官方来源：[https://github.com/TokenPLS/Hako-Client](https://github.com/TokenPLS/Hako-Client)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
 - 版本：1.0.7（2026-09-14）
 - 备注：Apple 各平台版本可能不同；详情版本取美区 App Store。
@@ -171,7 +172,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Android / Linux
 - 内核：Mihomo
-- 来源：[https://github.com/chen08209/FlClash](https://github.com/chen08209/FlClash)
+- 官方来源：[https://github.com/chen08209/FlClash](https://github.com/chen08209/FlClash)
 - 下载：[https://github.com/chen08209/FlClash/releases](https://github.com/chen08209/FlClash/releases)
 - 版本：v0.8.98（2026-09-14）
 
@@ -181,7 +182,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Linux
 - 内核：Mihomo
-- 来源：[https://github.com/MetaCubeX/metacubexd](https://github.com/MetaCubeX/metacubexd)
+- 官方来源：[https://github.com/MetaCubeX/metacubexd](https://github.com/MetaCubeX/metacubexd)
 - 下载：[https://github.com/MetaCubeX/metacubexd/releases](https://github.com/MetaCubeX/metacubexd/releases)
 - 版本：v1.273.1（2026-09-10）
 - 备注：同时提供 Web Dashboard；桌面版捆绑并管理 Mihomo 内核。
@@ -192,7 +193,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：Windows / Linux
 - 内核：Mihomo
-- 来源：[https://github.com/BX-Team/Nyx](https://github.com/BX-Team/Nyx)
+- 官方来源：[https://github.com/BX-Team/Nyx](https://github.com/BX-Team/Nyx)
 - 下载：[https://github.com/BX-Team/Nyx/releases](https://github.com/BX-Team/Nyx/releases)
 - 版本：v2.1.0（2026-08-20）
 
@@ -202,7 +203,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Linux
 - 内核：Mihomo
-- 来源：[https://github.com/xishang0128/sparkle](https://github.com/xishang0128/sparkle)
+- 官方来源：[https://github.com/xishang0128/sparkle](https://github.com/xishang0128/sparkle)
 - 下载：[https://github.com/xishang0128/sparkle/releases](https://github.com/xishang0128/sparkle/releases)
 - 版本：1.26.8（2026-09-03）
 - 备注：项目由 Clash-Party 分支演化，目前作为独立项目维护。
@@ -213,7 +214,7 @@
 - 状态：🟡 半年至一年未更新
 - 平台：macOS / Windows / Android / Linux
 - 内核：V2Ray / Xray / sing-box / Mihomo
-- 来源：[https://github.com/AnyPortal/AnyPortal](https://github.com/AnyPortal/AnyPortal)
+- 官方来源：[https://github.com/AnyPortal/AnyPortal](https://github.com/AnyPortal/AnyPortal)
 - 下载：[https://github.com/AnyPortal/AnyPortal/releases](https://github.com/AnyPortal/AnyPortal/releases)
 - 版本：v0.6.31+105（2025-10-17）
 - 定位/兼容性：多内核客户端，兼容 Clash/Mihomo。
@@ -224,7 +225,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / Windows / Android / Linux
 - 内核：sing-box
-- 来源：[https://github.com/hiddify/hiddify-app](https://github.com/hiddify/hiddify-app)
+- 官方来源：[https://github.com/hiddify/hiddify-app](https://github.com/hiddify/hiddify-app)
 - 下载：[https://github.com/hiddify/hiddify-app/releases](https://github.com/hiddify/hiddify-app/releases)
 - 版本：v4.1.1（2026-03-05）
 - 定位/兼容性：基于 sing-box；并非 Mihomo 客户端。
@@ -235,7 +236,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / Windows / Android / Linux
 - 内核：sing-box
-- 来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
+- 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
 - 版本：v1.2.25.2802（2026-09-10）
 - 定位/兼容性：基于 sing-box；支持完整 Clash 和部分 Clash.Meta 配置。
@@ -246,7 +247,7 @@
 - 状态：🟡 半年至一年未更新
 - 平台：Android
 - 内核：sing-box
-- 来源：[https://github.com/MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid)
+- 官方来源：[https://github.com/MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid)
 - 下载：[https://github.com/MatsuriDayo/NekoBoxForAndroid/releases](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases)
 - 版本：1.4.2（2026-02-09）
 - 最低系统：Android 5.0（API 21）及以上
@@ -259,7 +260,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / tvOS / Windows / Android
 - 内核：专有实现
-- 来源：[https://stash.ws/](https://stash.ws/)
+- 官方来源：[https://stash.ws/](https://stash.ws/)
 - 下载：[https://stash.ws/download](https://stash.ws/download)
 - 版本：3.4.1（2026-07-16）
 - 定位/兼容性：完整兼容 Clash Premium 配置格式，使用独立实现。
@@ -271,7 +272,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Linux
 - 内核：Xray / sing-box / Mihomo
-- 来源：[https://github.com/2dust/v2rayN](https://github.com/2dust/v2rayN)
+- 官方来源：[https://github.com/2dust/v2rayN](https://github.com/2dust/v2rayN)
 - 下载：[https://github.com/2dust/v2rayN/releases](https://github.com/2dust/v2rayN/releases)
 - 版本：7.24.9（2026-08-29）
 - 定位/兼容性：多内核客户端，包含 Mihomo/Clash 能力。
@@ -282,7 +283,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS
 - 内核：专有实现
-- 来源：[https://egernapp.com/](https://egernapp.com/)
+- 官方来源：[https://egernapp.com/](https://egernapp.com/)
 - 下载：[https://apps.apple.com/us/app/id1616105820](https://apps.apple.com/us/app/id1616105820)
 - 版本：2.20.0（2026-07-23）
 
@@ -292,7 +293,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / tvOS
 - 内核：专有实现
-- 来源：[https://docs.nsloon.com/](https://docs.nsloon.com/)
+- 官方来源：[https://docs.nsloon.com/](https://docs.nsloon.com/)
 - 下载：[https://apps.apple.com/us/app/id1373567447](https://apps.apple.com/us/app/id1373567447)
 - 版本：3.5.0（2026-06-25）
 - 备注：App Store 版支持 Apple Silicon Mac；另有 Loon4Mac。
@@ -303,7 +304,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / tvOS
 - 内核：专有实现
-- 来源：[https://quantumult.app/](https://quantumult.app/)
+- 官方来源：[https://quantumult.app/](https://quantumult.app/)
 - 下载：[https://apps.apple.com/us/app/id1443988620](https://apps.apple.com/us/app/id1443988620)
 - 版本：1.8.0（2026-09-15）
 
@@ -313,7 +314,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / tvOS
 - 内核：专有实现
-- 来源：[https://shadowlaunch.com/](https://shadowlaunch.com/)
+- 官方来源：[https://shadowlaunch.com/](https://shadowlaunch.com/)
 - 下载：[https://apps.apple.com/us/app/shadowrocket/id932747118](https://apps.apple.com/us/app/shadowrocket/id932747118)
 - 版本：2.2.92（2026-09-07）
 
@@ -323,7 +324,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / tvOS / Windows / Android / Linux
 - 内核：sing-box
-- 来源：[https://github.com/SagerNet/sing-box](https://github.com/SagerNet/sing-box)
+- 官方来源：[https://github.com/SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 - 下载：[https://github.com/SagerNet/sing-box/releases](https://github.com/SagerNet/sing-box/releases)
 - 版本：v1.14.1（2026-09-15）
 - 定位/兼容性：官方图形客户端覆盖 Android、Apple 平台、Windows 与 Linux。
@@ -334,7 +335,7 @@
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / tvOS
 - 内核：专有实现
-- 来源：[https://nssurge.com/](https://nssurge.com/)
+- 官方来源：[https://nssurge.com/](https://nssurge.com/)
 - 下载：[https://apps.apple.com/us/app/surge-5/id1442620678](https://apps.apple.com/us/app/surge-5/id1442620678)
 - 版本：5.22.1（2026-09-13）
 - 备注：Surge Mac 与 Surge iOS/tvOS 独立发布，使用同一核心与配置格式；详情版本取美区 Surge 5 App Store。
@@ -360,7 +361,7 @@
 - 分类：历史项目
 - 状态：🔴 历史项目
 - 平台：macOS / Windows / Linux
-- 来源：[https://github.com/zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge)
+- 官方来源：[https://github.com/zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge)
 - 下载：[https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8](https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8)
 - 备注：原官方仓库已归档；保留可核验的 v1.3.8 原官方下载页。
 
@@ -370,7 +371,7 @@
 - 状态：🔴 历史项目
 - 平台：Windows
 - 内核：Mihomo
-- 来源：[https://github.com/2dust/clashN](https://github.com/2dust/clashN)
+- 官方来源：[https://github.com/2dust/clashN](https://github.com/2dust/clashN)
 - 来源说明：相关能力已合并至 v2rayN；仅保留历史记录。
 
 ### ClashX

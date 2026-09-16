@@ -1309,6 +1309,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "> 页面仅在自动核验或人工更新后变化；核验时间超过 7 天时，请重新确认项目状态和下载链接。",
         "",
         "> 🟢 活跃；🟡 半年至一年未更新；🕒 一年以上未更新；❓ 待确认；🔴 历史项目。",
+        "> “官方来源”中的“官方仓库”表示项目提供公开代码仓库；“官网”表示主要官方入口。来源类型不等同于开源许可证。",
         "> 第三方历史资料不作为官方下载来源。",
         "",
     ]
@@ -1329,7 +1330,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         lines.extend([
             f"## {CATEGORY_TITLES[category]}",
             "",
-            "| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 来源 | 下载 |",
+            "| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |",
             "| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |",
         ])
         for client in group:
@@ -1337,9 +1338,9 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
             status, _ = activity_status(client, record, current)
             repository, download = links_for(client, record, current)
             if client["category"] == "legacy":
-                source_label = "原官方项目" if client["source_type"] == "github" else "原项目"
+                source_label = "原官方仓库" if client["source_type"] == "github" else "原项目"
             else:
-                source_label = "官方项目" if client["source_type"] == "github" else "官网"
+                source_label = "官方仓库" if client["source_type"] == "github" else "官网"
             if client.get("historical_release"):
                 download_label = "原官方下载页"
             elif download and "apps.apple.com" in download:
@@ -1348,7 +1349,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
                 download_label = "下载页"
             platform = client["platforms"]
             lines.append(
-                f"| {client['name']} | {status_display(status)} | {icon(platform['macos'])} | {icon(platform['ios'])} | {icon(platform['tvos'])} | "
+                f"| {client['name']} | {status} | {icon(platform['macos'])} | {icon(platform['ios'])} | {icon(platform['tvos'])} | "
                 f"{icon(platform['windows'])} | {icon(platform['android'])} | {icon(platform['linux'])} | "
                 f"{markdown_link(source_label, repository)} | {markdown_link(download_label, download)} |"
             )
@@ -1373,7 +1374,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         if client.get("core"):
             lines.append(f"- 内核：{client['core']}")
         if repository:
-            lines.append(f"- 来源：{markdown_link(repository, repository)}")
+            lines.append(f"- 官方来源：{markdown_link(repository, repository)}")
         if download:
             lines.append(f"- 下载：{markdown_link(download, download)}")
         release = record.get("release", {})
