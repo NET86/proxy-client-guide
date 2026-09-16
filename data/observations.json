@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-16T14:30:11Z",
+        "last_activity_at": "2026-09-16T16:01:05Z",
         "scope": "sha256:f339214748de0f2f93cdda3b27a9e0d8c106aaa32cf742e083395e539be82c08",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T14:34:40Z",
-        "last_success_at": "2026-09-16T14:34:40Z"
+        "observed_at": "2026-09-16T21:21:52Z",
+        "last_success_at": "2026-09-16T21:21:52Z"
       },
       "release": {
         "state": "ok",
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-16T15:37:47Z",
+        "last_activity_at": "2026-09-16T20:47:17Z",
         "scope": "sha256:ce06957c5c328b63644c10e5cf959f7297da42badd7404468d357b13f9e33595",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T15:58:54Z",
-        "last_success_at": "2026-09-16T15:58:54Z"
+        "observed_at": "2026-09-16T21:21:52Z",
+        "last_success_at": "2026-09-16T21:21:52Z"
       },
       "release": {
         "state": "ok",
@@ -518,12 +518,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-09-14T18:47:38Z",
+        "last_activity_at": "2026-09-16T18:46:06Z",
         "scope": "sha256:fed4b10a4ba62f312be68ef9d5539aa346e18488fe6b9c274dffd753d19bdca8",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T00:43:39Z",
-        "last_success_at": "2026-09-16T00:43:39Z"
+        "observed_at": "2026-09-16T21:21:52Z",
+        "last_success_at": "2026-09-16T21:21:52Z"
       },
       "release": {
         "state": "ok",
