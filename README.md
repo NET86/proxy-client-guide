@@ -32,20 +32,15 @@
 | MetaCubeXD | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/MetaCubeX/metacubexd) | [下载页](https://github.com/MetaCubeX/metacubexd/releases) |
 | Sparkle | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/xishang0128/sparkle) | [下载页](https://github.com/xishang0128/sparkle/releases) |
 | ClashX Meta | 🟢 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashX.Meta) | [下载页](https://github.com/MetaCubeX/ClashX.Meta/releases) |
-| Nyx | 🟢 | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/BX-Team/Nyx) | [下载页](https://github.com/BX-Team/Nyx/releases) |
 | AsteriskMETA | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/Asterisk4Magisk/AsteriskMETA) | [下载页](https://github.com/Asterisk4Magisk/AsteriskMETA/releases) |
 | Clash Meta for Android | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashMetaForAndroid) | [下载页](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
 
-## Clash 兼容 / 多内核客户端
+## Clash 配置兼容客户端
 
 | 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
 | Stash | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | [官网](https://stash.ws/) | [下载页](https://stash.ws/download) |
-| Hiddify | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/hiddify/hiddify-app) | [下载页](https://github.com/hiddify/hiddify-app/releases) |
 | Karing | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/karing) | [下载页](https://github.com/KaringX/karing/releases) |
-| v2rayN | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/2dust/v2rayN) | [下载页](https://github.com/2dust/v2rayN/releases) |
-| AnyPortal | 🟡 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/AnyPortal/AnyPortal) | [下载页](https://github.com/AnyPortal/AnyPortal/releases) |
-| NekoBox for Android | 🟡 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MatsuriDayo/NekoBoxForAndroid) | [下载页](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases) |
 
 ## 其他代表性代理客户端
 
@@ -56,7 +51,10 @@
 | Quantumult X | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://quantumult.app/) | [App Store](https://apps.apple.com/us/app/id1443988620) |
 | Shadowrocket | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://shadowlaunch.com/) | [App Store](https://apps.apple.com/us/app/shadowrocket/id932747118) |
 | Surge | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://nssurge.com/) | [App Store](https://apps.apple.com/us/app/surge-5/id1442620678) |
+| Hiddify | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/hiddify/hiddify-app) | [下载页](https://github.com/hiddify/hiddify-app/releases) |
 | Egern | 🟢 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | [官网](https://egernapp.com/) | [App Store](https://apps.apple.com/us/app/id1616105820) |
+| v2rayN | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/2dust/v2rayN) | [下载页](https://github.com/2dust/v2rayN/releases) |
+| NekoBox for Android | 🟡 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MatsuriDayo/NekoBoxForAndroid) | [下载页](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases) |
 
 ## 历史项目
 
@@ -72,6 +70,7 @@
 ## 项目详情
 
 分类按内核关系与产品定位划分；历史项目不作为新安装推荐。
+内核字段使用统一项目名；多内核统一写为“多内核（…）”，派生实现仅标注必要的基于关系。
 
 ### AsteriskMETA
 
@@ -82,7 +81,6 @@
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
 - 版本：v1.2.8（2026-09-13）
-- 备注：Android Mihomo GUI，支持无 Root VPN 与 Root 透明代理模式。
 
 ### Bettbox
 
@@ -93,7 +91,6 @@
 - 官方来源：[https://github.com/appshubcc/Bettbox](https://github.com/appshubcc/Bettbox)
 - 下载：[https://github.com/appshubcc/Bettbox/releases](https://github.com/appshubcc/Bettbox/releases)
 - 版本：v1.19.1（2026-09-09）
-- 备注：基于 FlClash 早期版本演化的独立项目。
 
 ### Clash Meta for Android
 
@@ -104,13 +101,14 @@
 - 官方来源：[https://github.com/MetaCubeX/ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid)
 - 下载：[https://github.com/MetaCubeX/ClashMetaForAndroid/releases](https://github.com/MetaCubeX/ClashMetaForAndroid/releases)
 - 版本：v2.11.34（2026-09-14）
+- 来源说明：GitHub 显示该仓库 fork 自 xuhaoyang/ClashForAndroid；当前由 MetaCubeX 维护。
 
 ### Clash Nyanpasu
 
 - 分类：Mihomo / Clash 客户端
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Linux
-- 内核：Clash Premium / Mihomo / Clash Rust / Meow
+- 内核：多内核（Mihomo / Clash Premium / Clash Rust / Meow）
 - 官方来源：[https://github.com/libnyanpasu/clash-nyanpasu](https://github.com/libnyanpasu/clash-nyanpasu)
 - 下载：[https://github.com/libnyanpasu/clash-nyanpasu/releases](https://github.com/libnyanpasu/clash-nyanpasu/releases)
 - 版本：v1.6.1（2024-09-07）
@@ -130,7 +128,7 @@
 - 分类：Mihomo / Clash 客户端
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Linux
-- 内核：Smart Core / Mihomo
+- 内核：多内核（Mihomo / Smart Core）
 - 官方来源：[https://github.com/mihomo-party-org/clash-party](https://github.com/mihomo-party-org/clash-party)
 - 下载：[https://github.com/mihomo-party-org/clash-party/releases](https://github.com/mihomo-party-org/clash-party/releases)
 - 版本：v2.0.2（2026-08-14）
@@ -163,8 +161,7 @@
 - 内核：Hako（基于 Mihomo）
 - 官方来源：[https://github.com/TokenPLS/Hako-Client](https://github.com/TokenPLS/Hako-Client)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
-- 版本：1.0.7（2026-09-14）
-- 备注：Apple 各平台版本可能不同；详情版本取美区 App Store。
+- 版本：1.0.8（2026-09-16）
 
 ### FlClash
 
@@ -185,17 +182,6 @@
 - 官方来源：[https://github.com/MetaCubeX/metacubexd](https://github.com/MetaCubeX/metacubexd)
 - 下载：[https://github.com/MetaCubeX/metacubexd/releases](https://github.com/MetaCubeX/metacubexd/releases)
 - 版本：v1.273.1（2026-09-10）
-- 备注：同时提供 Web Dashboard；桌面版捆绑并管理 Mihomo 内核。
-
-### Nyx
-
-- 分类：Mihomo / Clash 客户端
-- 状态：🟢 活跃｜近半年有官方更新
-- 平台：Windows / Linux
-- 内核：Mihomo
-- 官方来源：[https://github.com/BX-Team/Nyx](https://github.com/BX-Team/Nyx)
-- 下载：[https://github.com/BX-Team/Nyx/releases](https://github.com/BX-Team/Nyx/releases)
-- 版本：v2.1.0（2026-08-20）
 
 ### Sparkle
 
@@ -206,33 +192,10 @@
 - 官方来源：[https://github.com/xishang0128/sparkle](https://github.com/xishang0128/sparkle)
 - 下载：[https://github.com/xishang0128/sparkle/releases](https://github.com/xishang0128/sparkle/releases)
 - 版本：1.26.8（2026-09-03）
-- 备注：项目由 Clash-Party 分支演化，目前作为独立项目维护。
-
-### AnyPortal
-
-- 分类：Clash 兼容 / 多内核客户端
-- 状态：🟡 半年至一年未更新
-- 平台：macOS / Windows / Android / Linux
-- 内核：V2Ray / Xray / sing-box / Mihomo
-- 官方来源：[https://github.com/AnyPortal/AnyPortal](https://github.com/AnyPortal/AnyPortal)
-- 下载：[https://github.com/AnyPortal/AnyPortal/releases](https://github.com/AnyPortal/AnyPortal/releases)
-- 版本：v0.6.31+105（2025-10-17）
-- 定位/兼容性：多内核客户端，兼容 Clash/Mihomo。
-
-### Hiddify
-
-- 分类：Clash 兼容 / 多内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
-- 平台：macOS / iOS / Windows / Android / Linux
-- 内核：sing-box
-- 官方来源：[https://github.com/hiddify/hiddify-app](https://github.com/hiddify/hiddify-app)
-- 下载：[https://github.com/hiddify/hiddify-app/releases](https://github.com/hiddify/hiddify-app/releases)
-- 版本：v4.1.1（2026-03-05）
-- 定位/兼容性：基于 sing-box；并非 Mihomo 客户端。
 
 ### Karing
 
-- 分类：Clash 兼容 / 多内核客户端
+- 分类：Clash 配置兼容客户端
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / Windows / Android / Linux
 - 内核：sing-box
@@ -241,22 +204,9 @@
 - 版本：v1.2.25.2802（2026-09-10）
 - 定位/兼容性：基于 sing-box；支持完整 Clash 和部分 Clash.Meta 配置。
 
-### NekoBox for Android
-
-- 分类：Clash 兼容 / 多内核客户端
-- 状态：🟡 半年至一年未更新
-- 平台：Android
-- 内核：sing-box
-- 官方来源：[https://github.com/MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid)
-- 下载：[https://github.com/MatsuriDayo/NekoBoxForAndroid/releases](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases)
-- 版本：1.4.2（2026-02-09）
-- 最低系统：Android 5.0（API 21）及以上
-- 定位/兼容性：可解析 ClashMeta、v2rayN 等订阅节点，不导入其分流规则。
-- 备注：Google Play 版本自 2024-05 起不再由原项目维护；仅保留官方 GitHub 下载页。
-
 ### Stash
 
-- 分类：Clash 兼容 / 多内核客户端
+- 分类：Clash 配置兼容客户端
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / iOS / tvOS / Windows / Android
 - 内核：专有实现
@@ -264,18 +214,6 @@
 - 下载：[https://stash.ws/download](https://stash.ws/download)
 - 版本：3.4.1（2026-07-16）
 - 定位/兼容性：完整兼容 Clash Premium 配置格式，使用独立实现。
-- 备注：Windows/Android 目前为早期版本。
-
-### v2rayN
-
-- 分类：Clash 兼容 / 多内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
-- 平台：macOS / Windows / Linux
-- 内核：Xray / sing-box / Mihomo
-- 官方来源：[https://github.com/2dust/v2rayN](https://github.com/2dust/v2rayN)
-- 下载：[https://github.com/2dust/v2rayN/releases](https://github.com/2dust/v2rayN/releases)
-- 版本：7.24.9（2026-08-29）
-- 定位/兼容性：多内核客户端，包含 Mihomo/Clash 能力。
 
 ### Egern
 
@@ -287,6 +225,16 @@
 - 下载：[https://apps.apple.com/us/app/id1616105820](https://apps.apple.com/us/app/id1616105820)
 - 版本：2.20.0（2026-07-23）
 
+### Hiddify
+
+- 分类：其他代表性代理客户端
+- 状态：🟢 活跃｜近半年有官方更新
+- 平台：macOS / iOS / Windows / Android / Linux
+- 内核：sing-box
+- 官方来源：[https://github.com/hiddify/hiddify-app](https://github.com/hiddify/hiddify-app)
+- 下载：[https://github.com/hiddify/hiddify-app/releases](https://github.com/hiddify/hiddify-app/releases)
+- 版本：v4.1.1（2026-03-05）
+
 ### Loon
 
 - 分类：其他代表性代理客户端
@@ -296,7 +244,19 @@
 - 官方来源：[https://docs.nsloon.com/](https://docs.nsloon.com/)
 - 下载：[https://apps.apple.com/us/app/id1373567447](https://apps.apple.com/us/app/id1373567447)
 - 版本：3.5.0（2026-06-25）
-- 备注：App Store 版支持 Apple Silicon Mac；另有 Loon4Mac。
+
+### NekoBox for Android
+
+- 分类：其他代表性代理客户端
+- 状态：🟡 半年至一年未更新
+- 平台：Android
+- 内核：sing-box
+- 官方来源：[https://github.com/MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid)
+- 下载：[https://github.com/MatsuriDayo/NekoBoxForAndroid/releases](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases)
+- 版本：1.4.2（2026-02-09）
+- 最低系统：Android 5.0（API 21）及以上
+- 定位/兼容性：可解析 Clash.Meta / Mihomo、v2rayN 等订阅节点，不导入其分流规则。
+- 来源说明：Google Play 版本自 2024-05 起不再由原项目维护；请使用官方 GitHub 下载页。
 
 ### Quantumult X
 
@@ -327,7 +287,6 @@
 - 官方来源：[https://github.com/SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 - 下载：[https://github.com/SagerNet/sing-box/releases](https://github.com/SagerNet/sing-box/releases)
 - 版本：v1.14.1（2026-09-15）
-- 定位/兼容性：官方图形客户端覆盖 Android、Apple 平台、Windows 与 Linux。
 
 ### Surge
 
@@ -338,7 +297,16 @@
 - 官方来源：[https://nssurge.com/](https://nssurge.com/)
 - 下载：[https://apps.apple.com/us/app/surge-5/id1442620678](https://apps.apple.com/us/app/surge-5/id1442620678)
 - 版本：5.22.1（2026-09-13）
-- 备注：Surge Mac 与 Surge iOS/tvOS 独立发布，使用同一核心与配置格式；详情版本取美区 Surge 5 App Store。
+
+### v2rayN
+
+- 分类：其他代表性代理客户端
+- 状态：🟢 活跃｜近半年有官方更新
+- 平台：macOS / Windows / Linux
+- 内核：多内核（Xray / sing-box / Mihomo）
+- 官方来源：[https://github.com/2dust/v2rayN](https://github.com/2dust/v2rayN)
+- 下载：[https://github.com/2dust/v2rayN/releases](https://github.com/2dust/v2rayN/releases)
+- 版本：7.24.9（2026-08-29）
 
 ### Clash for Android
 
@@ -363,7 +331,6 @@
 - 平台：macOS / Windows / Linux
 - 官方来源：[https://github.com/zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge)
 - 下载：[https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8](https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8)
-- 备注：原官方仓库已归档；保留可核验的 v1.3.8 原官方下载页。
 
 ### ClashN
 

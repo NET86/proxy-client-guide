@@ -28,9 +28,9 @@ class CatalogTests(unittest.TestCase):
 
     def test_scope_is_explicit(self):
         self.assertEqual(self.by_id["karing"]["category"], "compatible")
-        self.assertEqual(self.by_id["hiddify"]["category"], "compatible")
+        self.assertEqual(self.by_id["hiddify"]["category"], "other")
         self.assertEqual(self.by_id["stash"]["category"], "compatible")
-        self.assertEqual(self.by_id["anyportal"]["category"], "compatible")
+        self.assertEqual(self.by_id["v2rayn"]["category"], "other")
         self.assertEqual(self.by_id["shadowrocket"]["category"], "other")
         self.assertEqual(self.by_id["surge"]["category"], "other")
         self.assertEqual(self.by_id["sing-box"]["category"], "other")
@@ -40,7 +40,7 @@ class CatalogTests(unittest.TestCase):
         self.assertNotIn("commercial", {client["category"] for client in self.clients})
 
     def test_native_candidates_added(self):
-        for cid in ("sparkle", "metacubexd", "bettbox", "asteriskmeta", "nyx"):
+        for cid in ("sparkle", "metacubexd", "bettbox", "asteriskmeta"):
             self.assertIn(cid, self.by_id)
             self.assertEqual(self.by_id[cid]["category"], "native")
 
@@ -54,10 +54,34 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(self.by_id["loon"]["core"], "专有实现")
         self.assertEqual(self.by_id["egern"]["core"], "专有实现")
         self.assertEqual(self.by_id["sing-box"]["core"], "sing-box")
-        self.assertEqual(self.by_id["anyportal"]["core"], "V2Ray / Xray / sing-box / Mihomo")
+        self.assertEqual(self.by_id["clash-nyanpasu"]["core"], "多内核（Mihomo / Clash Premium / Clash Rust / Meow）")
+        self.assertEqual(self.by_id["clash-party"]["core"], "多内核（Mihomo / Smart Core）")
+        self.assertEqual(self.by_id["v2rayn"]["core"], "多内核（Xray / sing-box / Mihomo）")
         self.assertTrue(self.by_id["sing-box"]["platforms"]["tvos"])
         self.assertTrue(self.by_id["stash"]["platforms"]["windows"])
         self.assertEqual(self.by_id["stash"]["download_page_url"], "https://stash.ws/download")
+
+    def test_core_labels_follow_display_convention(self):
+        simple = {"Mihomo", "Clash", "sing-box", "Hako（基于 Mihomo）", "专有实现"}
+        for client in self.clients:
+            core = client.get("core")
+            if not core:
+                continue
+            self.assertTrue(
+                core in simple or (core.startswith("多内核（") and core.endswith("）")),
+                f"{client['name']}: {core}",
+            )
+            if " / " in core:
+                self.assertTrue(core.startswith("多内核（"), f"{client['name']}: {core}")
+
+    def test_catalog_avoids_freeform_notes_and_low_representativeness_entries(self):
+        self.assertNotIn("nyx", self.by_id)
+        self.assertNotIn("anyportal", self.by_id)
+        self.assertTrue(all("notes" not in client for client in self.clients))
+        self.assertEqual(
+            {client["id"] for client in self.clients if client["category"] == "compatible"},
+            {"karing", "stash"},
+        )
 
     def test_active_directory_entries_pass_entry_gate(self):
         for client in self.clients:
@@ -934,19 +958,21 @@ class RenderTests(unittest.TestCase):
         self.assertIn("| 🟢 |", flclash_row)
         self.assertNotIn("🟢 活跃", flclash_row)
 
-    def test_detail_sections_use_consistent_fields_and_collapsed_notes(self):
+    def test_detail_sections_use_consistent_fields_without_freeform_notes(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
         hako = text.split("### Clash（Hako）\n", 1)[1].split("\n### ", 1)[0]
         self.assertIn("- 分类：", hako)
         self.assertIn("- 状态：", hako)
         self.assertIn("- 平台：macOS / iOS / tvOS", hako)
         self.assertIn("- 内核：Hako（基于 Mihomo）", hako)
-        self.assertEqual(hako.count("- 备注："), 1)
+        self.assertNotIn("- 备注：", text)
         self.assertNotIn("- 内核/实现：", text)
         self.assertNotIn("Surge for iOS", text)
         self.assertIn("## 其他代表性代理客户端", text)
         self.assertIn("| Stash |", text)
-        self.assertIn("| AnyPortal |", text)
+        self.assertNotIn("| AnyPortal |", text)
+        self.assertNotIn("| Nyx |", text)
+        self.assertIn("## Clash 配置兼容客户端", text)
         self.assertIn("| 官方来源 |", text)
         self.assertIn("来源类型不等同于开源许可证", text)
         stash_row = next(line for line in text.splitlines() if line.startswith("| Stash |"))

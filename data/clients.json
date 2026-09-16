@@ -2,7 +2,7 @@
   "version": 3,
   "scope": {
     "native": "以 Mihomo/Clash 为主要内核的客户端。",
-    "compatible": "兼容 Clash 配置或包含 Mihomo 的多内核客户端。",
+    "compatible": "不以 Mihomo/Clash 为主要内核，但明确兼容 Clash 配置体系的客户端。",
     "other": "其他具有代表性的代理客户端。",
     "legacy": "已停更、合并或官方来源不可用的历史项目。"
   },
@@ -123,9 +123,6 @@
             "based on.*mihomo"
           ]
         }
-      ],
-      "notes": [
-        "Apple 各平台版本可能不同；详情版本取美区 App Store。"
       ]
     },
     {
@@ -180,7 +177,8 @@
             "A Graphical user interface of.*Clash\\.Meta"
           ]
         }
-      ]
+      ],
+      "source_note": "GitHub 显示该仓库 fork 自 xuhaoyang/ClashForAndroid；当前由 MetaCubeX 维护。"
     },
     {
       "id": "clash-nyanpasu",
@@ -199,7 +197,7 @@
       "official_repo_id": 716838500,
       "official_owner_id": 159686715,
       "download_url": "https://github.com/libnyanpasu/clash-nyanpasu/releases",
-      "core": "Clash Premium / Mihomo / Clash Rust / Meow",
+      "core": "多内核（Mihomo / Clash Premium / Clash Rust / Meow）",
       "core_evidence": [
         {
           "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/main/README.md",
@@ -229,7 +227,7 @@
       "official_repo_id": 836976013,
       "official_owner_id": 181477152,
       "download_url": "https://github.com/mihomo-party-org/clash-party/releases",
-      "core": "Smart Core / Mihomo",
+      "core": "多内核（Mihomo / Smart Core）",
       "core_evidence": [
         {
           "url": "https://raw.githubusercontent.com/mihomo-party-org/clash-party/smart_core/README.md",
@@ -266,9 +264,6 @@
             "内置.*Mihomo.*内核"
           ]
         }
-      ],
-      "notes": [
-        "项目由 Clash-Party 分支演化，目前作为独立项目维护。"
       ]
     },
     {
@@ -296,9 +291,6 @@
             "desktop app.*bundles its own mihomo kernel"
           ]
         }
-      ],
-      "notes": [
-        "同时提供 Web Dashboard；桌面版捆绑并管理 Mihomo 内核。"
       ]
     },
     {
@@ -327,9 +319,6 @@
             "使用Mihomo.*内核"
           ]
         }
-      ],
-      "notes": [
-        "基于 FlClash 早期版本演化的独立项目。"
       ]
     },
     {
@@ -358,42 +347,12 @@
             "Runs the local Mihomo executable"
           ]
         }
-      ],
-      "notes": [
-        "Android Mihomo GUI，支持无 Root VPN 与 Root 透明代理模式。"
-      ]
-    },
-    {
-      "id": "nyx",
-      "name": "Nyx",
-      "category": "native",
-      "platforms": {
-        "windows": true,
-        "macos": false,
-        "android": false,
-        "ios": false,
-        "linux": true,
-        "tvos": false
-      },
-      "source_type": "github",
-      "github_repo": "BX-Team/Nyx",
-      "official_repo_id": 1208155903,
-      "official_owner_id": 95867489,
-      "download_url": "https://github.com/BX-Team/Nyx/releases",
-      "core": "Mihomo",
-      "core_evidence": [
-        {
-          "url": "https://raw.githubusercontent.com/BX-Team/Nyx/master/README.md",
-          "patterns": [
-            "desktop GUI for the.*Mihomo.*proxy core"
-          ]
-        }
       ]
     },
     {
       "id": "hiddify",
       "name": "Hiddify",
-      "category": "compatible",
+      "category": "other",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -415,8 +374,7 @@
             "based on.*Sing-box"
           ]
         }
-      ],
-      "compatibility_note": "基于 sing-box；并非 Mihomo 客户端。"
+      ]
     },
     {
       "id": "karing",
@@ -449,7 +407,7 @@
     {
       "id": "v2rayn",
       "name": "v2rayN",
-      "category": "compatible",
+      "category": "other",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -463,7 +421,7 @@
       "official_repo_id": 199570071,
       "official_owner_id": 31833384,
       "download_url": "https://github.com/2dust/v2rayN/releases",
-      "core": "Xray / sing-box / Mihomo",
+      "core": "多内核（Xray / sing-box / Mihomo）",
       "core_evidence": [
         {
           "url": "https://raw.githubusercontent.com/2dust/v2rayN/master/README.md",
@@ -478,13 +436,12 @@
             "mihomo"
           ]
         }
-      ],
-      "compatibility_note": "多内核客户端，包含 Mihomo/Clash 能力。"
+      ]
     },
     {
       "id": "nekobox-android",
       "name": "NekoBox for Android",
-      "category": "compatible",
+      "category": "other",
       "platforms": {
         "windows": false,
         "macos": false,
@@ -508,10 +465,8 @@
         }
       ],
       "minimum_system": "Android 5.0（API 21）及以上",
-      "compatibility_note": "可解析 ClashMeta、v2rayN 等订阅节点，不导入其分流规则。",
-      "notes": [
-        "Google Play 版本自 2024-05 起不再由原项目维护；仅保留官方 GitHub 下载页。"
-      ]
+      "compatibility_note": "可解析 Clash.Meta / Mihomo、v2rayN 等订阅节点，不导入其分流规则。",
+      "source_note": "Google Play 版本自 2024-05 起不再由原项目维护；请使用官方 GitHub 下载页。"
     },
     {
       "id": "shadowrocket",
@@ -549,10 +504,7 @@
       "app_store_seller": "Surge Networks Inc.",
       "website_url": "https://nssurge.com/",
       "download_url": "https://apps.apple.com/us/app/surge-5/id1442620678",
-      "core": "专有实现",
-      "notes": [
-        "Surge Mac 与 Surge iOS/tvOS 独立发布，使用同一核心与配置格式；详情版本取美区 Surge 5 App Store。"
-      ]
+      "core": "专有实现"
     },
     {
       "id": "clash-verge-legacy",
@@ -592,10 +544,7 @@
             "size": 35622344
           }
         ]
-      },
-      "notes": [
-        "原官方仓库已归档；保留可核验的 v1.3.8 原官方下载页。"
-      ]
+      }
     },
     {
       "id": "cfw-legacy",
@@ -728,10 +677,7 @@
       "download_url": "https://apps.apple.com/us/app/id1596063349",
       "download_page_url": "https://stash.ws/download",
       "core": "专有实现",
-      "compatibility_note": "完整兼容 Clash Premium 配置格式，使用独立实现。",
-      "notes": [
-        "Windows/Android 目前为早期版本。"
-      ]
+      "compatibility_note": "完整兼容 Clash Premium 配置格式，使用独立实现。"
     },
     {
       "id": "quantumult-x",
@@ -769,10 +715,7 @@
       "app_store_seller": "Loon Lab Limited",
       "website_url": "https://docs.nsloon.com/",
       "download_url": "https://apps.apple.com/us/app/id1373567447",
-      "core": "专有实现",
-      "notes": [
-        "App Store 版支持 Apple Silicon Mac；另有 Loon4Mac。"
-      ]
+      "core": "专有实现"
     },
     {
       "id": "egern",
@@ -792,34 +735,6 @@
       "website_url": "https://egernapp.com/",
       "download_url": "https://apps.apple.com/us/app/id1616105820",
       "core": "专有实现"
-    },
-    {
-      "id": "anyportal",
-      "name": "AnyPortal",
-      "category": "compatible",
-      "platforms": {
-        "windows": true,
-        "macos": true,
-        "android": true,
-        "ios": false,
-        "tvos": false,
-        "linux": true
-      },
-      "source_type": "github",
-      "github_repo": "AnyPortal/AnyPortal",
-      "official_repo_id": 868373513,
-      "official_owner_id": 183787731,
-      "download_url": "https://github.com/AnyPortal/AnyPortal/releases",
-      "core": "V2Ray / Xray / sing-box / Mihomo",
-      "core_evidence": [
-        {
-          "url": "https://raw.githubusercontent.com/AnyPortal/AnyPortal/main/README.md",
-          "patterns": [
-            "v2ray.*xray.*sing-box.*clash.*mihomo"
-          ]
-        }
-      ],
-      "compatibility_note": "多内核客户端，兼容 Clash/Mihomo。"
     },
     {
       "id": "sing-box",
@@ -846,8 +761,7 @@
             "The universal proxy platform"
           ]
         }
-      ],
-      "compatibility_note": "官方图形客户端覆盖 Android、Apple 平台、Windows 与 Linux。"
+      ]
     }
   ]
 }

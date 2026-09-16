@@ -47,7 +47,7 @@ STATUS_LABELS = {
 CATEGORY_ORDER = {"native": 0, "compatible": 1, "other": 2, "legacy": 3}
 CATEGORY_TITLES = {
     "native": "Mihomo / Clash 客户端",
-    "compatible": "Clash 兼容 / 多内核客户端",
+    "compatible": "Clash 配置兼容客户端",
     "other": "其他代表性代理客户端",
     "legacy": "历史项目",
 }
@@ -1358,6 +1358,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "## 项目详情",
         "",
         "分类按内核关系与产品定位划分；历史项目不作为新安装推荐。",
+        "内核字段使用统一项目名；多内核统一写为“多内核（…）”，派生实现仅标注必要的基于关系。",
         "",
     ])
     for client in sorted(clients, key=lambda item: (CATEGORY_ORDER[item["category"]], item["name"].casefold())):
@@ -1388,9 +1389,6 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
             lines.append(f"- 定位/兼容性：{client['compatibility_note']}")
         if client.get("source_note"):
             lines.append(f"- 来源说明：{client['source_note']}")
-        notes = [str(note).rstrip("。；") for note in client.get("notes", []) if str(note).strip()]
-        if notes:
-            lines.append(f"- 备注：{'；'.join(notes)}。")
         warnings: list[str] = []
         for component_key, component_label in (
             ("source", "项目来源"),

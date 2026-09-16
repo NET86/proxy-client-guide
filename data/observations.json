@@ -119,15 +119,15 @@
       },
       "release": {
         "state": "ok",
-        "version": "1.0.7",
-        "published_at": "2026-09-14T23:03:01Z",
+        "version": "1.0.8",
+        "published_at": "2026-09-16T22:36:04Z",
         "seller": "OmniWide Media Limited",
         "track_id": 6794257189,
         "scope": "sha256:ef7202e2d0e7a246b98bac11c8705797b840234a0e8a849b646576ff597086d8",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T00:43:39Z",
-        "last_success_at": "2026-09-16T00:43:39Z"
+        "observed_at": "2026-09-16T22:49:44Z",
+        "last_success_at": "2026-09-16T22:49:44Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -233,11 +233,11 @@
       },
       "core_evidence": {
         "state": "ok",
-        "scope": "sha256:f8fd3053b7129229425e262943e39a7f38d770c6b2e84711342d0ea32231cb6c",
+        "scope": "sha256:75999d7bfa3b7a22c25a91f832444c9120ce7278559ed78568a6cc7893496b12",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T11:16:36Z",
-        "last_success_at": "2026-09-16T11:16:36Z"
+        "observed_at": "2026-09-16T22:49:44Z",
+        "last_success_at": "2026-09-16T22:49:44Z"
       }
     },
     "clash-party": {
@@ -267,11 +267,11 @@
       },
       "core_evidence": {
         "state": "ok",
-        "scope": "sha256:4d1da0e9f58258879b989bfc640d815be44a8f9bbc3c0eacea1a1de280bd88f8",
+        "scope": "sha256:a50eb0c888bb8afbff2888d334daa17228cbb0b3612c8fcfafff8808c6590ef2",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T11:16:36Z",
-        "last_success_at": "2026-09-16T11:16:36Z"
+        "observed_at": "2026-09-16T22:49:44Z",
+        "last_success_at": "2026-09-16T22:49:44Z"
       }
     },
     "sparkle": {
@@ -410,40 +410,6 @@
         "last_success_at": "2026-09-16T00:43:39Z"
       }
     },
-    "nyx": {
-      "source": {
-        "state": "ok",
-        "repo_id": 1208155903,
-        "owner_id": 95867489,
-        "full_name": "BX-Team/Nyx",
-        "last_activity_at": "2026-09-16T13:05:34Z",
-        "scope": "sha256:9560f42372f93e36b65686e71f1d4a67e50593d8a146242f5fff19a7b9e15bc3",
-        "observation_state": "fresh",
-        "consecutive_failures": 0,
-        "observed_at": "2026-09-16T14:34:40Z",
-        "last_success_at": "2026-09-16T14:34:40Z"
-      },
-      "release": {
-        "state": "ok",
-        "version": "v2.1.0",
-        "published_at": "2026-08-20T00:23:24Z",
-        "release_id": 373419025,
-        "asset_count": 6,
-        "scope": "sha256:1201c5d843154dad1798b7850d106a14a54824232fa5c89375f4e78fe2d00546",
-        "observation_state": "fresh",
-        "consecutive_failures": 0,
-        "observed_at": "2026-09-16T00:43:39Z",
-        "last_success_at": "2026-09-16T00:43:39Z"
-      },
-      "core_evidence": {
-        "state": "ok",
-        "scope": "sha256:0164f5fc289971c7f1097d8aa117451f0077d129728aecba1429c780f2ee9c4d",
-        "observation_state": "fresh",
-        "consecutive_failures": 0,
-        "observed_at": "2026-09-16T00:43:39Z",
-        "last_success_at": "2026-09-16T00:43:39Z"
-      }
-    },
     "hiddify": {
       "source": {
         "state": "ok",
@@ -539,11 +505,11 @@
       },
       "core_evidence": {
         "state": "ok",
-        "scope": "sha256:521049511b9377b618c7471b6a08fef068e7a6bb7035ab02232bfb67141f8188",
+        "scope": "sha256:6dbc725ef5a81179a9a8ce673a9e3e1b78be28b00f03e287909af603483a34c9",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T11:16:36Z",
-        "last_success_at": "2026-09-16T11:16:36Z"
+        "observed_at": "2026-09-16T22:49:44Z",
+        "last_success_at": "2026-09-16T22:49:44Z"
       }
     },
     "nekobox-android": {
@@ -754,40 +720,6 @@
         "last_success_at": "2026-09-16T11:16:36Z"
       }
     },
-    "anyportal": {
-      "source": {
-        "state": "ok",
-        "repo_id": 868373513,
-        "owner_id": 183787731,
-        "full_name": "AnyPortal/AnyPortal",
-        "last_activity_at": "2025-10-17T13:09:40Z",
-        "scope": "sha256:5d3cc2635c49608c2419128b1a23841255098c38740775894cb23c4c017439b1",
-        "observation_state": "fresh",
-        "consecutive_failures": 0,
-        "observed_at": "2026-09-16T11:16:36Z",
-        "last_success_at": "2026-09-16T11:16:36Z"
-      },
-      "release": {
-        "state": "ok",
-        "version": "v0.6.31+105",
-        "published_at": "2025-10-17T13:09:40Z",
-        "release_id": 255251052,
-        "asset_count": 10,
-        "scope": "sha256:0a7bbe61412017efebc5bd9b2c61c9c5a14b954cc60201e2a0e614dc406ed566",
-        "observation_state": "fresh",
-        "consecutive_failures": 0,
-        "observed_at": "2026-09-16T11:16:36Z",
-        "last_success_at": "2026-09-16T11:16:36Z"
-      },
-      "core_evidence": {
-        "state": "ok",
-        "scope": "sha256:3c37be5afd999eee08f18637df3914dd57c24d3b0ccd099a1e07bfb8a7d02a29",
-        "observation_state": "fresh",
-        "consecutive_failures": 0,
-        "observed_at": "2026-09-16T11:16:36Z",
-        "last_success_at": "2026-09-16T11:16:36Z"
-      }
-    },
     "sing-box": {
       "source": {
         "state": "ok",
@@ -824,11 +756,11 @@
     }
   },
   "health": {
-    "attempted": 26,
-    "succeeded": 26,
+    "attempted": 24,
+    "succeeded": 24,
     "coverage": 1.0,
     "anomalies": [],
-    "attempted_last_run": 26,
-    "succeeded_last_run": 26
+    "attempted_last_run": 24,
+    "succeeded_last_run": 24
   }
 }
