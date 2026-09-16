@@ -47,7 +47,7 @@ Refresh 只写 `README.md` 和 `data/observations.json`。如果 push 恰好与�
 - 身份核验只证明来源连续，不代表二进制安全。
 - 不自动把失效项目替换为同名 fork、第三方镜像或继任项目。
 - 第三方历史资料不进入主下载列。
-- 主分支只保留一个保护 ruleset：PR + required `validate` + linear history + 禁止删除/强推；仅 GitHub Actions 集成可作为自动生成写回例外。
+- 主分支只保留一个保护 ruleset：linear history + 禁止删除/强推。人工目录/代码变更仍按 PR 流程维护；不强制 PR/required check，以避免阻断 Refresh 使用短期 `GITHUB_TOKEN` 自动写回生成文件。
 - Refresh 只为自身 job 申请短期 `contents: write`；不保存长期写密钥或仓库 secret。
 - CI 只允许预期的 NET86 / GitHub / github-actions 提交身份。
 
