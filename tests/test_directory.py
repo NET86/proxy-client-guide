@@ -1032,31 +1032,33 @@ class WorkflowTests(unittest.TestCase):
 
     def test_refresh_publishes_safe_state_before_health_gate(self):
         text = (ROOT / ".github/workflows/refresh-directory.yml").read_text(encoding="utf-8")
-        push = 'git push "$REFRESH_PUSH_URL" HEAD:main'
+        push = "git push origin HEAD:main"
         self.assertLess(text.index("--audit"), text.index(push))
         self.assertGreater(text.index("--health-check"), text.index(push))
 
-    def test_refresh_uses_repository_deploy_key_for_writes(self):
+    def test_refresh_uses_short_lived_github_token_for_writes(self):
         text = (ROOT / ".github/workflows/refresh-directory.yml").read_text(encoding="utf-8")
-        self.assertIn("permissions:\n  contents: read", text)
+        self.assertIn("permissions:\n  contents: write", text)
         self.assertNotIn("environment:", text)
-        self.assertIn("secrets.REFRESH_DEPLOY_KEY", text)
-        self.assertNotIn("secrets.REFRESH_PRODUCTION_DEPLOY_KEY", text)
-        self.assertIn("ssh://git@ssh.github.com:443/${GITHUB_REPOSITORY}.git", text)
-        self.assertIn("StrictHostKeyChecking=yes", text)
+        self.assertIn("GITHUB_TOKEN: ${{ github.token }}", text)
+        self.assertIn("persist-credentials: true", text)
+        self.assertNotIn("secrets.", text)
+        self.assertNotIn("REFRESH_DEPLOY_KEY", text)
         self.assertNotIn("git fetch --no-tags", text)
         self.assertNotIn("merge-base --is-ancestor", text)
-        self.assertIn("Remove refresh deploy key material", text)
-        self.assertNotIn("contents: write", text)
+        self.assertNotIn("ssh.github.com", text)
+        self.assertNotIn("--force", text)
         self.assertNotIn("http.https://github.com/.extraheader", text)
         self.assertNotIn("GH_TOKEN:", text)
 
-    def test_checkout_is_pinned_and_credentials_not_persisted(self):
+    def test_checkout_is_pinned_and_credentials_are_scoped_by_workflow(self):
         expected = "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1"
-        for path in (ROOT / ".github/workflows").glob("*.yml"):
-            text = path.read_text(encoding="utf-8")
-            self.assertIn(expected, text)
-            self.assertIn("persist-credentials: false", text)
+        validate = (ROOT / ".github/workflows/validate.yml").read_text(encoding="utf-8")
+        refresh = (ROOT / ".github/workflows/refresh-directory.yml").read_text(encoding="utf-8")
+        self.assertIn(expected, validate)
+        self.assertIn(expected, refresh)
+        self.assertIn("persist-credentials: false", validate)
+        self.assertIn("persist-credentials: true", refresh)
 
     def test_refresh_never_force_pushes(self):
         text = (ROOT / ".github/workflows/refresh-directory.yml").read_text(encoding="utf-8")

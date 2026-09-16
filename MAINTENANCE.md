@@ -16,7 +16,7 @@
 
 1. 从当前 `main` 核验官方来源并生成 README/observations。
 2. 对确定的身份异常、来源失效等情况先隐藏不可信下载入口。
-3. 如生成文件发生变化，用仓库专用 deploy key 普通 push 到 `main`。
+3. 如生成文件发生变化，用当前 Refresh job 的短期 `GITHUB_TOKEN` 普通 push 到 `main`。
 4. 执行 health gate；异常会让 workflow 失败并保留可见状态。
 
 Refresh 只写 `README.md` 和 `data/observations.json`。如果 push 恰好与新的 `main` 冲突，本次任务直接失败，不在同一个 run 中重放代码或复杂合并；下一次定时运行会从新的 `main` 重新核验并自动恢复。
@@ -47,8 +47,8 @@ Refresh 只写 `README.md` 和 `data/observations.json`。如果 push 恰好与�
 - 身份核验只证明来源连续，不代表二进制安全。
 - 不自动把失效项目替换为同名 fork、第三方镜像或继任项目。
 - 第三方历史资料不进入主下载列。
-- 主分支只保留一个保护 ruleset：PR + required `validate` + linear history + 禁止删除/强推；Refresh deploy key 作为唯一自动写回例外。
-- `GITHUB_TOKEN` 在 Refresh 中保持只读，生成文件写入使用独立 deploy key。
+- 主分支只保留一个保护 ruleset：PR + required `validate` + linear history + 禁止删除/强推；仅 GitHub Actions 集成可作为自动生成写回例外。
+- Refresh 只为自身 job 申请短期 `contents: write`；不保存长期写密钥或仓库 secret。
 - CI 只允许预期的 NET86 / GitHub / github-actions 提交身份。
 
 ## 本地验证
@@ -68,7 +68,7 @@ git diff --check
 
 - 普通上游网络故障：不人工改数据，等待下一次 Refresh。
 - Refresh push 冲突：不强推、不 rebase 自动生成提交，等待下一次定时任务。
-- deploy key 或对应仓库 secret 配置损坏：修复 GitHub 设置后手动 dispatch 一次 Refresh。
+- Refresh 权限或保护规则配置损坏：修复 GitHub workflow/ruleset 后手动 dispatch 一次 Refresh。
 - 身份异常：保持下载入口隐藏，人工确认官方迁移后通过 PR 更新静态 pin。
 - workflow 自身修改：合并后手动 dispatch 一次当前 `main` 的 Refresh 做真实验收。
 

@@ -11,7 +11,7 @@ on:
       - 'data/observations.json'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: refresh-client-directory
@@ -28,7 +28,7 @@ jobs:
         with:
           ref: ${{ github.sha }}
           fetch-depth: 0
-          persist-credentials: false
+          persist-credentials: true
 
       - name: Audit sources and render directory
         env:
@@ -36,26 +36,6 @@ jobs:
         run: |
           python3 scripts/build_readme.py --audit
           git diff --check
-
-      - name: Configure refresh deploy key
-        env:
-          REFRESH_DEPLOY_KEY: ${{ secrets.REFRESH_DEPLOY_KEY }}
-        run: |
-          set -euo pipefail
-          if [ -z "${REFRESH_DEPLOY_KEY:-}" ]; then
-            echo "REFRESH_DEPLOY_KEY is not configured." >&2
-            exit 1
-          fi
-          ssh_dir="$RUNNER_TEMP/refresh-ssh"
-          key_path="$ssh_dir/deploy_key"
-          known_hosts_path="$ssh_dir/known_hosts"
-          install -d -m 700 "$ssh_dir"
-          printf '%s\n' "$REFRESH_DEPLOY_KEY" > "$key_path"
-          chmod 600 "$key_path"
-          printf '%s\n' '[ssh.github.com]:443 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' > "$known_hosts_path"
-          chmod 600 "$known_hosts_path"
-          git config core.sshCommand "ssh -i $key_path -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$known_hosts_path"
-          echo "REFRESH_PUSH_URL=ssh://git@ssh.github.com:443/${GITHUB_REPOSITORY}.git" >> "$GITHUB_ENV"
 
       - name: Publish generated changes
         run: |
@@ -68,15 +48,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md data/observations.json
           git commit -m "chore: refresh client observations"
-          git push "$REFRESH_PUSH_URL" HEAD:main
+          git push origin HEAD:main
 
       - name: Enforce audit health
         if: always()
         run: python3 scripts/build_readme.py --health-check --check
-
-      - name: Remove refresh deploy key material
-        if: always()
-        run: |
-          git config --unset-all core.sshCommand || true
-          rm -f "$RUNNER_TEMP/refresh-ssh/deploy_key" "$RUNNER_TEMP/refresh-ssh/known_hosts"
-          rmdir "$RUNNER_TEMP/refresh-ssh" 2>/dev/null || true
