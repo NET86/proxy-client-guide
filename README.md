@@ -389,7 +389,7 @@
 - 原官方来源：[https://github.com/zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge)
 - 原官方下载：[https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8](https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8)
 - 最后版本：v1.3.8
-- 说明：原官方仓库已归档；保留可核验的 v1.3.8 原官方下载页。
+- 说明：保留原官方仓库中可核验的 v1.3.8 原始发布页。
 - 第三方历史资料：无
 - 核验：无异常。
 
@@ -435,7 +435,7 @@
 ## 核验规则
 
 - 来源校验：同一 GitHub repo ID 的官方改名或迁移会自动跟随；项目身份或 App Store 发布者明确冲突时隐藏入口并标记为待确认。
-- 配置变更：项目地址、发布者或下载入口变更后，旧核验结果不直接沿用。
+- 配置变更：仓库身份、App Store 发布者或下载目标变更后，旧核验结果不直接沿用；同一 GitHub 仓库改名不影响身份。
 - 临时失败：网络错误或长期未成功核验只标记为待确认；保留已配置官方入口供自行判断，不因失败时间自动转为历史项目。
 - App Store：指定区域无结果不等于下架；保留已配置官方入口并等待后续核验。
 - 历史项目：GitHub 官方仓库明确归档时自动归入历史项目；第三方镜像仅作为历史资料。

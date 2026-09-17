@@ -296,34 +296,26 @@ class AdversarialRegressionTests(unittest.TestCase):
         self.assertNotIn(client["id"], out["clients"])
         self.assertEqual(out["health"]["attempted"], 0)
 
-    def test_archived_to_active_transition_sets_sticky_lifecycle_review(self):
+    def test_static_legacy_archive_transitions_need_no_sticky_review_and_never_promote(self):
         client = copy.deepcopy(self.by_id["clash-verge-legacy"])
-        old_source = d.positive_record(
-            None, STAMP, d.source_scope(client), state="archived",
-            repo_id=client["official_repo_id"],
-            full_name=client["github_repo"], last_activity_at="2023-11-03T08:00:47Z",
-        )
+        original = copy.deepcopy(client)
         history = client["historical_release"]
         assets = [dict(asset, state="uploaded") for asset in history["assets"]]
-        def api(url, token=None):
-            if "/releases/tags/" in url:
-                return self.release_payload("v1.3.8", "2023-10-30T17:38:38Z", history["release_id"], assets)
-            return self.repo_payload(client, archived=False)
-        first, _, _ = d.audit_github(client, {"source": old_source}, None, NOW, api, lambda _url: "")
-        self.assertTrue(first["source"]["lifecycle_review_required"])
-        second, _, _ = d.audit_github(client, first, None, NOW + dt.timedelta(hours=1), api, lambda _url: "")
-        self.assertTrue(second["source"]["lifecycle_review_required"])
-
-    def test_first_unarchived_observation_for_discontinued_source_does_not_alarm_by_itself(self):
-        client = copy.deepcopy(self.by_id["clash-verge-legacy"])
-        history = client["historical_release"]
-        assets = [dict(asset, state="uploaded") for asset in history["assets"]]
-        def api(url, token=None):
-            if "/releases/tags/" in url:
-                return self.release_payload("v1.3.8", "2023-10-30T17:38:38Z", history["release_id"], assets)
-            return self.repo_payload(client, archived=False)
-        out, _, _ = d.audit_github(client, {}, None, NOW, api, lambda _url: "")
-        self.assertNotIn("lifecycle_review_required", out["source"])
+        observations = d.empty_observations()
+        for archived in (True, False, False, True):
+            with self.subTest(archived=archived):
+                def api(url, token=None):
+                    if "/releases/tags/" in url:
+                        return self.release_payload("v1.3.8", "2023-10-30T17:38:38Z", history["release_id"], assets)
+                    return self.repo_payload(client, archived=archived)
+                observations = d.audit([client], observations, api, lambda u: "", NOW)
+                record = observations["clients"][client["id"]]
+                self.assertNotIn("lifecycle_review_required", record["source"])
+                self.assertEqual(d.effective_category(client, record), "legacy")
+                self.assertEqual(d.activity_status(client, record, NOW)[0], "🔴")
+                self.assertEqual(d.links_for(client, record, NOW)[1], client["download_url"])
+                d.health_check([client], observations, NOW)
+        self.assertEqual(client, original)
 
     def test_assets_missing_preserves_lkg_asset_count_and_records_observed_count(self):
         client = self.by_id["flclash"]
