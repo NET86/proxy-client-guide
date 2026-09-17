@@ -173,7 +173,7 @@
           ]
         }
       ],
-      "source_note": "GitHub 显示该仓库 fork 自 xuhaoyang/ClashForAndroid；当前由 MetaCubeX 维护。"
+      "source_note": "Fork 自 xuhaoyang/ClashForAndroid，当前由 MetaCubeX 维护。"
     },
     {
       "id": "clash-nyanpasu",
@@ -407,19 +407,15 @@
       "github_repo": "2dust/v2rayN",
       "official_repo_id": 199570071,
       "download_url": "https://github.com/2dust/v2rayN/releases",
-      "core": "多内核（Xray / sing-box / Mihomo）",
+      "core": "多内核（Xray / v2fly / Mihomo / sing-box 等）",
       "core_evidence": [
         {
-          "url": "https://raw.githubusercontent.com/2dust/v2rayN/master/README.md",
+          "url": "https://raw.githubusercontent.com/wiki/2dust/v2rayN/List-of-supported-cores.md",
           "patterns": [
             "Xray",
-            "sing-box"
-          ]
-        },
-        {
-          "url": "https://raw.githubusercontent.com/wiki/2dust/v2rayN/Release-files-introduction.md",
-          "patterns": [
-            "mihomo"
+            "v2fly",
+            "mihomo",
+            "sing_box"
           ]
         }
       ]
@@ -449,8 +445,7 @@
           ]
         }
       ],
-      "compatibility_note": "可解析 Clash.Meta / Mihomo、v2rayN 等订阅节点，不导入其分流规则。",
-      "source_note": "Google Play 版本自 2024-05 起不再由原项目维护；请使用官方 GitHub 下载页。"
+      "source_note": "Google Play 版本自 2024 年 5 月起不再由原项目维护。"
     },
     {
       "id": "shadowrocket",
@@ -526,8 +521,7 @@
             "size": 35622344
           }
         ]
-      },
-      "source_note": "保留原官方仓库中可核验的 v1.3.8 原始发布页。"
+      }
     },
     {
       "id": "cfw-legacy",
@@ -543,10 +537,8 @@
       },
       "source_type": "manual",
       "download_url": "",
-      "source_note": "原官方仓库不可用；第三方链接仅作历史资料。",
       "third_party_archives": [
         {
-          "label": "第三方历史资料",
           "url": "https://github.com/clashdownload/Clash_for_Windows/releases/tag/0.20.39"
         }
       ]
@@ -565,10 +557,8 @@
       },
       "source_type": "manual",
       "download_url": "",
-      "source_note": "原官方仓库不可用；第三方链接仅作历史资料。",
       "third_party_archives": [
         {
-          "label": "第三方历史资料",
           "url": "https://github.com/clashbk/clashx/releases/tag/1.96.2"
         }
       ]
@@ -587,10 +577,9 @@
       },
       "source_type": "manual",
       "download_url": "",
-      "source_note": "未找到可与第三方历史包对应的原项目源码；不提供下载入口。",
+      "source_note": "未找到可对应第三方历史包的原项目源码。",
       "third_party_archives": [
         {
-          "label": "第三方历史资料",
           "url": "https://github.com/clashdownload/ClashX_Pro/releases/tag/1.97.0.4"
         }
       ]
@@ -609,10 +598,8 @@
       },
       "source_type": "manual",
       "download_url": "",
-      "source_note": "原官方仓库不可用；第三方链接仅作历史资料。",
       "third_party_archives": [
         {
-          "label": "第三方历史资料",
           "url": "https://github.com/clashdownload/Clash_for_Android/releases/tag/2.5.12"
         }
       ]
@@ -632,7 +619,7 @@
       "source_type": "manual",
       "repository_url": "https://github.com/2dust/clashN",
       "download_url": "",
-      "source_note": "相关能力已合并至 v2rayN；仅保留历史记录。",
+      "source_note": "相关能力已合并至 v2rayN。",
       "core": "Mihomo"
     },
     {

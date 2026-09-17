@@ -10,7 +10,7 @@
 > 🟢 活跃；🟡 半年至一年未更新；🕒 一年以上未更新；❓ 待确认；🔴 历史项目。
 > “官方来源”中的“官方仓库”表示项目提供公开代码仓库；“官网”表示主要官方入口。来源类型不等同于开源许可证。
 > “闭源客户端”仅表示未提供公开客户端源码，不代表一定收费。
-> 第三方历史资料不作为官方下载来源。
+> 第三方下载仅作历史资料，不作为官方下载来源。
 
 ## 收录原则
 
@@ -45,11 +45,11 @@
 
 ## 多内核客户端
 
-| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
-| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
-| Clash Nyanpasu | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/libnyanpasu/clash-nyanpasu) | [下载页](https://github.com/libnyanpasu/clash-nyanpasu/releases) |
-| Clash-Party | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/mihomo-party-org/clash-party) | [下载页](https://github.com/mihomo-party-org/clash-party/releases) |
-| v2rayN | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/2dust/v2rayN) | [下载页](https://github.com/2dust/v2rayN/releases) |
+| 客户端 | 状态 | 内核 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
+| --- | :---: | --- | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
+| Clash Nyanpasu | 🟢 | Mihomo / Clash Premium / Clash Rust / Meow | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/libnyanpasu/clash-nyanpasu) | [下载页](https://github.com/libnyanpasu/clash-nyanpasu/releases) |
+| Clash-Party | 🟢 | Mihomo / Smart Core | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/mihomo-party-org/clash-party) | [下载页](https://github.com/mihomo-party-org/clash-party/releases) |
+| v2rayN | 🟢 | Xray / v2fly / Mihomo / sing-box 等 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/2dust/v2rayN) | [下载页](https://github.com/2dust/v2rayN/releases) |
 
 ## 闭源客户端
 
@@ -87,8 +87,6 @@
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
 - 版本：v1.2.8（2026-09-13）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Bettbox
 
@@ -99,8 +97,6 @@
 - 官方来源：[https://github.com/appshubcc/Bettbox](https://github.com/appshubcc/Bettbox)
 - 下载：[https://github.com/appshubcc/Bettbox/releases](https://github.com/appshubcc/Bettbox/releases)
 - 版本：v1.19.1（2026-09-09）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Clash Meta for Android
 
@@ -111,8 +107,7 @@
 - 官方来源：[https://github.com/MetaCubeX/ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid)
 - 下载：[https://github.com/MetaCubeX/ClashMetaForAndroid/releases](https://github.com/MetaCubeX/ClashMetaForAndroid/releases)
 - 版本：v2.11.34（2026-09-14）
-- 说明：GitHub 显示该仓库 fork 自 xuhaoyang/ClashForAndroid；当前由 MetaCubeX 维护。
-- 核验：无异常。
+- 说明：Fork 自 xuhaoyang/ClashForAndroid，当前由 MetaCubeX 维护。
 
 ### Clash Verge Rev
 
@@ -123,8 +118,6 @@
 - 官方来源：[https://github.com/clash-verge-rev/clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)
 - 下载：[https://github.com/clash-verge-rev/clash-verge-rev/releases](https://github.com/clash-verge-rev/clash-verge-rev/releases)
 - 版本：v2.5.2（2026-07-19）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### ClashMi
 
@@ -135,8 +128,6 @@
 - 官方来源：[https://github.com/KaringX/clashmi](https://github.com/KaringX/clashmi)
 - 下载：[https://github.com/KaringX/clashmi/releases](https://github.com/KaringX/clashmi/releases)
 - 版本：v1.0.29.1503（2026-09-02）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### ClashX Meta
 
@@ -147,8 +138,6 @@
 - 官方来源：[https://github.com/MetaCubeX/ClashX.Meta](https://github.com/MetaCubeX/ClashX.Meta)
 - 下载：[https://github.com/MetaCubeX/ClashX.Meta/releases](https://github.com/MetaCubeX/ClashX.Meta/releases)
 - 版本：v1.4.45（2026-09-14）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Clash（Hako）
 
@@ -159,8 +148,6 @@
 - 官方来源：[https://github.com/TokenPLS/Hako-Client](https://github.com/TokenPLS/Hako-Client)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
 - 版本：1.0.8（2026-09-16）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### FlClash
 
@@ -171,8 +158,6 @@
 - 官方来源：[https://github.com/chen08209/FlClash](https://github.com/chen08209/FlClash)
 - 下载：[https://github.com/chen08209/FlClash/releases](https://github.com/chen08209/FlClash/releases)
 - 版本：v0.8.98（2026-09-14）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### MetaCubeXD
 
@@ -183,8 +168,6 @@
 - 官方来源：[https://github.com/MetaCubeX/metacubexd](https://github.com/MetaCubeX/metacubexd)
 - 下载：[https://github.com/MetaCubeX/metacubexd/releases](https://github.com/MetaCubeX/metacubexd/releases)
 - 版本：v1.273.1（2026-09-10）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Sparkle
 
@@ -195,8 +178,6 @@
 - 官方来源：[https://github.com/xishang0128/sparkle](https://github.com/xishang0128/sparkle)
 - 下载：[https://github.com/xishang0128/sparkle/releases](https://github.com/xishang0128/sparkle/releases)
 - 版本：1.26.8（2026-09-03）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Hiddify
 
@@ -207,8 +188,6 @@
 - 官方来源：[https://github.com/hiddify/hiddify-app](https://github.com/hiddify/hiddify-app)
 - 下载：[https://github.com/hiddify/hiddify-app/releases](https://github.com/hiddify/hiddify-app/releases)
 - 版本：v4.1.1（2026-03-05）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Karing
 
@@ -220,7 +199,6 @@
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
 - 版本：v1.2.25.2802（2026-09-10）
 - 说明：支持完整 Clash 和部分 Clash.Meta 配置。
-- 核验：无异常。
 
 ### NekoBox for Android
 
@@ -231,8 +209,7 @@
 - 官方来源：[https://github.com/MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid)
 - 下载：[https://github.com/MatsuriDayo/NekoBoxForAndroid/releases](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases)
 - 版本：1.4.2（2026-02-09）
-- 说明：可解析 Clash.Meta / Mihomo、v2rayN 等订阅节点，不导入其分流规则；Google Play 版本自 2024-05 起不再由原项目维护；请使用官方 GitHub 下载页。
-- 核验：无异常。
+- 说明：Google Play 版本自 2024 年 5 月起不再由原项目维护。
 
 ### sing-box
 
@@ -243,8 +220,6 @@
 - 官方来源：[https://github.com/SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 - 下载：[https://github.com/SagerNet/sing-box/releases](https://github.com/SagerNet/sing-box/releases)
 - 版本：v1.14.1（2026-09-15）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Clash Nyanpasu
 
@@ -255,8 +230,6 @@
 - 官方来源：[https://github.com/libnyanpasu/clash-nyanpasu](https://github.com/libnyanpasu/clash-nyanpasu)
 - 下载：[https://github.com/libnyanpasu/clash-nyanpasu/releases](https://github.com/libnyanpasu/clash-nyanpasu/releases)
 - 版本：v1.6.1（2024-09-07）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Clash-Party
 
@@ -267,20 +240,16 @@
 - 官方来源：[https://github.com/mihomo-party-org/clash-party](https://github.com/mihomo-party-org/clash-party)
 - 下载：[https://github.com/mihomo-party-org/clash-party/releases](https://github.com/mihomo-party-org/clash-party/releases)
 - 版本：v2.0.2（2026-08-14）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### v2rayN
 
 - 分类：多内核客户端
 - 状态：🟢 活跃｜近半年有官方更新
 - 平台：macOS / Windows / Linux
-- 内核：多内核（Xray / sing-box / Mihomo）
+- 内核：多内核（Xray / v2fly / Mihomo / sing-box 等）
 - 官方来源：[https://github.com/2dust/v2rayN](https://github.com/2dust/v2rayN)
 - 下载：[https://github.com/2dust/v2rayN/releases](https://github.com/2dust/v2rayN/releases)
 - 版本：7.24.9（2026-08-29）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Egern
 
@@ -291,8 +260,6 @@
 - 官方来源：[https://egernapp.com/](https://egernapp.com/)
 - 下载：[https://apps.apple.com/us/app/id1616105820](https://apps.apple.com/us/app/id1616105820)
 - 版本：2.20.0（2026-07-23）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Loon
 
@@ -303,8 +270,6 @@
 - 官方来源：[https://docs.nsloon.com/](https://docs.nsloon.com/)
 - 下载：[https://apps.apple.com/us/app/id1373567447](https://apps.apple.com/us/app/id1373567447)
 - 版本：3.5.0（2026-06-25）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Quantumult X
 
@@ -315,8 +280,6 @@
 - 官方来源：[https://quantumult.app/](https://quantumult.app/)
 - 下载：[https://apps.apple.com/us/app/id1443988620](https://apps.apple.com/us/app/id1443988620)
 - 版本：1.8.0（2026-09-15）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Shadowrocket
 
@@ -327,8 +290,6 @@
 - 官方来源：[https://shadowlaunch.com/](https://shadowlaunch.com/)
 - 下载：[https://apps.apple.com/us/app/shadowrocket/id932747118](https://apps.apple.com/us/app/shadowrocket/id932747118)
 - 版本：2.2.92（2026-09-07）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Stash
 
@@ -340,7 +301,6 @@
 - 下载：[https://stash.ws/download](https://stash.ws/download)
 - 版本：3.4.1（2026-07-16）
 - 说明：完整兼容 Clash Premium 配置格式。
-- 核验：无异常。
 
 ### Surge
 
@@ -351,47 +311,29 @@
 - 官方来源：[https://nssurge.com/](https://nssurge.com/)
 - 下载：[https://apps.apple.com/us/app/surge-5/id1442620678](https://apps.apple.com/us/app/surge-5/id1442620678)
 - 版本：5.22.1（2026-09-13）
-- 说明：无特殊说明。
-- 核验：无异常。
 
 ### Clash for Android
 
 - 分类：历史项目
 - 状态：🔴 历史项目
 - 平台：Android
-- 内核：未确认
-- 原官方来源：不可用
-- 原官方下载：不可用
-- 最后版本：未确认
-- 说明：原官方仓库不可用；第三方链接仅作历史资料。
-- 第三方历史资料：[https://github.com/clashdownload/Clash_for_Android/releases/tag/2.5.12](https://github.com/clashdownload/Clash_for_Android/releases/tag/2.5.12)；只用于查找历史资料，不作为官方下载地址。
-- 核验：不适用。
+- 第三方下载：[https://github.com/clashdownload/Clash_for_Android/releases/tag/2.5.12](https://github.com/clashdownload/Clash_for_Android/releases/tag/2.5.12)
 
 ### Clash for Windows
 
 - 分类：历史项目
 - 状态：🔴 历史项目
 - 平台：macOS / Windows / Linux
-- 内核：未确认
-- 原官方来源：不可用
-- 原官方下载：不可用
-- 最后版本：未确认
-- 说明：原官方仓库不可用；第三方链接仅作历史资料。
-- 第三方历史资料：[https://github.com/clashdownload/Clash_for_Windows/releases/tag/0.20.39](https://github.com/clashdownload/Clash_for_Windows/releases/tag/0.20.39)；只用于查找历史资料，不作为官方下载地址。
-- 核验：不适用。
+- 第三方下载：[https://github.com/clashdownload/Clash_for_Windows/releases/tag/0.20.39](https://github.com/clashdownload/Clash_for_Windows/releases/tag/0.20.39)
 
 ### Clash Verge
 
 - 分类：历史项目
 - 状态：🔴 历史项目
 - 平台：macOS / Windows / Linux
-- 内核：未确认
 - 原官方来源：[https://github.com/zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge)
 - 原官方下载：[https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8](https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8)
 - 最后版本：v1.3.8
-- 说明：保留原官方仓库中可核验的 v1.3.8 原始发布页。
-- 第三方历史资料：无
-- 核验：无异常。
 
 ### ClashN
 
@@ -400,37 +342,22 @@
 - 平台：Windows
 - 内核：Mihomo
 - 原官方来源：[https://github.com/2dust/clashN](https://github.com/2dust/clashN)
-- 原官方下载：不可用
-- 最后版本：未确认
-- 说明：相关能力已合并至 v2rayN；仅保留历史记录。
-- 第三方历史资料：无
-- 核验：不适用。
+- 说明：相关能力已合并至 v2rayN。
 
 ### ClashX
 
 - 分类：历史项目
 - 状态：🔴 历史项目
 - 平台：macOS
-- 内核：未确认
-- 原官方来源：不可用
-- 原官方下载：不可用
-- 最后版本：未确认
-- 说明：原官方仓库不可用；第三方链接仅作历史资料。
-- 第三方历史资料：[https://github.com/clashbk/clashx/releases/tag/1.96.2](https://github.com/clashbk/clashx/releases/tag/1.96.2)；只用于查找历史资料，不作为官方下载地址。
-- 核验：不适用。
+- 第三方下载：[https://github.com/clashbk/clashx/releases/tag/1.96.2](https://github.com/clashbk/clashx/releases/tag/1.96.2)
 
 ### ClashX Pro
 
 - 分类：历史项目
 - 状态：🔴 历史项目
 - 平台：macOS
-- 内核：未确认
-- 原官方来源：不可用
-- 原官方下载：不可用
-- 最后版本：未确认
-- 说明：未找到可与第三方历史包对应的原项目源码；不提供下载入口。
-- 第三方历史资料：[https://github.com/clashdownload/ClashX_Pro/releases/tag/1.97.0.4](https://github.com/clashdownload/ClashX_Pro/releases/tag/1.97.0.4)；只用于查找历史资料，不作为官方下载地址。
-- 核验：不适用。
+- 说明：未找到可对应第三方历史包的原项目源码。
+- 第三方下载：[https://github.com/clashdownload/ClashX_Pro/releases/tag/1.97.0.4](https://github.com/clashdownload/ClashX_Pro/releases/tag/1.97.0.4)
 
 ## 核验规则
 
@@ -438,7 +365,7 @@
 - 配置变更：仓库身份、App Store 发布者或下载目标变更后，旧核验结果不直接沿用；同一 GitHub 仓库改名不影响身份。
 - 临时失败：网络错误或长期未成功核验只标记为待确认；保留已配置官方入口供自行判断，不因失败时间自动转为历史项目。
 - App Store：指定区域无结果不等于下架；保留已配置官方入口并等待后续核验。
-- 历史项目：GitHub 官方仓库明确归档时自动归入历史项目；第三方镜像仅作为历史资料。
+- 历史项目：GitHub 官方仓库明确归档时自动归入历史项目；第三方下载仅作历史资料。
 - 来源身份校验不等同于安装包安全认证。
 - 不自动替换为同名分支、继任项目或第三方镜像。
 - 版本回退：发布时间早于已确认版本时，保留已确认版本并标记为待确认。

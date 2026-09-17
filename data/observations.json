@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-17T11:47:36Z",
+        "last_activity_at": "2026-09-17T11:50:17Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T11:47:52Z",
-        "last_success_at": "2026-09-17T11:47:52Z"
+        "observed_at": "2026-09-17T13:13:23Z",
+        "last_success_at": "2026-09-17T13:13:23Z"
       },
       "release": {
         "state": "ok",
@@ -505,11 +505,11 @@
       },
       "core_evidence": {
         "state": "ok",
-        "scope": "sha256:ae1c7cbe921d4a338a16869c38c1d7f3145c12e8aaf316a61fc928449ad1c7e2",
+        "scope": "sha256:bf47a77d33c4b9e1ee73ffcc4c11139bc66290a333fd7cae91708b7857094ee4",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T05:29:26Z",
-        "last_success_at": "2026-09-17T05:29:26Z"
+        "observed_at": "2026-09-17T13:13:23Z",
+        "last_success_at": "2026-09-17T13:13:23Z"
       }
     },
     "nekobox-android": {

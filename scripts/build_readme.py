@@ -1311,7 +1311,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "> 🟢 活跃；🟡 半年至一年未更新；🕒 一年以上未更新；❓ 待确认；🔴 历史项目。",
         "> “官方来源”中的“官方仓库”表示项目提供公开代码仓库；“官网”表示主要官方入口。来源类型不等同于开源许可证。",
         "> “闭源客户端”仅表示未提供公开客户端源码，不代表一定收费。",
-        "> 第三方历史资料不作为官方下载来源。",
+        "> 第三方下载仅作历史资料，不作为官方下载来源。",
         "",
     ]
     lines.extend([
@@ -1332,12 +1332,20 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         group.sort(key=lambda client: sort_key(client, records.get(client["id"], {}), current))
         if not group:
             continue
-        lines.extend([
-            f"## {CATEGORY_TITLES[category]}",
-            "",
-            "| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |",
-            "| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |",
-        ])
+        if category == "multi_core":
+            lines.extend([
+                f"## {CATEGORY_TITLES[category]}",
+                "",
+                "| 客户端 | 状态 | 内核 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |",
+                "| --- | :---: | --- | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |",
+            ])
+        else:
+            lines.extend([
+                f"## {CATEGORY_TITLES[category]}",
+                "",
+                "| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |",
+                "| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |",
+            ])
         for client in group:
             record = records.get(client["id"], {})
             rendered_category = effective_category(client, record)
@@ -1354,8 +1362,14 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
             else:
                 download_label = "下载页"
             platform = client["platforms"]
+            prefix = f"| {client['name']} | {status} |"
+            if category == "multi_core":
+                core = str(client.get("core") or "未确认")
+                if core.startswith("多内核（") and core.endswith("）"):
+                    core = core[len("多内核（"):-1]
+                prefix += f" {core} |"
             lines.append(
-                f"| {client['name']} | {status} | {icon(platform['macos'])} | {icon(platform['ios'])} | {icon(platform['tvos'])} | "
+                f"{prefix} {icon(platform['macos'])} | {icon(platform['ios'])} | {icon(platform['tvos'])} | "
                 f"{icon(platform['windows'])} | {icon(platform['android'])} | {icon(platform['linux'])} | "
                 f"{markdown_link(source_label, repository)} | {markdown_link(download_label, download)} |"
             )
@@ -1386,7 +1400,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         ]
         if source_is_confirmed_archived(client, record):
             notes.append("GitHub 官方仓库已归档，已自动归入历史项目")
-        note_text = "；".join(notes) + "。" if notes else "无特殊说明。"
+        note_text = "；".join(notes) + "。" if notes else ""
         warnings: list[str] = []
         component_labels = {
             "source": "项目来源",
@@ -1401,12 +1415,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
                 warning = component_warning(component_label, component)
                 if warning:
                     warnings.append(warning.rstrip("。；"))
-        if warnings:
-            verification = f"{'；'.join(warnings)}。"
-        elif effective_observation_components(client, record):
-            verification = "无异常。"
-        else:
-            verification = "不适用。"
+        verification = f"{'；'.join(warnings)}。" if warnings else ""
 
         lines.extend([
             f"### {client['name']}",
@@ -1414,8 +1423,11 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
             f"- 分类：{CATEGORY_TITLES[rendered_category]}",
             f"- 状态：{status_detail(status, reason)}",
             f"- 平台：{platform_summary(client)}",
-            f"- 内核：{client.get('core') or '未确认'}",
         ])
+        if client.get("core"):
+            lines.append(f"- 内核：{client['core']}")
+        elif rendered_category != "legacy":
+            lines.append("- 内核：未确认")
         if rendered_category == "legacy":
             historical = record.get("historical_release", {})
             historical_version = "未确认"
@@ -1426,18 +1438,19 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
                 if release.get("version") and component_positive(client, record, "release"):
                     historical_version = str(release["version"])
             archives = client.get("third_party_archives", [])
-            archive_text = "无"
+            if repository:
+                lines.append(f"- 原官方来源：{markdown_link(repository, repository)}")
+            if download:
+                lines.append(f"- 原官方下载：{markdown_link(download, download)}")
+            if historical_version != "未确认":
+                lines.append(f"- 最后版本：{historical_version}")
+            if note_text:
+                lines.append(f"- 说明：{note_text}")
             if archives:
                 archive_text = "；".join(markdown_link(archive["url"], archive["url"]) for archive in archives)
-                archive_text += "；只用于查找历史资料，不作为官方下载地址。"
-            lines.extend([
-                f"- 原官方来源：{markdown_link(repository, repository) if repository else '不可用'}",
-                f"- 原官方下载：{markdown_link(download, download) if download else '不可用'}",
-                f"- 最后版本：{historical_version}",
-                f"- 说明：{note_text}",
-                f"- 第三方历史资料：{archive_text}",
-                f"- 核验：{verification}",
-            ])
+                lines.append(f"- 第三方下载：{archive_text}")
+            if verification:
+                lines.append(f"- 核验：{verification}")
         else:
             release = record.get("release", {})
             version_text = "待确认"
@@ -1449,9 +1462,11 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
                 f"- 官方来源：{markdown_link(repository, repository) if repository else '待确认'}",
                 f"- 下载：{markdown_link(download, download) if download else '待确认'}",
                 f"- 版本：{version_text}",
-                f"- 说明：{note_text}",
-                f"- 核验：{verification}",
             ])
+            if note_text:
+                lines.append(f"- 说明：{note_text}")
+            if verification:
+                lines.append(f"- 核验：{verification}")
         lines.append("")
     lines.extend([
         "## 核验规则",
@@ -1460,7 +1475,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "- 配置变更：仓库身份、App Store 发布者或下载目标变更后，旧核验结果不直接沿用；同一 GitHub 仓库改名不影响身份。",
         "- 临时失败：网络错误或长期未成功核验只标记为待确认；保留已配置官方入口供自行判断，不因失败时间自动转为历史项目。",
         "- App Store：指定区域无结果不等于下架；保留已配置官方入口并等待后续核验。",
-        "- 历史项目：GitHub 官方仓库明确归档时自动归入历史项目；第三方镜像仅作为历史资料。",
+        "- 历史项目：GitHub 官方仓库明确归档时自动归入历史项目；第三方下载仅作历史资料。",
         "- 来源身份校验不等同于安装包安全认证。",
         "- 不自动替换为同名分支、继任项目或第三方镜像。",
         "- 版本回退：发布时间早于已确认版本时，保留已确认版本并标记为待确认。",

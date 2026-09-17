@@ -57,7 +57,8 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(self.by_id["sing-box"]["core"], "sing-box")
         self.assertEqual(self.by_id["clash-nyanpasu"]["core"], "多内核（Mihomo / Clash Premium / Clash Rust / Meow）")
         self.assertEqual(self.by_id["clash-party"]["core"], "多内核（Mihomo / Smart Core）")
-        self.assertEqual(self.by_id["v2rayn"]["core"], "多内核（Xray / sing-box / Mihomo）")
+        self.assertEqual(self.by_id["v2rayn"]["core"], "多内核（Xray / v2fly / Mihomo / sing-box 等）")
+        self.assertEqual(self.by_id["nekobox-android"]["source_note"], "Google Play 版本自 2024 年 5 月起不再由原项目维护。")
         self.assertTrue(self.by_id["sing-box"]["platforms"]["tvos"])
         self.assertTrue(self.by_id["stash"]["platforms"]["windows"])
         self.assertEqual(self.by_id["stash"]["download_page_url"], "https://stash.ws/download")
@@ -970,7 +971,10 @@ class RenderTests(unittest.TestCase):
         text = d.render_readme(self.clients, observations, NOW)
         row = next(line for line in text.splitlines() if line.startswith("| Clash for Windows |"))
         self.assertTrue(row.rstrip().endswith("| — | — |"))
-        self.assertIn("第三方历史资料", text)
+        detail = text.split("### Clash for Windows\n", 1)[1].split("\n### ", 1)[0]
+        self.assertIn("- 第三方下载：", detail)
+        self.assertIn("第三方下载仅作历史资料", text)
+        self.assertNotIn("第三方历史资料", text)
 
     def test_evidence_freshness_ages_without_network(self):
         observations = self.base_observations()
@@ -1014,8 +1018,10 @@ class RenderTests(unittest.TestCase):
     def test_detail_sections_use_consistent_fields_without_freeform_notes(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
         hako = text.split("### Clash（Hako）\n", 1)[1].split("\n### ", 1)[0]
-        for label in ("分类", "状态", "平台", "内核", "官方来源", "下载", "版本", "说明", "核验"):
+        for label in ("分类", "状态", "平台", "内核", "官方来源", "下载", "版本"):
             self.assertIn(f"- {label}：", hako)
+        self.assertNotIn("- 说明：", hako)
+        self.assertNotIn("- 核验：", hako)
         self.assertIn("- 平台：macOS / iOS / tvOS", hako)
         self.assertIn("- 内核：Hako（基于 Mihomo）", hako)
         self.assertNotIn("- 备注：", text)
@@ -1038,9 +1044,14 @@ class RenderTests(unittest.TestCase):
         self.assertIn("[下载页](https://stash.ws/download)", stash_row)
         flclash_row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
         self.assertIn("[官方仓库](https://github.com/chen08209/FlClash)", flclash_row)
-        legacy = text.split("### ClashX Pro\n", 1)[1].split("\n## 核验规则", 1)[0]
-        for label in ("分类", "状态", "平台", "内核", "原官方来源", "原官方下载", "最后版本", "说明", "第三方历史资料", "核验"):
+        legacy = text.split("### ClashX Pro\n", 1)[1].split("\n### ", 1)[0]
+        for label in ("分类", "状态", "平台", "说明", "第三方下载"):
             self.assertIn(f"- {label}：", legacy)
+        self.assertNotIn("- 内核：", legacy)
+        self.assertNotIn("- 最后版本：", legacy)
+        self.assertNotIn("- 原官方来源：", legacy)
+        self.assertNotIn("- 原官方下载：", legacy)
+        self.assertNotIn("- 核验：", legacy)
         self.assertNotIn("🟡 半年至一年未更新｜半年至一年未更新", text)
         self.assertNotIn("🔴 历史项目｜历史项目", text)
 
@@ -1065,8 +1076,19 @@ class RenderTests(unittest.TestCase):
         for jargon in ("`LKG`", "`scope`", "`pin`", "canonical `", " unverified ", " failover", "lookup", "报警"):
             self.assertNotIn(jargon, text)
 
-    def test_readme_exposes_evidence_age(self):
-        self.assertIn("核验：", d.render_readme(self.clients, self.base_observations(), NOW))
+    def test_multicore_table_exposes_supported_cores(self):
+        text = d.render_readme(self.clients, self.base_observations(), NOW)
+        section = text.split("## 多内核客户端\n", 1)[1].split("\n## 闭源客户端", 1)[0]
+        self.assertIn("| 客户端 | 状态 | 内核 |", section)
+        self.assertIn("Mihomo / Clash Premium / Clash Rust / Meow", section)
+        self.assertIn("Mihomo / Smart Core", section)
+        self.assertIn("Xray / v2fly / Mihomo / sing-box 等", section)
+
+    def test_readme_omits_noop_verification_but_exposes_evidence_age(self):
+        text = d.render_readme(self.clients, self.base_observations(), NOW)
+        self.assertIn("核验：最近成功日期", text)
+        self.assertNotIn("- 核验：无异常。", text)
+        self.assertNotIn("- 核验：不适用。", text)
 
     def test_evidence_summary_includes_release_and_core_freshness(self):
         client = self.by_id["flclash"]
