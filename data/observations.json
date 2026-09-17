@@ -450,12 +450,12 @@
         "repo_id": 714929749,
         "owner_id": 131734194,
         "full_name": "KaringX/karing",
-        "last_activity_at": "2026-09-16T01:31:57Z",
+        "last_activity_at": "2026-09-17T05:51:57Z",
         "scope": "sha256:36cb5b26e77d0dcec9883856a0811754b357b5360487569b41c832c0ca37188e",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T05:29:26Z",
-        "last_success_at": "2026-09-17T05:29:26Z"
+        "observed_at": "2026-09-17T06:07:45Z",
+        "last_success_at": "2026-09-17T06:07:45Z"
       },
       "release": {
         "state": "ok",
@@ -638,11 +638,11 @@
         "published_at": "2026-07-16T17:06:42Z",
         "seller": "Stash Networks Limited",
         "track_id": 1596063349,
-        "scope": "sha256:c90f663f2e8d808d39f0c8f9929c00fd4631bcff882ab95fb09c848050e884be",
+        "scope": "sha256:b1f28eeabfda1e5f7867acfcffeb890581974246d5d8f701b0a5b04dc23c3f84",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T00:09:23Z",
-        "last_success_at": "2026-09-17T00:09:23Z"
+        "observed_at": "2026-09-17T06:07:45Z",
+        "last_success_at": "2026-09-17T06:07:45Z"
       }
     },
     "quantumult-x": {

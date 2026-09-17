@@ -45,7 +45,10 @@ Refresh 只写 `README.md` 和 `data/observations.json`。如果 push 恰好与�
 ## 安全边界
 
 - GitHub 来源只固定 repository ID；owner/name 自动跟随同一仓库的官方迁移。App Store 固定 app ID 与 sellerName。
-- 身份核验只证明来源连续，不代表二进制安全。
+- 身份核验只证明来源连续，不代表所有者可信或二进制安全。旧路径被不同 repo ID 占用时阻断，不自动寻找替代仓库。
+- 已确认的身份冲突不能被后续 404、缺包或时间回退解除；只有同一 scope 下的正向核验，或经人工确认的新身份配置，才能恢复。
+- 静态 `legacy` 不因取消归档自动升级；动态归档可逆，不另存生命周期复核锁。归档只免除普通 release/core 新鲜度要求，已确认的下载身份冲突仍影响 health 和展示。
+- Release scope 保留 `download_url`，并绑定实际展示的 `download_page_url`（如有）；同仓库 canonical 改名只重写请求地址，不改静态 evidence scope。仅在相同字段代表的证据语义不再兼容时才 bump scope version，不为普通代码改动 bump。
 - 不自动把失效项目替换为同名 fork、第三方镜像或继任项目。
 - 第三方历史资料不进入主下载列。
 - 主分支只保留一个保护 ruleset：linear history + 禁止删除/强推。人工目录/代码变更仍按 PR 流程维护；不强制 PR/required check，以避免阻断 Refresh 使用短期 `GITHUB_TOKEN` 自动写回生成文件。

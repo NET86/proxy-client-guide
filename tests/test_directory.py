@@ -326,7 +326,7 @@ class AuditTests(unittest.TestCase):
         value.update(updates)
         return value
 
-    def test_repo_id_reuse_is_confirmed_bad(self):
+    def test_different_repo_id_at_configured_path_is_confirmed_bad(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
             if "/releases/latest" in url:

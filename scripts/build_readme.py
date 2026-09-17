@@ -55,6 +55,7 @@ CATEGORY_TITLES = {
 BLOCKED_TEXT = ("orymi.net", "starlinkboost.com", "高速机场推荐")
 FORBIDDEN_AUTOMATIC_REPLACEMENTS = ("flclashx", "slothclash", "clashfest")
 TRANSIENT_HTTP_CODES = {403, 408, 425, 429, 500, 502, 503, 504}
+IDENTITY_CONFLICT_STATES = {"identity_mismatch", "asset_mismatch"}
 REQUEST_ATTEMPTS = 2
 OBSERVATION_VERSION = 2
 EVIDENCE_SCOPE_VERSION = 1
@@ -125,19 +126,22 @@ def release_scope(client: dict[str, Any]) -> str:
     }
     if release_source == "app_store":
         payload.update(app_store_id=str(client["app_store_id"]), app_store_seller=client["app_store_seller"])
+    if client.get("download_page_url"):
+        payload["download_page_url"] = client["download_page_url"]
     return _scope_hash(payload)
 
 
 def historical_release_scope(client: dict[str, Any]) -> str:
-    return _scope_hash(
-        {
-            "v": EVIDENCE_SCOPE_VERSION,
-            "component": "historical_release",
-            "source_scope": source_scope(client),
-            "download_url": client.get("download_url", ""),
-            "history": client["historical_release"],
-        }
-    )
+    payload = {
+        "v": EVIDENCE_SCOPE_VERSION,
+        "component": "historical_release",
+        "source_scope": source_scope(client),
+        "download_url": client.get("download_url", ""),
+        "history": client["historical_release"],
+    }
+    if client.get("download_page_url"):
+        payload["download_page_url"] = client["download_page_url"]
+    return _scope_hash(payload)
 
 
 def core_evidence_scope(client: dict[str, Any]) -> str:
@@ -271,7 +275,7 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
             app_path_segments = {segment.casefold() for segment in parsed_download.path.split("/") if segment}
             if parsed_download.hostname != "apps.apple.com" or expected_app_id not in app_path_segments:
                 raise ValueError(f"{name}: App Store download_url must match the pinned app_store_id")
-        for url_field in ("website_url", "repository_url"):
+        for url_field in ("website_url", "repository_url", "download_page_url"):
             value = client.get(url_field)
             if value is not None:
                 parsed_value = urllib.parse.urlparse(str(value))
@@ -491,6 +495,11 @@ def positive_record(old: dict[str, Any] | None, stamp: str, scope: str, **fields
 
 def negative_record(old: dict[str, Any] | None, stamp: str, scope: str, state: str, **observed: Any) -> dict[str, Any]:
     record = scoped_lkg(old, scope)
+    # Absence or rollback is not evidence that a known identity conflict healed.
+    if record.get("state") in IDENTITY_CONFLICT_STATES and state not in IDENTITY_CONFLICT_STATES:
+        diagnostics = {key: value for key, value in record.items() if key.startswith("observed_") and key != "observed_at"}
+        observed = {**diagnostics, **observed, "observed_state": state}
+        state = record["state"]
     _clear_observation_diagnostics(record)
     record["scope"] = scope
     record["state"] = state
@@ -608,7 +617,7 @@ def audit_core_evidence(
         for item in evidence:
             evidence_url = item["url"]
             if canonical_repo and canonical_repo.casefold() != client["github_repo"].casefold():
-                for base in ("https://raw.githubusercontent.com/", "https://github.com/"):
+                for base in ("https://raw.githubusercontent.com/", "https://raw.githubusercontent.com/wiki/", "https://github.com/"):
                     configured = f"{base}{client['github_repo']}/"
                     if evidence_url.casefold().startswith(configured.casefold()):
                         evidence_url = f"{base}{canonical_repo}/{evidence_url[len(configured):]}"
@@ -638,7 +647,6 @@ def audit_github(
     repo = client["github_repo"]
     previous_source = old.get("source") if isinstance(old, dict) else None
     source_scope_value = source_scope(client)
-    previous_source_scoped = scoped_lkg(previous_source, source_scope_value)
     result = copy.deepcopy(old or {})
     anomalies: list[str] = []
     ok = True
@@ -687,14 +695,7 @@ def audit_github(
                 full_name=metadata["full_name"],
                 last_activity_at=iso(pushed) if pushed is not None else None,
             )
-            if client["category"] == "legacy" and state == "ok" and previous_source_scoped.get("state") == "archived":
-                source_record["lifecycle_review_required"] = True
-            if client["category"] != "legacy":
-                source_record.pop("lifecycle_review_required", None)
             result["source"] = source_record
-            if source_record.get("lifecycle_review_required"):
-                anomalies.append(f"{client['id']}: official source changed from archived to active; lifecycle review required")
-                ok = False
     except (OSError, urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, ObservationError, ValueError) as exc:
         result["source"] = failure_record(previous_source, stamp, str(exc), source_scope_value)
         return result, anomalies, False
@@ -723,7 +724,18 @@ def audit_github(
                 old_published = parse_time(previous_release_scoped.get("published_at"))
                 old_version = previous_release_scoped.get("version")
                 old_release_id = previous_release_scoped.get("release_id")
-                if old_published and published < old_published:
+                if old_version == version and type(old_release_id) is int and release["id"] != old_release_id:
+                    result["release"] = negative_record(
+                        previous_release,
+                        stamp,
+                        release_scope_value,
+                        "identity_mismatch",
+                        observed_release_id=release["id"],
+                        observed_asset_count=asset_count,
+                    )
+                    anomalies.append(f"{client['id']}: latest release was recreated under the same tag")
+                    ok = False
+                elif old_published and published < old_published:
                     result["release"] = negative_record(
                         previous_release,
                         stamp,
@@ -735,17 +747,6 @@ def audit_github(
                         observed_asset_count=asset_count,
                     )
                     anomalies.append(f"{client['id']}: latest release timestamp moved backwards")
-                    ok = False
-                elif old_version == version and type(old_release_id) is int and release["id"] != old_release_id:
-                    result["release"] = negative_record(
-                        previous_release,
-                        stamp,
-                        release_scope_value,
-                        "identity_mismatch",
-                        observed_release_id=release["id"],
-                        observed_asset_count=asset_count,
-                    )
-                    anomalies.append(f"{client['id']}: latest release was recreated under the same tag")
                     ok = False
                 elif asset_count == 0:
                     result["release"] = negative_record(
@@ -1035,7 +1036,15 @@ def effective_category(client: dict[str, Any], record: dict[str, Any]) -> str:
 
 def effective_observation_components(client: dict[str, Any], record: dict[str, Any]) -> tuple[str, ...]:
     if source_is_confirmed_archived(client, record):
-        return ("source",)
+        # Archiving retires release/core freshness requirements, not known
+        # identity conflicts in download evidence that we still expose.
+        return tuple(
+            name for name in expected_observation_components(client)
+            if name == "source" or (
+                component_is_scoped(client, record, name)
+                and record[name].get("state") in IDENTITY_CONFLICT_STATES
+            )
+        )
     return expected_observation_components(client)
 
 
@@ -1072,10 +1081,6 @@ def derive_health(clients: list[dict[str, Any]], observations: dict[str, Any], n
             elif not component_fresh(client, record, component_name, current):
                 anomalies.append(f"{cid}: {component_name} evidence stale or never positively verified")
                 all_current = False
-        source = record.get("source", {}) if isinstance(record, dict) else {}
-        if source.get("lifecycle_review_required"):
-            anomalies.append(f"{cid}: lifecycle review required after archived-to-active transition")
-            all_current = False
         succeeded += int(all_current)
     attempted = len(remote_clients)
     coverage = succeeded / attempted if attempted else 1.0
@@ -1108,10 +1113,6 @@ def activity_status(client: dict[str, Any], record: dict[str, Any], now: dt.date
         if not component_fresh(client, record, component_name, current):
             return "❓", "超过 7 天未成功核验"
     source = record.get("source", {})
-    if source.get("lifecycle_review_required"):
-        return "❓", "项目状态变化，待确认"
-    if source.get("state") == "archived":
-        return "🔴", "官方仓库已归档"
     activity_candidates = [
         parse_time(source.get("last_activity_at")),
         parse_time(record.get("release", {}).get("published_at")),
@@ -1248,6 +1249,8 @@ def component_warning(component_name: str, component: dict[str, Any]) -> str | N
     state = component.get("state", "unknown")
     unresolved = state not in {"ok", "archived", "manual"}
     pending = " 未确认恢复。" if unresolved else ""
+    if state in IDENTITY_CONFLICT_STATES and component.get("observation_state") in {"error", "unverified"}:
+        return f"{component_name}本次核验未完成；既有身份异常未确认恢复，下载入口保持隐藏。"
     if component.get("observation_state") == "error":
         last_success = parse_time(component.get("last_success_at"))
         if last_success:
@@ -1454,7 +1457,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "## 核验规则",
         "",
         "- 来源校验：同一 GitHub repo ID 的官方改名或迁移会自动跟随；项目身份或 App Store 发布者明确冲突时隐藏入口并标记为待确认。",
-        "- 配置变更：项目地址、发布者或下载入口变更后，旧核验结果不直接沿用。",
+        "- 配置变更：仓库身份、App Store 发布者或下载目标变更后，旧核验结果不直接沿用；同一 GitHub 仓库改名不影响身份。",
         "- 临时失败：网络错误或长期未成功核验只标记为待确认；保留已配置官方入口供自行判断，不因失败时间自动转为历史项目。",
         "- App Store：指定区域无结果不等于下架；保留已配置官方入口并等待后续核验。",
         "- 历史项目：GitHub 官方仓库明确归档时自动归入历史项目；第三方镜像仅作为历史资料。",
