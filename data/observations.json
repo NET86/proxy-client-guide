@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-17T02:17:33Z",
+        "last_activity_at": "2026-09-17T06:36:01Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T05:29:26Z",
-        "last_success_at": "2026-09-17T05:29:26Z"
+        "observed_at": "2026-09-17T07:27:11Z",
+        "last_success_at": "2026-09-17T07:27:11Z"
       },
       "release": {
         "state": "ok",
