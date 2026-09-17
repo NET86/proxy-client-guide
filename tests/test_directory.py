@@ -337,25 +337,30 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(out["source"]["state"], "identity_mismatch")
         self.assertTrue(issues)
 
-    def test_repo_owner_transfer_is_confirmed_bad(self):
+    def test_same_repo_id_owner_transfer_is_followed(self):
         client = self.by_id["flclash"]
-        out, _, ok = d.audit_github(
-            client, {}, None, NOW,
-            lambda url, token=None: self.repo(client, owner={"id": -1}),
-            self.evidence,
-        )
-        self.assertFalse(ok)
-        self.assertEqual(out["source"]["state"], "identity_mismatch")
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release()
+            return self.repo(client, owner={"id": -1}, full_name="new-owner/FlClash")
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertTrue(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(out["source"]["state"], "ok")
+        self.assertEqual(out["source"]["owner_id"], -1)
+        self.assertEqual(out["source"]["full_name"], "new-owner/FlClash")
 
-    def test_repo_canonical_name_change_is_review_gate(self):
+    def test_repo_canonical_name_change_updates_rendered_links(self):
         client = self.by_id["flclash"]
-        out, _, ok = d.audit_github(
-            client, {}, None, NOW,
-            lambda url, token=None: self.repo(client, full_name="attacker/FlClash"),
-            self.evidence,
-        )
-        self.assertFalse(ok)
-        self.assertEqual(out["source"]["state"], "identity_mismatch")
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release()
+            return self.repo(client, owner={"id": -1}, full_name="new-owner/FlClash")
+        out, _, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertTrue(ok)
+        repository, download = d.links_for(client, out, NOW)
+        self.assertEqual(repository, "https://github.com/new-owner/FlClash")
+        self.assertEqual(download, "https://github.com/new-owner/FlClash/releases")
 
     def test_404_is_deterministic_negative_evidence(self):
         client = self.by_id["flclash"]
@@ -394,17 +399,26 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(out["source"]["state"], "ok")
         self.assertEqual(out["source"]["observation_state"], "error")
 
-    def test_active_archived_repo_is_anomaly_but_source_link_remains_trusted(self):
+    def test_active_archived_repo_is_automatically_historical(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
             if "/releases/latest" in url:
                 return self.release()
             return self.repo(client, archived=True)
         out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
-        self.assertFalse(ok)
+        self.assertTrue(ok)
+        self.assertEqual(issues, [])
         self.assertEqual(out["source"]["state"], "archived")
-        self.assertTrue(issues)
         self.assertTrue(d.source_trusted(client, out, NOW))
+        self.assertEqual(d.effective_category(client, out), "legacy")
+        self.assertEqual(d.activity_status(client, out, NOW)[0], "🔴")
+
+    def test_active_repo_recovers_from_automatic_history_when_unarchived(self):
+        client = self.by_id["flclash"]
+        archived = {"source": self.scoped_source(client, state="archived")}
+        self.assertEqual(d.effective_category(client, archived), "legacy")
+        active = {"source": self.scoped_source(client, state="ok")}
+        self.assertEqual(d.effective_category(client, active), client["category"])
 
     def test_release_rollback_preserves_previous_version(self):
         client = self.by_id["flclash"]
@@ -446,7 +460,7 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(out["release"]["state"], "missing")
         self.assertTrue(any("no latest release" in issue for issue in issues))
         _, download = d.links_for(client, out, NOW)
-        self.assertEqual(download, "")
+        self.assertEqual(download, client["download_url"])
 
     def test_latest_release_without_usable_assets_is_anomaly(self):
         client = self.by_id["flclash"]
@@ -460,7 +474,7 @@ class AuditTests(unittest.TestCase):
         self.assertNotIn("asset_count", out["release"])
         self.assertEqual(out["release"]["observed_asset_count"], 0)
         self.assertTrue(any("no usable uploaded assets" in issue for issue in issues))
-        self.assertEqual(d.links_for(client, out, NOW)[1], "")
+        self.assertEqual(d.links_for(client, out, NOW)[1], client["download_url"])
 
     def test_same_tag_release_recreation_is_anomaly(self):
         client = self.by_id["flclash"]
@@ -547,7 +561,7 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(status, "❓")
         repository, download = d.links_for(client, out, NOW)
         self.assertEqual(repository, client["website_url"])
-        self.assertEqual(download, "")
+        self.assertEqual(download, client["download_url"])
 
     def test_coverage_below_95_percent_degrades_health(self):
         clients = []
@@ -910,14 +924,39 @@ class RenderTests(unittest.TestCase):
         row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
         self.assertIn("| — | — |", row)
 
-    def test_transient_failure_keeps_link_until_stale(self):
+    def test_transient_failure_keeps_configured_links_even_when_stale(self):
         observations = self.base_observations()
-        observations["clients"]["flclash"]["source"]["observation_state"] = "error"
-        observations["clients"]["flclash"]["source"]["consecutive_failures"] = 1
+        source = observations["clients"]["flclash"]["source"]
+        source["observation_state"] = "error"
+        source["consecutive_failures"] = 20
+        source["last_success_at"] = "2026-09-01T00:00:00Z"
         text = d.render_readme(self.clients, observations, NOW)
         row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
         self.assertIn("| ❓ |", row)
-        self.assertIn("github.com/chen08209/FlClash", row)
+        self.assertIn("[官方仓库](https://github.com/chen08209/FlClash)", row)
+        self.assertIn("[下载页](https://github.com/chen08209/FlClash/releases)", row)
+
+    def test_confirmed_missing_source_keeps_configured_links_but_marks_pending(self):
+        observations = self.base_observations()
+        source = observations["clients"]["flclash"]["source"]
+        source["state"] = "missing"
+        source["observation_state"] = "verified_negative"
+        text = d.render_readme(self.clients, observations, NOW)
+        row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
+        self.assertIn("| ❓ |", row)
+        self.assertIn("[官方仓库](https://github.com/chen08209/FlClash)", row)
+        self.assertIn("[下载页](https://github.com/chen08209/FlClash/releases)", row)
+
+    def test_archived_active_entry_renders_in_history_with_last_release(self):
+        observations = self.base_observations()
+        observations["clients"]["flclash"]["source"]["state"] = "archived"
+        text = d.render_readme(self.clients, observations, NOW)
+        history = text.split("## 历史项目\n", 1)[1].split("\n## 项目详情", 1)[0]
+        self.assertIn("| FlClash | 🔴 |", history)
+        detail = text.split("### FlClash\n", 1)[1].split("\n### ", 1)[0]
+        self.assertIn("- 分类：历史项目", detail)
+        self.assertIn("- 最后版本：", detail)
+        self.assertIn("已自动归入历史项目", detail)
 
     def test_clash_verge_original_release_remains_preferred(self):
         observations = self.base_observations()

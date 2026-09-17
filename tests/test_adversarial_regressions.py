@@ -119,14 +119,14 @@ class AdversarialRegressionTests(unittest.TestCase):
         self.assertEqual(health["coverage"], 0.0)
         self.assertTrue(any("scope mismatch" in item for item in health["anomalies"]))
 
-    def test_first_region_missing_is_unknown_unverified_and_has_no_download(self):
+    def test_first_region_missing_is_unknown_unverified_but_keeps_configured_download(self):
         client = self.by_id["shadowrocket"]
         out, _, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: {"resultCount": 0, "results": []})
         self.assertFalse(ok)
         self.assertEqual(out["source"]["state"], "unknown")
         self.assertEqual(out["source"]["observation_state"], "unverified")
         self.assertEqual(out["source"]["unverified_reason"], "region_missing")
-        self.assertEqual(d.links_for(client, out, NOW)[1], "")
+        self.assertEqual(d.links_for(client, out, NOW)[1], client["download_url"])
 
     def test_app_store_identity_mismatch_does_not_refresh_positive_success_time(self):
         client = self.by_id["shadowrocket"]
@@ -190,8 +190,8 @@ class AdversarialRegressionTests(unittest.TestCase):
                     mismatch_blocked = True
                 elif event == "good":
                     mismatch_blocked = False
-                if event == "region":
-                    self.assertEqual(d.links_for(client, record, when)[1], "", sequence)
+                if event == "region" and not mismatch_blocked:
+                    self.assertEqual(d.links_for(client, record, when)[1], client["download_url"], sequence)
                 if mismatch_blocked:
                     self.assertEqual(record["source"]["state"], "identity_mismatch", sequence)
                     self.assertEqual(d.links_for(client, record, when)[1], "", sequence)
@@ -256,13 +256,13 @@ class AdversarialRegressionTests(unittest.TestCase):
         self.assertFalse(d.component_fresh(client, record, "source", NOW))
         self.assertFalse(d.source_trusted(client, record, NOW))
 
-    def test_source_fresh_release_stale_means_gray_and_download_withheld(self):
+    def test_source_fresh_release_stale_means_pending_but_keeps_download(self):
         client = self.by_id["flclash"]
         record = self.healthy_github_record(client)
         record["release"]["last_success_at"] = "2026-09-01T00:00:00Z"
         status, _ = d.activity_status(client, record, NOW)
         self.assertEqual(status, "❓")
-        self.assertEqual(d.links_for(client, record, NOW)[1], "")
+        self.assertEqual(d.links_for(client, record, NOW)[1], client["download_url"])
 
     def test_core_mismatch_degrades_status_but_is_not_binary_download_gate(self):
         client = self.by_id["flclash"]

@@ -54,7 +54,6 @@ CATEGORY_TITLES = {
 }
 BLOCKED_TEXT = ("orymi.net", "starlinkboost.com", "高速机场推荐")
 FORBIDDEN_AUTOMATIC_REPLACEMENTS = ("flclashx", "slothclash", "clashfest")
-UNSAFE_SOURCE_STATES = {"missing", "disabled", "identity_mismatch", "unknown"}
 TRANSIENT_HTTP_CODES = {403, 408, 425, 429, 500, 502, 503, 504}
 REQUEST_ATTEMPTS = 2
 OBSERVATION_VERSION = 2
@@ -611,6 +610,7 @@ def audit_core_evidence(
     old: dict[str, Any],
     now: dt.datetime,
     fetch_text: Callable[[str], str | None],
+    canonical_repo: str | None = None,
 ) -> tuple[dict[str, Any] | None, list[str], bool]:
     evidence = client.get("core_evidence", [])
     if not evidence:
@@ -620,7 +620,14 @@ def audit_core_evidence(
     scope = core_evidence_scope(client)
     try:
         for item in evidence:
-            text = fetch_text(item["url"])
+            evidence_url = item["url"]
+            if canonical_repo and canonical_repo.casefold() != client["github_repo"].casefold():
+                for base in ("https://raw.githubusercontent.com/", "https://github.com/"):
+                    configured = f"{base}{client['github_repo']}/"
+                    if evidence_url.casefold().startswith(configured.casefold()):
+                        evidence_url = f"{base}{canonical_repo}/{evidence_url[len(configured):]}"
+                        break
+            text = fetch_text(evidence_url)
             if text is None:
                 record = negative_record(previous, stamp, scope, "missing")
                 return record, [f"{client['id']}: core evidence URL returned 404"], False
@@ -657,11 +664,14 @@ def audit_github(
         require_repo_schema(metadata)
         expected_repo = client.get("official_repo_id")
         expected_owner = client.get("official_owner_id")
-        if expected_repo is not None and (
-            metadata["id"] != expected_repo
-            or expected_owner is not None and metadata["owner"]["id"] != expected_owner
-            or metadata["full_name"].casefold() != repo.casefold()
-        ):
+        if expected_repo is not None:
+            identity_mismatch = metadata["id"] != expected_repo
+        else:
+            identity_mismatch = (
+                metadata["full_name"].casefold() != repo.casefold()
+                or expected_owner is not None and metadata["owner"]["id"] != expected_owner
+            )
+        if identity_mismatch:
             result["source"] = negative_record(
                 previous_source,
                 stamp,
@@ -672,6 +682,7 @@ def audit_github(
                 observed_full_name=metadata["full_name"],
             )
             return result, [f"{client['id']}: repository identity changed"], False
+        canonical_repo = metadata["full_name"]
         pushed_at = metadata.get("pushed_at")
         pushed = require_not_future(pushed_at, now, "GitHub repository pushed_at") if pushed_at is not None else None
         state = "disabled" if metadata["disabled"] else "archived" if metadata["archived"] else "ok"
@@ -704,9 +715,6 @@ def audit_github(
             if lifecycle == "active":
                 source_record.pop("lifecycle_review_required", None)
             result["source"] = source_record
-            if state == "archived" and lifecycle == "active":
-                anomalies.append(f"{client['id']}: active catalog entry is now archived")
-                ok = False
             if source_record.get("lifecycle_review_required"):
                 anomalies.append(f"{client['id']}: official source changed from archived to active; lifecycle review required")
                 ok = False
@@ -720,7 +728,7 @@ def audit_github(
         release_scope_value = release_scope(client)
         previous_release_scoped = scoped_lkg(previous_release, release_scope_value)
         try:
-            release = request(f"https://api.github.com/repos/{repo}/releases/latest", token)
+            release = request(f"https://api.github.com/repos/{canonical_repo}/releases/latest", token)
             if release is None:
                 result["release"] = negative_record(previous_release, stamp, release_scope_value, "missing")
                 if previous_release_scoped.get("version"):
@@ -801,7 +809,7 @@ def audit_github(
         history_scope_value = historical_release_scope(client)
         try:
             tag = urllib.parse.quote(history["tag"], safe="")
-            release = request(f"https://api.github.com/repos/{repo}/releases/tags/{tag}", token)
+            release = request(f"https://api.github.com/repos/{canonical_repo}/releases/tags/{tag}", token)
             if release is None:
                 result["historical_release"] = negative_record(previous_history, stamp, history_scope_value, "missing")
                 anomalies.append(f"{client['id']}: official historical release disappeared")
@@ -849,7 +857,7 @@ def audit_github(
             result["historical_release"] = failure_record(previous_history, stamp, str(exc), history_scope_value)
             ok = False
 
-    core, issues, core_ok = audit_core_evidence(client, old, now, fetch_text)
+    core, issues, core_ok = audit_core_evidence(client, old, now, fetch_text, canonical_repo)
     if core is not None:
         result["core_evidence"] = core
     anomalies.extend(issues)
@@ -1042,6 +1050,25 @@ def component_trusted(client: dict[str, Any], record: dict[str, Any], component_
     return component.get("observation_state") != "unverified"
 
 
+def source_is_confirmed_archived(client: dict[str, Any], record: dict[str, Any]) -> bool:
+    if client.get("source_type") != "github" or client.get("category") == "legacy":
+        return False
+    source = record.get("source", {}) if isinstance(record, dict) else {}
+    return component_is_scoped(client, record, "source") and source.get("state") == "archived"
+
+
+def effective_category(client: dict[str, Any], record: dict[str, Any]) -> str:
+    if client["category"] == "legacy" or source_is_confirmed_archived(client, record):
+        return "legacy"
+    return client["category"]
+
+
+def effective_observation_components(client: dict[str, Any], record: dict[str, Any]) -> tuple[str, ...]:
+    if source_is_confirmed_archived(client, record):
+        return ("source",)
+    return expected_observation_components(client)
+
+
 def derive_health(clients: list[dict[str, Any]], observations: dict[str, Any], now: dt.datetime | None = None) -> dict[str, Any]:
     current = now or utc_now()
     records = observations.get("clients", {}) if isinstance(observations.get("clients"), dict) else {}
@@ -1052,7 +1079,7 @@ def derive_health(clients: list[dict[str, Any]], observations: dict[str, Any], n
         cid = client["id"]
         record = records.get(cid, {}) if isinstance(records.get(cid, {}), dict) else {}
         all_current = True
-        for component_name in expected_observation_components(client):
+        for component_name in effective_observation_components(client, record):
             component = record.get(component_name, {}) if isinstance(record, dict) else {}
             if not component_is_scoped(client, record, component_name):
                 anomalies.append(f"{cid}: {component_name} evidence missing or scope mismatch")
@@ -1076,9 +1103,6 @@ def derive_health(clients: list[dict[str, Any]], observations: dict[str, Any], n
                 anomalies.append(f"{cid}: {component_name} evidence stale or never positively verified")
                 all_current = False
         source = record.get("source", {}) if isinstance(record, dict) else {}
-        if source.get("state") == "archived" and client.get("source_lifecycle", "active") == "active":
-            anomalies.append(f"{cid}: active catalog entry remains archived")
-            all_current = False
         if source.get("lifecycle_review_required"):
             anomalies.append(f"{cid}: lifecycle review required after archived-to-active transition")
             all_current = False
@@ -1104,6 +1128,8 @@ def source_trusted(client: dict[str, Any], record: dict[str, Any], now: dt.datet
 def activity_status(client: dict[str, Any], record: dict[str, Any], now: dt.datetime | None = None) -> tuple[str, str]:
     if client.get("source_lifecycle") in {"discontinued", "merged"} or client["category"] == "legacy":
         return "🔴", "历史项目"
+    if source_is_confirmed_archived(client, record):
+        return "🔴", "官方仓库已归档"
     current = now or utc_now()
     for component_name in expected_observation_components(client):
         component = record.get(component_name, {}) if isinstance(record, dict) else {}
@@ -1138,26 +1164,42 @@ def activity_status(client: dict[str, Any], record: dict[str, Any], now: dt.date
 
 
 def links_for(client: dict[str, Any], record: dict[str, Any], now: dt.datetime | None = None) -> tuple[str, str]:
-    current = now or utc_now()
     source_type = client["source_type"]
-    source_state = record.get("source", {}).get("state")
+    source = record.get("source", {}) if isinstance(record, dict) else {}
+    source_state = source.get("state")
     repository = ""
-    if source_type == "github" and component_is_scoped(client, record, "source") and source_state not in UNSAFE_SOURCE_STATES:
-        repository = f"https://github.com/{client['github_repo']}"
+    if source_type == "github" and source_state != "identity_mismatch":
+        observed_repo = source.get("full_name") if component_is_scoped(client, record, "source") else None
+        repository = f"https://github.com/{observed_repo or client['github_repo']}"
     elif source_type == "app_store":
-        repository = client.get("website_url", "")
+        if source_state != "identity_mismatch":
+            repository = client.get("website_url", "")
     elif source_type == "manual":
         repository = client.get("repository_url", "")
     if source_type == "manual":
         return repository, ""
+
     download = client.get("download_url", "")
-    if not source_trusted(client, record, current):
+    source_scoped = component_is_scoped(client, record, "source")
+    if not source_scoped:
+        download = ""
+    if source_type == "github" and download and source_state != "identity_mismatch":
+        observed_repo = source.get("full_name") if component_is_scoped(client, record, "source") else None
+        if observed_repo:
+            configured_prefix = f"https://github.com/{client['github_repo']}"
+            if download.casefold().startswith(configured_prefix.casefold()):
+                download = f"https://github.com/{observed_repo}{download[len(configured_prefix):]}"
+    if source_state == "identity_mismatch":
         download = ""
     if client.get("historical_release"):
-        if not component_trusted(client, record, "historical_release", current):
+        if not component_is_scoped(client, record, "historical_release"):
+            download = ""
+        elif record.get("historical_release", {}).get("state") in {"identity_mismatch", "asset_mismatch"}:
             download = ""
     elif client.get("release_source", source_type) in {"github", "app_store"}:
-        if not component_trusted(client, record, "release", current):
+        if not component_is_scoped(client, record, "release"):
+            download = ""
+        elif record.get("release", {}).get("state") == "identity_mismatch":
             download = ""
     if download and client.get("download_page_url"):
         download = client["download_page_url"]
@@ -1218,7 +1260,7 @@ def evidence_summary(
     records = observations.get("clients", {})
     for client in clients:
         record = records.get(client["id"], {})
-        for component_name in expected_observation_components(client):
+        for component_name in effective_observation_components(client, record):
             component = record.get(component_name, {})
             if not component_is_scoped(client, record, component_name):
                 missing += 1
@@ -1241,19 +1283,9 @@ def evidence_summary(
 def component_warning(component_name: str, component: dict[str, Any]) -> str | None:
     state = component.get("state", "unknown")
     unresolved = state not in {"ok", "archived", "manual"}
-    known_problem = state not in {"ok", "archived", "manual", "unknown"}
     pending = " 未确认恢复。" if unresolved else ""
-    blocks_download = component_name in {"项目来源", "版本", "历史版本"} and unresolved
     if component.get("observation_state") == "error":
         last_success = parse_time(component.get("last_success_at"))
-        if blocks_download and known_problem:
-            last_label = f"最近成功核验 {last_success.date().isoformat()}；" if last_success else ""
-            return (
-                f"{component_name}核验失败；{last_label}"
-                "既有异常未恢复，下载入口保持隐藏。"
-            )
-        if blocks_download:
-            return f"{component_name}核验失败；下载入口保持隐藏。"
         if last_success:
             return (
                 f"{component_name}核验失败；"
@@ -1264,12 +1296,12 @@ def component_warning(component_name: str, component: dict[str, Any]) -> str | N
     if component.get("observation_state") == "unverified":
         reason = component.get("unverified_reason", "unknown")
         if reason == "region_missing":
-            return f"{component_name}在指定 App Store 区域无结果；下载入口暂时隐藏。{pending}"
-        return f"{component_name}核验结果不明确；相关入口暂时隐藏。{pending}"
+            return f"{component_name}在指定 App Store 区域无结果；保留已配置入口供自行判断。{pending}"
+        return f"{component_name}核验结果不明确；保留已配置入口供自行判断。{pending}"
     state = component.get("state")
     messages = {
-        ("项目来源", "missing"): "项目来源不可用；下载入口已隐藏。",
-        ("项目来源", "disabled"): "项目来源已关闭；下载入口已隐藏。",
+        ("项目来源", "missing"): "项目来源暂不可用；保留已配置入口供自行判断。",
+        ("项目来源", "disabled"): "项目来源已关闭；保留已配置入口供自行判断。",
         ("项目来源", "identity_mismatch"): "项目身份与已确认记录不一致；下载入口已隐藏。",
         ("项目来源", "region_missing"): "指定 App Store 区域无结果。",
         ("版本", "missing"): "已确认版本不可用；保留原记录。",
@@ -1277,7 +1309,7 @@ def component_warning(component_name: str, component: dict[str, Any]) -> str | N
         ("版本", "identity_mismatch"): "版本身份与已确认记录不一致；下载入口已隐藏。",
         ("版本", "assets_missing"): "版本页可用但缺少安装文件；待确认。",
         ("版本", "region_missing"): "指定 App Store 区域无版本结果。",
-        ("历史版本", "missing"): "原官方下载页不可用；下载入口已隐藏。",
+        ("历史版本", "missing"): "原官方下载页暂不可用；保留已配置入口供自行判断。",
         ("历史版本", "identity_mismatch"): "历史版本身份不一致；下载入口已隐藏。",
         ("历史版本", "asset_mismatch"): "历史版本安装文件发生变化；下载入口已隐藏。",
         ("内核说明", "missing"): "内核说明不可用；保留原记录。",
@@ -1289,7 +1321,7 @@ def component_warning(component_name: str, component: dict[str, Any]) -> str | N
 def sort_key(client: dict[str, Any], record: dict[str, Any], now: dt.datetime) -> tuple[Any, ...]:
     status = activity_status(client, record, now)[0]
     return (
-        CATEGORY_ORDER[client["category"]],
+        CATEGORY_ORDER[effective_category(client, record)],
         STATUS_RANK[status],
         *(-int(client["platforms"][key]) for key in PLATFORMS),
         client["name"].casefold(),
@@ -1307,7 +1339,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "收录常见代理客户端，并按主要内核或实现方式分类。",
         "状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。",
         evidence_summary(clients, observations, current),
-        "> 页面仅在自动核验或人工更新后变化；核验时间超过 7 天时，请重新确认项目状态和下载链接。",
+        "> 页面仅在自动核验或人工更新后变化；核验异常会标记为待确认，但除项目身份冲突或目录配置变化外，仍保留已配置官方入口供自行判断。",
         "",
         "> 🟢 活跃；🟡 半年至一年未更新；🕒 一年以上未更新；❓ 待确认；🔴 历史项目。",
         "> “官方来源”中的“官方仓库”表示项目提供公开代码仓库；“官网”表示主要官方入口。来源类型不等同于开源许可证。",
@@ -1320,12 +1352,16 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "",
         "- 在用项目须具备明确定位、官方来源、支持平台和可核验的官方安装或下载入口。",
         "- 仅有第三方镜像或无法确认项目身份的，不列入在用项目。",
-        "- 单次核验失败仅标记为 ❓ 待确认；确认停更或合并后转入历史项目。",
+        "- 单次核验失败仅标记为 ❓ 待确认；GitHub 官方仓库明确归档时自动归入历史项目。",
         "- 仅在收录错误、项目无关或记录重复时删除条目。",
         "",
     ])
     for category in ("mihomo", "sing_box", "multi_core", "proprietary", "legacy"):
-        group = [client for client in clients if client["category"] == category]
+        group = [
+            client
+            for client in clients
+            if effective_category(client, records.get(client["id"], {})) == category
+        ]
         group.sort(key=lambda client: sort_key(client, records.get(client["id"], {}), current))
         if not group:
             continue
@@ -1337,13 +1373,14 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         ])
         for client in group:
             record = records.get(client["id"], {})
+            rendered_category = effective_category(client, record)
             status, _ = activity_status(client, record, current)
             repository, download = links_for(client, record, current)
-            if client["category"] == "legacy":
+            if rendered_category == "legacy":
                 source_label = "原官方仓库" if client["source_type"] == "github" else "原项目"
             else:
                 source_label = "官方仓库" if client["source_type"] == "github" else "官网"
-            if client.get("historical_release"):
+            if rendered_category == "legacy" and client["source_type"] == "github":
                 download_label = "原官方下载页"
             elif download and "apps.apple.com" in download:
                 download_label = "App Store"
@@ -1363,8 +1400,16 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "内核字段使用统一项目名；多内核统一写为“多内核（…）”。",
         "",
     ])
-    for client in sorted(clients, key=lambda item: (CATEGORY_ORDER[item["category"]], item["name"].casefold())):
+    detail_clients = sorted(
+        clients,
+        key=lambda item: (
+            CATEGORY_ORDER[effective_category(item, records.get(item["id"], {}))],
+            item["name"].casefold(),
+        ),
+    )
+    for client in detail_clients:
         record = records.get(client["id"], {})
+        rendered_category = effective_category(client, record)
         status, reason = activity_status(client, record, current)
         repository, download = links_for(client, record, current)
         notes = [
@@ -1372,14 +1417,18 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
             for value in (client.get("compatibility_note"), client.get("source_note"))
             if value
         ]
+        if source_is_confirmed_archived(client, record):
+            notes.append("GitHub 官方仓库已归档，已自动归入历史项目")
         note_text = "；".join(notes) + "。" if notes else "无特殊说明。"
         warnings: list[str] = []
-        for component_key, component_label in (
-            ("source", "项目来源"),
-            ("release", "版本"),
-            ("historical_release", "历史版本"),
-            ("core_evidence", "内核说明"),
-        ):
+        component_labels = {
+            "source": "项目来源",
+            "release": "版本",
+            "historical_release": "历史版本",
+            "core_evidence": "内核说明",
+        }
+        for component_key in effective_observation_components(client, record):
+            component_label = component_labels[component_key]
             component = record.get(component_key, {})
             if isinstance(component, dict):
                 warning = component_warning(component_label, component)
@@ -1387,7 +1436,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
                     warnings.append(warning.rstrip("。；"))
         if warnings:
             verification = f"{'；'.join(warnings)}。"
-        elif expected_observation_components(client):
+        elif effective_observation_components(client, record):
             verification = "无异常。"
         else:
             verification = "不适用。"
@@ -1395,16 +1444,20 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         lines.extend([
             f"### {client['name']}",
             "",
-            f"- 分类：{CATEGORY_TITLES[client['category']]}",
+            f"- 分类：{CATEGORY_TITLES[rendered_category]}",
             f"- 状态：{status_detail(status, reason)}",
             f"- 平台：{platform_summary(client)}",
             f"- 内核：{client.get('core') or '未确认'}",
         ])
-        if client["category"] == "legacy":
+        if rendered_category == "legacy":
             historical = record.get("historical_release", {})
             historical_version = "未确认"
             if historical.get("tag") and component_is_scoped(client, record, "historical_release"):
                 historical_version = str(historical["tag"])
+            elif source_is_confirmed_archived(client, record):
+                release = record.get("release", {})
+                if release.get("version") and component_positive(client, record, "release"):
+                    historical_version = str(release["version"])
             archives = client.get("third_party_archives", [])
             archive_text = "无"
             if archives:
@@ -1436,11 +1489,11 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
     lines.extend([
         "## 核验规则",
         "",
-        "- 来源校验：项目地址、仓库归属或 App Store 发布者发生变化时，隐藏下载入口并标记为待确认。",
+        "- 来源校验：同一 GitHub repo ID 的官方改名或迁移会自动跟随；项目身份或 App Store 发布者明确冲突时隐藏入口并标记为待确认。",
         "- 配置变更：项目地址、发布者或下载入口变更后，旧核验结果不直接沿用。",
-        "- 临时失败：单次网络错误仅标记为待确认；连续 7 天未完成成功核验后隐藏下载入口。",
-        "- App Store：指定区域无结果不等于下架；下载入口暂时隐藏，待后续核验。",
-        "- 历史项目：仅保留可核验的原官方页面；第三方镜像仅作为历史资料。",
+        "- 临时失败：网络错误或长期未成功核验只标记为待确认；保留已配置官方入口供自行判断，不因失败时间自动转为历史项目。",
+        "- App Store：指定区域无结果不等于下架；保留已配置官方入口并等待后续核验。",
+        "- 历史项目：GitHub 官方仓库明确归档时自动归入历史项目；第三方镜像仅作为历史资料。",
         "- 来源身份校验不等同于安装包安全认证。",
         "- 不自动替换为同名分支、继任项目或第三方镜像。",
         "- 版本回退：发布时间早于已确认版本时，保留已确认版本并标记为待确认。",
