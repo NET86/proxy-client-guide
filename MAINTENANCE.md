@@ -19,6 +19,8 @@
 3. 如生成文件发生变化，用当前 Refresh job 的短期 `GITHUB_TOKEN` 普通 push 到 `main`。
 4. 执行 health gate；异常会让 workflow 失败并保留可见状态。
 
+这个顺序是有意的：先发布按现有安全规则生成的异常状态，再让 health gate 失败，避免用户长期看到旧的正常状态。除非确认生成结果本身可能错误授权入口或破坏静态目录，否则不要改成 health-before-push。
+
 Refresh 只写 `README.md` 和 `data/observations.json`。如果 push 恰好与新的 `main` 冲突，本次任务直接失败，不在同一个 run 中重放代码或复杂合并；下一次定时运行会从新的 `main` 重新核验并自动恢复。
 
 ## 哪些情况不需要人工
@@ -46,6 +48,7 @@ Refresh 只写 `README.md` 和 `data/observations.json`。如果 push 恰好与�
 
 - GitHub 来源只固定 repository ID；owner/name 自动跟随同一仓库的官方迁移。App Store 固定 app ID 与 sellerName。
 - 身份核验只证明来源连续，不代表所有者可信或二进制安全。旧路径被不同 repo ID 占用时阻断，不自动寻找替代仓库。
+- 404、latest release 缺失或短期访问失败只证明当前目标不可用，不证明身份已改变；scope 未变且无身份冲突时保留已配置入口并标记待确认。
 - 已确认的身份冲突不能被后续 404、缺包或时间回退解除；只有同一 scope 下的正向核验，或经人工确认的新身份配置，才能恢复。
 - 静态 `legacy` 不因取消归档自动升级；动态归档可逆，不另存生命周期复核锁。归档只免除普通 release/core 新鲜度要求，已确认的下载身份冲突仍影响 health 和展示。
 - Release scope 保留 `download_url`，并绑定实际展示的 `download_page_url`（如有）；同仓库 canonical 改名只重写请求地址，不改静态 evidence scope。仅在相同字段代表的证据语义不再兼容时才 bump scope version，不为普通代码改动 bump。
