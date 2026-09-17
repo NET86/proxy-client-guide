@@ -76,12 +76,12 @@
         "repo_id": 966153123,
         "owner_id": 131734194,
         "full_name": "KaringX/clashmi",
-        "last_activity_at": "2026-09-16T03:58:16Z",
+        "last_activity_at": "2026-09-17T04:31:48Z",
         "scope": "sha256:846e53533eb371e1fd5a79efbd95e7bf3f8b6d8fc1147951d68b4f504e93d7c5",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T00:09:23Z",
-        "last_success_at": "2026-09-17T00:09:23Z"
+        "observed_at": "2026-09-17T04:56:23Z",
+        "last_success_at": "2026-09-17T04:56:23Z"
       },
       "release": {
         "state": "ok",
@@ -726,12 +726,12 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-09-17T03:12:08Z",
+        "last_activity_at": "2026-09-17T04:27:08Z",
         "scope": "sha256:94ed8831c76c3090271f1e1d013198fed4156e925aa24fdeed3cb2ab8522d8d9",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T03:33:47Z",
-        "last_success_at": "2026-09-17T03:33:47Z"
+        "observed_at": "2026-09-17T04:56:23Z",
+        "last_success_at": "2026-09-17T04:56:23Z"
       },
       "release": {
         "state": "ok",
