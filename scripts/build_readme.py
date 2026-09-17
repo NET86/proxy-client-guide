@@ -1252,8 +1252,8 @@ def evidence_summary(
     latest = display_date(max(times)).isoformat()
     suffix = f"；{missing} 项待成功核验" if missing else ""
     if earliest == latest:
-        return f"核验：最近成功日期 {latest}{suffix}。"
-    return f"核验：成功记录 {earliest} 至 {latest}{suffix}。"
+        return f"核验：最近成功日期 {latest}{suffix}（北京时间，下同）。"
+    return f"核验：成功记录 {earliest} 至 {latest}{suffix}（北京时间，下同）。"
 
 
 def component_warning(component_name: str, component: dict[str, Any]) -> str | None:
@@ -1267,7 +1267,7 @@ def component_warning(component_name: str, component: dict[str, Any]) -> str | N
         if last_success:
             return (
                 f"{component_name}核验失败；"
-                f"最近成功核验 {last_success.date().isoformat()}。"
+                f"最近成功核验 {display_date(last_success).isoformat()}。"
                 f"保留已确认记录。{pending}"
             )
         return f"{component_name}核验失败。{pending}"
@@ -1450,7 +1450,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
             version_text = "待确认"
             if release.get("version") and release.get("published_at") and component_is_scoped(client, record, "release"):
                 published = parse_time(release.get("published_at"))
-                published_label = published.date().isoformat() if published else str(release["published_at"])
+                published_label = display_date(published).isoformat() if published else str(release["published_at"])
                 version_text = f"{release['version']}（{published_label}）"
             lines.extend([
                 f"- 官方来源：{markdown_link(repository, repository) if repository else '待确认'}",

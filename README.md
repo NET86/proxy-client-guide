@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-09-18。
+核验：最近成功日期 2026-09-18（北京时间，下同）。
 > 页面仅在自动核验或人工更新后变化；核验异常会标记为待确认，但除项目身份冲突或目录配置变化外，仍保留已配置官方入口供自行判断。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -83,7 +83,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
-- 版本：v1.2.8（2026-09-13）
+- 版本：v1.2.8（2026-09-14）
 
 ### Bettbox
 
@@ -114,7 +114,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/clash-verge-rev/clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)
 - 下载：[https://github.com/clash-verge-rev/clash-verge-rev/releases](https://github.com/clash-verge-rev/clash-verge-rev/releases)
-- 版本：v2.5.2（2026-07-19）
+- 版本：v2.5.2（2026-07-20）
 
 ### ClashMi
 
@@ -144,7 +144,7 @@
 - 内核：Hako（基于 Mihomo）
 - 官方来源：[https://github.com/TokenPLS/Hako-Client](https://github.com/TokenPLS/Hako-Client)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
-- 版本：1.0.8（2026-09-16）
+- 版本：1.0.8（2026-09-17）
 
 ### FlClash
 
@@ -184,7 +184,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/hiddify/hiddify-app](https://github.com/hiddify/hiddify-app)
 - 下载：[https://github.com/hiddify/hiddify-app/releases](https://github.com/hiddify/hiddify-app/releases)
-- 版本：v4.1.1（2026-03-05）
+- 版本：v4.1.1（2026-03-06）
 
 ### Karing
 
@@ -226,7 +226,7 @@
 - 内核：多内核（Mihomo / Clash Premium / Clash Rust / Meow）
 - 官方来源：[https://github.com/libnyanpasu/clash-nyanpasu](https://github.com/libnyanpasu/clash-nyanpasu)
 - 下载：[https://github.com/libnyanpasu/clash-nyanpasu/releases](https://github.com/libnyanpasu/clash-nyanpasu/releases)
-- 版本：v1.6.1（2024-09-07）
+- 版本：v1.6.1（2024-09-08）
 
 ### Clash-Party
 
@@ -256,7 +256,7 @@
 - 内核：未公开
 - 官方来源：[https://egernapp.com/](https://egernapp.com/)
 - 下载：[https://apps.apple.com/us/app/id1616105820](https://apps.apple.com/us/app/id1616105820)
-- 版本：2.20.0（2026-07-23）
+- 版本：2.20.0（2026-07-24）
 
 ### Loon
 
@@ -266,7 +266,7 @@
 - 内核：未公开
 - 官方来源：[https://docs.nsloon.com/](https://docs.nsloon.com/)
 - 下载：[https://apps.apple.com/us/app/id1373567447](https://apps.apple.com/us/app/id1373567447)
-- 版本：3.5.0（2026-06-25）
+- 版本：3.5.0（2026-06-26）
 
 ### Quantumult X
 
@@ -296,7 +296,7 @@
 - 内核：未公开
 - 官方来源：[https://stash.ws/](https://stash.ws/)
 - 下载：[https://stash.ws/download](https://stash.ws/download)
-- 版本：3.4.1（2026-07-16）
+- 版本：3.4.1（2026-07-17）
 - 说明：完整兼容 Clash Premium 配置格式。
 
 ### Surge
@@ -307,7 +307,7 @@
 - 内核：未公开
 - 官方来源：[https://nssurge.com/](https://nssurge.com/)
 - 下载：[https://apps.apple.com/us/app/surge-5/id1442620678](https://apps.apple.com/us/app/surge-5/id1442620678)
-- 版本：5.22.1（2026-09-13）
+- 版本：5.22.1（2026-09-14）
 
 ### Clash for Android
 

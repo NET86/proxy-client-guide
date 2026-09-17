@@ -1148,7 +1148,24 @@ class RenderTests(unittest.TestCase):
             }
         }
         now = dt.datetime(2026, 9, 18, 0, 0, tzinfo=dt.timezone.utc)
-        self.assertEqual(d.evidence_summary([client], observations, now), "核验：最近成功日期 2026-09-18。")
+        self.assertEqual(
+            d.evidence_summary([client], observations, now),
+            "核验：最近成功日期 2026-09-18（北京时间，下同）。",
+        )
+
+    def test_release_and_warning_dates_use_shanghai_calendar_date(self):
+        observations = self.base_observations()
+        release = observations["clients"]["flclash"]["release"]
+        release["version"] = "v-local-date"
+        release["published_at"] = "2026-09-14T18:00:00Z"
+        text = d.render_readme(self.clients, observations, NOW)
+        section = text.split("### FlClash", 1)[1].split("### ", 1)[0]
+        self.assertIn("- 版本：v-local-date（2026-09-15）", section)
+        warning = d.component_warning(
+            "版本",
+            {"state": "ok", "observation_state": "error", "last_success_at": "2026-09-14T18:00:00Z"},
+        )
+        self.assertIn("最近成功核验 2026-09-15", warning)
 
     def test_readme_surfaces_release_and_core_anomalies(self):
         observations = self.base_observations()
