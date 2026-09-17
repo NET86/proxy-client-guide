@@ -13,7 +13,8 @@ NOW = dt.datetime(2026, 9, 15, 12, tzinfo=dt.timezone.utc)
 CLIENT = {
     "id": "sample",
     "name": "Sample",
-    "category": "native",
+    "category": "mihomo",
+    "core": "Mihomo",
     "platforms": {"windows": True, "macos": False, "ios": False, "tvos": False, "android": False, "linux": False},
     "source_type": "github",
     "github_repo": "example/client",

@@ -27,32 +27,33 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(len(self.by_id), len(self.clients))
 
     def test_scope_is_explicit(self):
-        self.assertEqual(self.by_id["karing"]["category"], "compatible")
-        self.assertEqual(self.by_id["hiddify"]["category"], "other")
-        self.assertEqual(self.by_id["stash"]["category"], "compatible")
-        self.assertEqual(self.by_id["v2rayn"]["category"], "other")
-        self.assertEqual(self.by_id["shadowrocket"]["category"], "other")
-        self.assertEqual(self.by_id["surge"]["category"], "other")
-        self.assertEqual(self.by_id["sing-box"]["category"], "other")
+        self.assertEqual(self.by_id["flclash"]["category"], "mihomo")
+        self.assertEqual(self.by_id["karing"]["category"], "sing_box")
+        self.assertEqual(self.by_id["hiddify"]["category"], "sing_box")
+        self.assertEqual(self.by_id["stash"]["category"], "proprietary")
+        self.assertEqual(self.by_id["v2rayn"]["category"], "multi_core")
+        self.assertEqual(self.by_id["shadowrocket"]["category"], "proprietary")
+        self.assertEqual(self.by_id["surge"]["category"], "proprietary")
+        self.assertEqual(self.by_id["sing-box"]["category"], "sing_box")
         self.assertEqual(self.by_id["clash-verge-legacy"]["category"], "legacy")
 
     def test_catalog_has_no_commercial_category(self):
         self.assertNotIn("commercial", {client["category"] for client in self.clients})
 
-    def test_native_candidates_added(self):
+    def test_mihomo_candidates_added(self):
         for cid in ("sparkle", "metacubexd", "bettbox", "asteriskmeta"):
             self.assertIn(cid, self.by_id)
-            self.assertEqual(self.by_id[cid]["category"], "native")
+            self.assertEqual(self.by_id[cid]["category"], "mihomo")
 
     def test_representative_clients_are_normalized(self):
         self.assertEqual(self.by_id["hako"]["platforms"]["tvos"], True)
-        self.assertEqual(self.by_id["stash"]["core"], "专有实现")
+        self.assertEqual(self.by_id["stash"]["core"], "未公开")
         self.assertEqual(self.by_id["surge"]["name"], "Surge")
-        self.assertEqual(self.by_id["surge"]["core"], "专有实现")
-        self.assertEqual(self.by_id["shadowrocket"]["core"], "专有实现")
-        self.assertEqual(self.by_id["quantumult-x"]["core"], "专有实现")
-        self.assertEqual(self.by_id["loon"]["core"], "专有实现")
-        self.assertEqual(self.by_id["egern"]["core"], "专有实现")
+        self.assertEqual(self.by_id["surge"]["core"], "未公开")
+        self.assertEqual(self.by_id["shadowrocket"]["core"], "未公开")
+        self.assertEqual(self.by_id["quantumult-x"]["core"], "未公开")
+        self.assertEqual(self.by_id["loon"]["core"], "未公开")
+        self.assertEqual(self.by_id["egern"]["core"], "未公开")
         self.assertEqual(self.by_id["sing-box"]["core"], "sing-box")
         self.assertEqual(self.by_id["clash-nyanpasu"]["core"], "多内核（Mihomo / Clash Premium / Clash Rust / Meow）")
         self.assertEqual(self.by_id["clash-party"]["core"], "多内核（Mihomo / Smart Core）")
@@ -62,7 +63,7 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(self.by_id["stash"]["download_page_url"], "https://stash.ws/download")
 
     def test_core_labels_follow_display_convention(self):
-        simple = {"Mihomo", "Clash", "sing-box", "Hako（基于 Mihomo）", "专有实现"}
+        simple = {"Mihomo", "Clash", "sing-box", "Hako（基于 Mihomo）", "未公开"}
         for client in self.clients:
             core = client.get("core")
             if not core:
@@ -78,10 +79,23 @@ class CatalogTests(unittest.TestCase):
         self.assertNotIn("nyx", self.by_id)
         self.assertNotIn("anyportal", self.by_id)
         self.assertTrue(all("notes" not in client for client in self.clients))
-        self.assertEqual(
-            {client["id"] for client in self.clients if client["category"] == "compatible"},
-            {"karing", "stash"},
-        )
+
+    def test_active_categories_follow_core(self):
+        for client in self.clients:
+            if client["category"] == "legacy":
+                continue
+            core = client.get("core")
+            if core in {"Mihomo", "Clash"} or str(core).startswith("Hako（"):
+                expected = "mihomo"
+            elif core == "sing-box":
+                expected = "sing_box"
+            elif str(core).startswith("多内核（"):
+                expected = "multi_core"
+            elif core == "未公开":
+                expected = "proprietary"
+            else:
+                self.fail(f"Unclassified core for {client['name']}: {core}")
+            self.assertEqual(client["category"], expected, client["name"])
 
     def test_active_directory_entries_pass_entry_gate(self):
         for client in self.clients:
@@ -539,7 +553,7 @@ class AuditTests(unittest.TestCase):
         clients = []
         for index in range(20):
             clients.append({
-                "id": f"x{index}", "name": f"X{index}", "category": "native",
+                "id": f"x{index}", "name": f"X{index}", "category": "mihomo",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "github", "github_repo": f"o/r{index}",
                 "official_repo_id": 100 + index, "official_owner_id": 200 + index,
@@ -561,7 +575,7 @@ class AuditTests(unittest.TestCase):
     def test_concurrent_audit_persists_catalog_order(self):
         clients = [
             {
-                "id": "remote-a", "name": "Remote A", "category": "native",
+                "id": "remote-a", "name": "Remote A", "category": "mihomo",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "github", "github_repo": "o/a",
                 "official_repo_id": 101, "official_owner_id": 201,
@@ -574,7 +588,7 @@ class AuditTests(unittest.TestCase):
                 "source_lifecycle": "discontinued",
             },
             {
-                "id": "remote-b", "name": "Remote B", "category": "native",
+                "id": "remote-b", "name": "Remote B", "category": "mihomo",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "github", "github_repo": "o/b",
                 "official_repo_id": 102, "official_owner_id": 202,
@@ -598,7 +612,7 @@ class AuditTests(unittest.TestCase):
         clients = []
         for index in range(20):
             clients.append({
-                "id": f"x{index}", "name": f"X{index}", "category": "native",
+                "id": f"x{index}", "name": f"X{index}", "category": "mihomo",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "github", "github_repo": f"o/r{index}",
                 "official_repo_id": 100 + index, "official_owner_id": 200 + index,
@@ -621,7 +635,7 @@ class AuditTests(unittest.TestCase):
         clients = []
         for index in range(20):
             clients.append({
-                "id": f"x{index}", "name": f"X{index}", "category": "native",
+                "id": f"x{index}", "name": f"X{index}", "category": "mihomo",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "github", "github_repo": f"o/r{index}",
                 "official_repo_id": 100 + index, "official_owner_id": 200 + index,
@@ -660,7 +674,7 @@ class AuditTests(unittest.TestCase):
 
     def test_release_activity_is_derived_without_mutating_source_fact(self):
         client = {
-            "id": "synthetic", "name": "Synthetic", "category": "native",
+            "id": "synthetic", "name": "Synthetic", "category": "mihomo",
             "platforms": {key: False for key in d.PLATFORMS},
             "source_type": "github", "github_repo": "o/r",
             "official_repo_id": 101, "official_owner_id": 202,
@@ -694,7 +708,7 @@ class AuditTests(unittest.TestCase):
 
     def test_same_day_healthy_audit_is_byte_stable(self):
         client = {
-            "id": "synthetic", "name": "Synthetic", "category": "native",
+            "id": "synthetic", "name": "Synthetic", "category": "mihomo",
             "platforms": {key: False for key in d.PLATFORMS},
             "source_type": "github", "github_repo": "o/r",
             "official_repo_id": 101, "official_owner_id": 202,
@@ -710,7 +724,7 @@ class AuditTests(unittest.TestCase):
 
     def test_next_day_healthy_audit_refreshes_daily_heartbeat(self):
         client = {
-            "id": "synthetic", "name": "Synthetic", "category": "native",
+            "id": "synthetic", "name": "Synthetic", "category": "mihomo",
             "platforms": {key: False for key in d.PLATFORMS},
             "source_type": "github", "github_repo": "o/r",
             "official_repo_id": 101, "official_owner_id": 202,
@@ -729,7 +743,7 @@ class AuditTests(unittest.TestCase):
 
     def test_same_day_recovery_updates_immediately(self):
         client = {
-            "id": "synthetic", "name": "Synthetic", "category": "native",
+            "id": "synthetic", "name": "Synthetic", "category": "mihomo",
             "platforms": {key: False for key in d.PLATFORMS},
             "source_type": "github", "github_repo": "o/r",
             "official_repo_id": 101, "official_owner_id": 202,
@@ -961,18 +975,23 @@ class RenderTests(unittest.TestCase):
     def test_detail_sections_use_consistent_fields_without_freeform_notes(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
         hako = text.split("### Clash（Hako）\n", 1)[1].split("\n### ", 1)[0]
-        self.assertIn("- 分类：", hako)
-        self.assertIn("- 状态：", hako)
+        for label in ("分类", "状态", "平台", "内核", "官方来源", "下载", "版本", "说明", "核验"):
+            self.assertIn(f"- {label}：", hako)
         self.assertIn("- 平台：macOS / iOS / tvOS", hako)
         self.assertIn("- 内核：Hako（基于 Mihomo）", hako)
         self.assertNotIn("- 备注：", text)
-        self.assertNotIn("- 内核/实现：", text)
+        self.assertNotIn("- 最低系统：", text)
+        self.assertNotIn("- 定位/兼容性：", text)
+        self.assertNotIn("- 来源说明：", text)
         self.assertNotIn("Surge for iOS", text)
-        self.assertIn("## 其他代表性代理客户端", text)
+        self.assertIn("## Mihomo / Clash 内核客户端", text)
+        self.assertIn("## sing-box 内核客户端", text)
+        self.assertIn("## 多内核客户端", text)
+        self.assertIn("## 闭源客户端", text)
         self.assertIn("| Stash |", text)
         self.assertNotIn("| AnyPortal |", text)
         self.assertNotIn("| Nyx |", text)
-        self.assertIn("## Clash 配置兼容客户端", text)
+        self.assertNotIn("## Clash 配置兼容客户端", text)
         self.assertIn("| 官方来源 |", text)
         self.assertIn("来源类型不等同于开源许可证", text)
         stash_row = next(line for line in text.splitlines() if line.startswith("| Stash |"))
@@ -980,6 +999,9 @@ class RenderTests(unittest.TestCase):
         self.assertIn("[下载页](https://stash.ws/download)", stash_row)
         flclash_row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
         self.assertIn("[官方仓库](https://github.com/chen08209/FlClash)", flclash_row)
+        legacy = text.split("### ClashX Pro\n", 1)[1].split("\n## 核验规则", 1)[0]
+        for label in ("分类", "状态", "平台", "内核", "原官方来源", "原官方下载", "最后版本", "说明", "第三方历史资料", "核验"):
+            self.assertIn(f"- {label}：", legacy)
         self.assertNotIn("🟡 半年至一年未更新｜半年至一年未更新", text)
         self.assertNotIn("🔴 历史项目｜历史项目", text)
 
@@ -995,7 +1017,7 @@ class RenderTests(unittest.TestCase):
     def test_detail_sections_keep_bare_urls(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
         section = text.split("### Clash Verge\n", 1)[1].split("\n### ", 1)[0]
-        self.assertIn("- 官方来源：", section)
+        self.assertIn("- 原官方来源：", section)
         self.assertIn("[https://github.com/zzzgydi/clash-verge](https://github.com/zzzgydi/clash-verge)", section)
         self.assertIn("[https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8](https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8)", section)
 

@@ -44,11 +44,12 @@ STATUS_LABELS = {
     "❓": "❓ 待确认",
     "🔴": "🔴 历史项目",
 }
-CATEGORY_ORDER = {"native": 0, "compatible": 1, "other": 2, "legacy": 3}
+CATEGORY_ORDER = {"mihomo": 0, "sing_box": 1, "multi_core": 2, "proprietary": 3, "legacy": 4}
 CATEGORY_TITLES = {
-    "native": "Mihomo / Clash 客户端",
-    "compatible": "Clash 配置兼容客户端",
-    "other": "其他代表性代理客户端",
+    "mihomo": "Mihomo / Clash 内核客户端",
+    "sing_box": "sing-box 内核客户端",
+    "multi_core": "多内核客户端",
+    "proprietary": "闭源客户端",
     "legacy": "历史项目",
 }
 BLOCKED_TEXT = ("orymi.net", "starlinkboost.com", "高速机场推荐")
@@ -1303,13 +1304,14 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "",
         "<!-- 本 README 由 scripts/build_readme.py 从 data/clients.json 与 data/observations.json 生成。 -->",
         "",
-        "收录常见代理客户端，并按与 Clash/Mihomo 的关系和产品定位分类。",
+        "收录常见代理客户端，并按主要内核或实现方式分类。",
         "状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。",
         evidence_summary(clients, observations, current),
         "> 页面仅在自动核验或人工更新后变化；核验时间超过 7 天时，请重新确认项目状态和下载链接。",
         "",
         "> 🟢 活跃；🟡 半年至一年未更新；🕒 一年以上未更新；❓ 待确认；🔴 历史项目。",
         "> “官方来源”中的“官方仓库”表示项目提供公开代码仓库；“官网”表示主要官方入口。来源类型不等同于开源许可证。",
+        "> “闭源客户端”仅表示未提供公开客户端源码，不代表一定收费。",
         "> 第三方历史资料不作为官方下载来源。",
         "",
     ]
@@ -1322,7 +1324,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "- 仅在收录错误、项目无关或记录重复时删除条目。",
         "",
     ])
-    for category in ("native", "compatible", "other", "legacy"):
+    for category in ("mihomo", "sing_box", "multi_core", "proprietary", "legacy"):
         group = [client for client in clients if client["category"] == category]
         group.sort(key=lambda client: sort_key(client, records.get(client["id"], {}), current))
         if not group:
@@ -1357,38 +1359,20 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
     lines.extend([
         "## 项目详情",
         "",
-        "分类按内核关系与产品定位划分；历史项目不作为新安装推荐。",
-        "内核字段使用统一项目名；多内核统一写为“多内核（…）”，派生实现仅标注必要的基于关系。",
+        "在用项目按主要内核或实现方式分类；历史项目单独归档，不作为新安装推荐。",
+        "内核字段使用统一项目名；多内核统一写为“多内核（…）”。",
         "",
     ])
     for client in sorted(clients, key=lambda item: (CATEGORY_ORDER[item["category"]], item["name"].casefold())):
         record = records.get(client["id"], {})
         status, reason = activity_status(client, record, current)
         repository, download = links_for(client, record, current)
-        lines.extend([
-            f"### {client['name']}",
-            "",
-            f"- 分类：{CATEGORY_TITLES[client['category']]}",
-            f"- 状态：{status_detail(status, reason)}",
-            f"- 平台：{platform_summary(client)}",
-        ])
-        if client.get("core"):
-            lines.append(f"- 内核：{client['core']}")
-        if repository:
-            lines.append(f"- 官方来源：{markdown_link(repository, repository)}")
-        if download:
-            lines.append(f"- 下载：{markdown_link(download, download)}")
-        release = record.get("release", {})
-        if release.get("version") and release.get("published_at") and component_is_scoped(client, record, "release"):
-            published = parse_time(release.get("published_at"))
-            published_label = published.date().isoformat() if published else str(release["published_at"])
-            lines.append(f"- 版本：{release['version']}（{published_label}）")
-        if client.get("minimum_system"):
-            lines.append(f"- 最低系统：{client['minimum_system']}")
-        if client.get("compatibility_note"):
-            lines.append(f"- 定位/兼容性：{client['compatibility_note']}")
-        if client.get("source_note"):
-            lines.append(f"- 来源说明：{client['source_note']}")
+        notes = [
+            str(value).rstrip("。；")
+            for value in (client.get("compatibility_note"), client.get("source_note"))
+            if value
+        ]
+        note_text = "；".join(notes) + "。" if notes else "无特殊说明。"
         warnings: list[str] = []
         for component_key, component_label in (
             ("source", "项目来源"),
@@ -1402,9 +1386,52 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
                 if warning:
                     warnings.append(warning.rstrip("。；"))
         if warnings:
-            lines.append(f"- 核验：{'；'.join(warnings)}。")
-        for archive in client.get("third_party_archives", []):
-            lines.append(f"- 第三方历史资料：{markdown_link(archive['url'], archive['url'])}；只用于查找历史资料，不作为官方下载地址。")
+            verification = f"{'；'.join(warnings)}。"
+        elif expected_observation_components(client):
+            verification = "无异常。"
+        else:
+            verification = "不适用。"
+
+        lines.extend([
+            f"### {client['name']}",
+            "",
+            f"- 分类：{CATEGORY_TITLES[client['category']]}",
+            f"- 状态：{status_detail(status, reason)}",
+            f"- 平台：{platform_summary(client)}",
+            f"- 内核：{client.get('core') or '未确认'}",
+        ])
+        if client["category"] == "legacy":
+            historical = record.get("historical_release", {})
+            historical_version = "未确认"
+            if historical.get("tag") and component_is_scoped(client, record, "historical_release"):
+                historical_version = str(historical["tag"])
+            archives = client.get("third_party_archives", [])
+            archive_text = "无"
+            if archives:
+                archive_text = "；".join(markdown_link(archive["url"], archive["url"]) for archive in archives)
+                archive_text += "；只用于查找历史资料，不作为官方下载地址。"
+            lines.extend([
+                f"- 原官方来源：{markdown_link(repository, repository) if repository else '不可用'}",
+                f"- 原官方下载：{markdown_link(download, download) if download else '不可用'}",
+                f"- 最后版本：{historical_version}",
+                f"- 说明：{note_text}",
+                f"- 第三方历史资料：{archive_text}",
+                f"- 核验：{verification}",
+            ])
+        else:
+            release = record.get("release", {})
+            version_text = "待确认"
+            if release.get("version") and release.get("published_at") and component_is_scoped(client, record, "release"):
+                published = parse_time(release.get("published_at"))
+                published_label = published.date().isoformat() if published else str(release["published_at"])
+                version_text = f"{release['version']}（{published_label}）"
+            lines.extend([
+                f"- 官方来源：{markdown_link(repository, repository) if repository else '待确认'}",
+                f"- 下载：{markdown_link(download, download) if download else '待确认'}",
+                f"- 版本：{version_text}",
+                f"- 说明：{note_text}",
+                f"- 核验：{verification}",
+            ])
         lines.append("")
     lines.extend([
         "## 核验规则",

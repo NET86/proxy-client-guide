@@ -296,8 +296,8 @@
         "scope": "sha256:b1f49aee72b1870e0ee334736cfc05bc84565faa1988eeaa862bfd4fdca66016",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T00:43:39Z",
-        "last_success_at": "2026-09-16T00:43:39Z"
+        "observed_at": "2026-09-16T23:23:59Z",
+        "last_success_at": "2026-09-16T23:23:59Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -398,8 +398,8 @@
         "scope": "sha256:8300efaaab427c2396ce2658ced159af5356e89ebf58e84f574bae1fcfc0d29f",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T00:43:39Z",
-        "last_success_at": "2026-09-16T00:43:39Z"
+        "observed_at": "2026-09-16T23:23:59Z",
+        "last_success_at": "2026-09-16T23:23:59Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -420,8 +420,8 @@
         "scope": "sha256:447ea9b2a3d6b6ebe8586bc094e5fa49ee6ca550d3aa7ea7c2211152290a5761",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T00:43:39Z",
-        "last_success_at": "2026-09-16T00:43:39Z"
+        "observed_at": "2026-09-16T23:23:59Z",
+        "last_success_at": "2026-09-16T23:23:59Z"
       },
       "release": {
         "state": "ok",
@@ -454,8 +454,8 @@
         "scope": "sha256:1b76b41a9111df8a16e87c1cd9978f1d7744061881c7d5ec76724c1d82dd626d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T02:50:47Z",
-        "last_success_at": "2026-09-16T02:50:47Z"
+        "observed_at": "2026-09-16T23:23:59Z",
+        "last_success_at": "2026-09-16T23:23:59Z"
       },
       "release": {
         "state": "ok",
@@ -488,8 +488,8 @@
         "scope": "sha256:fed4b10a4ba62f312be68ef9d5539aa346e18488fe6b9c274dffd753d19bdca8",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T21:21:52Z",
-        "last_success_at": "2026-09-16T21:21:52Z"
+        "observed_at": "2026-09-16T23:23:59Z",
+        "last_success_at": "2026-09-16T23:23:59Z"
       },
       "release": {
         "state": "ok",
@@ -522,8 +522,8 @@
         "scope": "sha256:5cba1e086e69e658d226e57e8e4a9b3e479f775bce35f79d941ab5865ee01871",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T00:43:39Z",
-        "last_success_at": "2026-09-16T00:43:39Z"
+        "observed_at": "2026-09-16T23:23:59Z",
+        "last_success_at": "2026-09-16T23:23:59Z"
       },
       "release": {
         "state": "ok",
@@ -606,8 +606,8 @@
         "scope": "sha256:d35e90e263935115dcd30a10e27d7fafa729f406c7b125a8618b6576dcbd522c",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T00:43:39Z",
-        "last_success_at": "2026-09-16T00:43:39Z"
+        "observed_at": "2026-09-16T23:23:59Z",
+        "last_success_at": "2026-09-16T23:23:59Z"
       },
       "historical_release": {
         "state": "ok",
@@ -730,8 +730,8 @@
         "scope": "sha256:94ed8831c76c3090271f1e1d013198fed4156e925aa24fdeed3cb2ab8522d8d9",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-16T14:34:40Z",
-        "last_success_at": "2026-09-16T14:34:40Z"
+        "observed_at": "2026-09-16T23:23:59Z",
+        "last_success_at": "2026-09-16T23:23:59Z"
       },
       "release": {
         "state": "ok",

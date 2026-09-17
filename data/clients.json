@@ -1,16 +1,17 @@
 {
   "version": 3,
   "scope": {
-    "native": "以 Mihomo/Clash 为主要内核的客户端。",
-    "compatible": "不以 Mihomo/Clash 为主要内核，但明确兼容 Clash 配置体系的客户端。",
-    "other": "其他具有代表性的代理客户端。",
+    "mihomo": "以 Mihomo、Clash 或其直接派生实现为主要内核的客户端。",
+    "sing_box": "以 sing-box 为主要内核的客户端。",
+    "multi_core": "同时支持多个代理内核的客户端。",
+    "proprietary": "客户端主体未提供公开源码，内核或实现以官方发布信息为准。",
     "legacy": "已停更、合并或官方来源不可用的历史项目。"
   },
   "clients": [
     {
       "id": "flclash",
       "name": "FlClash",
-      "category": "native",
+      "category": "mihomo",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -37,7 +38,7 @@
     {
       "id": "clash-verge-rev",
       "name": "Clash Verge Rev",
-      "category": "native",
+      "category": "mihomo",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -64,7 +65,7 @@
     {
       "id": "clashmi",
       "name": "ClashMi",
-      "category": "native",
+      "category": "mihomo",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -91,7 +92,7 @@
     {
       "id": "hako",
       "name": "Clash（Hako）",
-      "category": "native",
+      "category": "mihomo",
       "platforms": {
         "windows": false,
         "macos": true,
@@ -128,7 +129,7 @@
     {
       "id": "clashx-meta",
       "name": "ClashX Meta",
-      "category": "native",
+      "category": "mihomo",
       "platforms": {
         "windows": false,
         "macos": true,
@@ -155,7 +156,7 @@
     {
       "id": "clash-meta-android",
       "name": "Clash Meta for Android",
-      "category": "native",
+      "category": "mihomo",
       "platforms": {
         "windows": false,
         "macos": false,
@@ -183,7 +184,7 @@
     {
       "id": "clash-nyanpasu",
       "name": "Clash Nyanpasu",
-      "category": "native",
+      "category": "multi_core",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -213,7 +214,7 @@
     {
       "id": "clash-party",
       "name": "Clash-Party",
-      "category": "native",
+      "category": "multi_core",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -241,7 +242,7 @@
     {
       "id": "sparkle",
       "name": "Sparkle",
-      "category": "native",
+      "category": "mihomo",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -269,7 +270,7 @@
     {
       "id": "metacubexd",
       "name": "MetaCubeXD",
-      "category": "native",
+      "category": "mihomo",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -296,7 +297,7 @@
     {
       "id": "bettbox",
       "name": "Bettbox",
-      "category": "native",
+      "category": "mihomo",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -324,7 +325,7 @@
     {
       "id": "asteriskmeta",
       "name": "AsteriskMETA",
-      "category": "native",
+      "category": "mihomo",
       "platforms": {
         "windows": false,
         "macos": false,
@@ -352,7 +353,7 @@
     {
       "id": "hiddify",
       "name": "Hiddify",
-      "category": "other",
+      "category": "sing_box",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -379,7 +380,7 @@
     {
       "id": "karing",
       "name": "Karing",
-      "category": "compatible",
+      "category": "sing_box",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -402,12 +403,12 @@
           ]
         }
       ],
-      "compatibility_note": "基于 sing-box；支持完整 Clash 和部分 Clash.Meta 配置。"
+      "compatibility_note": "支持完整 Clash 和部分 Clash.Meta 配置。"
     },
     {
       "id": "v2rayn",
       "name": "v2rayN",
-      "category": "other",
+      "category": "multi_core",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -441,7 +442,7 @@
     {
       "id": "nekobox-android",
       "name": "NekoBox for Android",
-      "category": "other",
+      "category": "sing_box",
       "platforms": {
         "windows": false,
         "macos": false,
@@ -464,14 +465,13 @@
           ]
         }
       ],
-      "minimum_system": "Android 5.0（API 21）及以上",
       "compatibility_note": "可解析 Clash.Meta / Mihomo、v2rayN 等订阅节点，不导入其分流规则。",
       "source_note": "Google Play 版本自 2024-05 起不再由原项目维护；请使用官方 GitHub 下载页。"
     },
     {
       "id": "shadowrocket",
       "name": "Shadowrocket",
-      "category": "other",
+      "category": "proprietary",
       "platforms": {
         "windows": false,
         "macos": true,
@@ -485,12 +485,12 @@
       "app_store_seller": "Shadow Launch Technology Limited",
       "website_url": "https://shadowlaunch.com/",
       "download_url": "https://apps.apple.com/us/app/shadowrocket/id932747118",
-      "core": "专有实现"
+      "core": "未公开"
     },
     {
       "id": "surge",
       "name": "Surge",
-      "category": "other",
+      "category": "proprietary",
       "platforms": {
         "windows": false,
         "macos": true,
@@ -504,7 +504,7 @@
       "app_store_seller": "Surge Networks Inc.",
       "website_url": "https://nssurge.com/",
       "download_url": "https://apps.apple.com/us/app/surge-5/id1442620678",
-      "core": "专有实现"
+      "core": "未公开"
     },
     {
       "id": "clash-verge-legacy",
@@ -544,7 +544,8 @@
             "size": 35622344
           }
         ]
-      }
+      },
+      "source_note": "原官方仓库已归档；保留可核验的 v1.3.8 原官方下载页。"
     },
     {
       "id": "cfw-legacy",
@@ -660,7 +661,7 @@
     {
       "id": "stash",
       "name": "Stash",
-      "category": "compatible",
+      "category": "proprietary",
       "platforms": {
         "windows": true,
         "macos": true,
@@ -676,13 +677,13 @@
       "release_source": "app_store",
       "download_url": "https://apps.apple.com/us/app/id1596063349",
       "download_page_url": "https://stash.ws/download",
-      "core": "专有实现",
-      "compatibility_note": "完整兼容 Clash Premium 配置格式，使用独立实现。"
+      "core": "未公开",
+      "compatibility_note": "完整兼容 Clash Premium 配置格式。"
     },
     {
       "id": "quantumult-x",
       "name": "Quantumult X",
-      "category": "other",
+      "category": "proprietary",
       "platforms": {
         "windows": false,
         "macos": true,
@@ -696,12 +697,12 @@
       "app_store_seller": "Cross Utility Ltd",
       "website_url": "https://quantumult.app/",
       "download_url": "https://apps.apple.com/us/app/id1443988620",
-      "core": "专有实现"
+      "core": "未公开"
     },
     {
       "id": "loon",
       "name": "Loon",
-      "category": "other",
+      "category": "proprietary",
       "platforms": {
         "windows": false,
         "macos": true,
@@ -715,12 +716,12 @@
       "app_store_seller": "Loon Lab Limited",
       "website_url": "https://docs.nsloon.com/",
       "download_url": "https://apps.apple.com/us/app/id1373567447",
-      "core": "专有实现"
+      "core": "未公开"
     },
     {
       "id": "egern",
       "name": "Egern",
-      "category": "other",
+      "category": "proprietary",
       "platforms": {
         "windows": false,
         "macos": true,
@@ -734,12 +735,12 @@
       "app_store_seller": "BYTE CROSSING LTD",
       "website_url": "https://egernapp.com/",
       "download_url": "https://apps.apple.com/us/app/id1616105820",
-      "core": "专有实现"
+      "core": "未公开"
     },
     {
       "id": "sing-box",
       "name": "sing-box",
-      "category": "other",
+      "category": "sing_box",
       "platforms": {
         "windows": true,
         "macos": true,
