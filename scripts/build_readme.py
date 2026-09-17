@@ -25,6 +25,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any, Callable
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CATALOG = ROOT / "data" / "clients.json"
@@ -60,6 +61,11 @@ REQUEST_ATTEMPTS = 2
 OBSERVATION_VERSION = 2
 EVIDENCE_SCOPE_VERSION = 1
 FUTURE_SKEW = dt.timedelta(minutes=5)
+DISPLAY_TIMEZONE = ZoneInfo("Asia/Shanghai")
+
+
+def display_date(value: dt.datetime) -> dt.date:
+    return value.astimezone(DISPLAY_TIMEZONE).date()
 
 
 class ObservationError(RuntimeError):
@@ -482,7 +488,12 @@ def positive_record(old: dict[str, Any] | None, stamp: str, scope: str, **fields
     record["scope"] = scope
     current_business = _business_snapshot(record)
     same_business = previous_business == current_business
-    same_day = bool(previous_success and current_stamp and previous_success <= current_stamp and previous_success.date() == current_stamp.date())
+    same_day = bool(
+        previous_success
+        and current_stamp
+        and previous_success <= current_stamp
+        and display_date(previous_success) == display_date(current_stamp)
+    )
     recovered = previous_observation_state in {"error", "unverified", "verified_negative"}
 
     record["observation_state"] = "fresh"
@@ -939,7 +950,7 @@ def audit(
     output = copy.deepcopy(observations)
     output["version"] = OBSERVATION_VERSION
     previous_run = parse_time(output.get("last_run_at"))
-    if previous_run is None or previous_run > current or previous_run.date() != current.date():
+    if previous_run is None or previous_run > current or display_date(previous_run) != display_date(current):
         output["last_run_at"] = stamp
     output.setdefault("clients", {})
     token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
@@ -1237,8 +1248,8 @@ def evidence_summary(
                 times.append(timestamp)
     if not times:
         return "核验：暂无成功记录。"
-    earliest = min(times).date().isoformat()
-    latest = max(times).date().isoformat()
+    earliest = display_date(min(times)).isoformat()
+    latest = display_date(max(times)).isoformat()
     suffix = f"；{missing} 项待成功核验" if missing else ""
     if earliest == latest:
         return f"核验：最近成功日期 {latest}{suffix}。"

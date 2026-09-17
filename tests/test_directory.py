@@ -737,6 +737,27 @@ class AuditTests(unittest.TestCase):
         second = d.audit([client], first, api, lambda _url: "", NOW + dt.timedelta(hours=2))
         self.assertEqual(second, first)
 
+    def test_shanghai_next_day_refreshes_heartbeat_within_same_utc_day(self):
+        client = {
+            "id": "synthetic", "name": "Synthetic", "category": "mihomo",
+            "platforms": {key: False for key in d.PLATFORMS},
+            "source_type": "github", "github_repo": "o/r",
+            "official_repo_id": 101,
+            "download_url": "https://github.com/o/r/releases",
+        }
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v1", "2026-09-14T00:00:00Z", 303)
+            return {"id": 101, "full_name": "o/r", "owner": {"id": 202}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
+        before_midnight = dt.datetime(2026, 9, 17, 15, 30, tzinfo=dt.timezone.utc)
+        after_midnight = dt.datetime(2026, 9, 17, 16, 30, tzinfo=dt.timezone.utc)
+        first = d.audit([client], {"version": 1, "clients": {}}, api, lambda _url: "", before_midnight)
+        second = d.audit([client], first, api, lambda _url: "", after_midnight)
+        self.assertEqual(before_midnight.date(), after_midnight.date())
+        self.assertNotEqual(second["last_run_at"], first["last_run_at"])
+        self.assertEqual(d.display_date(d.parse_time(second["last_run_at"])), dt.date(2026, 9, 18))
+        self.assertEqual(d.display_date(d.parse_time(second["clients"]["synthetic"]["source"]["last_success_at"])), dt.date(2026, 9, 18))
+
     def test_next_day_healthy_audit_refreshes_daily_heartbeat(self):
         client = {
             "id": "synthetic", "name": "Synthetic", "category": "mihomo",
@@ -1113,6 +1134,21 @@ class RenderTests(unittest.TestCase):
         summary = d.evidence_summary([client], observations, NOW)
         self.assertIn("成功记录 2026-09-10 至 2026-09-15", summary)
         self.assertIn("2026-09-15", summary)
+
+    def test_evidence_summary_uses_shanghai_calendar_date(self):
+        client = self.by_id["flclash"]
+        stamp = "2026-09-17T18:17:00Z"
+        observations = {
+            "clients": {
+                "flclash": {
+                    "source": {"scope": d.source_scope(client), "last_success_at": stamp},
+                    "release": {"scope": d.release_scope(client), "last_success_at": stamp},
+                    "core_evidence": {"scope": d.core_evidence_scope(client), "last_success_at": stamp},
+                }
+            }
+        }
+        now = dt.datetime(2026, 9, 18, 0, 0, tzinfo=dt.timezone.utc)
+        self.assertEqual(d.evidence_summary([client], observations, now), "核验：最近成功日期 2026-09-18。")
 
     def test_readme_surfaces_release_and_core_anomalies(self):
         observations = self.base_observations()
