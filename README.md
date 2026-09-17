@@ -7,10 +7,10 @@
 核验：最近成功日期 2026-09-17。
 > 页面仅在自动核验或人工更新后变化；核验异常会标记为待确认，但除项目身份冲突或目录配置变化外，仍保留已配置官方入口供自行判断。
 
-> 🟢 活跃；🟡 半年至一年未更新；🕒 一年以上未更新；❓ 待确认；🔴 历史项目。
+> 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
 > “官方来源”中的“官方仓库”表示项目提供公开代码仓库；“官网”表示主要官方入口。来源类型不等同于开源许可证。
-> “闭源客户端”仅表示未提供公开客户端源码，不代表一定收费。
-> 第三方下载仅作历史资料，不作为官方下载来源。
+> “闭源客户端”仅表示未提供公开客户端源码。
+> 第三方下载仅作历史资料，未与原官方版本核对。
 
 ## 收录原则
 
@@ -45,11 +45,11 @@
 
 ## 多内核客户端
 
-| 客户端 | 状态 | 内核 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
-| --- | :---: | --- | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
-| Clash Nyanpasu | 🟢 | Mihomo / Clash Premium / Clash Rust / Meow | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/libnyanpasu/clash-nyanpasu) | [下载页](https://github.com/libnyanpasu/clash-nyanpasu/releases) |
-| Clash-Party | 🟢 | Mihomo / Smart Core | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/mihomo-party-org/clash-party) | [下载页](https://github.com/mihomo-party-org/clash-party/releases) |
-| v2rayN | 🟢 | Xray / v2fly / Mihomo / sing-box 等 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/2dust/v2rayN) | [下载页](https://github.com/2dust/v2rayN/releases) |
+| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
+| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
+| Clash Nyanpasu | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/libnyanpasu/clash-nyanpasu) | [下载页](https://github.com/libnyanpasu/clash-nyanpasu/releases) |
+| Clash-Party | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/mihomo-party-org/clash-party) | [下载页](https://github.com/mihomo-party-org/clash-party/releases) |
+| v2rayN | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/2dust/v2rayN) | [下载页](https://github.com/2dust/v2rayN/releases) |
 
 ## 闭源客户端
 
@@ -75,13 +75,10 @@
 
 ## 项目详情
 
-在用项目按主要内核或实现方式分类；历史项目单独归档，不作为新安装推荐。
-内核字段使用统一项目名；多内核统一写为“多内核（…）”。
-
 ### AsteriskMETA
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：Android
 - 内核：Mihomo
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
@@ -91,7 +88,7 @@
 ### Bettbox
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / Windows / Android / Linux
 - 内核：Mihomo
 - 官方来源：[https://github.com/appshubcc/Bettbox](https://github.com/appshubcc/Bettbox)
@@ -101,7 +98,7 @@
 ### Clash Meta for Android
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：Android
 - 内核：Mihomo
 - 官方来源：[https://github.com/MetaCubeX/ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid)
@@ -112,7 +109,7 @@
 ### Clash Verge Rev
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / Windows / Linux
 - 内核：Mihomo
 - 官方来源：[https://github.com/clash-verge-rev/clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)
@@ -122,7 +119,7 @@
 ### ClashMi
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / Windows / Android / Linux
 - 内核：Mihomo
 - 官方来源：[https://github.com/KaringX/clashmi](https://github.com/KaringX/clashmi)
@@ -132,7 +129,7 @@
 ### ClashX Meta
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS
 - 内核：Clash
 - 官方来源：[https://github.com/MetaCubeX/ClashX.Meta](https://github.com/MetaCubeX/ClashX.Meta)
@@ -142,7 +139,7 @@
 ### Clash（Hako）
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / tvOS
 - 内核：Hako（基于 Mihomo）
 - 官方来源：[https://github.com/TokenPLS/Hako-Client](https://github.com/TokenPLS/Hako-Client)
@@ -152,7 +149,7 @@
 ### FlClash
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / Windows / Android / Linux
 - 内核：Mihomo
 - 官方来源：[https://github.com/chen08209/FlClash](https://github.com/chen08209/FlClash)
@@ -162,7 +159,7 @@
 ### MetaCubeXD
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / Windows / Linux
 - 内核：Mihomo
 - 官方来源：[https://github.com/MetaCubeX/metacubexd](https://github.com/MetaCubeX/metacubexd)
@@ -172,7 +169,7 @@
 ### Sparkle
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / Windows / Linux
 - 内核：Mihomo
 - 官方来源：[https://github.com/xishang0128/sparkle](https://github.com/xishang0128/sparkle)
@@ -182,7 +179,7 @@
 ### Hiddify
 
 - 分类：sing-box 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / Windows / Android / Linux
 - 内核：sing-box
 - 官方来源：[https://github.com/hiddify/hiddify-app](https://github.com/hiddify/hiddify-app)
@@ -192,7 +189,7 @@
 ### Karing
 
 - 分类：sing-box 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / Windows / Android / Linux
 - 内核：sing-box
 - 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
@@ -203,7 +200,7 @@
 ### NekoBox for Android
 
 - 分类：sing-box 内核客户端
-- 状态：🟡 半年至一年未更新
+- 状态：🟡 最近更新距今半年至一年
 - 平台：Android
 - 内核：sing-box
 - 官方来源：[https://github.com/MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid)
@@ -214,7 +211,7 @@
 ### sing-box
 
 - 分类：sing-box 内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / tvOS / Windows / Android / Linux
 - 内核：sing-box
 - 官方来源：[https://github.com/SagerNet/sing-box](https://github.com/SagerNet/sing-box)
@@ -224,7 +221,7 @@
 ### Clash Nyanpasu
 
 - 分类：多内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / Windows / Linux
 - 内核：多内核（Mihomo / Clash Premium / Clash Rust / Meow）
 - 官方来源：[https://github.com/libnyanpasu/clash-nyanpasu](https://github.com/libnyanpasu/clash-nyanpasu)
@@ -234,7 +231,7 @@
 ### Clash-Party
 
 - 分类：多内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / Windows / Linux
 - 内核：多内核（Mihomo / Smart Core）
 - 官方来源：[https://github.com/mihomo-party-org/clash-party](https://github.com/mihomo-party-org/clash-party)
@@ -244,7 +241,7 @@
 ### v2rayN
 
 - 分类：多内核客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / Windows / Linux
 - 内核：多内核（Xray / v2fly / Mihomo / sing-box 等）
 - 官方来源：[https://github.com/2dust/v2rayN](https://github.com/2dust/v2rayN)
@@ -254,7 +251,7 @@
 ### Egern
 
 - 分类：闭源客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS
 - 内核：未公开
 - 官方来源：[https://egernapp.com/](https://egernapp.com/)
@@ -264,7 +261,7 @@
 ### Loon
 
 - 分类：闭源客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / tvOS
 - 内核：未公开
 - 官方来源：[https://docs.nsloon.com/](https://docs.nsloon.com/)
@@ -274,7 +271,7 @@
 ### Quantumult X
 
 - 分类：闭源客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / tvOS
 - 内核：未公开
 - 官方来源：[https://quantumult.app/](https://quantumult.app/)
@@ -284,7 +281,7 @@
 ### Shadowrocket
 
 - 分类：闭源客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / tvOS
 - 内核：未公开
 - 官方来源：[https://shadowlaunch.com/](https://shadowlaunch.com/)
@@ -294,7 +291,7 @@
 ### Stash
 
 - 分类：闭源客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / tvOS / Windows / Android
 - 内核：未公开
 - 官方来源：[https://stash.ws/](https://stash.ws/)
@@ -305,7 +302,7 @@
 ### Surge
 
 - 分类：闭源客户端
-- 状态：🟢 活跃｜近半年有官方更新
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / tvOS
 - 内核：未公开
 - 官方来源：[https://nssurge.com/](https://nssurge.com/)

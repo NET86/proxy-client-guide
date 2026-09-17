@@ -973,7 +973,7 @@ class RenderTests(unittest.TestCase):
         self.assertTrue(row.rstrip().endswith("| — | — |"))
         detail = text.split("### Clash for Windows\n", 1)[1].split("\n### ", 1)[0]
         self.assertIn("- 第三方下载：", detail)
-        self.assertIn("第三方下载仅作历史资料", text)
+        self.assertIn("第三方下载仅作历史资料，未与原官方版本核对。", text)
         self.assertNotIn("第三方历史资料", text)
 
     def test_evidence_freshness_ages_without_network(self):
@@ -1009,11 +1009,13 @@ class RenderTests(unittest.TestCase):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
         self.assertNotIn("🟠", text)
         self.assertNotIn("⚪", text)
-        self.assertIn("🕒 一年以上未更新", text)
+        self.assertIn("🟢 近半年有更新", text)
+        self.assertIn("🟡 最近更新距今半年至一年", text)
+        self.assertIn("🕒 最近更新距今一年以上", text)
         self.assertIn("❓ 待确认", text)
         flclash_row = next(line for line in text.splitlines() if line.startswith("| FlClash |"))
         self.assertIn("| 🟢 |", flclash_row)
-        self.assertNotIn("🟢 活跃", flclash_row)
+        self.assertNotIn("🟢 近半年有更新", flclash_row)
 
     def test_detail_sections_use_consistent_fields_without_freeform_notes(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
@@ -1052,8 +1054,10 @@ class RenderTests(unittest.TestCase):
         self.assertNotIn("- 原官方来源：", legacy)
         self.assertNotIn("- 原官方下载：", legacy)
         self.assertNotIn("- 核验：", legacy)
-        self.assertNotIn("🟡 半年至一年未更新｜半年至一年未更新", text)
+        self.assertNotIn("🟡 最近更新距今半年至一年｜最近更新距今半年至一年", text)
         self.assertNotIn("🔴 历史项目｜历史项目", text)
+        self.assertNotIn("在用项目按主要内核或实现方式分类", text)
+        self.assertNotIn("多内核统一写为", text)
 
     def test_legacy_table_labels_are_consistent(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
@@ -1076,13 +1080,18 @@ class RenderTests(unittest.TestCase):
         for jargon in ("`LKG`", "`scope`", "`pin`", "canonical `", " unverified ", " failover", "lookup", "报警"):
             self.assertNotIn(jargon, text)
 
-    def test_multicore_table_exposes_supported_cores(self):
+    def test_multicore_table_stays_compact_and_details_expose_supported_cores(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
         section = text.split("## 多内核客户端\n", 1)[1].split("\n## 闭源客户端", 1)[0]
-        self.assertIn("| 客户端 | 状态 | 内核 |", section)
-        self.assertIn("Mihomo / Clash Premium / Clash Rust / Meow", section)
-        self.assertIn("Mihomo / Smart Core", section)
-        self.assertIn("Xray / v2fly / Mihomo / sing-box 等", section)
+        self.assertIn("| 客户端 | 状态 | macOS |", section)
+        self.assertNotIn("| 客户端 | 状态 | 内核 |", section)
+        self.assertNotIn("Mihomo / Clash Premium / Clash Rust / Meow", section)
+        self.assertNotIn("Mihomo / Smart Core", section)
+        self.assertNotIn("Xray / v2fly / Mihomo / sing-box 等", section)
+        details = text.split("## 项目详情\n", 1)[1]
+        self.assertIn("- 内核：多内核（Mihomo / Clash Premium / Clash Rust / Meow）", details)
+        self.assertIn("- 内核：多内核（Mihomo / Smart Core）", details)
+        self.assertIn("- 内核：多内核（Xray / v2fly / Mihomo / sing-box 等）", details)
 
     def test_readme_omits_noop_verification_but_exposes_evidence_age(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)

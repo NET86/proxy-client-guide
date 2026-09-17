@@ -38,9 +38,9 @@ MAX_AUDIT_WORKERS = 6
 PLATFORMS = ("macos", "ios", "tvos", "windows", "android", "linux")
 STATUS_RANK = {"🟢": 0, "🟡": 1, "🕒": 2, "❓": 3, "🔴": 4}
 STATUS_LABELS = {
-    "🟢": "🟢 活跃",
-    "🟡": "🟡 半年至一年未更新",
-    "🕒": "🕒 一年以上未更新",
+    "🟢": "🟢 近半年有更新",
+    "🟡": "🟡 最近更新距今半年至一年",
+    "🕒": "🕒 最近更新距今一年以上",
     "❓": "❓ 待确认",
     "🔴": "🔴 历史项目",
 }
@@ -1122,10 +1122,10 @@ def activity_status(client: dict[str, Any], record: dict[str, Any], now: dt.date
         return "❓", "缺少可靠更新时间"
     age = current - max(activities)
     if age <= dt.timedelta(days=ACTIVE_DAYS):
-        return "🟢", "近半年有官方更新"
+        return "🟢", "近半年有更新"
     if age <= dt.timedelta(days=RECENT_DAYS):
-        return "🟡", "半年至一年未更新"
-    return "🕒", "一年以上未更新"
+        return "🟡", "最近更新距今半年至一年"
+    return "🕒", "最近更新距今一年以上"
 
 
 def links_for(client: dict[str, Any], record: dict[str, Any], now: dt.datetime | None = None) -> tuple[str, str]:
@@ -1308,10 +1308,10 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         evidence_summary(clients, observations, current),
         "> 页面仅在自动核验或人工更新后变化；核验异常会标记为待确认，但除项目身份冲突或目录配置变化外，仍保留已配置官方入口供自行判断。",
         "",
-        "> 🟢 活跃；🟡 半年至一年未更新；🕒 一年以上未更新；❓ 待确认；🔴 历史项目。",
+        "> 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。",
         "> “官方来源”中的“官方仓库”表示项目提供公开代码仓库；“官网”表示主要官方入口。来源类型不等同于开源许可证。",
-        "> “闭源客户端”仅表示未提供公开客户端源码，不代表一定收费。",
-        "> 第三方下载仅作历史资料，不作为官方下载来源。",
+        "> “闭源客户端”仅表示未提供公开客户端源码。",
+        "> 第三方下载仅作历史资料，未与原官方版本核对。",
         "",
     ]
     lines.extend([
@@ -1332,20 +1332,12 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         group.sort(key=lambda client: sort_key(client, records.get(client["id"], {}), current))
         if not group:
             continue
-        if category == "multi_core":
-            lines.extend([
-                f"## {CATEGORY_TITLES[category]}",
-                "",
-                "| 客户端 | 状态 | 内核 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |",
-                "| --- | :---: | --- | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |",
-            ])
-        else:
-            lines.extend([
-                f"## {CATEGORY_TITLES[category]}",
-                "",
-                "| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |",
-                "| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |",
-            ])
+        lines.extend([
+            f"## {CATEGORY_TITLES[category]}",
+            "",
+            "| 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |",
+            "| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |",
+        ])
         for client in group:
             record = records.get(client["id"], {})
             rendered_category = effective_category(client, record)
@@ -1362,23 +1354,14 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
             else:
                 download_label = "下载页"
             platform = client["platforms"]
-            prefix = f"| {client['name']} | {status} |"
-            if category == "multi_core":
-                core = str(client.get("core") or "未确认")
-                if core.startswith("多内核（") and core.endswith("）"):
-                    core = core[len("多内核（"):-1]
-                prefix += f" {core} |"
             lines.append(
-                f"{prefix} {icon(platform['macos'])} | {icon(platform['ios'])} | {icon(platform['tvos'])} | "
+                f"| {client['name']} | {status} | {icon(platform['macos'])} | {icon(platform['ios'])} | {icon(platform['tvos'])} | "
                 f"{icon(platform['windows'])} | {icon(platform['android'])} | {icon(platform['linux'])} | "
                 f"{markdown_link(source_label, repository)} | {markdown_link(download_label, download)} |"
             )
         lines.append("")
     lines.extend([
         "## 项目详情",
-        "",
-        "在用项目按主要内核或实现方式分类；历史项目单独归档，不作为新安装推荐。",
-        "内核字段使用统一项目名；多内核统一写为“多内核（…）”。",
         "",
     ])
     detail_clients = sorted(
