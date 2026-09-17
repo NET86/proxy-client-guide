@@ -26,7 +26,7 @@ class AdversarialRegressionTests(unittest.TestCase):
         value = {
             "id": client["official_repo_id"],
             "full_name": client["github_repo"],
-            "owner": {"id": client["official_owner_id"]},
+            "owner": {"id": 2},
             "archived": False,
             "disabled": False,
             "pushed_at": "2026-09-15T10:00:00Z",
@@ -67,7 +67,7 @@ class AdversarialRegressionTests(unittest.TestCase):
         return {
             "source": d.positive_record(
                 None, STAMP, d.source_scope(client), state="ok",
-                repo_id=client["official_repo_id"], owner_id=client["official_owner_id"],
+                repo_id=client["official_repo_id"],
                 full_name=client["github_repo"], last_activity_at="2026-09-15T10:00:00Z",
             ),
             "release": d.positive_record(
@@ -101,7 +101,7 @@ class AdversarialRegressionTests(unittest.TestCase):
         self.assertFalse(ok)
         self.assertEqual(out["source"]["state"], "unknown")
         self.assertIsNone(out["source"].get("last_success_at"))
-        self.assertFalse(d.source_trusted(client_b, out, NOW))
+
         self.assertEqual(d.links_for(client_b, out, NOW)[1], "")
 
     def test_v1_observations_migrate_fail_closed_without_granting_scope(self):
@@ -254,7 +254,7 @@ class AdversarialRegressionTests(unittest.TestCase):
         record = self.healthy_github_record(client)
         record["source"]["last_success_at"] = "2026-09-16T00:00:00Z"
         self.assertFalse(d.component_fresh(client, record, "source", NOW))
-        self.assertFalse(d.source_trusted(client, record, NOW))
+
 
     def test_source_fresh_release_stale_means_pending_but_keeps_download(self):
         client = self.by_id["flclash"]
@@ -300,7 +300,7 @@ class AdversarialRegressionTests(unittest.TestCase):
         client = copy.deepcopy(self.by_id["clash-verge-legacy"])
         old_source = d.positive_record(
             None, STAMP, d.source_scope(client), state="archived",
-            repo_id=client["official_repo_id"], owner_id=client["official_owner_id"],
+            repo_id=client["official_repo_id"],
             full_name=client["github_repo"], last_activity_at="2023-11-03T08:00:47Z",
         )
         history = client["historical_release"]

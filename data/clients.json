@@ -23,7 +23,6 @@
       "source_type": "github",
       "github_repo": "chen08209/FlClash",
       "official_repo_id": 678716433,
-      "official_owner_id": 66918471,
       "download_url": "https://github.com/chen08209/FlClash/releases",
       "core": "Mihomo",
       "core_evidence": [
@@ -50,7 +49,6 @@
       "source_type": "github",
       "github_repo": "clash-verge-rev/clash-verge-rev",
       "official_repo_id": 721767116,
-      "official_owner_id": 152534467,
       "download_url": "https://github.com/clash-verge-rev/clash-verge-rev/releases",
       "core": "Mihomo",
       "core_evidence": [
@@ -77,7 +75,6 @@
       "source_type": "github",
       "github_repo": "KaringX/clashmi",
       "official_repo_id": 966153123,
-      "official_owner_id": 131734194,
       "download_url": "https://github.com/KaringX/clashmi/releases",
       "core": "Mihomo",
       "core_evidence": [
@@ -104,7 +101,6 @@
       "source_type": "github",
       "github_repo": "TokenPLS/Hako-Client",
       "official_repo_id": 1302702957,
-      "official_owner_id": 305755057,
       "app_store_id": "6794257189",
       "app_store_seller": "OmniWide Media Limited",
       "release_source": "app_store",
@@ -141,7 +137,6 @@
       "source_type": "github",
       "github_repo": "MetaCubeX/ClashX.Meta",
       "official_repo_id": 502510490,
-      "official_owner_id": 84378451,
       "download_url": "https://github.com/MetaCubeX/ClashX.Meta/releases",
       "core": "Clash",
       "core_evidence": [
@@ -168,7 +163,6 @@
       "source_type": "github",
       "github_repo": "MetaCubeX/ClashMetaForAndroid",
       "official_repo_id": 500719319,
-      "official_owner_id": 84378451,
       "download_url": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases",
       "core": "Mihomo",
       "core_evidence": [
@@ -196,7 +190,6 @@
       "source_type": "github",
       "github_repo": "libnyanpasu/clash-nyanpasu",
       "official_repo_id": 716838500,
-      "official_owner_id": 159686715,
       "download_url": "https://github.com/libnyanpasu/clash-nyanpasu/releases",
       "core": "多内核（Mihomo / Clash Premium / Clash Rust / Meow）",
       "core_evidence": [
@@ -226,7 +219,6 @@
       "source_type": "github",
       "github_repo": "mihomo-party-org/clash-party",
       "official_repo_id": 836976013,
-      "official_owner_id": 181477152,
       "download_url": "https://github.com/mihomo-party-org/clash-party/releases",
       "core": "多内核（Mihomo / Smart Core）",
       "core_evidence": [
@@ -254,7 +246,6 @@
       "source_type": "github",
       "github_repo": "xishang0128/sparkle",
       "official_repo_id": 838206019,
-      "official_owner_id": 95160953,
       "download_url": "https://github.com/xishang0128/sparkle/releases",
       "core": "Mihomo",
       "core_evidence": [
@@ -282,7 +273,6 @@
       "source_type": "github",
       "github_repo": "MetaCubeX/metacubexd",
       "official_repo_id": 664925328,
-      "official_owner_id": 84378451,
       "download_url": "https://github.com/MetaCubeX/metacubexd/releases",
       "core": "Mihomo",
       "core_evidence": [
@@ -309,7 +299,6 @@
       "source_type": "github",
       "github_repo": "appshubcc/Bettbox",
       "official_repo_id": 1088809592,
-      "official_owner_id": 197630331,
       "download_url": "https://github.com/appshubcc/Bettbox/releases",
       "core": "Mihomo",
       "core_evidence": [
@@ -337,7 +326,6 @@
       "source_type": "github",
       "github_repo": "Asterisk4Magisk/AsteriskMETA",
       "official_repo_id": 1262202400,
-      "official_owner_id": 85885147,
       "download_url": "https://github.com/Asterisk4Magisk/AsteriskMETA/releases",
       "core": "Mihomo",
       "core_evidence": [
@@ -365,7 +353,6 @@
       "source_type": "github",
       "github_repo": "hiddify/hiddify-app",
       "official_repo_id": 643504282,
-      "official_owner_id": 126981719,
       "download_url": "https://github.com/hiddify/hiddify-app/releases",
       "core": "sing-box",
       "core_evidence": [
@@ -392,7 +379,6 @@
       "source_type": "github",
       "github_repo": "KaringX/karing",
       "official_repo_id": 714929749,
-      "official_owner_id": 131734194,
       "download_url": "https://github.com/KaringX/karing/releases",
       "core": "sing-box",
       "core_evidence": [
@@ -420,7 +406,6 @@
       "source_type": "github",
       "github_repo": "2dust/v2rayN",
       "official_repo_id": 199570071,
-      "official_owner_id": 31833384,
       "download_url": "https://github.com/2dust/v2rayN/releases",
       "core": "多内核（Xray / sing-box / Mihomo）",
       "core_evidence": [
@@ -454,7 +439,6 @@
       "source_type": "github",
       "github_repo": "MatsuriDayo/NekoBoxForAndroid",
       "official_repo_id": 609535399,
-      "official_owner_id": 95122236,
       "download_url": "https://github.com/MatsuriDayo/NekoBoxForAndroid/releases",
       "core": "sing-box",
       "core_evidence": [
@@ -521,9 +505,7 @@
       "source_type": "github",
       "github_repo": "zzzgydi/clash-verge",
       "official_repo_id": 434826774,
-      "official_owner_id": 27361820,
       "download_url": "https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.8",
-      "source_lifecycle": "discontinued",
       "historical_release": {
         "tag": "v1.3.8",
         "release_id": 127230375,
@@ -561,7 +543,6 @@
       },
       "source_type": "manual",
       "download_url": "",
-      "source_lifecycle": "discontinued",
       "source_note": "原官方仓库不可用；第三方链接仅作历史资料。",
       "third_party_archives": [
         {
@@ -584,7 +565,6 @@
       },
       "source_type": "manual",
       "download_url": "",
-      "source_lifecycle": "discontinued",
       "source_note": "原官方仓库不可用；第三方链接仅作历史资料。",
       "third_party_archives": [
         {
@@ -607,7 +587,6 @@
       },
       "source_type": "manual",
       "download_url": "",
-      "source_lifecycle": "discontinued",
       "source_note": "未找到可与第三方历史包对应的原项目源码；不提供下载入口。",
       "third_party_archives": [
         {
@@ -630,7 +609,6 @@
       },
       "source_type": "manual",
       "download_url": "",
-      "source_lifecycle": "discontinued",
       "source_note": "原官方仓库不可用；第三方链接仅作历史资料。",
       "third_party_archives": [
         {
@@ -654,7 +632,6 @@
       "source_type": "manual",
       "repository_url": "https://github.com/2dust/clashN",
       "download_url": "",
-      "source_lifecycle": "merged",
       "source_note": "相关能力已合并至 v2rayN；仅保留历史记录。",
       "core": "Mihomo"
     },
@@ -752,7 +729,6 @@
       "source_type": "github",
       "github_repo": "SagerNet/sing-box",
       "official_repo_id": 509091576,
-      "official_owner_id": 83217677,
       "download_url": "https://github.com/SagerNet/sing-box/releases",
       "core": "sing-box",
       "core_evidence": [

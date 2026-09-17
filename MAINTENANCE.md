@@ -4,7 +4,7 @@
 
 ## 目录分层
 
-- `data/clients.json`：静态目录与可信身份。项目地址、GitHub repository/owner ID、App Store ID/seller、平台、内核等需要人工审核后通过 PR 修改。
+- `data/clients.json`：静态目录与可信身份。GitHub repository ID、App Store ID/seller、平台、内核等需要人工审核后通过 PR 修改；GitHub owner/name 属于自动观察状态。
 - `data/observations.json`：自动核验结果。由 Refresh workflow 生成，不手工填写 `ok`、时间戳或 scope。
 - `README.md`：由脚本根据上述两份数据生成，不直接手改。
 
@@ -15,7 +15,7 @@
 流程只有四步：
 
 1. 从当前 `main` 核验官方来源并生成 README/observations。
-2. 对确定的身份异常、来源失效等情况先隐藏不可信下载入口。
+2. 对明确的身份冲突隐藏入口；普通网络/区域核验失败保留已配置入口并标记待确认。
 3. 如生成文件发生变化，用当前 Refresh job 的短期 `GITHUB_TOKEN` 普通 push 到 `main`。
 4. 执行 health gate；异常会让 workflow 失败并保留可见状态。
 
@@ -26,24 +26,25 @@ Refresh 只写 `README.md` 和 `data/observations.json`。如果 push 恰好与�
 以下变化由 Refresh 自动处理：
 
 - 官方仓库或 App Store 正常发布新版本。
-- 项目近期活动时间变化。
-- 短时网络失败后恢复。
+- GitHub 同一 repository ID 的 owner/name 改名或迁移。
+- GitHub 官方仓库归档后自动转入历史分组；取消归档时自动恢复原分类。
+- 项目近期活动时间变化、短时网络失败后恢复。
 - 版本状态、README 展示和更新时间的普通变化。
 
 ## 哪些情况需要人工
 
 只有静态可信事实发生变化时才人工处理，例如：
 
-- GitHub 仓库、owner 或 App Store seller 与已确认身份不一致。
-- 项目迁移、合并、停更或继任关系需要判断。
+- GitHub repository ID 或 App Store app ID/seller 与已确认身份明确冲突。
+- 无结构化证据可可靠判断的合并、停更或继任关系。
 - 新增/删除客户端，或修改平台、内核、官方下载入口。
-- 已确认官方项目发生合法身份迁移，需要更新固定 ID/seller。
+- App Store 发布者发生合法迁移，需要更新固定 seller。
 
 处理方式是更新 `data/clients.json` 并走正常 PR；不要直接修改 observations 伪造恢复。
 
 ## 安全边界
 
-- GitHub 来源固定 repository ID 与 owner ID；App Store 固定 app ID 与 sellerName。
+- GitHub 来源只固定 repository ID；owner/name 自动跟随同一仓库的官方迁移。App Store 固定 app ID 与 sellerName。
 - 身份核验只证明来源连续，不代表二进制安全。
 - 不自动把失效项目替换为同名 fork、第三方镜像或继任项目。
 - 第三方历史资料不进入主下载列。
@@ -69,7 +70,7 @@ git diff --check
 - 普通上游网络故障：不人工改数据，等待下一次 Refresh。
 - Refresh push 冲突：不强推、不 rebase 自动生成提交，等待下一次定时任务。
 - Refresh 权限或保护规则配置损坏：修复 GitHub workflow/ruleset 后手动 dispatch 一次 Refresh。
-- 身份异常：保持下载入口隐藏，人工确认官方迁移后通过 PR 更新静态 pin。
+- 身份异常：repo/app 身份明确冲突时保持入口隐藏并人工处理；同一 GitHub repo ID 的 owner/name 迁移无需人工。
 - workflow 自身修改：合并后手动 dispatch 一次当前 `main` 的 Refresh 做真实验收。
 
 如果未来确实出现长期无法靠这套简单闭环解决的问题，再针对真实故障增加机制；不提前为假设场景增加常驻复杂度。

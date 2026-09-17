@@ -106,15 +106,11 @@ def source_scope(client: dict[str, Any]) -> str:
     source_type = client["source_type"]
     payload: dict[str, Any] = {"v": EVIDENCE_SCOPE_VERSION, "component": "source", "source_type": source_type}
     if source_type == "github":
-        payload.update(
-            github_repo=client["github_repo"],
-            official_repo_id=client["official_repo_id"],
-            official_owner_id=client["official_owner_id"],
-        )
+        payload.update(official_repo_id=client["official_repo_id"])
     elif source_type == "app_store":
         payload.update(app_store_id=str(client["app_store_id"]), app_store_seller=client["app_store_seller"])
     else:
-        payload.update(repository_url=client.get("repository_url", ""), lifecycle=client.get("source_lifecycle", "active"))
+        payload.update(repository_url=client.get("repository_url", ""))
     return _scope_hash(payload)
 
 
@@ -227,9 +223,6 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
             raise ValueError(f"{name}: invalid category")
         if client.get("source_type") not in {"github", "app_store", "manual"}:
             raise ValueError(f"{name}: invalid source_type")
-        lifecycle = client.get("source_lifecycle", "active")
-        if lifecycle not in {"active", "discontinued", "merged"}:
-            raise ValueError(f"{name}: invalid lifecycle")
         platforms = client.get("platforms")
         if not isinstance(platforms, dict) or any(type(platforms.get(key)) is not bool for key in PLATFORMS):
             raise ValueError(f"{name}: every platform must be declared as boolean")
@@ -242,8 +235,6 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
                 raise ValueError(f"{name}: github_repo must be a canonical owner/repository path")
             if type(client.get("official_repo_id")) is not int or client["official_repo_id"] <= 0:
                 raise ValueError(f"{name}: GitHub source requires official_repo_id")
-            if type(client.get("official_owner_id")) is not int or client["official_owner_id"] <= 0:
-                raise ValueError(f"{name}: GitHub source requires official_owner_id")
         if source_type == "app_store":
             if not str(client.get("app_store_id", "")).isdigit():
                 raise ValueError(f"{name}: app_store_id required")
@@ -260,12 +251,7 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
             raise ValueError(f"{name}: download_url must be empty or HTTPS")
         if source_type == "manual" and download:
             raise ValueError(f"{name}: manual sources cannot authorize a main download URL")
-        if client["category"] == "legacy":
-            if lifecycle == "active":
-                raise ValueError(f"{name}: legacy entry must be discontinued or merged")
-        else:
-            if lifecycle != "active":
-                raise ValueError(f"{name}: active directory entry cannot be discontinued or merged")
+        if client["category"] != "legacy":
             if source_type == "manual":
                 raise ValueError(f"{name}: active directory entry requires an official source")
             if not download:
@@ -309,7 +295,7 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
                 ):
                     raise ValueError(f"{name}: invalid historical asset pin")
         core_evidence = client.get("core_evidence", [])
-        if source_type == "github" and lifecycle == "active" and "core" in client:
+        if source_type == "github" and client["category"] != "legacy" and "core" in client:
             if not isinstance(core_evidence, list) or not core_evidence:
                 raise ValueError(f"{name}: active GitHub core claim requires non-empty core_evidence")
         for evidence in core_evidence:
@@ -662,15 +648,7 @@ def audit_github(
             result["source"] = negative_record(previous_source, stamp, source_scope_value, "missing")
             return result, [f"{client['id']}: official repository returned 404"], False
         require_repo_schema(metadata)
-        expected_repo = client.get("official_repo_id")
-        expected_owner = client.get("official_owner_id")
-        if expected_repo is not None:
-            identity_mismatch = metadata["id"] != expected_repo
-        else:
-            identity_mismatch = (
-                metadata["full_name"].casefold() != repo.casefold()
-                or expected_owner is not None and metadata["owner"]["id"] != expected_owner
-            )
+        identity_mismatch = metadata["id"] != client["official_repo_id"]
         if identity_mismatch:
             result["source"] = negative_record(
                 previous_source,
@@ -709,10 +687,9 @@ def audit_github(
                 full_name=metadata["full_name"],
                 last_activity_at=iso(pushed) if pushed is not None else None,
             )
-            lifecycle = client.get("source_lifecycle", "active")
-            if lifecycle in {"discontinued", "merged"} and state == "ok" and previous_source_scoped.get("state") == "archived":
+            if client["category"] == "legacy" and state == "ok" and previous_source_scoped.get("state") == "archived":
                 source_record["lifecycle_review_required"] = True
-            if lifecycle == "active":
+            if client["category"] != "legacy":
                 source_record.pop("lifecycle_review_required", None)
             result["source"] = source_record
             if source_record.get("lifecycle_review_required"):
@@ -1043,13 +1020,6 @@ def component_positive(client: dict[str, Any], record: dict[str, Any], component
     return state in allowed[component_name]
 
 
-def component_trusted(client: dict[str, Any], record: dict[str, Any], component_name: str, now: dt.datetime) -> bool:
-    if not component_positive(client, record, component_name) or not component_fresh(client, record, component_name, now):
-        return False
-    component = record.get(component_name, {})
-    return component.get("observation_state") != "unverified"
-
-
 def source_is_confirmed_archived(client: dict[str, Any], record: dict[str, Any]) -> bool:
     if client.get("source_type") != "github" or client.get("category") == "legacy":
         return False
@@ -1119,14 +1089,8 @@ def derive_health(clients: list[dict[str, Any]], observations: dict[str, Any], n
     }
 
 
-def source_trusted(client: dict[str, Any], record: dict[str, Any], now: dt.datetime | None = None) -> bool:
-    if client["source_type"] == "manual":
-        return False
-    return component_trusted(client, record, "source", now or utc_now())
-
-
 def activity_status(client: dict[str, Any], record: dict[str, Any], now: dt.datetime | None = None) -> tuple[str, str]:
-    if client.get("source_lifecycle") in {"discontinued", "merged"} or client["category"] == "legacy":
+    if client["category"] == "legacy":
         return "🔴", "历史项目"
     if source_is_confirmed_archived(client, record):
         return "🔴", "官方仓库已归档"

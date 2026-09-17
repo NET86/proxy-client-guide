@@ -100,9 +100,9 @@ class CatalogTests(unittest.TestCase):
     def test_active_directory_entries_pass_entry_gate(self):
         for client in self.clients:
             if client["category"] == "legacy":
-                self.assertIn(client.get("source_lifecycle"), {"discontinued", "merged"})
+
                 continue
-            self.assertEqual(client.get("source_lifecycle", "active"), "active")
+
             self.assertNotEqual(client["source_type"], "manual")
             self.assertTrue(client.get("download_url"), client["name"])
             self.assertTrue(any(client["platforms"].values()), client["name"])
@@ -151,15 +151,15 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(client["historical_release"]["release_id"], 127230375)
         self.assertIn("zzzgydi/clash-verge/releases/tag/v1.3.8", client["download_url"])
 
-    def test_all_github_sources_have_repo_and_owner_pins(self):
+    def test_all_github_sources_have_repo_id_pins(self):
         for client in self.clients:
             if client["source_type"] == "github":
                 self.assertIsInstance(client["official_repo_id"], int)
-                self.assertIsInstance(client["official_owner_id"], int)
+
 
     def test_active_github_core_claims_have_evidence(self):
         for client in self.clients:
-            if client["source_type"] == "github" and client.get("source_lifecycle", "active") == "active" and "core" in client:
+            if client["source_type"] == "github" and client["category"] != "legacy" and "core" in client:
                 self.assertTrue(client.get("core_evidence"), client["name"])
 
     def test_loader_rejects_active_github_core_without_evidence(self):
@@ -270,7 +270,7 @@ class AuditTests(unittest.TestCase):
         value = {
             "id": client.get("official_repo_id", 1),
             "full_name": client["github_repo"],
-            "owner": {"id": client.get("official_owner_id", 2)},
+            "owner": {"id": 2},
             "archived": False,
             "disabled": False,
             "pushed_at": "2026-09-14T00:00:00Z",
@@ -368,7 +368,7 @@ class AuditTests(unittest.TestCase):
         self.assertFalse(ok)
         self.assertEqual(out["source"]["state"], "missing")
         self.assertTrue(issues)
-        self.assertFalse(d.source_trusted(client, out, NOW))
+
 
     def test_transient_failure_preserves_lkg(self):
         client = self.by_id["flclash"]
@@ -389,7 +389,7 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(out["source"]["state"], "ok")
         self.assertEqual(out["source"]["observation_state"], "error")
         self.assertEqual(out["source"]["last_activity_at"], old["source"]["last_activity_at"])
-        self.assertTrue(d.source_trusted(client, out, NOW))
+
 
     def test_schema_change_is_observation_error_not_negative_fact(self):
         client = self.by_id["flclash"]
@@ -409,7 +409,7 @@ class AuditTests(unittest.TestCase):
         self.assertTrue(ok)
         self.assertEqual(issues, [])
         self.assertEqual(out["source"]["state"], "archived")
-        self.assertTrue(d.source_trusted(client, out, NOW))
+
         self.assertEqual(d.effective_category(client, out), "legacy")
         self.assertEqual(d.activity_status(client, out, NOW)[0], "🔴")
 
@@ -570,7 +570,7 @@ class AuditTests(unittest.TestCase):
                 "id": f"x{index}", "name": f"X{index}", "category": "mihomo",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "github", "github_repo": f"o/r{index}",
-                "official_repo_id": 100 + index, "official_owner_id": 200 + index,
+                "official_repo_id": 100 + index,
                 "download_url": f"https://github.com/o/r{index}/releases"
             })
         failed = {0, 1}
@@ -592,20 +592,20 @@ class AuditTests(unittest.TestCase):
                 "id": "remote-a", "name": "Remote A", "category": "mihomo",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "github", "github_repo": "o/a",
-                "official_repo_id": 101, "official_owner_id": 201,
+                "official_repo_id": 101,
                 "download_url": "https://github.com/o/a/releases",
             },
             {
                 "id": "manual-middle", "name": "Manual", "category": "legacy",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "manual", "download_url": "",
-                "source_lifecycle": "discontinued",
+
             },
             {
                 "id": "remote-b", "name": "Remote B", "category": "mihomo",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "github", "github_repo": "o/b",
-                "official_repo_id": 102, "official_owner_id": 202,
+                "official_repo_id": 102,
                 "download_url": "https://github.com/o/b/releases",
             },
         ]
@@ -629,7 +629,7 @@ class AuditTests(unittest.TestCase):
                 "id": f"x{index}", "name": f"X{index}", "category": "mihomo",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "github", "github_repo": f"o/r{index}",
-                "official_repo_id": 100 + index, "official_owner_id": 200 + index,
+                "official_repo_id": 100 + index,
                 "download_url": f"https://github.com/o/r{index}/releases"
             })
         def api(url, token=None):
@@ -652,7 +652,7 @@ class AuditTests(unittest.TestCase):
                 "id": f"x{index}", "name": f"X{index}", "category": "mihomo",
                 "platforms": {key: False for key in d.PLATFORMS},
                 "source_type": "github", "github_repo": f"o/r{index}",
-                "official_repo_id": 100 + index, "official_owner_id": 200 + index,
+                "official_repo_id": 100 + index,
                 "download_url": f"https://github.com/o/r{index}/releases",
             })
         previous = {
@@ -691,7 +691,7 @@ class AuditTests(unittest.TestCase):
             "id": "synthetic", "name": "Synthetic", "category": "mihomo",
             "platforms": {key: False for key in d.PLATFORMS},
             "source_type": "github", "github_repo": "o/r",
-            "official_repo_id": 101, "official_owner_id": 202,
+            "official_repo_id": 101,
             "download_url": "https://github.com/o/r/releases",
         }
         pushed = "2026-01-01T00:00:00Z"
@@ -725,7 +725,7 @@ class AuditTests(unittest.TestCase):
             "id": "synthetic", "name": "Synthetic", "category": "mihomo",
             "platforms": {key: False for key in d.PLATFORMS},
             "source_type": "github", "github_repo": "o/r",
-            "official_repo_id": 101, "official_owner_id": 202,
+            "official_repo_id": 101,
             "download_url": "https://github.com/o/r/releases",
         }
         def api(url, token=None):
@@ -741,7 +741,7 @@ class AuditTests(unittest.TestCase):
             "id": "synthetic", "name": "Synthetic", "category": "mihomo",
             "platforms": {key: False for key in d.PLATFORMS},
             "source_type": "github", "github_repo": "o/r",
-            "official_repo_id": 101, "official_owner_id": 202,
+            "official_repo_id": 101,
             "download_url": "https://github.com/o/r/releases",
         }
         def api(url, token=None):
@@ -760,7 +760,7 @@ class AuditTests(unittest.TestCase):
             "id": "synthetic", "name": "Synthetic", "category": "mihomo",
             "platforms": {key: False for key in d.PLATFORMS},
             "source_type": "github", "github_repo": "o/r",
-            "official_repo_id": 101, "official_owner_id": 202,
+            "official_repo_id": 101,
             "download_url": "https://github.com/o/r/releases",
         }
         def healthy(url, token=None):

@@ -19,7 +19,6 @@ CLIENT = {
     "source_type": "github",
     "github_repo": "example/client",
     "official_repo_id": 101,
-    "official_owner_id": 202,
     "download_url": "https://github.com/example/client/releases",
 }
 
