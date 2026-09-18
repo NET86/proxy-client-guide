@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-09-18（北京时间，下同）。
+核验：最近成功日期 2026-09-19（北京时间，下同）。
 > 页面仅在自动核验或人工更新后变化；核验异常会标记为待确认，但除项目身份冲突或目录配置变化外，仍保留已配置官方入口供自行判断。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -83,7 +83,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
-- 版本：v1.2.8（2026-09-14）
+- 版本：v1.2.9（2026-09-18）
 
 ### Bettbox
 
