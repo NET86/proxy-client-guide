@@ -119,15 +119,15 @@
       },
       "release": {
         "state": "ok",
-        "version": "1.0.8",
-        "published_at": "2026-09-16T22:36:04Z",
+        "version": "1.0.9",
+        "published_at": "2026-09-18T19:32:13Z",
         "seller": "OmniWide Media Limited",
         "track_id": 6794257189,
         "scope": "sha256:1afa41334d94e413e0439233880891e5bce8a05053f9eabd568530321676cbbd",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-18T16:28:40Z",
-        "last_success_at": "2026-09-18T16:28:40Z"
+        "observed_at": "2026-09-18T20:57:28Z",
+        "last_success_at": "2026-09-18T20:57:28Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -484,12 +484,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-09-16T18:46:06Z",
+        "last_activity_at": "2026-09-18T18:46:25Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-18T16:28:40Z",
-        "last_success_at": "2026-09-18T16:28:40Z"
+        "observed_at": "2026-09-18T20:57:28Z",
+        "last_success_at": "2026-09-18T20:57:28Z"
       },
       "release": {
         "state": "ok",

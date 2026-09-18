@@ -144,7 +144,7 @@
 - 内核：Hako（基于 Mihomo）
 - 官方来源：[https://github.com/TokenPLS/Hako-Client](https://github.com/TokenPLS/Hako-Client)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
-- 版本：1.0.8（2026-09-17）
+- 版本：1.0.9（2026-09-19）
 
 ### FlClash
 
