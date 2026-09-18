@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-17T22:23:26Z",
+        "last_activity_at": "2026-09-18T02:15:47Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T23:11:46Z",
-        "last_success_at": "2026-09-17T23:11:46Z"
+        "observed_at": "2026-09-18T04:49:52Z",
+        "last_success_at": "2026-09-18T04:49:52Z"
       },
       "release": {
         "state": "ok",
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-17T17:32:12Z",
+        "last_activity_at": "2026-09-18T04:34:30Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T21:26:35Z",
-        "last_success_at": "2026-09-17T21:26:35Z"
+        "observed_at": "2026-09-18T04:49:52Z",
+        "last_success_at": "2026-09-18T04:49:52Z"
       },
       "release": {
         "state": "ok",
@@ -246,12 +246,12 @@
         "repo_id": 836976013,
         "owner_id": 181477152,
         "full_name": "mihomo-party-org/clash-party",
-        "last_activity_at": "2026-09-17T08:48:37Z",
+        "last_activity_at": "2026-09-18T02:55:53Z",
         "scope": "sha256:9812e1fa09efc3deaf6302785129fb60e57f2631f52559d22ced794ab780b986",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T23:11:46Z",
-        "last_success_at": "2026-09-17T23:11:46Z"
+        "observed_at": "2026-09-18T04:49:52Z",
+        "last_success_at": "2026-09-18T04:49:52Z"
       },
       "release": {
         "state": "ok",
@@ -314,12 +314,12 @@
         "repo_id": 664925328,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/metacubexd",
-        "last_activity_at": "2026-09-15T22:14:00Z",
+        "last_activity_at": "2026-09-18T02:23:15Z",
         "scope": "sha256:48bb697e216f1dd711e37c63b2f446ef2b08cac6bcd9da03d3ce4f506374a411",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T23:11:46Z",
-        "last_success_at": "2026-09-17T23:11:46Z"
+        "observed_at": "2026-09-18T04:49:52Z",
+        "last_success_at": "2026-09-18T04:49:52Z"
       },
       "release": {
         "state": "ok",
@@ -726,12 +726,12 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-09-17T16:43:44Z",
+        "last_activity_at": "2026-09-18T02:59:04Z",
         "scope": "sha256:a032ba143c4221a036f8ec86ee706a93524d838d67ec2eedf9f15c043788de0b",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T17:04:19Z",
-        "last_success_at": "2026-09-17T17:04:19Z"
+        "observed_at": "2026-09-18T04:49:52Z",
+        "last_success_at": "2026-09-18T04:49:52Z"
       },
       "release": {
         "state": "ok",
