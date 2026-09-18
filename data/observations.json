@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-18T02:15:47Z",
+        "last_activity_at": "2026-09-18T05:27:37Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-18T04:49:52Z",
-        "last_success_at": "2026-09-18T04:49:52Z"
+        "observed_at": "2026-09-18T11:22:18Z",
+        "last_success_at": "2026-09-18T11:22:18Z"
       },
       "release": {
         "state": "ok",
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-18T04:34:30Z",
+        "last_activity_at": "2026-09-18T11:19:01Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-18T04:49:52Z",
-        "last_success_at": "2026-09-18T04:49:52Z"
+        "observed_at": "2026-09-18T11:22:18Z",
+        "last_success_at": "2026-09-18T11:22:18Z"
       },
       "release": {
         "state": "ok",
@@ -348,12 +348,12 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-09-17T05:03:06Z",
+        "last_activity_at": "2026-09-18T06:37:30Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T23:11:46Z",
-        "last_success_at": "2026-09-17T23:11:46Z"
+        "observed_at": "2026-09-18T11:22:18Z",
+        "last_success_at": "2026-09-18T11:22:18Z"
       },
       "release": {
         "state": "ok",
@@ -382,12 +382,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-09-17T18:58:50Z",
+        "last_activity_at": "2026-09-18T11:13:37Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-17T21:26:35Z",
-        "last_success_at": "2026-09-17T21:26:35Z"
+        "observed_at": "2026-09-18T11:22:18Z",
+        "last_success_at": "2026-09-18T11:22:18Z"
       },
       "release": {
         "state": "ok",
