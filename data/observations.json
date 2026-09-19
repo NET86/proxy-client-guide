@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-19T08:52:02Z",
+        "last_activity_at": "2026-09-19T13:54:42Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-19T11:06:00Z",
-        "last_success_at": "2026-09-19T11:06:00Z"
+        "observed_at": "2026-09-19T15:55:39Z",
+        "last_success_at": "2026-09-19T15:55:39Z"
       },
       "release": {
         "state": "ok",
@@ -178,12 +178,12 @@
         "repo_id": 500719319,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/ClashMetaForAndroid",
-        "last_activity_at": "2026-09-15T16:55:10Z",
+        "last_activity_at": "2026-09-19T14:20:03Z",
         "scope": "sha256:4543876f0b18d44b652905be8ccb5c577ac38a64a5c1dd93a0dbab67be2a9c6a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-18T16:28:40Z",
-        "last_success_at": "2026-09-18T16:28:40Z"
+        "observed_at": "2026-09-19T15:55:39Z",
+        "last_success_at": "2026-09-19T15:55:39Z"
       },
       "release": {
         "state": "ok",
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-19T10:58:20Z",
+        "last_activity_at": "2026-09-19T12:40:40Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-19T11:06:00Z",
-        "last_success_at": "2026-09-19T11:06:00Z"
+        "observed_at": "2026-09-19T15:55:39Z",
+        "last_success_at": "2026-09-19T15:55:39Z"
       },
       "release": {
         "state": "ok",
@@ -726,12 +726,12 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-09-18T02:59:04Z",
+        "last_activity_at": "2026-09-19T15:28:09Z",
         "scope": "sha256:a032ba143c4221a036f8ec86ee706a93524d838d67ec2eedf9f15c043788de0b",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-18T16:28:40Z",
-        "last_success_at": "2026-09-18T16:28:40Z"
+        "observed_at": "2026-09-19T15:55:39Z",
+        "last_success_at": "2026-09-19T15:55:39Z"
       },
       "release": {
         "state": "ok",
