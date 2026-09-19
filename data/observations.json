@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-18T11:25:18Z",
+        "last_activity_at": "2026-09-19T02:24:24Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-18T16:28:40Z",
-        "last_success_at": "2026-09-18T16:28:40Z"
+        "observed_at": "2026-09-19T04:42:41Z",
+        "last_success_at": "2026-09-19T04:42:41Z"
       },
       "release": {
         "state": "ok",
@@ -348,24 +348,24 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-09-18T06:37:30Z",
+        "last_activity_at": "2026-09-19T02:20:19Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-18T16:28:40Z",
-        "last_success_at": "2026-09-18T16:28:40Z"
+        "observed_at": "2026-09-19T04:42:41Z",
+        "last_success_at": "2026-09-19T04:42:41Z"
       },
       "release": {
         "state": "ok",
-        "version": "v1.19.1",
-        "published_at": "2026-09-09T15:56:57Z",
-        "release_id": 385658564,
+        "version": "v1.19.2",
+        "published_at": "2026-09-19T02:46:46Z",
+        "release_id": 391890813,
         "asset_count": 17,
         "scope": "sha256:042e7d1b6adb0c8b6d4db3757751d13360fbac485c763f6b3a16f1f3fd4b2539",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-18T16:28:40Z",
-        "last_success_at": "2026-09-18T16:28:40Z"
+        "observed_at": "2026-09-19T04:42:41Z",
+        "last_success_at": "2026-09-19T04:42:41Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -484,12 +484,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-09-18T18:46:25Z",
+        "last_activity_at": "2026-09-19T02:57:31Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-18T20:57:28Z",
-        "last_success_at": "2026-09-18T20:57:28Z"
+        "observed_at": "2026-09-19T04:42:41Z",
+        "last_success_at": "2026-09-19T04:42:41Z"
       },
       "release": {
         "state": "ok",

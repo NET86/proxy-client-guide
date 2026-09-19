@@ -93,7 +93,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/appshubcc/Bettbox](https://github.com/appshubcc/Bettbox)
 - 下载：[https://github.com/appshubcc/Bettbox/releases](https://github.com/appshubcc/Bettbox/releases)
-- 版本：v1.19.1（2026-09-09）
+- 版本：v1.19.2（2026-09-19）
 
 ### Clash Meta for Android
 
