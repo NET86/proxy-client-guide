@@ -246,12 +246,12 @@
         "repo_id": 836976013,
         "owner_id": 181477152,
         "full_name": "mihomo-party-org/clash-party",
-        "last_activity_at": "2026-09-20T14:41:39Z",
+        "last_activity_at": "2026-09-20T17:58:44Z",
         "scope": "sha256:9812e1fa09efc3deaf6302785129fb60e57f2631f52559d22ced794ab780b986",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-20T16:11:49Z",
-        "last_success_at": "2026-09-20T16:11:49Z"
+        "observed_at": "2026-09-20T20:52:52Z",
+        "last_success_at": "2026-09-20T20:52:52Z"
       },
       "release": {
         "state": "ok",
