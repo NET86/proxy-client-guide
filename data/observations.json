@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-19T15:59:37Z",
+        "last_activity_at": "2026-09-20T04:54:52Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-19T20:45:40Z",
-        "last_success_at": "2026-09-19T20:45:40Z"
+        "observed_at": "2026-09-20T04:58:13Z",
+        "last_success_at": "2026-09-20T04:58:13Z"
       },
       "release": {
         "state": "ok",
@@ -85,15 +85,15 @@
       },
       "release": {
         "state": "ok",
-        "version": "v1.0.29.1503",
-        "published_at": "2026-09-02T01:37:32Z",
-        "release_id": 380917279,
-        "asset_count": 9,
+        "version": "v1.0.30.1604",
+        "published_at": "2026-09-16T03:58:16Z",
+        "release_id": 389623964,
+        "asset_count": 10,
         "scope": "sha256:6e0056cdded333be0175e395a8b618f5c1175cb3ff03f0f95f8db7dfc1922184",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-19T20:45:40Z",
-        "last_success_at": "2026-09-19T20:45:40Z"
+        "observed_at": "2026-09-20T04:58:13Z",
+        "last_success_at": "2026-09-20T04:58:13Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-19T18:48:09Z",
+        "last_activity_at": "2026-09-20T04:45:46Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-19T20:45:40Z",
-        "last_success_at": "2026-09-19T20:45:40Z"
+        "observed_at": "2026-09-20T04:58:13Z",
+        "last_success_at": "2026-09-20T04:58:13Z"
       },
       "release": {
         "state": "ok",
@@ -246,12 +246,12 @@
         "repo_id": 836976013,
         "owner_id": 181477152,
         "full_name": "mihomo-party-org/clash-party",
-        "last_activity_at": "2026-09-18T16:10:43Z",
+        "last_activity_at": "2026-09-20T03:59:25Z",
         "scope": "sha256:9812e1fa09efc3deaf6302785129fb60e57f2631f52559d22ced794ab780b986",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-19T20:45:40Z",
-        "last_success_at": "2026-09-19T20:45:40Z"
+        "observed_at": "2026-09-20T04:58:13Z",
+        "last_success_at": "2026-09-20T04:58:13Z"
       },
       "release": {
         "state": "ok",
@@ -382,12 +382,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-09-19T09:14:51Z",
+        "last_activity_at": "2026-09-19T22:48:30Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-19T20:45:40Z",
-        "last_success_at": "2026-09-19T20:45:40Z"
+        "observed_at": "2026-09-20T04:58:13Z",
+        "last_success_at": "2026-09-20T04:58:13Z"
       },
       "release": {
         "state": "ok",
@@ -402,12 +402,15 @@
         "last_success_at": "2026-09-19T20:45:40Z"
       },
       "core_evidence": {
-        "state": "ok",
+        "state": "mismatch",
         "scope": "sha256:c67f36ebd79fa9859d44d5ee95a83ea8eb69a5624031f76c5b83adad299365f4",
-        "observation_state": "fresh",
+        "observation_state": "verified_negative",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-19T20:45:40Z",
-        "last_success_at": "2026-09-19T20:45:40Z"
+        "observed_at": "2026-09-20T04:58:13Z",
+        "last_success_at": "2026-09-19T20:45:40Z",
+        "observed_missing_patterns": [
+          "Android Mihomo GUI client powered by"
+        ]
       }
     },
     "hiddify": {
@@ -484,12 +487,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-09-19T09:38:51Z",
+        "last_activity_at": "2026-09-20T02:32:04Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-19T20:45:40Z",
-        "last_success_at": "2026-09-19T20:45:40Z"
+        "observed_at": "2026-09-20T04:58:13Z",
+        "last_success_at": "2026-09-20T04:58:13Z"
       },
       "release": {
         "state": "ok",
@@ -726,12 +729,12 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-09-19T15:28:09Z",
+        "last_activity_at": "2026-09-20T04:33:29Z",
         "scope": "sha256:a032ba143c4221a036f8ec86ee706a93524d838d67ec2eedf9f15c043788de0b",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-19T20:45:40Z",
-        "last_success_at": "2026-09-19T20:45:40Z"
+        "observed_at": "2026-09-20T04:58:13Z",
+        "last_success_at": "2026-09-20T04:58:13Z"
       },
       "release": {
         "state": "ok",
@@ -757,10 +760,12 @@
   },
   "health": {
     "attempted": 24,
-    "succeeded": 24,
-    "coverage": 1.0,
-    "anomalies": [],
+    "succeeded": 23,
+    "coverage": 0.9583,
+    "anomalies": [
+      "asteriskmeta: unresolved core_evidence state mismatch"
+    ],
     "attempted_last_run": 24,
-    "succeeded_last_run": 24
+    "succeeded_last_run": 23
   }
 }

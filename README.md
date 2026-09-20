@@ -31,8 +31,8 @@
 | MetaCubeXD | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/MetaCubeX/metacubexd) | [下载页](https://github.com/MetaCubeX/metacubexd/releases) |
 | Sparkle | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/xishang0128/sparkle) | [下载页](https://github.com/xishang0128/sparkle/releases) |
 | ClashX Meta | 🟢 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashX.Meta) | [下载页](https://github.com/MetaCubeX/ClashX.Meta/releases) |
-| AsteriskMETA | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/Asterisk4Magisk/AsteriskMETA) | [下载页](https://github.com/Asterisk4Magisk/AsteriskMETA/releases) |
 | Clash Meta for Android | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashMetaForAndroid) | [下载页](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
+| AsteriskMETA | ❓ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/Asterisk4Magisk/AsteriskMETA) | [下载页](https://github.com/Asterisk4Magisk/AsteriskMETA/releases) |
 
 ## sing-box 内核客户端
 
@@ -78,12 +78,13 @@
 ### AsteriskMETA
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 近半年有更新
+- 状态：❓ 待确认｜来源或版本异常
 - 平台：Android
 - 内核：Mihomo
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
 - 版本：v1.2.9（2026-09-18）
+- 核验：内核说明发生变化；保留原记录。
 
 ### Bettbox
 
@@ -124,7 +125,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/KaringX/clashmi](https://github.com/KaringX/clashmi)
 - 下载：[https://github.com/KaringX/clashmi/releases](https://github.com/KaringX/clashmi/releases)
-- 版本：v1.0.29.1503（2026-09-02）
+- 版本：v1.0.30.1604（2026-09-16）
 
 ### ClashX Meta
 
