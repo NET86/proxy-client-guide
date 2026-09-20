@@ -332,7 +332,7 @@
         {
           "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/main/README.md",
           "patterns": [
-            "Android Mihomo GUI client powered by",
+            "Android Mihomo GUI client",
             "Runs the local Mihomo executable"
           ]
         }
