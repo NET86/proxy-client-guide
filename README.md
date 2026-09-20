@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-09-20（北京时间，下同）。
+核验：最近成功日期 2026-09-21（北京时间，下同）。
 > 页面仅在自动核验或人工更新后变化；核验异常会标记为待确认，但除项目身份冲突或目录配置变化外，仍保留已配置官方入口供自行判断。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -114,7 +114,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/clash-verge-rev/clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)
 - 下载：[https://github.com/clash-verge-rev/clash-verge-rev/releases](https://github.com/clash-verge-rev/clash-verge-rev/releases)
-- 版本：v2.5.2（2026-07-20）
+- 版本：v2.5.4（2026-09-20）
 
 ### ClashMi
 
@@ -236,7 +236,7 @@
 - 内核：多内核（Mihomo / Smart Core）
 - 官方来源：[https://github.com/mihomo-party-org/clash-party](https://github.com/mihomo-party-org/clash-party)
 - 下载：[https://github.com/mihomo-party-org/clash-party/releases](https://github.com/mihomo-party-org/clash-party/releases)
-- 版本：v2.0.2（2026-08-14）
+- 版本：v2.0.3（2026-09-20）
 
 ### v2rayN
 
