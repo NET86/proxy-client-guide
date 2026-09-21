@@ -521,6 +521,25 @@ def negative_record(old: dict[str, Any] | None, stamp: str, scope: str, state: s
     return record
 
 
+def confirmed_github_latest_rollback(
+    previous: dict[str, Any],
+    version: str,
+    published: dt.datetime,
+    release_id: int,
+) -> bool:
+    """Accept an older official GitHub Latest only after the same rollback is seen twice."""
+    return (
+        previous.get("state") == "rollback"
+        and previous.get("observation_state") == "verified_negative"
+        and previous.get("version") != version
+        and type(previous.get("release_id")) is int
+        and previous.get("release_id") != release_id
+        and previous.get("observed_version") == version
+        and parse_time(previous.get("observed_published_at")) == published
+        and previous.get("observed_release_id") == release_id
+    )
+
+
 def unverified_record(old: dict[str, Any] | None, stamp: str, scope: str, reason: str) -> dict[str, Any]:
     record = scoped_lkg(old, scope)
     record.setdefault("state", "unknown")
@@ -747,18 +766,35 @@ def audit_github(
                     anomalies.append(f"{client['id']}: latest release was recreated under the same tag")
                     ok = False
                 elif old_published and published < old_published:
-                    result["release"] = negative_record(
-                        previous_release,
-                        stamp,
-                        release_scope_value,
-                        "rollback",
-                        observed_version=version,
-                        observed_published_at=iso(published),
-                        observed_release_id=release["id"],
-                        observed_asset_count=asset_count,
-                    )
-                    anomalies.append(f"{client['id']}: latest release timestamp moved backwards")
-                    ok = False
+                    if asset_count > 0 and confirmed_github_latest_rollback(
+                        previous_release_scoped,
+                        version,
+                        published,
+                        release["id"],
+                    ):
+                        result["release"] = positive_record(
+                            previous_release,
+                            stamp,
+                            release_scope_value,
+                            state="ok",
+                            version=version,
+                            published_at=iso(published),
+                            release_id=release["id"],
+                            asset_count=asset_count,
+                        )
+                    else:
+                        result["release"] = negative_record(
+                            previous_release,
+                            stamp,
+                            release_scope_value,
+                            "rollback",
+                            observed_version=version,
+                            observed_published_at=iso(published),
+                            observed_release_id=release["id"],
+                            observed_asset_count=asset_count,
+                        )
+                        anomalies.append(f"{client['id']}: latest release timestamp moved backwards")
+                        ok = False
                 elif asset_count == 0:
                     result["release"] = negative_record(
                         previous_release,
@@ -1472,7 +1508,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "- 历史项目：GitHub 官方仓库明确归档时自动归入历史项目；第三方下载仅作历史资料。",
         "- 来源身份校验不等同于安装包安全认证。",
         "- 不自动替换为同名分支、继任项目或第三方镜像。",
-        "- 版本回退：发布时间早于已确认版本时，保留已确认版本并标记为待确认。",
+        "- 版本回退：首次发现发布时间早于已确认版本时，先保留已确认版本并标记为待确认；若 GitHub 官方 Latest 连续两次指向同一旧版本，再按该版本更新。",
         "",
     ])
     return "\n".join(lines).rstrip() + "\n"

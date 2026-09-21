@@ -224,6 +224,30 @@ class AdversarialRegressionTests(unittest.TestCase):
         self.assertEqual(out["release"]["version"], "v10")
         self.assertTrue(any("timestamp moved backwards" in item for item in issues))
 
+    def test_same_release_timestamp_regression_never_auto_confirms(self):
+        client = self.by_id["flclash"]
+        old = self.healthy_github_record(client)
+
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release_payload("v10", "2026-09-15T09:30:00Z", 100)
+            return self.repo_payload(client)
+
+        first, _, first_ok = d.audit_github(client, old, None, NOW, api, self.evidence)
+        second, issues, second_ok = d.audit_github(
+            client,
+            first,
+            None,
+            NOW + dt.timedelta(minutes=1),
+            api,
+            self.evidence,
+        )
+        self.assertFalse(first_ok)
+        self.assertFalse(second_ok)
+        self.assertEqual(second["release"]["state"], "rollback")
+        self.assertEqual(second["release"]["version"], "v10")
+        self.assertTrue(any("timestamp moved backwards" in item for item in issues))
+
     def test_future_remote_release_timestamp_is_observation_error(self):
         client = self.by_id["flclash"]
         old = self.healthy_github_record(client)

@@ -442,6 +442,74 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(out["release"]["state"], "rollback")
         self.assertTrue(issues)
 
+    def test_repeated_github_latest_rollback_is_accepted_after_confirmation(self):
+        client = self.by_id["flclash"]
+        old = {
+            "source": self.scoped_source(client),
+            "release": self.scoped_release(client),
+        }
+
+        def api(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v9", "2026-09-01T00:00:00Z", 99)
+            return self.repo(client)
+
+        first, issues, ok = d.audit_github(client, old, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertTrue(issues)
+        self.assertEqual(first["release"]["state"], "rollback")
+        self.assertEqual(first["release"]["version"], "v10")
+        self.assertEqual(first["release"]["observed_version"], "v9")
+
+        second, issues, ok = d.audit_github(
+            client,
+            first,
+            None,
+            NOW + dt.timedelta(hours=1),
+            api,
+            self.evidence,
+        )
+        self.assertTrue(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(second["release"]["state"], "ok")
+        self.assertEqual(second["release"]["version"], "v9")
+        self.assertEqual(second["release"]["release_id"], 99)
+        self.assertNotIn("observed_version", second["release"])
+
+    def test_changed_github_rollback_candidate_requires_new_confirmation(self):
+        client = self.by_id["flclash"]
+        old = {
+            "source": self.scoped_source(client),
+            "release": self.scoped_release(client),
+        }
+
+        def api_v9(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v9", "2026-09-01T00:00:00Z", 99)
+            return self.repo(client)
+
+        first, _, _ = d.audit_github(client, old, None, NOW, api_v9, self.evidence)
+
+        def api_v8(url, token=None):
+            if "/releases/latest" in url:
+                return self.release("v8", "2026-08-01T00:00:00Z", 98)
+            return self.repo(client)
+
+        second, issues, ok = d.audit_github(
+            client,
+            first,
+            None,
+            NOW + dt.timedelta(hours=1),
+            api_v8,
+            self.evidence,
+        )
+        self.assertFalse(ok)
+        self.assertTrue(issues)
+        self.assertEqual(second["release"]["state"], "rollback")
+        self.assertEqual(second["release"]["version"], "v10")
+        self.assertEqual(second["release"]["observed_version"], "v8")
+        self.assertEqual(second["release"]["observed_release_id"], 98)
+
     def test_latest_release_disappearance_is_anomaly(self):
         client = self.by_id["flclash"]
         old = {"release": {"state": "ok", "version": "v10", "published_at": "2026-09-14"}}
