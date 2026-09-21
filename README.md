@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：成功记录 2026-09-21 至 2026-09-22（北京时间，下同）。
+核验：最近成功日期 2026-09-22（北京时间，下同）。
 > 页面仅在自动核验或人工更新后变化；核验异常会标记为待确认，但除项目身份冲突或目录配置变化外，仍保留已配置官方入口供自行判断。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -27,12 +27,12 @@
 | ClashMi | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/clashmi) | [下载页](https://github.com/KaringX/clashmi/releases) |
 | Bettbox | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/appshubcc/Bettbox) | [下载页](https://github.com/appshubcc/Bettbox/releases) |
 | FlClash | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/chen08209/FlClash) | [下载页](https://github.com/chen08209/FlClash/releases) |
+| Clash Verge Rev | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/clash-verge-rev/clash-verge-rev) | [下载页](https://github.com/clash-verge-rev/clash-verge-rev/releases) |
 | MetaCubeXD | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/MetaCubeX/metacubexd) | [下载页](https://github.com/MetaCubeX/metacubexd/releases) |
 | Sparkle | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/xishang0128/sparkle) | [下载页](https://github.com/xishang0128/sparkle/releases) |
 | ClashX Meta | 🟢 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashX.Meta) | [下载页](https://github.com/MetaCubeX/ClashX.Meta/releases) |
 | AsteriskMETA | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/Asterisk4Magisk/AsteriskMETA) | [下载页](https://github.com/Asterisk4Magisk/AsteriskMETA/releases) |
 | Clash Meta for Android | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashMetaForAndroid) | [下载页](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
-| Clash Verge Rev | ❓ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/clash-verge-rev/clash-verge-rev) | [下载页](https://github.com/clash-verge-rev/clash-verge-rev/releases) |
 
 ## sing-box 内核客户端
 
@@ -109,13 +109,12 @@
 ### Clash Verge Rev
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：❓ 待确认｜来源或版本异常
+- 状态：🟢 近半年有更新
 - 平台：macOS / Windows / Linux
 - 内核：Mihomo
 - 官方来源：[https://github.com/clash-verge-rev/clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)
 - 下载：[https://github.com/clash-verge-rev/clash-verge-rev/releases](https://github.com/clash-verge-rev/clash-verge-rev/releases)
-- 版本：v2.5.4（2026-09-20）
-- 核验：版本时间早于已确认记录；保留原记录。
+- 版本：v2.5.2（2026-07-20）
 
 ### ClashMi
 
