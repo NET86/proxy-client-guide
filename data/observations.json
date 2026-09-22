@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-22T02:55:47Z",
+        "last_activity_at": "2026-09-22T09:41:28Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-22T03:47:43Z",
-        "last_success_at": "2026-09-22T03:47:43Z"
+        "observed_at": "2026-09-22T11:45:20Z",
+        "last_success_at": "2026-09-22T11:45:20Z"
       },
       "release": {
         "state": "ok",
@@ -178,12 +178,12 @@
         "repo_id": 500719319,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/ClashMetaForAndroid",
-        "last_activity_at": "2026-09-19T14:20:03Z",
+        "last_activity_at": "2026-09-22T09:41:01Z",
         "scope": "sha256:4543876f0b18d44b652905be8ccb5c577ac38a64a5c1dd93a0dbab67be2a9c6a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-21T22:01:09Z"
+        "observed_at": "2026-09-22T11:45:20Z",
+        "last_success_at": "2026-09-22T11:45:20Z"
       },
       "release": {
         "state": "ok",
@@ -246,12 +246,12 @@
         "repo_id": 836976013,
         "owner_id": 181477152,
         "full_name": "mihomo-party-org/clash-party",
-        "last_activity_at": "2026-09-21T12:17:37Z",
+        "last_activity_at": "2026-09-22T11:12:07Z",
         "scope": "sha256:9812e1fa09efc3deaf6302785129fb60e57f2631f52559d22ced794ab780b986",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-21T22:01:09Z"
+        "observed_at": "2026-09-22T11:45:20Z",
+        "last_success_at": "2026-09-22T11:45:20Z"
       },
       "release": {
         "state": "ok",
@@ -382,12 +382,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-09-22T03:52:11Z",
+        "last_activity_at": "2026-09-22T11:45:14Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-22T04:47:22Z",
-        "last_success_at": "2026-09-22T04:47:22Z"
+        "observed_at": "2026-09-22T11:45:20Z",
+        "last_success_at": "2026-09-22T11:45:20Z"
       },
       "release": {
         "state": "ok",
@@ -450,12 +450,12 @@
         "repo_id": 714929749,
         "owner_id": 131734194,
         "full_name": "KaringX/karing",
-        "last_activity_at": "2026-09-21T06:32:28Z",
+        "last_activity_at": "2026-09-22T05:43:36Z",
         "scope": "sha256:36cb5b26e77d0dcec9883856a0811754b357b5360487569b41c832c0ca37188e",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-21T22:01:09Z"
+        "observed_at": "2026-09-22T11:45:20Z",
+        "last_success_at": "2026-09-22T11:45:20Z"
       },
       "release": {
         "state": "ok",
@@ -726,12 +726,12 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-09-22T02:28:14Z",
+        "last_activity_at": "2026-09-22T11:32:39Z",
         "scope": "sha256:a032ba143c4221a036f8ec86ee706a93524d838d67ec2eedf9f15c043788de0b",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-22T03:47:43Z",
-        "last_success_at": "2026-09-22T03:47:43Z"
+        "observed_at": "2026-09-22T11:45:20Z",
+        "last_success_at": "2026-09-22T11:45:20Z"
       },
       "release": {
         "state": "ok",
