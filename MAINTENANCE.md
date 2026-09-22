@@ -25,7 +25,7 @@ Refresh 只写 `README.md` 和 `data/observations.json`。push 冲突时本轮�
 
 - `last_run_at`：核验任务最近运行时间；同一北京时间日期内不重复更新。
 - `last_success_at`：组件最近成功核验时间；失败时保留旧值，并用于 7 天有效期判断。
-- `observed_at`：当前状态的观测时间；健康且内容未变时不滚动，异常核验会更新。
+- `observed_at`：当前观测状态的时间；正常且内容未变时不随每日成功心跳更新。
 
 ## 自动处理
 
