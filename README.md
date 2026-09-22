@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-09-22（北京时间，下同）。
+核验：最近成功日期 2026-09-23（北京时间，下同）。
 > 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -114,7 +114,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/clash-verge-rev/clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)
 - 下载：[https://github.com/clash-verge-rev/clash-verge-rev/releases](https://github.com/clash-verge-rev/clash-verge-rev/releases)
-- 版本：v2.5.2（2026-07-20）
+- 版本：v2.5.5（2026-09-22）
 
 ### ClashMi
 
@@ -266,7 +266,7 @@
 - 内核：未公开
 - 官方来源：[https://docs.nsloon.com/](https://docs.nsloon.com/)
 - 下载：[https://apps.apple.com/us/app/id1373567447](https://apps.apple.com/us/app/id1373567447)
-- 版本：3.5.0（2026-06-26）
+- 版本：3.5.1（2026-09-22）
 
 ### Quantumult X
 
