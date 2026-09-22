@@ -1298,7 +1298,7 @@ def component_warning(component_name: str, component: dict[str, Any]) -> str | N
     unresolved = state not in {"ok", "archived", "manual"}
     pending = " 未确认恢复。" if unresolved else ""
     if state in IDENTITY_CONFLICT_STATES and component.get("observation_state") in {"error", "unverified"}:
-        return f"{component_name}本次核验未完成；既有身份异常未确认恢复，下载入口保持隐藏。"
+        return f"{component_name}核验未完成；身份异常未确认恢复，下载入口保持隐藏。"
     if component.get("observation_state") == "error":
         last_success = parse_time(component.get("last_success_at"))
         if last_success:
@@ -1311,12 +1311,12 @@ def component_warning(component_name: str, component: dict[str, Any]) -> str | N
     if component.get("observation_state") == "unverified":
         reason = component.get("unverified_reason", "unknown")
         if reason == "region_missing":
-            return f"{component_name}在指定 App Store 区域无结果；保留已配置入口供自行判断。{pending}"
-        return f"{component_name}核验结果不明确；保留已配置入口供自行判断。{pending}"
+            return f"{component_name}在指定 App Store 区域无结果；保留已配置入口。{pending}"
+        return f"{component_name}核验结果不明确；保留已配置入口。{pending}"
     state = component.get("state")
     messages = {
-        ("项目来源", "missing"): "项目来源暂不可用；保留已配置入口供自行判断。",
-        ("项目来源", "disabled"): "项目来源已关闭；保留已配置入口供自行判断。",
+        ("项目来源", "missing"): "项目来源暂不可用；保留已配置入口。",
+        ("项目来源", "disabled"): "项目来源已关闭；保留已配置入口。",
         ("项目来源", "identity_mismatch"): "项目身份与已确认记录不一致；下载入口已隐藏。",
         ("项目来源", "region_missing"): "指定 App Store 区域无结果。",
         ("版本", "missing"): "已确认版本不可用；保留原记录。",
@@ -1324,7 +1324,7 @@ def component_warning(component_name: str, component: dict[str, Any]) -> str | N
         ("版本", "identity_mismatch"): "版本身份与已确认记录不一致；下载入口已隐藏。",
         ("版本", "assets_missing"): "版本页可用但缺少安装文件；待确认。",
         ("版本", "region_missing"): "指定 App Store 区域无版本结果。",
-        ("历史版本", "missing"): "原官方下载页暂不可用；保留已配置入口供自行判断。",
+        ("历史版本", "missing"): "原官方下载页暂不可用；保留已配置入口。",
         ("历史版本", "identity_mismatch"): "历史版本身份不一致；下载入口已隐藏。",
         ("历史版本", "asset_mismatch"): "历史版本安装文件发生变化；下载入口已隐藏。",
         ("内核说明", "missing"): "内核说明不可用；保留原记录。",
@@ -1354,7 +1354,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "收录常见代理客户端，并按主要内核或实现方式分类。",
         "状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。",
         evidence_summary(clients, observations, current),
-        "> 页面仅在自动核验或人工更新后变化；核验异常会标记为待确认，但除项目身份冲突或目录配置变化外，仍保留已配置官方入口供自行判断。",
+        "> 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。",
         "",
         "> 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。",
         "> “官方来源”中的“官方仓库”表示项目提供公开代码仓库；“官网”表示主要官方入口。来源类型不等同于开源许可证。",
@@ -1502,14 +1502,11 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
     lines.extend([
         "## 核验规则",
         "",
-        "- 来源校验：同一 GitHub repo ID 的官方改名或迁移会自动跟随；项目身份或 App Store 发布者明确冲突时隐藏入口并标记为待确认。",
-        "- 配置变更：仓库身份、App Store 发布者或下载目标变更后，旧核验结果不直接沿用；同一 GitHub 仓库改名不影响身份。",
-        "- 临时失败：网络错误或长期未成功核验只标记为待确认；保留已配置官方入口供自行判断，不因失败时间自动转为历史项目。",
-        "- App Store：指定区域无结果不等于下架；保留已配置官方入口并等待后续核验。",
-        "- 历史项目：GitHub 官方仓库明确归档时自动归入历史项目；第三方下载仅作历史资料。",
+        "- 身份：GitHub 固定 repository ID，App Store 固定 app ID/发布者；GitHub 改名或迁移会自动跟随，身份冲突时隐藏下载并标记待确认。",
+        "- 临时失败：网络错误、Latest 缺失或 App Store 区域无结果只标记待确认，并保留已配置官方入口。",
+        "- 历史项目：GitHub 官方仓库归档后转入历史；第三方下载仅作历史资料，不自动替换为同名 fork、继任项目或镜像。",
+        "- 版本回退：首次发现官方 Latest 回退时保留已确认版本；连续两次确认同一旧版本后更新。",
         "- 来源身份校验不等同于安装包安全认证。",
-        "- 不自动替换为同名分支、继任项目或第三方镜像。",
-        "- 版本回退：首次发现发布时间早于已确认版本时，先保留已确认版本并标记为待确认；若 GitHub 官方 Latest 连续两次指向同一旧版本，再按该版本更新。",
         "",
     ])
     return "\n".join(lines).rstrip() + "\n"
