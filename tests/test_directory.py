@@ -844,6 +844,29 @@ class AuditTests(unittest.TestCase):
         self.assertNotEqual(second["last_run_at"], first["last_run_at"])
         self.assertEqual(d.parse_time(second["last_run_at"]).date(), next_day.date())
         self.assertEqual(d.parse_time(second["clients"]["synthetic"]["source"]["last_success_at"]).date(), next_day.date())
+        self.assertEqual(
+            second["clients"]["synthetic"]["source"]["observed_at"],
+            first["clients"]["synthetic"]["source"]["observed_at"],
+        )
+
+    def test_business_change_refreshes_observed_at(self):
+        initial = d.positive_record(
+            None,
+            STAMP,
+            "synthetic-scope",
+            state="ok",
+            version="v1",
+        )
+        changed_at = d.iso(NOW + dt.timedelta(hours=2))
+        changed = d.positive_record(
+            initial,
+            changed_at,
+            "synthetic-scope",
+            state="ok",
+            version="v2",
+        )
+        self.assertEqual(changed["observed_at"], changed_at)
+        self.assertEqual(changed["last_success_at"], changed_at)
 
     def test_same_day_recovery_updates_immediately(self):
         client = {
@@ -863,6 +886,7 @@ class AuditTests(unittest.TestCase):
         recovered = d.audit([client], failed, healthy, lambda _url: "", recovered_at)
         self.assertEqual(recovered["clients"]["synthetic"]["source"]["observation_state"], "fresh")
         self.assertEqual(d.parse_time(recovered["clients"]["synthetic"]["source"]["last_success_at"]), recovered_at)
+        self.assertEqual(d.parse_time(recovered["clients"]["synthetic"]["source"]["observed_at"]), recovered_at)
         self.assertEqual(recovered["health"]["anomalies"], [])
 
     def test_stale_transient_failure_is_health_anomaly(self):

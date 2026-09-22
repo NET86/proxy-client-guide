@@ -499,8 +499,9 @@ def positive_record(old: dict[str, Any] | None, stamp: str, scope: str, **fields
     record["observation_state"] = "fresh"
     record["consecutive_failures"] = 0
     if not (same_business and same_day and not recovered):
-        record["observed_at"] = stamp
         record["last_success_at"] = stamp
+    if not same_business or recovered:
+        record["observed_at"] = stamp
     return record
 
 
