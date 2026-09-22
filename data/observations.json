@@ -280,12 +280,12 @@
         "repo_id": 838206019,
         "owner_id": 95160953,
         "full_name": "xishang0128/sparkle",
-        "last_activity_at": "2026-09-22T12:57:36Z",
+        "last_activity_at": "2026-09-22T21:19:42Z",
         "scope": "sha256:4fc7af10a85ce8452d6c8542bc95f5172adfd2521afa9acc3a774eb454f5bbe3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "observed_at": "2026-09-22T21:23:13Z",
+        "last_success_at": "2026-09-22T21:23:13Z"
       },
       "release": {
         "state": "ok",
@@ -484,12 +484,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-09-20T02:32:04Z",
+        "last_activity_at": "2026-09-22T18:45:31Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "observed_at": "2026-09-22T21:23:13Z",
+        "last_success_at": "2026-09-22T21:23:13Z"
       },
       "release": {
         "state": "ok",
