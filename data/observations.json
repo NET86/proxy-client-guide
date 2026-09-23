@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "last_run_at": "2026-09-22T17:00:47Z",
+  "last_run_at": "2026-09-23T17:08:09Z",
   "clients": {
     "flclash": {
       "source": {
@@ -13,7 +13,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T11:44:37Z",
-        "last_success_at": "2026-09-23T11:44:37Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -25,7 +25,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -33,7 +33,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "clash-verge-rev": {
@@ -47,7 +47,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T11:44:37Z",
-        "last_success_at": "2026-09-23T11:44:37Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -59,7 +59,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -67,7 +67,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "clashmi": {
@@ -81,7 +81,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T03:47:43Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -93,7 +93,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T03:47:43Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -101,7 +101,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "hako": {
@@ -115,7 +115,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -127,7 +127,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -135,7 +135,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "clashx-meta": {
@@ -149,7 +149,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -161,7 +161,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -169,7 +169,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "clash-meta-android": {
@@ -183,7 +183,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T11:44:37Z",
-        "last_success_at": "2026-09-23T11:44:37Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -195,7 +195,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -203,7 +203,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "clash-nyanpasu": {
@@ -217,7 +217,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T11:44:37Z",
-        "last_success_at": "2026-09-23T11:44:37Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -229,7 +229,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -237,7 +237,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "clash-party": {
@@ -251,7 +251,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T11:45:20Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -263,7 +263,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -271,7 +271,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "sparkle": {
@@ -285,7 +285,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T04:50:03Z",
-        "last_success_at": "2026-09-23T04:50:03Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -297,7 +297,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -305,7 +305,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "metacubexd": {
@@ -319,7 +319,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T04:50:03Z",
-        "last_success_at": "2026-09-23T04:50:03Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -331,7 +331,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -339,7 +339,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "bettbox": {
@@ -353,7 +353,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -365,7 +365,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -373,7 +373,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "asteriskmeta": {
@@ -382,12 +382,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-09-23T10:57:34Z",
+        "last_activity_at": "2026-09-23T11:51:28Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-23T11:44:37Z",
-        "last_success_at": "2026-09-23T11:44:37Z"
+        "observed_at": "2026-09-23T17:08:09Z",
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -399,7 +399,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -407,7 +407,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "hiddify": {
@@ -421,7 +421,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -433,7 +433,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -441,7 +441,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "karing": {
@@ -455,7 +455,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T04:50:03Z",
-        "last_success_at": "2026-09-23T04:50:03Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -467,7 +467,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -475,7 +475,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "v2rayn": {
@@ -489,7 +489,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T04:50:03Z",
-        "last_success_at": "2026-09-23T04:50:03Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -501,7 +501,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -509,7 +509,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "nekobox-android": {
@@ -523,7 +523,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -535,7 +535,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -543,7 +543,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "shadowrocket": {
@@ -556,7 +556,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -568,7 +568,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "surge": {
@@ -581,7 +581,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -593,7 +593,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "clash-verge-legacy": {
@@ -607,7 +607,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "historical_release": {
         "state": "ok",
@@ -617,7 +617,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "stash": {
@@ -630,7 +630,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -642,7 +642,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "quantumult-x": {
@@ -655,7 +655,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -667,7 +667,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "loon": {
@@ -680,7 +680,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -692,7 +692,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "egern": {
@@ -705,7 +705,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -717,7 +717,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     },
     "sing-box": {
@@ -731,7 +731,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T11:44:37Z",
-        "last_success_at": "2026-09-23T11:44:37Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "release": {
         "state": "ok",
@@ -743,7 +743,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -751,7 +751,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "last_success_at": "2026-09-23T17:08:09Z"
       }
     }
   },
