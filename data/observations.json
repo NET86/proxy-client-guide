@@ -8,12 +8,12 @@
         "repo_id": 678716433,
         "owner_id": 66918471,
         "full_name": "chen08209/FlClash",
-        "last_activity_at": "2026-09-19T17:43:38Z",
+        "last_activity_at": "2026-09-23T09:54:39Z",
         "scope": "sha256:57603ccb6b4313954bad34fbefa67748e7704ddee845f950f4f3b673187f7006",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "observed_at": "2026-09-23T11:44:37Z",
+        "last_success_at": "2026-09-23T11:44:37Z"
       },
       "release": {
         "state": "ok",
@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-23T01:46:42Z",
+        "last_activity_at": "2026-09-23T08:10:17Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-23T04:50:03Z",
-        "last_success_at": "2026-09-23T04:50:03Z"
+        "observed_at": "2026-09-23T11:44:37Z",
+        "last_success_at": "2026-09-23T11:44:37Z"
       },
       "release": {
         "state": "ok",
@@ -178,12 +178,12 @@
         "repo_id": 500719319,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/ClashMetaForAndroid",
-        "last_activity_at": "2026-09-22T13:48:24Z",
+        "last_activity_at": "2026-09-23T07:13:21Z",
         "scope": "sha256:4543876f0b18d44b652905be8ccb5c577ac38a64a5c1dd93a0dbab67be2a9c6a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "observed_at": "2026-09-23T11:44:37Z",
+        "last_success_at": "2026-09-23T11:44:37Z"
       },
       "release": {
         "state": "ok",
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-22T23:26:55Z",
+        "last_activity_at": "2026-09-23T09:33:43Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-23T04:50:03Z",
-        "last_success_at": "2026-09-23T04:50:03Z"
+        "observed_at": "2026-09-23T11:44:37Z",
+        "last_success_at": "2026-09-23T11:44:37Z"
       },
       "release": {
         "state": "ok",
@@ -382,12 +382,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-09-23T03:41:13Z",
+        "last_activity_at": "2026-09-23T10:57:34Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-23T04:50:03Z",
-        "last_success_at": "2026-09-23T04:50:03Z"
+        "observed_at": "2026-09-23T11:44:37Z",
+        "last_success_at": "2026-09-23T11:44:37Z"
       },
       "release": {
         "state": "ok",
@@ -726,12 +726,12 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-09-22T12:14:56Z",
+        "last_activity_at": "2026-09-23T06:01:17Z",
         "scope": "sha256:a032ba143c4221a036f8ec86ee706a93524d838d67ec2eedf9f15c043788de0b",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-22T17:00:47Z"
+        "observed_at": "2026-09-23T11:44:37Z",
+        "last_success_at": "2026-09-23T11:44:37Z"
       },
       "release": {
         "state": "ok",
