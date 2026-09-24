@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "last_run_at": "2026-09-23T17:08:09Z",
+  "last_run_at": "2026-09-24T17:16:07Z",
   "clients": {
     "flclash": {
       "source": {
@@ -13,7 +13,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-24T11:52:57Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -25,7 +25,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -33,7 +33,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "clash-verge-rev": {
@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-24T10:55:36Z",
+        "last_activity_at": "2026-09-24T15:07:21Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-24T11:52:57Z"
+        "observed_at": "2026-09-24T17:16:07Z",
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -59,7 +59,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -67,7 +67,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "clashmi": {
@@ -81,7 +81,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-24T11:52:57Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -93,7 +93,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T03:47:43Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -101,7 +101,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "hako": {
@@ -115,7 +115,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-24T11:52:57Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -127,7 +127,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -135,7 +135,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "clashx-meta": {
@@ -149,7 +149,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -161,7 +161,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -169,7 +169,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "clash-meta-android": {
@@ -178,12 +178,12 @@
         "repo_id": 500719319,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/ClashMetaForAndroid",
-        "last_activity_at": "2026-09-23T07:13:21Z",
+        "last_activity_at": "2026-09-24T16:30:23Z",
         "scope": "sha256:4543876f0b18d44b652905be8ccb5c577ac38a64a5c1dd93a0dbab67be2a9c6a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-23T11:44:37Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "observed_at": "2026-09-24T17:16:07Z",
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -195,7 +195,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -203,7 +203,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "clash-nyanpasu": {
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-24T11:14:45Z",
+        "last_activity_at": "2026-09-24T16:04:42Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-24T11:52:57Z"
+        "observed_at": "2026-09-24T17:16:07Z",
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -229,7 +229,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -237,7 +237,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "clash-party": {
@@ -251,7 +251,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T11:45:20Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -263,7 +263,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -271,7 +271,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "sparkle": {
@@ -285,7 +285,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T21:33:17Z",
-        "last_success_at": "2026-09-23T21:33:17Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -297,7 +297,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -305,7 +305,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "metacubexd": {
@@ -319,7 +319,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T04:50:03Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -331,7 +331,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -339,7 +339,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "bettbox": {
@@ -353,7 +353,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T04:58:04Z",
-        "last_success_at": "2026-09-24T04:58:04Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -365,7 +365,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -373,7 +373,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "asteriskmeta": {
@@ -387,7 +387,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T04:58:04Z",
-        "last_success_at": "2026-09-24T04:58:04Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -399,7 +399,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -407,7 +407,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "hiddify": {
@@ -421,7 +421,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -433,7 +433,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -441,7 +441,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "karing": {
@@ -455,7 +455,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-24T11:52:57Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -467,7 +467,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -475,7 +475,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "v2rayn": {
@@ -489,7 +489,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T21:33:17Z",
-        "last_success_at": "2026-09-23T21:33:17Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -501,7 +501,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -509,7 +509,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "nekobox-android": {
@@ -523,7 +523,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -535,7 +535,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -543,7 +543,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "shadowrocket": {
@@ -556,7 +556,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -568,7 +568,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "surge": {
@@ -581,7 +581,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -593,7 +593,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "clash-verge-legacy": {
@@ -607,7 +607,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "historical_release": {
         "state": "ok",
@@ -617,7 +617,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "stash": {
@@ -630,7 +630,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -642,7 +642,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "quantumult-x": {
@@ -655,7 +655,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -667,7 +667,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "loon": {
@@ -680,7 +680,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -692,7 +692,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "egern": {
@@ -705,7 +705,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -717,7 +717,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     },
     "sing-box": {
@@ -731,7 +731,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-24T11:52:57Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "release": {
         "state": "ok",
@@ -743,7 +743,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-24T11:52:57Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -751,7 +751,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-23T17:08:09Z"
+        "last_success_at": "2026-09-24T17:16:07Z"
       }
     }
   },
