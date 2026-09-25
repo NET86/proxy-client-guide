@@ -8,12 +8,12 @@
         "repo_id": 678716433,
         "owner_id": 66918471,
         "full_name": "chen08209/FlClash",
-        "last_activity_at": "2026-09-24T20:28:07Z",
+        "last_activity_at": "2026-09-25T11:22:37Z",
         "scope": "sha256:57603ccb6b4313954bad34fbefa67748e7704ddee845f950f4f3b673187f7006",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T21:34:21Z",
-        "last_success_at": "2026-09-24T21:34:21Z"
+        "observed_at": "2026-09-25T11:56:03Z",
+        "last_success_at": "2026-09-25T11:56:03Z"
       },
       "release": {
         "state": "ok",
@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-25T04:16:14Z",
+        "last_activity_at": "2026-09-25T08:10:59Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-25T05:02:46Z",
-        "last_success_at": "2026-09-25T05:02:46Z"
+        "observed_at": "2026-09-25T11:56:03Z",
+        "last_success_at": "2026-09-25T11:56:03Z"
       },
       "release": {
         "state": "ok",
@@ -382,12 +382,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-09-25T00:48:02Z",
+        "last_activity_at": "2026-09-25T11:53:02Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-25T05:02:46Z",
-        "last_success_at": "2026-09-25T05:02:46Z"
+        "observed_at": "2026-09-25T11:56:03Z",
+        "last_success_at": "2026-09-25T11:56:03Z"
       },
       "release": {
         "state": "ok",
