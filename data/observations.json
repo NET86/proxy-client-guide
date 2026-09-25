@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-24T15:07:21Z",
+        "last_activity_at": "2026-09-25T04:16:14Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T17:16:07Z",
-        "last_success_at": "2026-09-24T17:16:07Z"
+        "observed_at": "2026-09-25T05:02:46Z",
+        "last_success_at": "2026-09-25T05:02:46Z"
       },
       "release": {
         "state": "ok",
@@ -178,12 +178,12 @@
         "repo_id": 500719319,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/ClashMetaForAndroid",
-        "last_activity_at": "2026-09-24T16:30:23Z",
+        "last_activity_at": "2026-09-25T00:25:46Z",
         "scope": "sha256:4543876f0b18d44b652905be8ccb5c577ac38a64a5c1dd93a0dbab67be2a9c6a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T17:16:07Z",
-        "last_success_at": "2026-09-24T17:16:07Z"
+        "observed_at": "2026-09-25T05:02:46Z",
+        "last_success_at": "2026-09-25T05:02:46Z"
       },
       "release": {
         "state": "ok",
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-24T16:04:42Z",
+        "last_activity_at": "2026-09-25T01:59:17Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T17:16:07Z",
-        "last_success_at": "2026-09-24T17:16:07Z"
+        "observed_at": "2026-09-25T05:02:46Z",
+        "last_success_at": "2026-09-25T05:02:46Z"
       },
       "release": {
         "state": "ok",
@@ -280,12 +280,12 @@
         "repo_id": 838206019,
         "owner_id": 95160953,
         "full_name": "xishang0128/sparkle",
-        "last_activity_at": "2026-09-24T21:28:47Z",
+        "last_activity_at": "2026-09-24T21:35:17Z",
         "scope": "sha256:4fc7af10a85ce8452d6c8542bc95f5172adfd2521afa9acc3a774eb454f5bbe3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T21:34:21Z",
-        "last_success_at": "2026-09-24T21:34:21Z"
+        "observed_at": "2026-09-25T05:02:46Z",
+        "last_success_at": "2026-09-25T05:02:46Z"
       },
       "release": {
         "state": "ok",
@@ -348,12 +348,12 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-09-24T04:51:13Z",
+        "last_activity_at": "2026-09-25T00:36:17Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T04:58:04Z",
-        "last_success_at": "2026-09-24T17:16:07Z"
+        "observed_at": "2026-09-25T05:02:46Z",
+        "last_success_at": "2026-09-25T05:02:46Z"
       },
       "release": {
         "state": "ok",
@@ -382,24 +382,24 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-09-24T02:13:14Z",
+        "last_activity_at": "2026-09-25T00:48:02Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T04:58:04Z",
-        "last_success_at": "2026-09-24T17:16:07Z"
+        "observed_at": "2026-09-25T05:02:46Z",
+        "last_success_at": "2026-09-25T05:02:46Z"
       },
       "release": {
         "state": "ok",
-        "version": "v1.2.9",
-        "published_at": "2026-09-18T11:42:16Z",
-        "release_id": 391429791,
+        "version": "v1.2.10",
+        "published_at": "2026-09-24T23:41:23Z",
+        "release_id": 396161150,
         "asset_count": 5,
         "scope": "sha256:92800e2fd46ced955a702f8b46f429a9322152ffa4762e66fe61ca48387ab7d4",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-24T17:16:07Z"
+        "observed_at": "2026-09-25T05:02:46Z",
+        "last_success_at": "2026-09-25T05:02:46Z"
       },
       "core_evidence": {
         "state": "ok",
