@@ -114,7 +114,7 @@
         "scope": "sha256:79c97d284e0f2655a628381729ab49e93ccab4e48dc3481bdf325629943937f2",
         "observation_state": "verified_negative",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T16:24:06Z",
+        "observed_at": "2026-09-26T16:27:40Z",
         "last_success_at": "2026-09-25T17:16:22Z"
       },
       "release": {
@@ -372,7 +372,7 @@
         "scope": "sha256:eba784049af751090c219f22940b37f1f73e3ba6361c21b795f192f48161d101",
         "observation_state": "verified_negative",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T16:24:06Z",
+        "observed_at": "2026-09-26T16:27:40Z",
         "last_success_at": "2026-09-25T17:16:22Z",
         "observed_missing_patterns": [
           "使用Mihomo.*内核"
