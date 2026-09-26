@@ -114,7 +114,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/clash-verge-rev/clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)
 - 下载：[https://github.com/clash-verge-rev/clash-verge-rev/releases](https://github.com/clash-verge-rev/clash-verge-rev/releases)
-- 版本：v2.5.5（2026-09-22）
+- 版本：v2.5.6（2026-09-26）
 
 ### ClashMi
 

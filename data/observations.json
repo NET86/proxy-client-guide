@@ -42,24 +42,24 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-25T16:00:59Z",
+        "last_activity_at": "2026-09-26T02:59:23Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-25T17:16:22Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "observed_at": "2026-09-26T05:05:29Z",
+        "last_success_at": "2026-09-26T05:05:29Z"
       },
       "release": {
         "state": "ok",
-        "version": "v2.5.5",
-        "published_at": "2026-09-22T13:38:49Z",
-        "release_id": 393737198,
+        "version": "v2.5.6",
+        "published_at": "2026-09-26T04:11:55Z",
+        "release_id": 397051617,
         "asset_count": 23,
         "scope": "sha256:aea21026dc65aa8eca5dc055b335403dda6bbfe4302033c817339bf8d6fa8f9f",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "observed_at": "2026-09-26T05:05:29Z",
+        "last_success_at": "2026-09-26T05:05:29Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-25T13:50:52Z",
+        "last_activity_at": "2026-09-26T01:58:10Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-25T17:16:22Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "observed_at": "2026-09-26T05:05:29Z",
+        "last_success_at": "2026-09-26T05:05:29Z"
       },
       "release": {
         "state": "ok",
@@ -246,12 +246,12 @@
         "repo_id": 836976013,
         "owner_id": 181477152,
         "full_name": "mihomo-party-org/clash-party",
-        "last_activity_at": "2026-09-25T13:31:55Z",
+        "last_activity_at": "2026-09-26T01:27:42Z",
         "scope": "sha256:9812e1fa09efc3deaf6302785129fb60e57f2631f52559d22ced794ab780b986",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-25T17:16:22Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "observed_at": "2026-09-26T05:05:29Z",
+        "last_success_at": "2026-09-26T05:05:29Z"
       },
       "release": {
         "state": "ok",
@@ -484,12 +484,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-09-25T18:48:22Z",
+        "last_activity_at": "2026-09-26T03:43:28Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-25T21:38:26Z",
-        "last_success_at": "2026-09-25T21:38:26Z"
+        "observed_at": "2026-09-26T05:05:29Z",
+        "last_success_at": "2026-09-26T05:05:29Z"
       },
       "release": {
         "state": "ok",
