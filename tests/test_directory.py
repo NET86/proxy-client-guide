@@ -46,6 +46,11 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual(self.by_id[cid]["category"], "mihomo")
 
     def test_representative_clients_are_normalized(self):
+        self.assertEqual(self.by_id["hako"]["source_type"], "app_store")
+        self.assertNotIn("github_repo", self.by_id["hako"])
+        self.assertNotIn("official_repo_id", self.by_id["hako"])
+        self.assertEqual(len(self.by_id["hako"]["core_evidence"]), 1)
+        self.assertEqual(self.by_id["hako"]["core_evidence"][0]["url"], "https://raw.githubusercontent.com/TokenPLS/Hako/main/README.md")
         self.assertEqual(self.by_id["hako"]["platforms"]["tvos"], True)
         self.assertEqual(self.by_id["stash"]["core"], "未公开")
         self.assertEqual(self.by_id["surge"]["name"], "Surge")
@@ -62,6 +67,10 @@ class CatalogTests(unittest.TestCase):
         self.assertTrue(self.by_id["sing-box"]["platforms"]["tvos"])
         self.assertTrue(self.by_id["stash"]["platforms"]["windows"])
         self.assertEqual(self.by_id["stash"]["download_page_url"], "https://stash.ws/download")
+
+    def test_bettbox_core_evidence_accepts_current_wording(self):
+        pattern = self.by_id["bettbox"]["core_evidence"][0]["patterns"][1]
+        self.assertRegex("Bettbox 基于强大的 Mihomo(Clash Meta) 内核深度打造", pattern)
 
     def test_core_labels_follow_display_convention(self):
         simple = {"Mihomo", "Clash", "sing-box", "Hako（基于 Mihomo）", "未公开"}
@@ -663,6 +672,27 @@ class AuditTests(unittest.TestCase):
         out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload)
         self.assertFalse(ok)
         self.assertEqual(out["source"]["state"], "identity_mismatch")
+        self.assertTrue(issues)
+
+    def test_app_store_core_evidence_success(self):
+        client = self.by_id["hako"]
+        payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z"}]}
+        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload, lambda _url: "Hako is a proxy kernel based on mihomo v1.19.31")
+        self.assertTrue(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(out["source"]["state"], "ok")
+        self.assertEqual(out["release"]["state"], "ok")
+        self.assertEqual(out["core_evidence"]["state"], "ok")
+        self.assertEqual(d.links_for(client, out, NOW), (client["website_url"], client["download_url"]))
+
+    def test_app_store_core_evidence_mismatch(self):
+        client = self.by_id["hako"]
+        payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z"}]}
+        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload, lambda _url: "unrelated text")
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "ok")
+        self.assertEqual(out["release"]["state"], "ok")
+        self.assertEqual(out["core_evidence"]["state"], "mismatch")
         self.assertTrue(issues)
 
     def test_app_store_region_missing_is_not_global_delisting_claim(self):

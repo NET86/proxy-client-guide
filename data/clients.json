@@ -98,9 +98,7 @@
         "linux": false,
         "tvos": true
       },
-      "source_type": "github",
-      "github_repo": "TokenPLS/Hako-Client",
-      "official_repo_id": 1302702957,
+      "source_type": "app_store",
       "app_store_id": "6794257189",
       "app_store_seller": "OmniWide Media Limited",
       "release_source": "app_store",
@@ -109,16 +107,10 @@
       "core": "Hako（基于 Mihomo）",
       "core_evidence": [
         {
-          "url": "https://raw.githubusercontent.com/TokenPLS/Hako-Client/main/README.md",
-          "patterns": [
-            "powered by the Hako kernel"
-          ]
-        },
-        {
-          "url": "https://raw.githubusercontent.com/TokenPLS/Hako/main/README.md",
           "patterns": [
             "based on.*mihomo"
-          ]
+          ],
+          "url": "https://raw.githubusercontent.com/TokenPLS/Hako/main/README.md"
         }
       ]
     },
@@ -306,7 +298,7 @@
           "url": "https://raw.githubusercontent.com/appshubcc/Bettbox/main/README.md",
           "patterns": [
             "Another Better Mihomo Client",
-            "使用Mihomo.*内核"
+            "Mihomo.*内核"
           ]
         }
       ]

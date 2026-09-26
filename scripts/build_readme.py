@@ -898,6 +898,7 @@ def audit_app_store_source(
     old: dict[str, Any],
     now: dt.datetime,
     request: Callable[..., dict[str, Any] | None],
+    fetch_text: Callable[[str], str | None] = request_text,
 ) -> tuple[dict[str, Any], list[str], bool]:
     stamp = iso(now)
     previous_source = old.get("source") if isinstance(old, dict) else None
@@ -969,7 +970,12 @@ def audit_app_store_source(
             track_id=entry["trackId"],
             last_activity_at=iso(published),
         )
-        return {"source": source, "release": release}, issues, release_ok
+        result = {"source": source, "release": release}
+        core, core_issues, core_ok = audit_core_evidence(client, old, now, fetch_text)
+        if core is not None:
+            result["core_evidence"] = core
+        issues.extend(core_issues)
+        return result, issues, release_ok and core_ok
     except (OSError, urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, ObservationError, ValueError) as exc:
         return {
             "source": failure_record(previous_source, stamp, str(exc), source_scope_value),
@@ -1016,7 +1022,7 @@ def audit(
         old = previous_by_id[client["id"]]
         if client["source_type"] == "github":
             return audit_github(client, old, token, current, request, fetch_text)
-        return audit_app_store_source(client, old, current, request)
+        return audit_app_store_source(client, old, current, request, fetch_text)
 
     future_by_id: dict[str, concurrent.futures.Future[tuple[dict[str, Any], list[str], bool]]] = {}
     if remote_clients:
