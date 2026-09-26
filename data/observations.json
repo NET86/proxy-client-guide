@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-26T02:59:23Z",
+        "last_activity_at": "2026-09-26T10:01:51Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T05:05:29Z",
-        "last_success_at": "2026-09-26T05:05:29Z"
+        "observed_at": "2026-09-26T11:30:06Z",
+        "last_success_at": "2026-09-26T11:30:06Z"
       },
       "release": {
         "state": "ok",
@@ -106,15 +106,15 @@
     },
     "hako": {
       "source": {
-        "state": "ok",
+        "state": "missing",
         "repo_id": 1302702957,
         "owner_id": 305755057,
         "full_name": "TokenPLS/Hako-Client",
         "last_activity_at": "2026-09-24T09:07:48Z",
         "scope": "sha256:79c97d284e0f2655a628381729ab49e93ccab4e48dc3481bdf325629943937f2",
-        "observation_state": "fresh",
+        "observation_state": "verified_negative",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T11:52:57Z",
+        "observed_at": "2026-09-26T11:30:06Z",
         "last_success_at": "2026-09-25T17:16:22Z"
       },
       "release": {
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-26T01:58:10Z",
+        "last_activity_at": "2026-09-26T10:35:25Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T05:05:29Z",
-        "last_success_at": "2026-09-26T05:05:29Z"
+        "observed_at": "2026-09-26T11:30:06Z",
+        "last_success_at": "2026-09-26T11:30:06Z"
       },
       "release": {
         "state": "ok",
@@ -382,12 +382,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-09-25T13:59:20Z",
+        "last_activity_at": "2026-09-26T11:15:28Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-25T17:16:22Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "observed_at": "2026-09-26T11:30:06Z",
+        "last_success_at": "2026-09-26T11:30:06Z"
       },
       "release": {
         "state": "ok",
@@ -726,12 +726,12 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-09-24T11:47:05Z",
+        "last_activity_at": "2026-09-26T09:37:02Z",
         "scope": "sha256:a032ba143c4221a036f8ec86ee706a93524d838d67ec2eedf9f15c043788de0b",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "observed_at": "2026-09-26T11:30:06Z",
+        "last_success_at": "2026-09-26T11:30:06Z"
       },
       "release": {
         "state": "ok",
@@ -757,10 +757,12 @@
   },
   "health": {
     "attempted": 24,
-    "succeeded": 24,
-    "coverage": 1.0,
-    "anomalies": [],
+    "succeeded": 23,
+    "coverage": 0.9583,
+    "anomalies": [
+      "hako: unresolved source state missing"
+    ],
     "attempted_last_run": 24,
-    "succeeded_last_run": 24
+    "succeeded_last_run": 23
   }
 }

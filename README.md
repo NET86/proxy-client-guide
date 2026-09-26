@@ -23,7 +23,6 @@
 
 | 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
-| Clash（Hako） | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/TokenPLS/Hako-Client) | [App Store](https://apps.apple.com/app/id6794257189) |
 | ClashMi | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/clashmi) | [下载页](https://github.com/KaringX/clashmi/releases) |
 | Bettbox | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/appshubcc/Bettbox) | [下载页](https://github.com/appshubcc/Bettbox/releases) |
 | FlClash | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/chen08209/FlClash) | [下载页](https://github.com/chen08209/FlClash/releases) |
@@ -33,6 +32,7 @@
 | ClashX Meta | 🟢 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashX.Meta) | [下载页](https://github.com/MetaCubeX/ClashX.Meta/releases) |
 | AsteriskMETA | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/Asterisk4Magisk/AsteriskMETA) | [下载页](https://github.com/Asterisk4Magisk/AsteriskMETA/releases) |
 | Clash Meta for Android | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashMetaForAndroid) | [下载页](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
+| Clash（Hako） | ❓ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/TokenPLS/Hako-Client) | [App Store](https://apps.apple.com/app/id6794257189) |
 
 ## sing-box 内核客户端
 
@@ -139,12 +139,13 @@
 ### Clash（Hako）
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 近半年有更新
+- 状态：❓ 待确认｜来源或版本异常
 - 平台：macOS / iOS / tvOS
 - 内核：Hako（基于 Mihomo）
 - 官方来源：[https://github.com/TokenPLS/Hako-Client](https://github.com/TokenPLS/Hako-Client)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
 - 版本：1.0.9（2026-09-19）
+- 核验：项目来源暂不可用；保留已配置入口。
 
 ### FlClash
 
