@@ -129,11 +129,12 @@
         "observed_at": "2026-09-26T16:31:39Z"
       },
       "core_evidence": {
-        "scope": "sha256:09fb86d5c324aa7f33ae89e3df9d62bd6529ad0204f47d23f0a89159eb300859",
-        "state": "missing",
-        "observation_state": "verified_negative",
-        "observed_at": "2026-09-26T16:31:39Z",
-        "consecutive_failures": 0
+        "state": "ok",
+        "scope": "sha256:3e3adccc626b2b5eab026efc2dca3f5662d45a676e6d6c987ded416a9d1cc8c6",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "last_success_at": "2026-09-26T16:40:27Z",
+        "observed_at": "2026-09-26T16:40:27Z"
       }
     },
     "clashx-meta": {
@@ -755,13 +756,10 @@
   },
   "health": {
     "attempted": 24,
-    "succeeded": 23,
-    "coverage": 0.9583,
-    "anomalies": [
-      "hako: core_evidence evidence stale or never positively verified",
-      "hako: unresolved core_evidence state missing"
-    ],
+    "succeeded": 24,
+    "coverage": 1.0,
+    "anomalies": [],
     "attempted_last_run": 24,
-    "succeeded_last_run": 23
+    "succeeded_last_run": 24
   }
 }
