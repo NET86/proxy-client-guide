@@ -105,13 +105,8 @@
       "download_url": "https://apps.apple.com/app/id6794257189",
       "website_url": "https://clash.md/",
       "core": "Hako（基于 Mihomo）",
-      "core_evidence": [
-        {
-          "patterns": [
-            "based on.*mihomo"
-          ],
-          "url": "https://raw.githubusercontent.com/TokenPLS/Hako/main/README.md"
-        }
+      "app_store_core_patterns": [
+        "Hako builds on the open-source mihomo project"
       ]
     },
     {

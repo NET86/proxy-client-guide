@@ -49,8 +49,8 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(self.by_id["hako"]["source_type"], "app_store")
         self.assertNotIn("github_repo", self.by_id["hako"])
         self.assertNotIn("official_repo_id", self.by_id["hako"])
-        self.assertEqual(len(self.by_id["hako"]["core_evidence"]), 1)
-        self.assertEqual(self.by_id["hako"]["core_evidence"][0]["url"], "https://raw.githubusercontent.com/TokenPLS/Hako/main/README.md")
+        self.assertNotIn("core_evidence", self.by_id["hako"])
+        self.assertEqual(self.by_id["hako"]["app_store_core_patterns"], ["Hako builds on the open-source mihomo project"])
         self.assertEqual(self.by_id["hako"]["platforms"]["tvos"], True)
         self.assertEqual(self.by_id["stash"]["core"], "未公开")
         self.assertEqual(self.by_id["surge"]["name"], "Surge")
@@ -180,6 +180,27 @@ class CatalogTests(unittest.TestCase):
             path = Path(temp) / "clients.json"
             path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "core claim requires"):
+                d.load_clients(path)
+
+    def test_loader_rejects_active_app_store_core_without_evidence(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(client for client in payload["clients"] if client["id"] == "hako")
+        target.pop("core_evidence", None)
+        target.pop("app_store_core_patterns", None)
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "App Store core claim requires evidence"):
+                d.load_clients(path)
+
+    def test_loader_rejects_both_app_store_core_evidence_modes(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(client for client in payload["clients"] if client["id"] == "hako")
+        target["core_evidence"] = [{"url": "https://raw.githubusercontent.com/example/repo/main/README.md", "patterns": ["mihomo"]}]
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "cannot both be configured"):
                 d.load_clients(path)
 
     def test_app_store_identity_has_seller_pin(self):
@@ -676,8 +697,8 @@ class AuditTests(unittest.TestCase):
 
     def test_app_store_core_evidence_success(self):
         client = self.by_id["hako"]
-        payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z"}]}
-        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload, lambda _url: "Hako is a proxy kernel based on mihomo v1.19.31")
+        payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z", "description": "Hako builds on the open-source mihomo project"}]}
+        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload)
         self.assertTrue(ok)
         self.assertEqual(issues, [])
         self.assertEqual(out["source"]["state"], "ok")
@@ -687,13 +708,26 @@ class AuditTests(unittest.TestCase):
 
     def test_app_store_core_evidence_mismatch(self):
         client = self.by_id["hako"]
-        payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z"}]}
-        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload, lambda _url: "unrelated text")
+        payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z", "description": "Hako is an unrelated proxy engine"}]}
+        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload)
         self.assertFalse(ok)
         self.assertEqual(out["source"]["state"], "ok")
         self.assertEqual(out["release"]["state"], "ok")
         self.assertEqual(out["core_evidence"]["state"], "mismatch")
         self.assertTrue(issues)
+
+    def test_app_store_core_evidence_missing_description(self):
+        client = self.by_id["hako"]
+        payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z"}]}
+        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload)
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "ok")
+        self.assertEqual(out["release"]["state"], "ok")
+        self.assertEqual(out["core_evidence"]["observation_state"], "error")
+        self.assertTrue(issues == [])
+
+    def test_app_store_core_evidence_is_expected_observation(self):
+        self.assertIn("core_evidence", d.expected_observation_components(self.by_id["hako"]))
 
     def test_app_store_region_missing_is_not_global_delisting_claim(self):
         client = self.by_id["shadowrocket"]
@@ -1091,7 +1125,7 @@ class RenderTests(unittest.TestCase):
                     "published_at": "2026-09-14T00:00:00Z",
                     "consecutive_failures": 0,
                 }
-            if client.get("core_evidence"):
+            if client.get("core_evidence") or client.get("app_store_core_patterns"):
                 record["core_evidence"] = {
                     "scope": d.core_evidence_scope(client),
                     "state": "ok",

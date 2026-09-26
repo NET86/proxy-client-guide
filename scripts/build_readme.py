@@ -151,15 +151,16 @@ def historical_release_scope(client: dict[str, Any]) -> str:
 
 
 def core_evidence_scope(client: dict[str, Any]) -> str:
-    return _scope_hash(
-        {
-            "v": EVIDENCE_SCOPE_VERSION,
-            "component": "core_evidence",
-            "source_scope": source_scope(client),
-            "core": client.get("core", ""),
-            "evidence": client.get("core_evidence", []),
-        }
-    )
+    payload = {
+        "v": EVIDENCE_SCOPE_VERSION,
+        "component": "core_evidence",
+        "source_scope": source_scope(client),
+        "core": client.get("core", ""),
+        "evidence": client.get("core_evidence", []),
+    }
+    if client.get("app_store_core_patterns"):
+        payload["app_store_core_patterns"] = client["app_store_core_patterns"]
+    return _scope_hash(payload)
 
 
 def component_scope(client: dict[str, Any], component: str) -> str:
@@ -305,9 +306,22 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
                 ):
                     raise ValueError(f"{name}: invalid historical asset pin")
         core_evidence = client.get("core_evidence", [])
+        app_store_core_patterns = client.get("app_store_core_patterns", [])
+        if "app_store_core_patterns" in client:
+            if source_type != "app_store":
+                raise ValueError(f"{name}: app_store_core_patterns requires source_type app_store")
+            if not isinstance(app_store_core_patterns, list) or not app_store_core_patterns or any(not isinstance(p, str) or not p for p in app_store_core_patterns):
+                raise ValueError(f"{name}: invalid app_store_core_patterns")
+            for pattern in app_store_core_patterns:
+                re.compile(pattern)
+        if "core_evidence" in client and "app_store_core_patterns" in client:
+            raise ValueError(f"{name}: core_evidence and app_store_core_patterns cannot both be configured")
         if source_type == "github" and client["category"] != "legacy" and "core" in client:
             if not isinstance(core_evidence, list) or not core_evidence:
                 raise ValueError(f"{name}: active GitHub core claim requires non-empty core_evidence")
+        if source_type == "app_store" and "core" in client and client["core"] != "未公开":
+            if not core_evidence and not app_store_core_patterns:
+                raise ValueError(f"{name}: active App Store core claim requires evidence")
         for evidence in core_evidence:
             if not isinstance(evidence, dict):
                 raise ValueError(f"{name}: invalid core evidence")
@@ -666,6 +680,27 @@ def audit_core_evidence(
         return failure_record(previous, stamp, str(exc), scope), [], False
 
 
+def audit_app_store_core_evidence(
+    client: dict[str, Any],
+    old: dict[str, Any],
+    now: dt.datetime,
+    entry: dict[str, Any],
+) -> tuple[dict[str, Any] | None, list[str], bool]:
+    patterns = client.get("app_store_core_patterns")
+    if not patterns:
+        return None, [], True
+    stamp = iso(now)
+    previous = old.get("core_evidence") if isinstance(old, dict) else None
+    scope = core_evidence_scope(client)
+    description = entry.get("description")
+    if not isinstance(description, str) or not description.strip():
+        return failure_record(previous, stamp, "App Store description schema changed", scope), [], False
+    missing = [pattern for pattern in patterns if re.search(pattern, description, re.IGNORECASE) is None]
+    if missing:
+        return negative_record(previous, stamp, scope, "mismatch", observed_missing_patterns=missing), [f"{client['id']}: App Store core description no longer matches"], False
+    return positive_record(previous, stamp, scope, state="ok"), [], True
+
+
 def audit_github(
     client: dict[str, Any],
     old: dict[str, Any],
@@ -971,7 +1006,9 @@ def audit_app_store_source(
             last_activity_at=iso(published),
         )
         result = {"source": source, "release": release}
-        core, core_issues, core_ok = audit_core_evidence(client, old, now, fetch_text)
+        core, core_issues, core_ok = audit_app_store_core_evidence(client, old, now, entry)
+        if core is None:
+            core, core_issues, core_ok = audit_core_evidence(client, old, now, fetch_text)
         if core is not None:
             result["core_evidence"] = core
         issues.extend(core_issues)
@@ -1265,7 +1302,7 @@ def expected_observation_components(client: dict[str, Any]) -> tuple[str, ...]:
         components.append("historical_release")
     elif client.get("release_source", client["source_type"]) in {"github", "app_store"}:
         components.append("release")
-    if client.get("core_evidence"):
+    if client.get("core_evidence") or client.get("app_store_core_patterns"):
         components.append("core_evidence")
     return tuple(components)
 
