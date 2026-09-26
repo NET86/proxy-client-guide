@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-09-26（北京时间，下同）。
+核验：成功记录 2026-09-26 至 2026-09-27（北京时间，下同）。
 > 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -24,7 +24,6 @@
 | 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
 | ClashMi | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/clashmi) | [下载页](https://github.com/KaringX/clashmi/releases) |
-| Bettbox | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/appshubcc/Bettbox) | [下载页](https://github.com/appshubcc/Bettbox/releases) |
 | FlClash | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/chen08209/FlClash) | [下载页](https://github.com/chen08209/FlClash/releases) |
 | Clash Verge Rev | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/clash-verge-rev/clash-verge-rev) | [下载页](https://github.com/clash-verge-rev/clash-verge-rev/releases) |
 | MetaCubeXD | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/MetaCubeX/metacubexd) | [下载页](https://github.com/MetaCubeX/metacubexd/releases) |
@@ -33,6 +32,7 @@
 | AsteriskMETA | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/Asterisk4Magisk/AsteriskMETA) | [下载页](https://github.com/Asterisk4Magisk/AsteriskMETA/releases) |
 | Clash Meta for Android | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashMetaForAndroid) | [下载页](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
 | Clash（Hako） | ❓ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/TokenPLS/Hako-Client) | [App Store](https://apps.apple.com/app/id6794257189) |
+| Bettbox | ❓ | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/appshubcc/Bettbox) | [下载页](https://github.com/appshubcc/Bettbox/releases) |
 
 ## sing-box 内核客户端
 
@@ -88,12 +88,13 @@
 ### Bettbox
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 近半年有更新
+- 状态：❓ 待确认｜来源或版本异常
 - 平台：macOS / Windows / Android / Linux
 - 内核：Mihomo
 - 官方来源：[https://github.com/appshubcc/Bettbox](https://github.com/appshubcc/Bettbox)
 - 下载：[https://github.com/appshubcc/Bettbox/releases](https://github.com/appshubcc/Bettbox/releases)
-- 版本：v1.19.2（2026-09-19）
+- 版本：v1.19.3（2026-09-26）
+- 核验：内核说明发生变化；保留原记录。
 
 ### Clash Meta for Android
 

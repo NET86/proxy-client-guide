@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "last_run_at": "2026-09-25T17:16:22Z",
+  "last_run_at": "2026-09-26T16:24:06Z",
   "clients": {
     "flclash": {
       "source": {
@@ -8,12 +8,12 @@
         "repo_id": 678716433,
         "owner_id": 66918471,
         "full_name": "chen08209/FlClash",
-        "last_activity_at": "2026-09-25T11:22:37Z",
+        "last_activity_at": "2026-09-26T12:09:18Z",
         "scope": "sha256:57603ccb6b4313954bad34fbefa67748e7704ddee845f950f4f3b673187f7006",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-25T11:56:03Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "observed_at": "2026-09-26T16:24:06Z",
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -25,7 +25,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -33,7 +33,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "clash-verge-rev": {
@@ -47,7 +47,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-26T11:30:06Z",
-        "last_success_at": "2026-09-26T11:30:06Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -59,7 +59,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-26T05:05:29Z",
-        "last_success_at": "2026-09-26T05:05:29Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -67,7 +67,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "clashmi": {
@@ -81,7 +81,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -93,7 +93,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T03:47:43Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -101,7 +101,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "hako": {
@@ -114,7 +114,7 @@
         "scope": "sha256:79c97d284e0f2655a628381729ab49e93ccab4e48dc3481bdf325629943937f2",
         "observation_state": "verified_negative",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T11:30:06Z",
+        "observed_at": "2026-09-26T16:24:06Z",
         "last_success_at": "2026-09-25T17:16:22Z"
       },
       "release": {
@@ -149,7 +149,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -161,7 +161,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -169,7 +169,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "clash-meta-android": {
@@ -183,7 +183,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-25T05:02:46Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -195,7 +195,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -203,7 +203,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "clash-nyanpasu": {
@@ -212,12 +212,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-26T10:35:25Z",
+        "last_activity_at": "2026-09-26T14:36:28Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T11:30:06Z",
-        "last_success_at": "2026-09-26T11:30:06Z"
+        "observed_at": "2026-09-26T16:24:06Z",
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -229,7 +229,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -237,7 +237,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "clash-party": {
@@ -251,7 +251,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-26T05:05:29Z",
-        "last_success_at": "2026-09-26T05:05:29Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -263,7 +263,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -271,7 +271,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "sparkle": {
@@ -285,7 +285,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-25T21:38:26Z",
-        "last_success_at": "2026-09-25T21:38:26Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -297,7 +297,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -305,7 +305,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "metacubexd": {
@@ -319,7 +319,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-23T04:50:03Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -331,7 +331,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -339,7 +339,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "bettbox": {
@@ -348,32 +348,35 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-09-25T13:22:27Z",
+        "last_activity_at": "2026-09-26T15:30:43Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-25T17:16:22Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "observed_at": "2026-09-26T16:24:06Z",
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
-        "version": "v1.19.2",
-        "published_at": "2026-09-19T02:46:46Z",
-        "release_id": 391890813,
-        "asset_count": 17,
+        "version": "v1.19.3",
+        "published_at": "2026-09-26T15:50:15Z",
+        "release_id": 397261287,
+        "asset_count": 18,
         "scope": "sha256:042e7d1b6adb0c8b6d4db3757751d13360fbac485c763f6b3a16f1f3fd4b2539",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "observed_at": "2026-09-26T16:24:06Z",
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
-        "state": "ok",
+        "state": "mismatch",
         "scope": "sha256:eba784049af751090c219f22940b37f1f73e3ba6361c21b795f192f48161d101",
-        "observation_state": "fresh",
+        "observation_state": "verified_negative",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "observed_at": "2026-09-26T16:24:06Z",
+        "last_success_at": "2026-09-25T17:16:22Z",
+        "observed_missing_patterns": [
+          "使用Mihomo.*内核"
+        ]
       }
     },
     "asteriskmeta": {
@@ -387,7 +390,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-26T11:30:06Z",
-        "last_success_at": "2026-09-26T11:30:06Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -399,7 +402,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-25T05:02:46Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -407,7 +410,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "hiddify": {
@@ -421,7 +424,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -433,7 +436,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -441,7 +444,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "karing": {
@@ -455,7 +458,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -467,7 +470,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -475,7 +478,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "v2rayn": {
@@ -489,7 +492,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-26T05:05:29Z",
-        "last_success_at": "2026-09-26T05:05:29Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -501,7 +504,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -509,7 +512,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "nekobox-android": {
@@ -523,7 +526,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -535,7 +538,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -543,7 +546,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "shadowrocket": {
@@ -556,7 +559,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -568,7 +571,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "surge": {
@@ -581,7 +584,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -593,7 +596,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "clash-verge-legacy": {
@@ -607,7 +610,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "historical_release": {
         "state": "ok",
@@ -617,7 +620,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "stash": {
@@ -630,7 +633,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -642,7 +645,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "quantumult-x": {
@@ -655,7 +658,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -667,7 +670,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "loon": {
@@ -680,7 +683,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -692,7 +695,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-22T17:00:47Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "egern": {
@@ -705,7 +708,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -717,7 +720,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     },
     "sing-box": {
@@ -726,12 +729,12 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-09-26T09:37:02Z",
+        "last_activity_at": "2026-09-26T15:59:34Z",
         "scope": "sha256:a032ba143c4221a036f8ec86ee706a93524d838d67ec2eedf9f15c043788de0b",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T11:30:06Z",
-        "last_success_at": "2026-09-26T11:30:06Z"
+        "observed_at": "2026-09-26T16:24:06Z",
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "release": {
         "state": "ok",
@@ -743,7 +746,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-24T11:52:57Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -751,18 +754,20 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-25T17:16:22Z"
+        "last_success_at": "2026-09-26T16:24:06Z"
       }
     }
   },
   "health": {
     "attempted": 24,
-    "succeeded": 23,
-    "coverage": 0.9583,
+    "succeeded": 22,
+    "coverage": 0.9167,
     "anomalies": [
+      "audit coverage 22/24 below 95%",
+      "bettbox: unresolved core_evidence state mismatch",
       "hako: unresolved source state missing"
     ],
     "attempted_last_run": 24,
-    "succeeded_last_run": 23
+    "succeeded_last_run": 22
   }
 }
