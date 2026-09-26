@@ -684,8 +684,10 @@ def audit_github(
     try:
         metadata = request(f"https://api.github.com/repos/{repo}", token)
         if metadata is None:
+            metadata = request(f"https://api.github.com/repositories/{client['official_repo_id']}", token)
+        if metadata is None:
             result["source"] = negative_record(previous_source, stamp, source_scope_value, "missing")
-            return result, [f"{client['id']}: official repository returned 404"], False
+            return result, [f"{client['id']}: official repository returned 404 by path and pinned repository ID"], False
         require_repo_schema(metadata)
         identity_mismatch = metadata["id"] != client["official_repo_id"]
         if identity_mismatch:

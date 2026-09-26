@@ -42,7 +42,7 @@ Refresh 自动处理新版本、同一 GitHub repository ID 的改名或迁移�
 
 ## 安全边界
 
-- GitHub 固定 repository ID；App Store 固定 app ID 与 sellerName。同一 GitHub 仓库改名或迁移自动跟随。
+- GitHub 固定 repository ID；owner/name 返回 404 时再按固定 repository ID 查询后才视为缺失；App Store 固定 app ID 与 sellerName。同一 GitHub 仓库改名或迁移自动跟随。
 - 身份冲突会隐藏下载入口；404、Latest 缺失或短期失败只标记待确认。已确认的身份冲突只能由同一 scope 的正向核验或人工更新配置恢复。
 - `scope` 绑定核验所依据的身份和下载目标；相关配置变化后不沿用旧核验结果。
 - GitHub 官方仓库归档后转入历史；动态归档可恢复，静态 `legacy` 不自动恢复。第三方资料只用于历史项目。

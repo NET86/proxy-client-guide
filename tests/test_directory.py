@@ -370,6 +370,53 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(out["source"]["state"], "missing")
         self.assertTrue(issues)
 
+    def test_path_404_recovers_by_pinned_repo_id(self):
+        client = self.by_id["flclash"]
+        def api(url, token=None):
+            if url == f"https://api.github.com/repos/{client['github_repo']}":
+                return None
+            if url == f"https://api.github.com/repositories/{client['official_repo_id']}":
+                return self.repo(client)
+            if url.endswith("/releases/latest"):
+                return self.release()
+            self.fail(f"unexpected API URL: {url}")
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertTrue(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(out["source"]["state"], "ok")
+        self.assertEqual(out["source"]["repo_id"], client["official_repo_id"])
+
+    def test_path_404_follows_pinned_repo_id_canonical_name(self):
+        client = self.by_id["flclash"]
+        def api(url, token=None):
+            if url == f"https://api.github.com/repos/{client['github_repo']}":
+                return None
+            if url == f"https://api.github.com/repositories/{client['official_repo_id']}":
+                return self.repo(client, full_name="new-owner/FlClash")
+            if url == "https://api.github.com/repos/new-owner/FlClash/releases/latest":
+                return self.release()
+            self.fail(f"unexpected API URL: {url}")
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertTrue(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(d.links_for(client, out, NOW), (
+            "https://github.com/new-owner/FlClash",
+            "https://github.com/new-owner/FlClash/releases",
+        ))
+
+    def test_path_404_rejects_pinned_id_response_with_different_repo_id(self):
+        client = self.by_id["flclash"]
+        def api(url, token=None):
+            if url == f"https://api.github.com/repos/{client['github_repo']}":
+                return None
+            if url == f"https://api.github.com/repositories/{client['official_repo_id']}":
+                return self.repo(client, id=-1)
+            self.fail(f"unexpected API URL: {url}")
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(out["source"]["state"], "identity_mismatch")
+        self.assertTrue(issues)
+
 
     def test_transient_failure_preserves_lkg(self):
         client = self.by_id["flclash"]
