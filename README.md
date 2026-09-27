@@ -144,7 +144,7 @@
 - 内核：Hako（基于 Mihomo）
 - 官方来源：[https://clash.md/](https://clash.md/)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
-- 版本：1.0.9（2026-09-19）
+- 版本：1.0.10（2026-09-28）
 
 ### FlClash
 
