@@ -8,12 +8,12 @@
         "repo_id": 678716433,
         "owner_id": 66918471,
         "full_name": "chen08209/FlClash",
-        "last_activity_at": "2026-09-26T12:09:18Z",
+        "last_activity_at": "2026-09-27T10:18:21Z",
         "scope": "sha256:57603ccb6b4313954bad34fbefa67748e7704ddee845f950f4f3b673187f7006",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T16:24:06Z",
-        "last_success_at": "2026-09-26T16:24:06Z"
+        "observed_at": "2026-09-27T12:08:42Z",
+        "last_success_at": "2026-09-27T12:08:42Z"
       },
       "release": {
         "state": "ok",
@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-26T10:01:51Z",
+        "last_activity_at": "2026-09-27T11:03:35Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T11:30:06Z",
-        "last_success_at": "2026-09-26T16:24:06Z"
+        "observed_at": "2026-09-27T12:08:42Z",
+        "last_success_at": "2026-09-27T12:08:42Z"
       },
       "release": {
         "state": "ok",
@@ -279,12 +279,12 @@
         "repo_id": 838206019,
         "owner_id": 95160953,
         "full_name": "xishang0128/sparkle",
-        "last_activity_at": "2026-09-27T04:08:45Z",
+        "last_activity_at": "2026-09-27T06:45:52Z",
         "scope": "sha256:4fc7af10a85ce8452d6c8542bc95f5172adfd2521afa9acc3a774eb454f5bbe3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-27T05:23:19Z",
-        "last_success_at": "2026-09-27T05:23:19Z"
+        "observed_at": "2026-09-27T12:08:42Z",
+        "last_success_at": "2026-09-27T12:08:42Z"
       },
       "release": {
         "state": "ok",
@@ -347,12 +347,12 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-09-27T03:30:33Z",
+        "last_activity_at": "2026-09-27T05:57:07Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-27T05:23:19Z",
-        "last_success_at": "2026-09-27T05:23:19Z"
+        "observed_at": "2026-09-27T12:08:42Z",
+        "last_success_at": "2026-09-27T12:08:42Z"
       },
       "release": {
         "state": "ok",
@@ -381,24 +381,24 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-09-27T03:36:22Z",
+        "last_activity_at": "2026-09-27T11:45:39Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-27T05:23:19Z",
-        "last_success_at": "2026-09-27T05:23:19Z"
+        "observed_at": "2026-09-27T12:08:42Z",
+        "last_success_at": "2026-09-27T12:08:42Z"
       },
       "release": {
         "state": "ok",
-        "version": "v1.2.10",
-        "published_at": "2026-09-24T23:41:23Z",
-        "release_id": 396161150,
+        "version": "v1.2.11",
+        "published_at": "2026-09-27T11:45:45Z",
+        "release_id": 397627599,
         "asset_count": 5,
         "scope": "sha256:92800e2fd46ced955a702f8b46f429a9322152ffa4762e66fe61ca48387ab7d4",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-25T05:02:46Z",
-        "last_success_at": "2026-09-26T16:24:06Z"
+        "observed_at": "2026-09-27T12:08:42Z",
+        "last_success_at": "2026-09-27T12:08:42Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -725,12 +725,12 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-09-26T15:59:34Z",
+        "last_activity_at": "2026-09-27T10:43:03Z",
         "scope": "sha256:a032ba143c4221a036f8ec86ee706a93524d838d67ec2eedf9f15c043788de0b",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T16:24:06Z",
-        "last_success_at": "2026-09-26T16:24:06Z"
+        "observed_at": "2026-09-27T12:08:42Z",
+        "last_success_at": "2026-09-27T12:08:42Z"
       },
       "release": {
         "state": "ok",
