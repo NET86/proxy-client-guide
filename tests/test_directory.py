@@ -51,6 +51,9 @@ class CatalogTests(unittest.TestCase):
         self.assertNotIn("official_repo_id", self.by_id["hako"])
         self.assertNotIn("core_evidence", self.by_id["hako"])
         self.assertEqual(self.by_id["hako"]["app_store_core_patterns"], ["Hako builds on the open-source mihomo project"])
+        self.assertEqual(self.by_id["hako"]["github_discovery"]["trusted_text_urls"], ["https://clash.md/"])
+        self.assertEqual(self.by_id["hako"]["github_discovery"]["trusted_owner_ids"], [305755057])
+        self.assertEqual(self.by_id["hako"]["github_discovery"]["repo_patterns"], [r"\bHako\b"])
         self.assertEqual(self.by_id["hako"]["platforms"]["tvos"], True)
         self.assertEqual(self.by_id["stash"]["core"], "未公开")
         self.assertEqual(self.by_id["surge"]["name"], "Surge")
@@ -728,6 +731,155 @@ class AuditTests(unittest.TestCase):
 
     def test_app_store_core_evidence_is_expected_observation(self):
         self.assertIn("core_evidence", d.expected_observation_components(self.by_id["hako"]))
+
+    def test_github_discovery_extracts_canonical_repository_links(self):
+        self.assertEqual(
+            d.extract_github_repositories("See https://github.com/TokenPLS/Hako-Next.git and https://github.com/tokenpls/hako-next."),
+            ["TokenPLS/Hako-Next"],
+        )
+
+    def test_hako_discovery_accepts_new_repo_from_trusted_owner(self):
+        client = self.by_id["hako"]
+        payload = {
+            "resultCount": 1,
+            "results": [{
+                "trackId": int(client["app_store_id"]),
+                "sellerName": client["app_store_seller"],
+                "version": "1.0.10",
+                "currentVersionReleaseDate": "2026-09-14T00:00:00Z",
+                "description": "Hako builds on the open-source mihomo project. Source: https://github.com/TokenPLS/Hako-Next",
+            }],
+        }
+
+        def api(url, token=None):
+            if url.startswith("https://itunes.apple.com/lookup"):
+                return payload
+            if url == "https://api.github.com/repos/TokenPLS/Hako-Next":
+                return {
+                    "id": 7001,
+                    "name": "Hako-Next",
+                    "full_name": "TokenPLS/Hako-Next",
+                    "description": "Hako client",
+                    "owner": {"id": 305755057},
+                    "archived": False,
+                    "disabled": False,
+                    "pushed_at": "2026-09-14T00:00:00Z",
+                }
+            self.fail(f"unexpected API URL: {url}")
+
+        out, issues, ok = d.audit_app_store_source(client, {}, NOW, api, lambda _url: "official Hako site", "token")
+        self.assertTrue(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(out["github_discovery"]["state"], "verified")
+        self.assertEqual(out["github_discovery"]["repo_id"], 7001)
+        self.assertEqual(d.links_for(client, out, NOW)[0], "https://github.com/TokenPLS/Hako-Next")
+
+    def test_hako_discovery_accepts_new_owner_when_two_official_sources_agree(self):
+        client = self.by_id["hako"]
+        repo_url = "https://github.com/NewHakoOrg/Hako"
+        payload = {
+            "resultCount": 1,
+            "results": [{
+                "trackId": int(client["app_store_id"]),
+                "sellerName": client["app_store_seller"],
+                "version": "1.0.10",
+                "currentVersionReleaseDate": "2026-09-14T00:00:00Z",
+                "description": f"Hako builds on the open-source mihomo project. Source: {repo_url}",
+            }],
+        }
+
+        def api(url, token=None):
+            if url.startswith("https://itunes.apple.com/lookup"):
+                return payload
+            if url == "https://api.github.com/repos/NewHakoOrg/Hako":
+                return {
+                    "id": 7002,
+                    "name": "Hako",
+                    "full_name": "NewHakoOrg/Hako",
+                    "description": "Hako proxy client",
+                    "owner": {"id": 999001},
+                    "archived": False,
+                    "disabled": False,
+                    "pushed_at": "2026-09-14T00:00:00Z",
+                }
+            self.fail(f"unexpected API URL: {url}")
+
+        out, _, ok = d.audit_app_store_source(client, {}, NOW, api, lambda _url: f"Official source: {repo_url}", "token")
+        self.assertTrue(ok)
+        self.assertEqual(out["github_discovery"]["state"], "verified")
+        self.assertEqual(out["github_discovery"]["owner_id"], 999001)
+        self.assertEqual(len(out["github_discovery"]["sources"]), 2)
+        self.assertEqual(d.links_for(client, out, NOW)[0], repo_url)
+
+    def test_hako_discovery_new_owner_single_source_stays_candidate(self):
+        client = self.by_id["hako"]
+        payload = {
+            "resultCount": 1,
+            "results": [{
+                "trackId": int(client["app_store_id"]),
+                "sellerName": client["app_store_seller"],
+                "version": "1.0.10",
+                "currentVersionReleaseDate": "2026-09-14T00:00:00Z",
+                "description": "Hako builds on the open-source mihomo project. Source: https://github.com/NewHakoOrg/Hako",
+            }],
+        }
+
+        def api(url, token=None):
+            if url.startswith("https://itunes.apple.com/lookup"):
+                return payload
+            if url == "https://api.github.com/repos/NewHakoOrg/Hako":
+                return {
+                    "id": 7003,
+                    "name": "Hako",
+                    "full_name": "NewHakoOrg/Hako",
+                    "description": "Hako proxy client",
+                    "owner": {"id": 999002},
+                    "archived": False,
+                    "disabled": False,
+                    "pushed_at": "2026-09-14T00:00:00Z",
+                }
+            self.fail(f"unexpected API URL: {url}")
+
+        out, _, ok = d.audit_app_store_source(client, {}, NOW, api, lambda _url: "official site without repository link", "token")
+        self.assertTrue(ok)
+        self.assertEqual(out["github_discovery"]["state"], "candidate")
+        self.assertEqual(out["github_discovery"]["candidates"][0]["reason"], "single_source_new_owner")
+        self.assertEqual(d.links_for(client, out, NOW)[0], client["website_url"])
+
+    def test_hako_discovery_does_not_accept_unrelated_repo_from_trusted_owner(self):
+        client = self.by_id["hako"]
+        payload = {
+            "resultCount": 1,
+            "results": [{
+                "trackId": int(client["app_store_id"]),
+                "sellerName": client["app_store_seller"],
+                "version": "1.0.10",
+                "currentVersionReleaseDate": "2026-09-14T00:00:00Z",
+                "description": "Hako builds on the open-source mihomo project. Source: https://github.com/TokenPLS/Tools",
+            }],
+        }
+
+        def api(url, token=None):
+            if url.startswith("https://itunes.apple.com/lookup"):
+                return payload
+            if url == "https://api.github.com/repos/TokenPLS/Tools":
+                return {
+                    "id": 7004,
+                    "name": "Tools",
+                    "full_name": "TokenPLS/Tools",
+                    "description": "unrelated utilities",
+                    "owner": {"id": 305755057},
+                    "archived": False,
+                    "disabled": False,
+                    "pushed_at": "2026-09-14T00:00:00Z",
+                }
+            self.fail(f"unexpected API URL: {url}")
+
+        out, _, ok = d.audit_app_store_source(client, {}, NOW, api, lambda _url: "official site", "token")
+        self.assertTrue(ok)
+        self.assertEqual(out["github_discovery"]["state"], "candidate")
+        self.assertEqual(out["github_discovery"]["candidates"][0]["reason"], "project_evidence_mismatch")
+        self.assertEqual(d.links_for(client, out, NOW)[0], client["website_url"])
 
     def test_app_store_region_missing_is_not_global_delisting_claim(self):
         client = self.by_id["shadowrocket"]

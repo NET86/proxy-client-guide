@@ -145,6 +145,7 @@
 - 官方来源：[https://clash.md/](https://clash.md/)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
 - 版本：1.0.10（2026-09-28）
+- 核验：发现 GitHub 候选仓库，但身份未达到自动确认门槛。
 
 ### FlClash
 
@@ -359,6 +360,7 @@
 ## 核验规则
 
 - 身份：GitHub 固定 repository ID，App Store 固定 app ID/发布者；GitHub 改名或迁移会自动跟随，身份冲突时隐藏下载并标记待确认。
+- 仓库重建：以 App Store 为主身份的项目可从官网/App Store 发现新 GitHub 仓库；原开发者身份一致，或两个独立官方来源同时指向同一仓库时才自动确认。
 - 临时失败：网络错误、Latest 缺失或 App Store 区域无结果只标记待确认，并保留已配置官方入口。
 - 历史项目：GitHub 官方仓库归档后转入历史；第三方下载仅作历史资料，不自动替换为同名 fork、继任项目或镜像。
 - 版本回退：首次发现官方 Latest 回退时保留已确认版本；连续两次确认同一旧版本后更新。

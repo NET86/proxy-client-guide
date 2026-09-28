@@ -107,7 +107,18 @@
       "core": "Hako（基于 Mihomo）",
       "app_store_core_patterns": [
         "Hako builds on the open-source mihomo project"
-      ]
+      ],
+      "github_discovery": {
+        "trusted_text_urls": [
+          "https://clash.md/"
+        ],
+        "trusted_owner_ids": [
+          305755057
+        ],
+        "repo_patterns": [
+          "\\bHako\\b"
+        ]
+      }
     },
     {
       "id": "clashx-meta",

@@ -62,6 +62,10 @@ OBSERVATION_VERSION = 2
 EVIDENCE_SCOPE_VERSION = 1
 FUTURE_SKEW = dt.timedelta(minutes=5)
 DISPLAY_TIMEZONE = ZoneInfo("Asia/Shanghai")
+GITHUB_REPO_URL_RE = re.compile(
+    r"https?://github\.com/([A-Za-z0-9](?:[A-Za-z0-9-]{0,38}))/([A-Za-z0-9_.-]+)",
+    re.IGNORECASE,
+)
 
 
 def display_date(value: dt.datetime) -> dt.date:
@@ -163,6 +167,17 @@ def core_evidence_scope(client: dict[str, Any]) -> str:
     return _scope_hash(payload)
 
 
+def github_discovery_scope(client: dict[str, Any]) -> str:
+    return _scope_hash(
+        {
+            "v": EVIDENCE_SCOPE_VERSION,
+            "component": "github_discovery",
+            "source_scope": source_scope(client),
+            "config": client.get("github_discovery", {}),
+        }
+    )
+
+
 def component_scope(client: dict[str, Any], component: str) -> str:
     if component == "source":
         return source_scope(client)
@@ -172,6 +187,8 @@ def component_scope(client: dict[str, Any], component: str) -> str:
         return historical_release_scope(client)
     if component == "core_evidence":
         return core_evidence_scope(client)
+    if component == "github_discovery":
+        return github_discovery_scope(client)
     raise ValueError(f"unknown evidence component: {component}")
 
 
@@ -290,6 +307,34 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
                     raise ValueError(f"{name}: {url_field} must be an absolute HTTPS URL")
         if "backups" in client:
             raise ValueError(f"{name}: automatic backup/fork failover is forbidden")
+        github_discovery = client.get("github_discovery")
+        if github_discovery is not None:
+            if source_type != "app_store" or not isinstance(github_discovery, dict):
+                raise ValueError(f"{name}: github_discovery requires an App Store source and object config")
+            allowed_discovery_keys = {"trusted_text_urls", "trusted_owner_ids", "repo_patterns"}
+            if set(github_discovery) - allowed_discovery_keys:
+                raise ValueError(f"{name}: github_discovery contains unsupported fields")
+            trusted_text_urls = github_discovery.get("trusted_text_urls", [])
+            trusted_owner_ids = github_discovery.get("trusted_owner_ids", [])
+            repo_patterns = github_discovery.get("repo_patterns", [])
+            if not isinstance(trusted_text_urls, list) or any(not isinstance(url, str) or not url for url in trusted_text_urls):
+                raise ValueError(f"{name}: github_discovery trusted_text_urls must be a string list")
+            for url in trusted_text_urls:
+                parsed = urllib.parse.urlparse(url)
+                if parsed.scheme != "https" or not parsed.hostname or parsed.hostname.casefold() == "github.com":
+                    raise ValueError(f"{name}: github_discovery trusted_text_urls must be independent HTTPS official pages")
+            if (
+                not isinstance(trusted_owner_ids, list)
+                or any(type(owner_id) is not int or owner_id <= 0 for owner_id in trusted_owner_ids)
+                or len(set(trusted_owner_ids)) != len(trusted_owner_ids)
+            ):
+                raise ValueError(f"{name}: github_discovery trusted_owner_ids must be unique positive integers")
+            if not isinstance(repo_patterns, list) or not repo_patterns or any(not isinstance(pattern, str) or not pattern for pattern in repo_patterns):
+                raise ValueError(f"{name}: github_discovery repo_patterns must be a non-empty string list")
+            for pattern in repo_patterns:
+                re.compile(pattern)
+            if not trusted_text_urls and not trusted_owner_ids:
+                raise ValueError(f"{name}: github_discovery requires an independent trust path")
         history = client.get("historical_release")
         if history is not None:
             if source_type != "github" or type(history.get("release_id")) is not int or not history.get("tag"):
@@ -701,6 +746,150 @@ def audit_app_store_core_evidence(
     return positive_record(previous, stamp, scope, state="ok"), [], True
 
 
+def extract_github_repositories(text: str) -> list[str]:
+    repositories: dict[str, str] = {}
+    for match in GITHUB_REPO_URL_RE.finditer(text):
+        owner, repo = match.group(1), match.group(2).rstrip(".")
+        if repo.casefold().endswith(".git"):
+            repo = repo[:-4]
+        if not repo:
+            continue
+        full_name = f"{owner}/{repo}"
+        repositories.setdefault(full_name.casefold(), full_name)
+    return [repositories[key] for key in sorted(repositories)]
+
+
+def github_candidate_matches(config: dict[str, Any], metadata: dict[str, Any]) -> bool:
+    topics = metadata.get("topics", [])
+    topic_text = " ".join(str(topic) for topic in topics) if isinstance(topics, list) else ""
+    searchable = " ".join(
+        str(value)
+        for value in (
+            metadata.get("name", ""),
+            metadata.get("full_name", ""),
+            metadata.get("description", ""),
+            metadata.get("homepage", ""),
+            topic_text,
+        )
+        if value
+    )
+    return all(re.search(pattern, searchable, re.IGNORECASE) is not None for pattern in config["repo_patterns"])
+
+
+def audit_github_discovery(
+    client: dict[str, Any],
+    old: dict[str, Any],
+    now: dt.datetime,
+    entry: dict[str, Any],
+    token: str | None,
+    request: Callable[..., dict[str, Any] | None],
+    fetch_text: Callable[[str], str | None],
+) -> dict[str, Any] | None:
+    config = client.get("github_discovery")
+    if not config:
+        return None
+    stamp = iso(now)
+    scope = github_discovery_scope(client)
+    previous = old.get("github_discovery") if isinstance(old, dict) else None
+    source_texts: dict[str, str] = {}
+    description = entry.get("description")
+    if isinstance(description, str) and description.strip():
+        source_texts["app_store_description"] = description
+    fetch_errors: list[str] = []
+    for url in config.get("trusted_text_urls", []):
+        try:
+            text = fetch_text(url)
+            if text:
+                source_texts[url] = text
+        except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError) as exc:
+            fetch_errors.append(f"{url}: {exc}")
+
+    candidate_sources: dict[str, set[str]] = {}
+    candidate_display_names: dict[str, str] = {}
+    for source_name, text in source_texts.items():
+        for full_name in extract_github_repositories(text):
+            key = full_name.casefold()
+            candidate_display_names.setdefault(key, full_name)
+            candidate_sources.setdefault(key, set()).add(source_name)
+
+    if not candidate_sources:
+        if fetch_errors:
+            return failure_record(previous, stamp, "; ".join(fetch_errors), scope)
+        return positive_record(previous, stamp, scope, state="none")
+
+    trusted_owner_ids = set(config.get("trusted_owner_ids", []))
+    verified: list[dict[str, Any]] = []
+    candidates: list[dict[str, Any]] = []
+    try:
+        for key in sorted(candidate_sources):
+            requested_name = candidate_display_names[key]
+            metadata = request(f"https://api.github.com/repos/{requested_name}", token)
+            if metadata is None:
+                candidates.append(
+                    {
+                        "full_name": requested_name,
+                        "sources": sorted(candidate_sources[key]),
+                        "reason": "missing",
+                    }
+                )
+                continue
+            require_repo_schema(metadata)
+            owner_id = metadata["owner"]["id"]
+            sources = sorted(candidate_sources[key])
+            evidence_match = github_candidate_matches(config, metadata)
+            trust_match = owner_id in trusted_owner_ids or len(sources) >= 2
+            candidate = {
+                "repo_id": metadata["id"],
+                "owner_id": owner_id,
+                "full_name": metadata["full_name"],
+                "sources": sources,
+                "evidence_match": evidence_match,
+                "trusted_owner": owner_id in trusted_owner_ids,
+            }
+            if metadata["archived"] or metadata["disabled"]:
+                candidate["reason"] = "inactive"
+                candidates.append(candidate)
+                continue
+            if not evidence_match:
+                candidate["reason"] = "project_evidence_mismatch"
+                candidates.append(candidate)
+                continue
+            if not trust_match:
+                candidate["reason"] = "single_source_new_owner"
+                candidates.append(candidate)
+                continue
+            pushed = metadata.get("pushed_at")
+            if pushed is not None:
+                candidate["last_activity_at"] = iso(require_not_future(pushed, now, "GitHub discovery pushed_at"))
+            verified.append(candidate)
+    except (OSError, urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, ObservationError, ValueError, re.error) as exc:
+        return failure_record(previous, stamp, str(exc), scope)
+
+    if len(verified) == 1:
+        selected = verified[0]
+        selected.pop("evidence_match", None)
+        selected.pop("trusted_owner", None)
+        return positive_record(previous, stamp, scope, state="verified", **selected)
+    if len(verified) > 1:
+        candidates.extend(verified)
+        return positive_record(
+            previous,
+            stamp,
+            scope,
+            state="candidate",
+            reason="ambiguous_verified_candidates",
+            candidates=candidates,
+        )
+    return positive_record(
+        previous,
+        stamp,
+        scope,
+        state="candidate",
+        reason="insufficient_identity_evidence",
+        candidates=candidates,
+    )
+
+
 def audit_github(
     client: dict[str, Any],
     old: dict[str, Any],
@@ -934,6 +1123,7 @@ def audit_app_store_source(
     now: dt.datetime,
     request: Callable[..., dict[str, Any] | None],
     fetch_text: Callable[[str], str | None] = request_text,
+    token: str | None = None,
 ) -> tuple[dict[str, Any], list[str], bool]:
     stamp = iso(now)
     previous_source = old.get("source") if isinstance(old, dict) else None
@@ -1011,6 +1201,9 @@ def audit_app_store_source(
             core, core_issues, core_ok = audit_core_evidence(client, old, now, fetch_text)
         if core is not None:
             result["core_evidence"] = core
+        discovery = audit_github_discovery(client, old, now, entry, token, request, fetch_text)
+        if discovery is not None:
+            result["github_discovery"] = discovery
         issues.extend(core_issues)
         return result, issues, release_ok and core_ok
     except (OSError, urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, ObservationError, ValueError) as exc:
@@ -1059,7 +1252,7 @@ def audit(
         old = previous_by_id[client["id"]]
         if client["source_type"] == "github":
             return audit_github(client, old, token, current, request, fetch_text)
-        return audit_app_store_source(client, old, current, request, fetch_text)
+        return audit_app_store_source(client, old, current, request, fetch_text, token)
 
     future_by_id: dict[str, concurrent.futures.Future[tuple[dict[str, Any], list[str], bool]]] = {}
     if remote_clients:
@@ -1231,7 +1424,16 @@ def links_for(client: dict[str, Any], record: dict[str, Any], now: dt.datetime |
         repository = f"https://github.com/{observed_repo or client['github_repo']}"
     elif source_type == "app_store":
         if source_state != "identity_mismatch":
-            repository = client.get("website_url", "")
+            discovery = record.get("github_discovery", {}) if isinstance(record, dict) else {}
+            if (
+                client.get("github_discovery")
+                and component_is_scoped(client, record, "github_discovery")
+                and discovery.get("state") == "verified"
+                and isinstance(discovery.get("full_name"), str)
+            ):
+                repository = f"https://github.com/{discovery['full_name']}"
+            else:
+                repository = client.get("website_url", "")
     elif source_type == "manual":
         repository = client.get("repository_url", "")
     if source_type == "manual":
@@ -1439,7 +1641,8 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
             if rendered_category == "legacy":
                 source_label = "原官方仓库" if client["source_type"] == "github" else "原项目"
             else:
-                source_label = "官方仓库" if client["source_type"] == "github" else "官网"
+                source_host = urllib.parse.urlparse(repository).hostname if repository else None
+                source_label = "官方仓库" if client["source_type"] == "github" or source_host == "github.com" else "官网"
             if rendered_category == "legacy" and client["source_type"] == "github":
                 download_label = "原官方下载页"
             elif download and "apps.apple.com" in download:
@@ -1491,6 +1694,12 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
                 warning = component_warning(component_label, component)
                 if warning:
                     warnings.append(warning.rstrip("。；"))
+        discovery = record.get("github_discovery", {}) if isinstance(record, dict) else {}
+        if client.get("github_discovery") and component_is_scoped(client, record, "github_discovery"):
+            if discovery.get("state") == "candidate":
+                warnings.append("发现 GitHub 候选仓库，但身份未达到自动确认门槛")
+            elif discovery.get("observation_state") == "error" and discovery.get("state") == "verified":
+                warnings.append("GitHub 仓库发现核验暂时失败，保留上次确认来源")
         verification = f"{'；'.join(warnings)}。" if warnings else ""
 
         lines.extend([
@@ -1539,6 +1748,9 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
                 f"- 下载：{markdown_link(download, download) if download else '待确认'}",
                 f"- 版本：{version_text}",
             ])
+            website_url = client.get("website_url", "")
+            if client["source_type"] == "app_store" and website_url and repository != website_url:
+                lines.append(f"- 官网：{markdown_link(website_url, website_url)}")
             if note_text:
                 lines.append(f"- 说明：{note_text}")
             if verification:
@@ -1548,6 +1760,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "## 核验规则",
         "",
         "- 身份：GitHub 固定 repository ID，App Store 固定 app ID/发布者；GitHub 改名或迁移会自动跟随，身份冲突时隐藏下载并标记待确认。",
+        "- 仓库重建：以 App Store 为主身份的项目可从官网/App Store 发现新 GitHub 仓库；原开发者身份一致，或两个独立官方来源同时指向同一仓库时才自动确认。",
         "- 临时失败：网络错误、Latest 缺失或 App Store 区域无结果只标记待确认，并保留已配置官方入口。",
         "- 历史项目：GitHub 官方仓库归档后转入历史；第三方下载仅作历史资料，不自动替换为同名 fork、继任项目或镜像。",
         "- 版本回退：首次发现官方 Latest 回退时保留已确认版本；连续两次确认同一旧版本后更新。",

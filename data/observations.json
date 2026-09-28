@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-27T16:37:58Z",
+        "last_activity_at": "2026-09-28T00:46:38Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-27T17:01:23Z",
-        "last_success_at": "2026-09-27T17:01:23Z"
+        "observed_at": "2026-09-28T02:26:10Z",
+        "last_success_at": "2026-09-28T02:26:10Z"
       },
       "release": {
         "state": "ok",
@@ -135,6 +135,57 @@
         "consecutive_failures": 0,
         "last_success_at": "2026-09-27T17:01:23Z",
         "observed_at": "2026-09-26T16:40:27Z"
+      },
+      "github_discovery": {
+        "state": "candidate",
+        "reason": "insufficient_identity_evidence",
+        "candidates": [
+          {
+            "repo_id": 1390230283,
+            "owner_id": 334401670,
+            "full_name": "ProjectClash/Clash",
+            "sources": [
+              "https://clash.md/"
+            ],
+            "evidence_match": false,
+            "trusted_owner": false,
+            "reason": "project_evidence_mismatch"
+          },
+          {
+            "repo_id": 1390234592,
+            "owner_id": 334401670,
+            "full_name": "ProjectClash/Clash-Client",
+            "sources": [
+              "https://clash.md/"
+            ],
+            "evidence_match": false,
+            "trusted_owner": false,
+            "reason": "project_evidence_mismatch"
+          },
+          {
+            "repo_id": 1390177862,
+            "owner_id": 334401670,
+            "full_name": "ProjectClash/clash.md",
+            "sources": [
+              "https://clash.md/"
+            ],
+            "evidence_match": false,
+            "trusted_owner": false,
+            "reason": "project_evidence_mismatch"
+          },
+          {
+            "full_name": "TokenPLS/Hako",
+            "sources": [
+              "app_store_description"
+            ],
+            "reason": "missing"
+          }
+        ],
+        "scope": "sha256:f7d8f86164448842ec1b6a5ea8e9c600a5ee733dc6c8cebec43c76d492642300",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "last_success_at": "2026-09-28T02:26:10Z",
+        "observed_at": "2026-09-28T02:26:10Z"
       }
     },
     "clashx-meta": {
@@ -211,12 +262,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-27T18:08:05Z",
+        "last_activity_at": "2026-09-28T02:06:35Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-27T21:23:54Z",
-        "last_success_at": "2026-09-27T21:23:54Z"
+        "observed_at": "2026-09-28T02:26:10Z",
+        "last_success_at": "2026-09-28T02:26:10Z"
       },
       "release": {
         "state": "ok",
@@ -245,12 +296,12 @@
         "repo_id": 836976013,
         "owner_id": 181477152,
         "full_name": "mihomo-party-org/clash-party",
-        "last_activity_at": "2026-09-26T01:27:42Z",
+        "last_activity_at": "2026-09-28T01:18:41Z",
         "scope": "sha256:9812e1fa09efc3deaf6302785129fb60e57f2631f52559d22ced794ab780b986",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-26T05:05:29Z",
-        "last_success_at": "2026-09-27T17:01:23Z"
+        "observed_at": "2026-09-28T02:26:10Z",
+        "last_success_at": "2026-09-28T02:26:10Z"
       },
       "release": {
         "state": "ok",
