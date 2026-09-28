@@ -84,7 +84,18 @@
             "内置Mihomo内核"
           ]
         }
-      ]
+      ],
+      "github_discovery": {
+        "trusted_text_urls": [
+          "https://clashmi.app/page/contact"
+        ],
+        "trusted_owner_ids": [
+          131734194
+        ],
+        "repo_patterns": [
+          "\\bclashmi\\b"
+        ]
+      }
     },
     {
       "id": "hako",
@@ -360,7 +371,18 @@
             "based on.*Sing-box"
           ]
         }
-      ]
+      ],
+      "github_discovery": {
+        "trusted_text_urls": [
+          "https://hiddify.com/app/How-to-contribute-to-this-project/"
+        ],
+        "trusted_owner_ids": [
+          126981719
+        ],
+        "repo_patterns": [
+          "\\bhiddify\\b"
+        ]
+      }
     },
     {
       "id": "karing",
@@ -387,7 +409,18 @@
           ]
         }
       ],
-      "compatibility_note": "支持完整 Clash 和部分 Clash.Meta 配置。"
+      "compatibility_note": "支持完整 Clash 和部分 Clash.Meta 配置。",
+      "github_discovery": {
+        "trusted_text_urls": [
+          "https://karing.app/faq"
+        ],
+        "trusted_owner_ids": [
+          131734194
+        ],
+        "repo_patterns": [
+          "\\bkaring\\b"
+        ]
+      }
     },
     {
       "id": "v2rayn",
@@ -723,7 +756,18 @@
             "The universal proxy platform"
           ]
         }
-      ]
+      ],
+      "github_discovery": {
+        "trusted_text_urls": [
+          "https://sing-box.sagernet.org/support/"
+        ],
+        "trusted_owner_ids": [
+          83217677
+        ],
+        "repo_patterns": [
+          "\\bsing-box\\b"
+        ]
+      }
     }
   ]
 }

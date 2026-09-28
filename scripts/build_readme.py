@@ -118,6 +118,8 @@ def source_scope(client: dict[str, Any]) -> str:
     payload: dict[str, Any] = {"v": EVIDENCE_SCOPE_VERSION, "component": "source", "source_type": source_type}
     if source_type == "github":
         payload.update(official_repo_id=client["official_repo_id"])
+        if client.get("github_discovery"):
+            payload["github_discovery"] = client["github_discovery"]
     elif source_type == "app_store":
         payload.update(app_store_id=str(client["app_store_id"]), app_store_seller=client["app_store_seller"])
     else:
@@ -309,8 +311,8 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
             raise ValueError(f"{name}: automatic backup/fork failover is forbidden")
         github_discovery = client.get("github_discovery")
         if github_discovery is not None:
-            if source_type != "app_store" or not isinstance(github_discovery, dict):
-                raise ValueError(f"{name}: github_discovery requires an App Store source and object config")
+            if source_type not in {"github", "app_store"} or not isinstance(github_discovery, dict):
+                raise ValueError(f"{name}: github_discovery requires a GitHub/App Store source and object config")
             allowed_discovery_keys = {"trusted_text_urls", "trusted_owner_ids", "repo_patterns"}
             if set(github_discovery) - allowed_discovery_keys:
                 raise ValueError(f"{name}: github_discovery contains unsupported fields")
@@ -335,6 +337,8 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
                 re.compile(pattern)
             if not trusted_text_urls and not trusted_owner_ids:
                 raise ValueError(f"{name}: github_discovery requires an independent trust path")
+            if source_type == "github" and not trusted_text_urls:
+                raise ValueError(f"{name}: GitHub source discovery requires at least one independent official page")
         history = client.get("historical_release")
         if history is not None:
             if source_type != "github" or type(history.get("release_id")) is not int or not history.get("tag"):
@@ -759,6 +763,13 @@ def extract_github_repositories(text: str) -> list[str]:
     return [repositories[key] for key in sorted(repositories)]
 
 
+def discovery_source_identity(source_name: str) -> str:
+    if source_name == "app_store_description":
+        return "app_store"
+    hostname = urllib.parse.urlparse(source_name).hostname
+    return hostname.casefold() if hostname else source_name.casefold()
+
+
 def github_candidate_matches(config: dict[str, Any], metadata: dict[str, Any]) -> bool:
     topics = metadata.get("topics", [])
     topic_text = " ".join(str(topic) for topic in topics) if isinstance(topics, list) else ""
@@ -780,7 +791,7 @@ def audit_github_discovery(
     client: dict[str, Any],
     old: dict[str, Any],
     now: dt.datetime,
-    entry: dict[str, Any],
+    entry: dict[str, Any] | None,
     token: str | None,
     request: Callable[..., dict[str, Any] | None],
     fetch_text: Callable[[str], str | None],
@@ -792,7 +803,7 @@ def audit_github_discovery(
     scope = github_discovery_scope(client)
     previous = old.get("github_discovery") if isinstance(old, dict) else None
     source_texts: dict[str, str] = {}
-    description = entry.get("description")
+    description = entry.get("description") if isinstance(entry, dict) else None
     if isinstance(description, str) and description.strip():
         source_texts["app_store_description"] = description
     fetch_errors: list[str] = []
@@ -836,13 +847,15 @@ def audit_github_discovery(
             require_repo_schema(metadata)
             owner_id = metadata["owner"]["id"]
             sources = sorted(candidate_sources[key])
+            source_identities = sorted({discovery_source_identity(source) for source in sources})
             evidence_match = github_candidate_matches(config, metadata)
-            trust_match = owner_id in trusted_owner_ids or len(sources) >= 2
+            trust_match = owner_id in trusted_owner_ids or len(source_identities) >= 2
             candidate = {
                 "repo_id": metadata["id"],
                 "owner_id": owner_id,
                 "full_name": metadata["full_name"],
                 "sources": sources,
+                "source_identities": source_identities,
                 "evidence_match": evidence_match,
                 "trusted_owner": owner_id in trusted_owner_ids,
             }
@@ -907,13 +920,50 @@ def audit_github(
     ok = True
     try:
         metadata = request(f"https://api.github.com/repos/{repo}", token)
-        if metadata is None:
+        if metadata is not None:
+            require_repo_schema(metadata)
+            if metadata["id"] != client["official_repo_id"]:
+                pinned_metadata = request(f"https://api.github.com/repositories/{client['official_repo_id']}", token)
+                if pinned_metadata is not None:
+                    require_repo_schema(pinned_metadata)
+                    metadata = pinned_metadata
+        else:
             metadata = request(f"https://api.github.com/repositories/{client['official_repo_id']}", token)
+            if metadata is not None:
+                require_repo_schema(metadata)
+
+        recovered_by_discovery = False
+        needs_discovery = metadata is None or metadata["id"] != client["official_repo_id"]
+        if client.get("github_discovery") and not needs_discovery:
+            result.pop("github_discovery", None)
+        if needs_discovery and client.get("github_discovery"):
+            discovery = audit_github_discovery(client, old, now, None, token, request, fetch_text)
+            if discovery is not None:
+                result["github_discovery"] = discovery
+            discovery_fresh = bool(
+                discovery
+                and discovery.get("state") == "verified"
+                and component_fresh(client, {"github_discovery": discovery}, "github_discovery", now)
+            )
+            if discovery_fresh:
+                candidate_name = discovery.get("full_name")
+                candidate_repo_id = discovery.get("repo_id")
+                candidate_owner_id = discovery.get("owner_id")
+                if isinstance(candidate_name, str) and type(candidate_repo_id) is int and type(candidate_owner_id) is int:
+                    candidate_metadata = request(f"https://api.github.com/repos/{candidate_name}", token)
+                    if candidate_metadata is not None:
+                        require_repo_schema(candidate_metadata)
+                        if (
+                            candidate_metadata["id"] == candidate_repo_id
+                            and candidate_metadata["owner"]["id"] == candidate_owner_id
+                        ):
+                            metadata = candidate_metadata
+                            recovered_by_discovery = True
         if metadata is None:
             result["source"] = negative_record(previous_source, stamp, source_scope_value, "missing")
             return result, [f"{client['id']}: official repository returned 404 by path and pinned repository ID"], False
         require_repo_schema(metadata)
-        identity_mismatch = metadata["id"] != client["official_repo_id"]
+        identity_mismatch = not recovered_by_discovery and metadata["id"] != client["official_repo_id"]
         if identity_mismatch:
             result["source"] = negative_record(
                 previous_source,
@@ -942,15 +992,20 @@ def audit_github(
             anomalies.append(f"{client['id']}: official repository disabled")
             ok = False
         else:
+            source_fields: dict[str, Any] = {
+                "state": state,
+                "repo_id": metadata["id"],
+                "owner_id": metadata["owner"]["id"],
+                "full_name": metadata["full_name"],
+                "last_activity_at": iso(pushed) if pushed is not None else None,
+            }
+            if client.get("github_discovery"):
+                source_fields["rediscovered_repo"] = recovered_by_discovery
             source_record = positive_record(
                 previous_source,
                 stamp,
                 source_scope_value,
-                state=state,
-                repo_id=metadata["id"],
-                owner_id=metadata["owner"]["id"],
-                full_name=metadata["full_name"],
-                last_activity_at=iso(pushed) if pushed is not None else None,
+                **source_fields,
             )
             result["source"] = source_record
     except (OSError, urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, ObservationError, ValueError) as exc:
@@ -1760,7 +1815,7 @@ def render_readme(clients: list[dict[str, Any]], observations: dict[str, Any], n
         "## 核验规则",
         "",
         "- 身份：GitHub 固定 repository ID，App Store 固定 app ID/发布者；GitHub 改名或迁移会自动跟随，身份冲突时隐藏下载并标记待确认。",
-        "- 仓库重建：以 App Store 为主身份的项目可从官网/App Store 发现新 GitHub 仓库；原开发者身份一致，或两个独立官方来源同时指向同一仓库时才自动确认。",
+        "- 仓库重建：配置了独立官方锚点的项目可在原 repository ID 消失后发现新 GitHub 仓库；原开发者身份一致，或两个不同官方来源域同时指向同一仓库时才自动确认。",
         "- 临时失败：网络错误、Latest 缺失或 App Store 区域无结果只标记待确认，并保留已配置官方入口。",
         "- 历史项目：GitHub 官方仓库归档后转入历史；第三方下载仅作历史资料，不自动替换为同名 fork、继任项目或镜像。",
         "- 版本回退：首次发现官方 Latest 回退时保留已确认版本；连续两次确认同一旧版本后更新。",
