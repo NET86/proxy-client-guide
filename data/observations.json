@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-28T05:11:25Z",
+        "last_activity_at": "2026-09-28T12:47:28Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-28T05:30:13Z",
-        "last_success_at": "2026-09-28T05:30:13Z"
+        "observed_at": "2026-09-28T14:03:49Z",
+        "last_success_at": "2026-09-28T14:03:49Z"
       },
       "release": {
         "state": "ok",
@@ -76,13 +76,13 @@
         "repo_id": 966153123,
         "owner_id": 131734194,
         "full_name": "KaringX/clashmi",
-        "last_activity_at": "2026-09-24T05:38:28Z",
+        "last_activity_at": "2026-09-28T07:29:43Z",
         "rediscovered_repo": false,
         "scope": "sha256:c6d635e584c29b3325ecd25a64a7a4f1ba14892cdb04034886c005cdd21c7c1d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-09-28T06:51:35Z",
-        "observed_at": "2026-09-28T06:51:35Z"
+        "last_success_at": "2026-09-28T14:03:49Z",
+        "observed_at": "2026-09-28T14:03:49Z"
       },
       "release": {
         "state": "ok",
@@ -272,12 +272,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-28T04:56:16Z",
+        "last_activity_at": "2026-09-28T13:44:31Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-28T05:30:13Z",
-        "last_success_at": "2026-09-28T05:30:13Z"
+        "observed_at": "2026-09-28T14:03:49Z",
+        "last_success_at": "2026-09-28T14:03:49Z"
       },
       "release": {
         "state": "ok",
@@ -408,12 +408,12 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-09-28T05:58:56Z",
+        "last_activity_at": "2026-09-28T13:47:51Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-28T06:51:35Z",
-        "last_success_at": "2026-09-28T06:51:35Z"
+        "observed_at": "2026-09-28T14:03:49Z",
+        "last_success_at": "2026-09-28T14:03:49Z"
       },
       "release": {
         "state": "ok",
