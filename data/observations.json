@@ -138,7 +138,7 @@
         "observed_at": "2026-09-26T16:40:27Z"
       },
       "github_discovery": {
-        "state": "candidate",
+        "state": "verified",
         "reason": "insufficient_identity_evidence",
         "candidates": [
           {
@@ -194,8 +194,18 @@
         "scope": "sha256:f7d8f86164448842ec1b6a5ea8e9c600a5ee733dc6c8cebec43c76d492642300",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-09-28T23:19:46Z",
-        "observed_at": "2026-09-28T06:51:35Z"
+        "last_success_at": "2026-09-29T05:48:38Z",
+        "observed_at": "2026-09-29T05:48:38Z",
+        "repo_id": 1315918490,
+        "owner_id": 305755057,
+        "full_name": "TokenPLS/Hako",
+        "sources": [
+          "app_store_description"
+        ],
+        "source_identities": [
+          "app_store"
+        ],
+        "last_activity_at": "2026-09-24T18:58:13Z"
       }
     },
     "clashx-meta": {
@@ -272,12 +282,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-28T19:21:25Z",
+        "last_activity_at": "2026-09-29T05:37:11Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-28T23:19:46Z",
-        "last_success_at": "2026-09-28T23:19:46Z"
+        "observed_at": "2026-09-29T05:48:38Z",
+        "last_success_at": "2026-09-29T05:48:38Z"
       },
       "release": {
         "state": "ok",
@@ -442,12 +452,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-09-28T17:47:37Z",
+        "last_activity_at": "2026-09-29T03:57:55Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-28T23:19:46Z",
-        "last_success_at": "2026-09-28T23:19:46Z"
+        "observed_at": "2026-09-29T05:48:38Z",
+        "last_success_at": "2026-09-29T05:48:38Z"
       },
       "release": {
         "state": "ok",
