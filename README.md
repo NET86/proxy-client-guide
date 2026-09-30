@@ -175,7 +175,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/xishang0128/sparkle](https://github.com/xishang0128/sparkle)
 - 下载：[https://github.com/xishang0128/sparkle/releases](https://github.com/xishang0128/sparkle/releases)
-- 版本：1.26.8（2026-09-03）
+- 版本：1.26.9（2026-09-30）
 
 ### Hiddify
 
