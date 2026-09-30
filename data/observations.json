@@ -8,12 +8,12 @@
         "repo_id": 678716433,
         "owner_id": 66918471,
         "full_name": "chen08209/FlClash",
-        "last_activity_at": "2026-09-27T10:18:21Z",
+        "last_activity_at": "2026-09-30T04:59:06Z",
         "scope": "sha256:57603ccb6b4313954bad34fbefa67748e7704ddee845f950f4f3b673187f7006",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-27T12:08:42Z",
-        "last_success_at": "2026-09-29T22:20:05Z"
+        "observed_at": "2026-09-30T05:38:21Z",
+        "last_success_at": "2026-09-30T05:38:21Z"
       },
       "release": {
         "state": "ok",
@@ -282,12 +282,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-29T21:07:54Z",
+        "last_activity_at": "2026-09-30T02:07:01Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-29T22:20:05Z",
-        "last_success_at": "2026-09-29T22:20:05Z"
+        "observed_at": "2026-09-30T05:38:21Z",
+        "last_success_at": "2026-09-30T05:38:21Z"
       },
       "release": {
         "state": "ok",
@@ -521,13 +521,13 @@
         "repo_id": 714929749,
         "owner_id": 131734194,
         "full_name": "KaringX/karing",
-        "last_activity_at": "2026-09-29T07:42:57Z",
+        "last_activity_at": "2026-09-30T05:34:40Z",
         "rediscovered_repo": false,
         "scope": "sha256:c39ea26d192b995e29a69563fc67c8c3e7678eb2e92e6d1995c2cca14bb0edab",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-09-29T22:20:05Z",
-        "observed_at": "2026-09-29T12:59:30Z"
+        "last_success_at": "2026-09-30T05:38:21Z",
+        "observed_at": "2026-09-30T05:38:21Z"
       },
       "release": {
         "state": "ok",
@@ -556,12 +556,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-09-29T18:46:56Z",
+        "last_activity_at": "2026-09-30T02:21:46Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-29T22:20:05Z",
-        "last_success_at": "2026-09-29T22:20:05Z"
+        "observed_at": "2026-09-30T05:38:21Z",
+        "last_success_at": "2026-09-30T05:38:21Z"
       },
       "release": {
         "state": "ok",
@@ -798,13 +798,13 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-09-29T15:38:38Z",
+        "last_activity_at": "2026-09-30T05:03:34Z",
         "rediscovered_repo": false,
         "scope": "sha256:d43580a20948f70665c6a6dc980ed9fee8e5a57efedc0aeb9c3150331bd399d3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-09-29T22:20:05Z",
-        "observed_at": "2026-09-29T22:20:05Z"
+        "last_success_at": "2026-09-30T05:38:21Z",
+        "observed_at": "2026-09-30T05:38:21Z"
       },
       "release": {
         "state": "ok",
