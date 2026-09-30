@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-09-30（北京时间，下同）。
+核验：最近成功日期 2026-10-01（北京时间，下同）。
 > 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -103,7 +103,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/MetaCubeX/ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid)
 - 下载：[https://github.com/MetaCubeX/ClashMetaForAndroid/releases](https://github.com/MetaCubeX/ClashMetaForAndroid/releases)
-- 版本：v2.11.34（2026-09-14）
+- 版本：v2.11.35（2026-10-01）
 - 说明：Fork 自 xuhaoyang/ClashForAndroid，当前由 MetaCubeX 维护。
 
 ### Clash Verge Rev
