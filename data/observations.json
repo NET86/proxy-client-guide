@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-09-30T20:21:50Z",
+        "last_activity_at": "2026-10-01T06:36:42Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-30T22:20:35Z",
-        "last_success_at": "2026-09-30T22:20:35Z"
+        "observed_at": "2026-10-01T13:25:10Z",
+        "last_success_at": "2026-10-01T13:25:10Z"
       },
       "release": {
         "state": "ok",
@@ -214,24 +214,24 @@
         "repo_id": 502510490,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/ClashX.Meta",
-        "last_activity_at": "2026-09-14T14:23:11Z",
+        "last_activity_at": "2026-10-01T12:04:39Z",
         "scope": "sha256:3ee904373e2aa7bd7f4658570da3a9704cb30807e8549f743bb0c1eba6993934",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-30T22:20:35Z"
+        "observed_at": "2026-10-01T13:25:10Z",
+        "last_success_at": "2026-10-01T13:25:10Z"
       },
       "release": {
         "state": "ok",
-        "version": "v1.4.45",
-        "published_at": "2026-09-14T14:23:24Z",
-        "release_id": 388459720,
+        "version": "v1.4.46",
+        "published_at": "2026-10-01T12:04:52Z",
+        "release_id": 400928197,
         "asset_count": 1,
         "scope": "sha256:8ec238a5a036edd1a77d4c952b3067f109adf63e1772440a8a5d3d0ed3d4d161",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-30T22:20:35Z"
+        "observed_at": "2026-10-01T13:25:10Z",
+        "last_success_at": "2026-10-01T13:25:10Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -282,12 +282,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-01T05:40:12Z",
+        "last_activity_at": "2026-10-01T13:23:11Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-01T06:02:35Z",
-        "last_success_at": "2026-10-01T06:02:35Z"
+        "observed_at": "2026-10-01T13:25:10Z",
+        "last_success_at": "2026-10-01T13:25:10Z"
       },
       "release": {
         "state": "ok",
@@ -418,12 +418,12 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-09-28T14:38:25Z",
+        "last_activity_at": "2026-10-01T13:11:34Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-28T23:19:46Z",
-        "last_success_at": "2026-09-30T22:20:35Z"
+        "observed_at": "2026-10-01T13:25:10Z",
+        "last_success_at": "2026-10-01T13:25:10Z"
       },
       "release": {
         "state": "ok",
@@ -556,12 +556,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-09-30T18:48:16Z",
+        "last_activity_at": "2026-10-01T11:55:30Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-30T22:20:35Z",
-        "last_success_at": "2026-09-30T22:20:35Z"
+        "observed_at": "2026-10-01T13:25:10Z",
+        "last_success_at": "2026-10-01T13:25:10Z"
       },
       "release": {
         "state": "ok",

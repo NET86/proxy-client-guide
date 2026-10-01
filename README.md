@@ -134,7 +134,7 @@
 - 内核：Clash
 - 官方来源：[https://github.com/MetaCubeX/ClashX.Meta](https://github.com/MetaCubeX/ClashX.Meta)
 - 下载：[https://github.com/MetaCubeX/ClashX.Meta/releases](https://github.com/MetaCubeX/ClashX.Meta/releases)
-- 版本：v1.4.45（2026-09-14）
+- 版本：v1.4.46（2026-10-01）
 
 ### Clash（Hako）
 
