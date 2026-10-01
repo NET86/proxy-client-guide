@@ -8,12 +8,12 @@
         "repo_id": 678716433,
         "owner_id": 66918471,
         "full_name": "chen08209/FlClash",
-        "last_activity_at": "2026-09-30T15:26:25Z",
+        "last_activity_at": "2026-10-01T00:39:51Z",
         "scope": "sha256:57603ccb6b4313954bad34fbefa67748e7704ddee845f950f4f3b673187f7006",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-30T22:20:35Z",
-        "last_success_at": "2026-09-30T22:20:35Z"
+        "observed_at": "2026-10-01T06:02:35Z",
+        "last_success_at": "2026-10-01T06:02:35Z"
       },
       "release": {
         "state": "ok",
@@ -282,12 +282,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-09-30T21:38:10Z",
+        "last_activity_at": "2026-10-01T05:40:12Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-30T22:20:35Z",
-        "last_success_at": "2026-09-30T22:20:35Z"
+        "observed_at": "2026-10-01T06:02:35Z",
+        "last_success_at": "2026-10-01T06:02:35Z"
       },
       "release": {
         "state": "ok",
@@ -565,15 +565,15 @@
       },
       "release": {
         "state": "ok",
-        "version": "7.24.9",
-        "published_at": "2026-08-29T02:47:27Z",
-        "release_id": 378854248,
-        "asset_count": 39,
+        "version": "7.25.4",
+        "published_at": "2026-09-30T06:39:05Z",
+        "release_id": 399779094,
+        "asset_count": 41,
         "scope": "sha256:f2bb2853cd05f34994c16da3931d07faeb332ad33efaee7a38582b09eaeef3eb",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-09-30T22:20:35Z"
+        "observed_at": "2026-10-01T06:02:35Z",
+        "last_success_at": "2026-10-01T06:02:35Z"
       },
       "core_evidence": {
         "state": "ok",

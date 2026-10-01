@@ -247,7 +247,7 @@
 - 内核：多内核（Xray / v2fly / Mihomo / sing-box 等）
 - 官方来源：[https://github.com/2dust/v2rayN](https://github.com/2dust/v2rayN)
 - 下载：[https://github.com/2dust/v2rayN/releases](https://github.com/2dust/v2rayN/releases)
-- 版本：7.24.9（2026-08-29）
+- 版本：7.25.4（2026-09-30）
 
 ### Egern
 
