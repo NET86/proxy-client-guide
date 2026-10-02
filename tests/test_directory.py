@@ -383,7 +383,7 @@ class ResponseLimitTests(unittest.TestCase):
         }).encode()
         response = self.http_response(body, f"Content-Length: {len(body) + 10}\r\n".encode())
         with patch.object(d.urllib.request, "urlopen", return_value=response):
-            out = d.audit([client], {"clients": {client["id"]: old}}, now=later)
+            out = d.audit([client], {"clients": {client["id"]: old}}, fetch_text=AuditTests.evidence, now=later)
         record = out["clients"][client["id"]]
         self.assertEqual(record["source"]["observation_state"], "error")
         for key in ("state", "scope", "repo_id", "full_name", "last_activity_at", "last_success_at"):

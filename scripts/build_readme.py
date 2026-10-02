@@ -425,11 +425,16 @@ def load_observations(path: Path = DEFAULT_OBSERVATIONS) -> dict[str, Any]:
 
 def read_response(response: Any) -> bytes:
     """Bound actual bytes read, including when Content-Length is absent or wrong."""
+    # HTTPResponse normalizes framing: chunked/close-delimited lengths are None.
+    # Its bounded read() can silently reach EOF before a fixed length is met.
+    expected_length = getattr(response, "length", None)
     body = bytearray()
     try:
         while True:
             chunk = response.read(min(RESPONSE_CHUNK_BYTES, MAX_RESPONSE_BYTES + 1 - len(body)))
             if not chunk:
+                if expected_length is not None and len(body) < expected_length:
+                    raise OSError("Incomplete HTTP response")
                 return bytes(body)
             body.extend(chunk)
             if len(body) > MAX_RESPONSE_BYTES:
