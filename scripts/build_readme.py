@@ -14,6 +14,7 @@ import concurrent.futures
 import copy
 import datetime as dt
 import hashlib
+import http.client
 import json
 import os
 import re
@@ -36,6 +37,11 @@ RECENT_DAYS = 365
 FRESH_DAYS = 7
 MIN_COVERAGE = 0.95
 MAX_AUDIT_WORKERS = 6
+# Official repo/release, App Store, README and discovery-page samples on
+# 2026-10-02 were <= 83,508 bytes (largest: api.github.com/repos/2dust/v2rayN/releases/latest).
+# 4 MiB leaves >50x growth headroom for metadata and text, not binary downloads.
+MAX_RESPONSE_BYTES = 4 * 1024 * 1024
+RESPONSE_CHUNK_BYTES = 64 * 1024
 PLATFORMS = ("macos", "ios", "tvos", "windows", "android", "linux")
 STATUS_RANK = {"🟢": 0, "🟡": 1, "🕒": 2, "❓": 3, "🔴": 4}
 STATUS_LABELS = {
@@ -417,6 +423,26 @@ def load_observations(path: Path = DEFAULT_OBSERVATIONS) -> dict[str, Any]:
     return payload
 
 
+def read_response(response: Any) -> bytes:
+    """Bound actual bytes read, including when Content-Length is absent or wrong."""
+    # HTTPResponse normalizes framing: chunked/close-delimited lengths are None.
+    # Its bounded read() can silently reach EOF before a fixed length is met.
+    expected_length = getattr(response, "length", None)
+    body = bytearray()
+    try:
+        while True:
+            chunk = response.read(min(RESPONSE_CHUNK_BYTES, MAX_RESPONSE_BYTES + 1 - len(body)))
+            if not chunk:
+                if expected_length is not None and len(body) < expected_length:
+                    raise OSError("Incomplete HTTP response")
+                return bytes(body)
+            body.extend(chunk)
+            if len(body) > MAX_RESPONSE_BYTES:
+                raise OSError(f"HTTP response exceeds {MAX_RESPONSE_BYTES} byte limit")
+    except http.client.IncompleteRead as exc:
+        raise OSError("Incomplete HTTP response") from exc
+
+
 def request_json(url: str, token: str | None = None, attempts: int = REQUEST_ATTEMPTS) -> dict[str, Any] | None:
     headers = {"Accept": "application/json", "User-Agent": "NET86-clash-directory/3"}
     if token and urllib.parse.urlparse(url).hostname == "api.github.com":
@@ -427,7 +453,7 @@ def request_json(url: str, token: str | None = None, attempts: int = REQUEST_ATT
     for attempt in range(attempts):
         try:
             with urllib.request.urlopen(request, timeout=20) as response:
-                payload = json.load(response)
+                payload = json.loads(read_response(response))
             if not isinstance(payload, dict):
                 raise ObservationError(f"Expected JSON object from {url}")
             return payload
@@ -451,7 +477,7 @@ def request_text(url: str, attempts: int = REQUEST_ATTEMPTS) -> str | None:
     for attempt in range(attempts):
         try:
             with urllib.request.urlopen(request, timeout=20) as response:
-                return response.read().decode(response.headers.get_content_charset() or "utf-8", errors="replace")
+                return read_response(response).decode(response.headers.get_content_charset() or "utf-8", errors="replace")
         except urllib.error.HTTPError as exc:
             if exc.code == 404:
                 return None

@@ -1,5 +1,7 @@
 import copy
 import datetime as dt
+import email.message
+import http.client
 import io
 import json
 import sys
@@ -292,6 +294,237 @@ class RequestRetryTests(unittest.TestCase):
         with patch.object(d.urllib.request, "urlopen", side_effect=error) as opener:
             self.assertIsNone(d.request_json("https://example.invalid/missing", attempts=2))
         self.assertEqual(opener.call_count, 1)
+
+
+class ResponseLimitTests(unittest.TestCase):
+    @staticmethod
+    def http_response(body, headers=b""):
+        class Socket:
+            def makefile(self, mode):
+                return io.BytesIO(
+                    b"HTTP/1.1 200 OK\r\nContent-Type: text/plain; charset=utf-8\r\n"
+                    + headers + b"Connection: close\r\n\r\n" + body
+                )
+
+        response = http.client.HTTPResponse(Socket())
+        response.begin()
+        return response
+
+    @staticmethod
+    def chunked_body(body):
+        return f"{len(body):x}\r\n".encode() + body + b"\r\n0\r\n\r\n"
+
+    def test_real_fixed_length_eof_rejects_otherwise_valid_json_and_text(self):
+        for request, body in ((d.request_json, b'{"ok": true}'), (d.request_text, b"Mihomo")):
+            with self.subTest(request=request.__name__):
+                response = self.http_response(body, f"Content-Length: {len(body) + 10}\r\n".encode())
+                with patch.object(d.urllib.request, "urlopen", return_value=response):
+                    with self.assertRaisesRegex(OSError, "Incomplete HTTP response"):
+                        request("https://example.invalid/test")
+                self.assertTrue(response.closed)
+
+    def test_real_complete_framings_accept_json_and_text(self):
+        for request, body, expected in (
+            (d.request_json, b'{"ok": true}', {"ok": True}),
+            (d.request_text, "Mihomo 内核".encode(), "Mihomo 内核"),
+        ):
+            for wire_body, headers in (
+                (body, f"Content-Length: {len(body)}\r\n".encode()),
+                (body, b""),
+                (body, b"Content-Length: invalid\r\n"),
+                (body, b"Content-Length: -1\r\n"),
+                (self.chunked_body(body), b"Transfer-Encoding: chunked\r\n"),
+                (self.chunked_body(body), b"Transfer-Encoding: chunked\r\nContent-Length: 999\r\n"),
+            ):
+                with self.subTest(request=request.__name__, headers=headers):
+                    response = self.http_response(wire_body, headers)
+                    with patch.object(d.urllib.request, "urlopen", return_value=response):
+                        self.assertEqual(request("https://example.invalid/test"), expected)
+                    self.assertTrue(response.closed)
+
+    def test_real_framings_still_enforce_actual_byte_limit(self):
+        body = b"x" * 1000
+        for wire_body, headers in (
+            (body, b"Content-Length: 1000\r\n"),
+            (body, b""),
+            (self.chunked_body(body), b"Transfer-Encoding: chunked\r\nContent-Length: 1\r\n"),
+        ):
+            for request in (d.request_json, d.request_text):
+                with self.subTest(request=request.__name__, headers=headers):
+                    response = self.http_response(wire_body, headers)
+                    with patch.object(d, "MAX_RESPONSE_BYTES", 32):
+                        with patch.object(d.urllib.request, "urlopen", return_value=response):
+                            with self.assertRaisesRegex(OSError, "exceeds 32 byte limit"):
+                                request("https://example.invalid/test")
+                    self.assertTrue(response.closed)
+
+    def test_real_truncated_chunked_responses_use_failure_path(self):
+        for request, body in ((d.request_json, b'{"ok": true}'), (d.request_text, b"Mihomo")):
+            with self.subTest(request=request.__name__):
+                wire_body = f"{len(body):x}\r\n".encode() + body + b"\r\n"
+                response = self.http_response(wire_body, b"Transfer-Encoding: chunked\r\n")
+                with patch.object(d.urllib.request, "urlopen", return_value=response):
+                    with self.assertRaisesRegex(OSError, "Incomplete HTTP response"):
+                        request("https://example.invalid/test")
+                self.assertTrue(response.closed)
+
+    def test_real_fixed_length_eof_retains_old_source_and_failed_coverage(self):
+        client = next(c for c in d.load_clients() if c["id"] == "flclash")
+        old = {
+            name: d.positive_record(None, STAMP, d.component_scope(client, name), state="ok")
+            for name in d.expected_observation_components(client)
+        }
+        old["source"].update(repo_id=client["official_repo_id"], full_name=client["github_repo"], last_activity_at=STAMP)
+        old["release"].update(version="v9", published_at=STAMP, asset_count=1)
+        later = NOW + dt.timedelta(hours=1)
+        body = json.dumps({
+            "id": client["official_repo_id"], "full_name": client["github_repo"], "owner": {"id": 2},
+            "archived": False, "disabled": False, "pushed_at": d.iso(later),
+        }).encode()
+        response = self.http_response(body, f"Content-Length: {len(body) + 10}\r\n".encode())
+        with patch.object(d.urllib.request, "urlopen", return_value=response):
+            out = d.audit([client], {"clients": {client["id"]: old}}, fetch_text=AuditTests.evidence, now=later)
+        record = out["clients"][client["id"]]
+        self.assertEqual(record["source"]["observation_state"], "error")
+        for key in ("state", "scope", "repo_id", "full_name", "last_activity_at", "last_success_at"):
+            self.assertEqual(record["source"][key], old["source"][key])
+        self.assertEqual(record["source"]["consecutive_failures"], 1)
+        self.assertEqual(record["release"], old["release"])
+        self.assertEqual(d.links_for(client, record, later)[1], client["download_url"])
+        self.assertEqual(out["health"]["succeeded_last_run"], 0)
+        self.assertEqual(out["health"]["coverage"], 0.0)
+
+    def test_real_fixed_length_eof_retains_old_matching_core_evidence(self):
+        client = next(c for c in d.load_clients() if c["id"] == "flclash")
+        previous = d.positive_record(None, STAMP, d.core_evidence_scope(client), state="ok")
+        body = AuditTests.evidence("").encode()
+        response = self.http_response(body, f"Content-Length: {len(body) + 10}\r\n".encode())
+        with patch.object(d.urllib.request, "urlopen", return_value=response):
+            record, issues, ok = d.audit_core_evidence(
+                client, {"core_evidence": previous}, NOW + dt.timedelta(hours=1), d.request_text,
+            )
+        self.assertFalse(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(record["observation_state"], "error")
+        for key in ("state", "scope", "last_success_at"):
+            self.assertEqual(record[key], previous[key])
+        self.assertEqual(record["consecutive_failures"], 1)
+
+    class Response(io.BytesIO):
+        def __init__(self, body, length=None, charset="utf-8"):
+            super().__init__(body)
+            self.headers = email.message.Message()
+            self.headers["Content-Type"] = f"text/plain; charset={charset}"
+            if length is not None:
+                self.headers["Content-Length"] = length
+            self.bytes_read = 0
+
+        def read(self, size=-1):
+            if not 0 < size <= d.RESPONSE_CHUNK_BYTES:
+                raise AssertionError(f"unbounded or excessive read: {size}")
+            # A response can return fewer bytes than requested before EOF.
+            chunk = super().read(min(size, 3))
+            self.bytes_read += len(chunk)
+            return chunk
+
+    def test_normal_json_and_text_with_missing_or_false_length(self):
+        for length in (None, "1", "999999999", "invalid"):
+            for request, body, expected, charset in (
+                (d.request_json, b'{"ok": true}', {"ok": True}, "utf-8"),
+                (d.request_text, "内核".encode(), "内核", "utf-8"),
+                (d.request_text, b"caf\xe9", "café", "iso-8859-1"),
+            ):
+                with self.subTest(length=length, request=request.__name__, charset=charset):
+                    response = self.Response(body, length, charset)
+                    with patch.object(d.urllib.request, "urlopen", return_value=response):
+                        self.assertEqual(request("https://example.invalid/test"), expected)
+                    self.assertTrue(response.closed)
+
+    def test_exact_byte_limit_is_accepted_for_json_and_text(self):
+        for request, body, expected in (
+            (d.request_json, b'{"x":"' + b"a" * 24 + b'"}', {"x": "a" * 24}),
+            (d.request_text, b"a" * 32, "a" * 32),
+        ):
+            with self.subTest(request=request.__name__):
+                response = self.Response(body)
+                with patch.object(d, "MAX_RESPONSE_BYTES", 32):
+                    with patch.object(d.urllib.request, "urlopen", return_value=response):
+                        self.assertEqual(request("https://example.invalid/test"), expected)
+                self.assertEqual(response.bytes_read, 32)
+
+    def test_oversized_json_and_text_stop_after_limit_plus_one(self):
+        for length in (None, "1", "999999999"):
+            for request in (d.request_json, d.request_text):
+                with self.subTest(length=length, request=request.__name__):
+                    response = self.Response(b"x" * 1000, length)
+                    with patch.object(d, "MAX_RESPONSE_BYTES", 32):
+                        with patch.object(d.urllib.request, "urlopen", return_value=response) as opener:
+                            with self.assertRaisesRegex(OSError, "exceeds 32 byte limit"):
+                                request("https://example.invalid/test")
+                    self.assertEqual(response.bytes_read, 33)
+                    self.assertTrue(response.closed)
+                    opener.assert_called_once()
+
+    def test_truncated_json_is_not_accepted_or_retried(self):
+        response = self.Response(b'{"ok":')
+        with patch.object(d.urllib.request, "urlopen", return_value=response) as opener:
+            with self.assertRaises(json.JSONDecodeError):
+                d.request_json("https://example.invalid/test")
+        self.assertTrue(response.closed)
+        opener.assert_called_once()
+
+    def test_incomplete_transport_read_uses_existing_oserror_path(self):
+        for request in (d.request_json, d.request_text):
+            with self.subTest(request=request.__name__):
+                response = self.Response(b"")
+                with patch.object(response, "read", side_effect=http.client.IncompleteRead(b"partial", 100)):
+                    with patch.object(d.urllib.request, "urlopen", return_value=response):
+                        with self.assertRaisesRegex(OSError, "Incomplete HTTP response"):
+                            request("https://example.invalid/test")
+                self.assertTrue(response.closed)
+
+    def test_failed_json_audit_preserves_facts_and_records_failed_coverage(self):
+        client = next(c for c in d.load_clients() if c["id"] == "flclash")
+        old = {
+            name: d.positive_record(None, STAMP, d.component_scope(client, name), state="ok")
+            for name in d.expected_observation_components(client)
+        }
+        old["source"].update(repo_id=client["official_repo_id"], full_name=client["github_repo"], last_activity_at=STAMP)
+        old["release"].update(version="v9", published_at=STAMP, asset_count=1)
+        later = NOW + dt.timedelta(hours=1)
+        for body in (b"x" * 1000, b'{"ok":'):
+            with self.subTest(body_size=len(body)):
+                response = self.Response(body)
+                with patch.object(d, "MAX_RESPONSE_BYTES", 32):
+                    with patch.object(d.urllib.request, "urlopen", return_value=response):
+                        out = d.audit([client], {"clients": {client["id"]: old}}, now=later)
+                record = out["clients"][client["id"]]
+                source = record["source"]
+                self.assertEqual(source["observation_state"], "error")
+                for key in ("state", "scope", "repo_id", "full_name", "last_activity_at", "last_success_at"):
+                    self.assertEqual(source[key], old["source"][key])
+                self.assertEqual(source["consecutive_failures"], 1)
+                self.assertEqual(record["release"], old["release"])
+                self.assertEqual(d.links_for(client, record, later)[1], client["download_url"])
+                self.assertEqual(out["health"]["succeeded_last_run"], 0)
+                self.assertEqual(out["health"]["coverage"], 0.0)
+                self.assertEqual(old["source"]["observation_state"], "fresh")
+
+    def test_oversized_text_retains_core_evidence_as_observation_error(self):
+        client = next(c for c in d.load_clients() if c["id"] == "flclash")
+        previous = d.positive_record(None, STAMP, d.core_evidence_scope(client), state="ok")
+        response = self.Response(b"x" * 1000)
+        with patch.object(d, "MAX_RESPONSE_BYTES", 32):
+            with patch.object(d.urllib.request, "urlopen", return_value=response):
+                record, issues, ok = d.audit_core_evidence(
+                    client, {"core_evidence": previous}, NOW + dt.timedelta(hours=1), d.request_text,
+                )
+        self.assertFalse(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(record["observation_state"], "error")
+        for key in ("state", "scope", "last_success_at"):
+            self.assertEqual(record[key], previous[key])
+        self.assertEqual(record["consecutive_failures"], 1)
 
 
 class AuditTests(unittest.TestCase):

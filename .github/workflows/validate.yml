@@ -3,7 +3,7 @@ name: Validate directory changes
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, fix/bounded-http-response]
 
 permissions:
   contents: read
@@ -20,6 +20,9 @@ jobs:
 
       - name: Check commit identity
         run: python3 scripts/check_commit_identity.py
+
+      - name: Run focused HTTP response tests
+        run: PYTHONPATH=tests python3 -m unittest test_directory.ResponseLimitTests -v
 
       - name: Run tests
         run: python3 -m unittest discover -s tests -v
