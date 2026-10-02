@@ -282,12 +282,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-02T09:30:50Z",
+        "last_activity_at": "2026-10-02T12:35:00Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-02T09:35:45Z",
-        "last_success_at": "2026-10-02T09:35:45Z"
+        "observed_at": "2026-10-02T12:43:45Z",
+        "last_success_at": "2026-10-02T12:43:45Z"
       },
       "release": {
         "state": "ok",
@@ -316,12 +316,12 @@
         "repo_id": 836976013,
         "owner_id": 181477152,
         "full_name": "mihomo-party-org/clash-party",
-        "last_activity_at": "2026-09-30T12:57:11Z",
+        "last_activity_at": "2026-10-02T12:38:56Z",
         "scope": "sha256:9812e1fa09efc3deaf6302785129fb60e57f2631f52559d22ced794ab780b986",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-30T22:20:35Z",
-        "last_success_at": "2026-10-01T22:44:24Z"
+        "observed_at": "2026-10-02T12:43:45Z",
+        "last_success_at": "2026-10-02T12:43:45Z"
       },
       "release": {
         "state": "ok",
@@ -418,12 +418,12 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-10-02T07:35:10Z",
+        "last_activity_at": "2026-10-02T10:21:14Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-02T09:35:45Z",
-        "last_success_at": "2026-10-02T09:35:45Z"
+        "observed_at": "2026-10-02T12:43:45Z",
+        "last_success_at": "2026-10-02T12:43:45Z"
       },
       "release": {
         "state": "ok",
@@ -798,13 +798,13 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-10-02T08:58:57Z",
+        "last_activity_at": "2026-10-02T11:24:08Z",
         "rediscovered_repo": false,
         "scope": "sha256:d43580a20948f70665c6a6dc980ed9fee8e5a57efedc0aeb9c3150331bd399d3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-02T09:35:45Z",
-        "observed_at": "2026-10-02T09:35:45Z"
+        "last_success_at": "2026-10-02T12:43:45Z",
+        "observed_at": "2026-10-02T12:43:45Z"
       },
       "release": {
         "state": "ok",
