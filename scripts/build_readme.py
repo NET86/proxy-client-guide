@@ -465,6 +465,9 @@ def request_json(url: str, token: str | None = None, attempts: int = REQUEST_ATT
             last_error = exc
         except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
             last_error = exc
+        except http.client.HTTPException as exc:
+            # Malformed HTTP framing belongs to this component's failure path.
+            raise OSError("Invalid HTTP response") from exc
         if attempt + 1 < attempts:
             time.sleep(0.5 * (attempt + 1))
     assert last_error is not None
@@ -477,7 +480,13 @@ def request_text(url: str, attempts: int = REQUEST_ATTEMPTS) -> str | None:
     for attempt in range(attempts):
         try:
             with urllib.request.urlopen(request, timeout=20) as response:
-                return read_response(response).decode(response.headers.get_content_charset() or "utf-8", errors="replace")
+                body = read_response(response)
+                charset = response.headers.get_content_charset() or "utf-8"
+                try:
+                    return body.decode(charset, errors="replace")
+                except LookupError as exc:
+                    # A remote charset may be unknown or name a non-text codec.
+                    raise OSError("Unsupported HTTP response charset") from exc
         except urllib.error.HTTPError as exc:
             if exc.code == 404:
                 return None
@@ -486,6 +495,9 @@ def request_text(url: str, attempts: int = REQUEST_ATTEMPTS) -> str | None:
             last_error = exc
         except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
             last_error = exc
+        except http.client.HTTPException as exc:
+            # Malformed HTTP framing belongs to this component's failure path.
+            raise OSError("Invalid HTTP response") from exc
         if attempt + 1 < attempts:
             time.sleep(0.5 * (attempt + 1))
     assert last_error is not None
