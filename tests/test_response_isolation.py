@@ -134,7 +134,7 @@ class ResponseIsolationTests(unittest.TestCase):
                     self.assertEqual(saved["clients"][bad["id"]]["release"]["version"], "v2")
                 conflicted = saved["clients"][conflict["id"]]
                 self.assertEqual(conflicted["source"]["state"], "identity_mismatch")
-                self.assertEqual(d.links_for(conflict, conflicted, later)[1], None)
+                self.assertEqual(d.links_for(conflict, conflicted, later)[1], "")
                 self.assertEqual(saved["health"]["attempted_last_run"], 3)
                 self.assertEqual(saved["health"]["succeeded_last_run"], 1)
                 self.assertEqual(saved["health"]["coverage"], 0.3333)
