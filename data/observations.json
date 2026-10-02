@@ -556,12 +556,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-10-01T18:51:03Z",
+        "last_activity_at": "2026-10-02T07:08:28Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-01T22:44:24Z",
-        "last_success_at": "2026-10-01T22:44:24Z"
+        "observed_at": "2026-10-02T07:17:07Z",
+        "last_success_at": "2026-10-02T07:17:07Z"
       },
       "release": {
         "state": "ok",
