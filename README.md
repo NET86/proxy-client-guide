@@ -227,7 +227,7 @@
 - 内核：多内核（Mihomo / Clash Premium / Clash Rust / Meow）
 - 官方来源：[https://github.com/libnyanpasu/clash-nyanpasu](https://github.com/libnyanpasu/clash-nyanpasu)
 - 下载：[https://github.com/libnyanpasu/clash-nyanpasu/releases](https://github.com/libnyanpasu/clash-nyanpasu/releases)
-- 版本：v1.6.1（2024-09-08）
+- 版本：v2.0.0-beta.1（2026-10-04）
 
 ### Clash-Party
 
