@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-02T20:30:17Z",
+        "last_activity_at": "2026-10-03T02:59:13Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-02T22:18:11Z",
-        "last_success_at": "2026-10-02T22:18:11Z"
+        "observed_at": "2026-10-03T05:23:32Z",
+        "last_success_at": "2026-10-03T05:23:32Z"
       },
       "release": {
         "state": "ok",
@@ -282,12 +282,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-02T21:52:56Z",
+        "last_activity_at": "2026-10-03T03:46:27Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-02T22:18:11Z",
-        "last_success_at": "2026-10-02T22:18:11Z"
+        "observed_at": "2026-10-03T05:23:32Z",
+        "last_success_at": "2026-10-03T05:23:32Z"
       },
       "release": {
         "state": "ok",
@@ -316,12 +316,12 @@
         "repo_id": 836976013,
         "owner_id": 181477152,
         "full_name": "mihomo-party-org/clash-party",
-        "last_activity_at": "2026-10-02T12:38:56Z",
+        "last_activity_at": "2026-10-03T05:16:56Z",
         "scope": "sha256:9812e1fa09efc3deaf6302785129fb60e57f2631f52559d22ced794ab780b986",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-02T12:43:45Z",
-        "last_success_at": "2026-10-02T22:18:11Z"
+        "observed_at": "2026-10-03T05:23:32Z",
+        "last_success_at": "2026-10-03T05:23:32Z"
       },
       "release": {
         "state": "ok",
@@ -486,13 +486,13 @@
         "repo_id": 643504282,
         "owner_id": 126981719,
         "full_name": "hiddify/hiddify-app",
-        "last_activity_at": "2026-08-10T17:43:24Z",
+        "last_activity_at": "2026-10-02T23:41:18Z",
         "rediscovered_repo": false,
         "scope": "sha256:6ae09388286d3444b119befaac87e283f2823d1f1789ff6ed6da4525c56605d4",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-02T22:18:11Z",
-        "observed_at": "2026-09-28T06:51:35Z"
+        "last_success_at": "2026-10-03T05:23:32Z",
+        "observed_at": "2026-10-03T05:23:32Z"
       },
       "release": {
         "state": "ok",
@@ -798,13 +798,13 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-10-02T12:47:13Z",
+        "last_activity_at": "2026-10-03T03:52:24Z",
         "rediscovered_repo": false,
         "scope": "sha256:d43580a20948f70665c6a6dc980ed9fee8e5a57efedc0aeb9c3150331bd399d3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-02T22:18:11Z",
-        "observed_at": "2026-10-02T22:18:11Z"
+        "last_success_at": "2026-10-03T05:23:32Z",
+        "observed_at": "2026-10-03T05:23:32Z"
       },
       "release": {
         "state": "ok",
