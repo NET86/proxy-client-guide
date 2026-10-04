@@ -76,13 +76,13 @@
         "repo_id": 966153123,
         "owner_id": 131734194,
         "full_name": "KaringX/clashmi",
-        "last_activity_at": "2026-10-04T05:40:24Z",
+        "last_activity_at": "2026-10-04T07:02:00Z",
         "rediscovered_repo": false,
         "scope": "sha256:c6d635e584c29b3325ecd25a64a7a4f1ba14892cdb04034886c005cdd21c7c1d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-04T05:59:16Z",
-        "observed_at": "2026-10-04T05:59:16Z"
+        "last_success_at": "2026-10-04T12:27:29Z",
+        "observed_at": "2026-10-04T12:27:29Z"
       },
       "release": {
         "state": "ok",
@@ -282,12 +282,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-04T05:51:12Z",
+        "last_activity_at": "2026-10-04T12:22:11Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-04T05:59:16Z",
-        "last_success_at": "2026-10-04T05:59:16Z"
+        "observed_at": "2026-10-04T12:27:29Z",
+        "last_success_at": "2026-10-04T12:27:29Z"
       },
       "release": {
         "state": "ok",
@@ -486,13 +486,13 @@
         "repo_id": 643504282,
         "owner_id": 126981719,
         "full_name": "hiddify/hiddify-app",
-        "last_activity_at": "2026-10-03T22:29:37Z",
+        "last_activity_at": "2026-10-04T09:13:13Z",
         "rediscovered_repo": false,
         "scope": "sha256:6ae09388286d3444b119befaac87e283f2823d1f1789ff6ed6da4525c56605d4",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-04T05:59:16Z",
-        "observed_at": "2026-10-04T05:59:16Z"
+        "last_success_at": "2026-10-04T12:27:29Z",
+        "observed_at": "2026-10-04T12:27:29Z"
       },
       "release": {
         "state": "ok",
