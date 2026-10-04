@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-03T17:22:16Z",
+        "last_activity_at": "2026-10-04T05:48:37Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-03T21:22:15Z",
-        "last_success_at": "2026-10-03T21:22:15Z"
+        "observed_at": "2026-10-04T05:59:16Z",
+        "last_success_at": "2026-10-04T05:59:16Z"
       },
       "release": {
         "state": "ok",
@@ -76,13 +76,13 @@
         "repo_id": 966153123,
         "owner_id": 131734194,
         "full_name": "KaringX/clashmi",
-        "last_activity_at": "2026-10-03T07:05:39Z",
+        "last_activity_at": "2026-10-04T05:40:24Z",
         "rediscovered_repo": false,
         "scope": "sha256:c6d635e584c29b3325ecd25a64a7a4f1ba14892cdb04034886c005cdd21c7c1d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-03T16:26:18Z",
-        "observed_at": "2026-10-03T11:44:34Z"
+        "last_success_at": "2026-10-04T05:59:16Z",
+        "observed_at": "2026-10-04T05:59:16Z"
       },
       "release": {
         "state": "ok",
@@ -282,12 +282,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-03T20:28:45Z",
+        "last_activity_at": "2026-10-04T05:51:12Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-03T21:22:15Z",
-        "last_success_at": "2026-10-03T21:22:15Z"
+        "observed_at": "2026-10-04T05:59:16Z",
+        "last_success_at": "2026-10-04T05:59:16Z"
       },
       "release": {
         "state": "ok",
@@ -452,12 +452,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-10-03T19:48:14Z",
+        "last_activity_at": "2026-10-03T23:04:43Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-03T21:22:15Z",
-        "last_success_at": "2026-10-03T21:22:15Z"
+        "observed_at": "2026-10-04T05:59:16Z",
+        "last_success_at": "2026-10-04T05:59:16Z"
       },
       "release": {
         "state": "ok",
@@ -486,13 +486,13 @@
         "repo_id": 643504282,
         "owner_id": 126981719,
         "full_name": "hiddify/hiddify-app",
-        "last_activity_at": "2026-10-03T11:23:12Z",
+        "last_activity_at": "2026-10-03T22:29:37Z",
         "rediscovered_repo": false,
         "scope": "sha256:6ae09388286d3444b119befaac87e283f2823d1f1789ff6ed6da4525c56605d4",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-03T16:26:18Z",
-        "observed_at": "2026-10-03T11:44:34Z"
+        "last_success_at": "2026-10-04T05:59:16Z",
+        "observed_at": "2026-10-04T05:59:16Z"
       },
       "release": {
         "state": "ok",
@@ -556,12 +556,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-10-03T10:36:52Z",
+        "last_activity_at": "2026-10-04T03:41:39Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-03T11:44:34Z",
-        "last_success_at": "2026-10-03T16:26:18Z"
+        "observed_at": "2026-10-04T05:59:16Z",
+        "last_success_at": "2026-10-04T05:59:16Z"
       },
       "release": {
         "state": "ok",
