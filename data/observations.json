@@ -42,12 +42,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-04T05:48:37Z",
+        "last_activity_at": "2026-10-05T00:40:25Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-04T05:59:16Z",
-        "last_success_at": "2026-10-04T21:33:25Z"
+        "observed_at": "2026-10-05T05:48:15Z",
+        "last_success_at": "2026-10-05T05:48:15Z"
       },
       "release": {
         "state": "ok",
@@ -282,12 +282,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-04T20:57:24Z",
+        "last_activity_at": "2026-10-05T04:07:49Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-04T21:33:25Z",
-        "last_success_at": "2026-10-04T21:33:25Z"
+        "observed_at": "2026-10-05T05:48:15Z",
+        "last_success_at": "2026-10-05T05:48:15Z"
       },
       "release": {
         "state": "ok",
@@ -418,12 +418,12 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-10-04T15:31:38Z",
+        "last_activity_at": "2026-10-05T04:59:37Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-04T21:33:25Z",
-        "last_success_at": "2026-10-04T21:33:25Z"
+        "observed_at": "2026-10-05T05:48:15Z",
+        "last_success_at": "2026-10-05T05:48:15Z"
       },
       "release": {
         "state": "ok",
@@ -486,13 +486,13 @@
         "repo_id": 643504282,
         "owner_id": 126981719,
         "full_name": "hiddify/hiddify-app",
-        "last_activity_at": "2026-10-04T09:13:13Z",
+        "last_activity_at": "2026-10-04T22:42:32Z",
         "rediscovered_repo": false,
         "scope": "sha256:6ae09388286d3444b119befaac87e283f2823d1f1789ff6ed6da4525c56605d4",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-04T21:33:25Z",
-        "observed_at": "2026-10-04T12:27:29Z"
+        "last_success_at": "2026-10-05T05:48:15Z",
+        "observed_at": "2026-10-05T05:48:15Z"
       },
       "release": {
         "state": "ok",
