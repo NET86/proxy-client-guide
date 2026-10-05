@@ -83,7 +83,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
-- 版本：v1.2.12（2026-09-29）
+- 版本：v1.2.13（2026-10-05）
 
 ### Bettbox
 
