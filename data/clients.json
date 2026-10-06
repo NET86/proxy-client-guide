@@ -394,7 +394,7 @@
         "android": true,
         "ios": true,
         "linux": true,
-        "tvos": false
+        "tvos": true
       },
       "source_type": "github",
       "github_repo": "KaringX/karing",

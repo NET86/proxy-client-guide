@@ -40,7 +40,7 @@
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
 | sing-box | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/SagerNet/sing-box) | [下载页](https://github.com/SagerNet/sing-box/releases) |
 | Hiddify | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/hiddify/hiddify-app) | [下载页](https://github.com/hiddify/hiddify-app/releases) |
-| Karing | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/karing) | [下载页](https://github.com/KaringX/karing/releases) |
+| Karing | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/karing) | [下载页](https://github.com/KaringX/karing/releases) |
 | NekoBox for Android | 🟡 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MatsuriDayo/NekoBoxForAndroid) | [下载页](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases) |
 
 ## 多内核客户端
@@ -191,7 +191,7 @@
 
 - 分类：sing-box 内核客户端
 - 状态：🟢 近半年有更新
-- 平台：macOS / iOS / Windows / Android / Linux
+- 平台：macOS / iOS / tvOS / Windows / Android / Linux
 - 内核：sing-box
 - 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)

@@ -13,6 +13,10 @@ NOW = dt.datetime(2026, 9, 16, 0, 0, tzinfo=dt.timezone.utc)
 
 
 class CatalogIntegrationTests(unittest.TestCase):
+    def test_karing_tvos_support_is_catalogued(self):
+        clients = {client["id"]: client for client in d.load_clients(ROOT / "data" / "clients.json")}
+        self.assertTrue(clients["karing"]["platforms"]["tvos"])
+
     def test_real_catalog_manual_sources_have_no_main_download_and_no_dynamic_component_contract(self):
         clients = d.load_clients(ROOT / "data" / "clients.json")
         manual = [client for client in clients if client["source_type"] == "manual"]

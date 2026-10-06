@@ -210,6 +210,33 @@ class AdversarialRegressionTests(unittest.TestCase):
         self.assertEqual(rolled["release"]["state"], "rollback")
         self.assertTrue(any("timestamp moved backwards" in item for item in issues))
 
+    def test_repo_path_identity_change_during_audit_is_rejected(self):
+        client = self.by_id["flclash"]
+        calls = 0
+
+        def api(url, token=None):
+            nonlocal calls
+            if url == f"https://api.github.com/repos/{client['github_repo']}":
+                calls += 1
+                if calls == 1:
+                    return self.repo_payload(client)
+                return self.repo_payload(client, id=client["official_repo_id"] + 1)
+            if "/releases/latest" in url:
+                return self.release_payload()
+            self.fail(f"unexpected API URL: {url}")
+
+        out, _, ok = d.audit_github(
+            client,
+            {},
+            None,
+            NOW,
+            api,
+            lambda _url: "github.com/metacubex/mihomo/",
+        )
+        self.assertFalse(ok)
+        self.assertEqual(out["release"]["observation_state"], "error")
+        self.assertIn("changed identity during audit", out["release"]["error"])
+
     def test_github_same_day_release_rollback_detected(self):
         client = self.by_id["flclash"]
         old = self.healthy_github_record(client)
