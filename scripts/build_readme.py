@@ -983,9 +983,12 @@ def audit_github(
     anomalies: list[str] = []
     ok = True
     try:
+        path_identity_verified = False
         metadata = request(f"https://api.github.com/repos/{repo}", token)
         if metadata is not None:
             require_repo_schema(metadata)
+            if metadata["id"] == client["official_repo_id"]:
+                path_identity_verified = True
             if metadata["id"] != client["official_repo_id"]:
                 pinned_metadata = request(f"https://api.github.com/repositories/{client['official_repo_id']}", token)
                 if pinned_metadata is not None:
@@ -1023,6 +1026,7 @@ def audit_github(
                         ):
                             metadata = candidate_metadata
                             recovered_by_discovery = True
+                            path_identity_verified = True
         if metadata is None:
             result["source"] = negative_record(previous_source, stamp, source_scope_value, "missing")
             return result, [f"{client['id']}: official repository returned 404 by path and pinned repository ID"], False
@@ -1043,12 +1047,21 @@ def audit_github(
         canonical_repo_id = metadata["id"]
 
         def verify_canonical_repo_identity() -> None:
-            current = request(f"https://api.github.com/repos/{canonical_repo}", token)
+            if path_identity_verified:
+                current = request(f"https://api.github.com/repos/{canonical_repo}", token)
+                if current is None:
+                    raise ObservationError("canonical GitHub repository path disappeared during audit")
+                require_repo_schema(current)
+                if current["id"] != canonical_repo_id:
+                    raise ObservationError("canonical GitHub repository path changed identity during audit")
+                return
+
+            current = request(f"https://api.github.com/repositories/{canonical_repo_id}", token)
             if current is None:
-                raise ObservationError("canonical GitHub repository path disappeared during audit")
+                raise ObservationError("canonical GitHub repository identity disappeared during audit")
             require_repo_schema(current)
-            if current["id"] != canonical_repo_id:
-                raise ObservationError("canonical GitHub repository path changed identity during audit")
+            if current["id"] != canonical_repo_id or current["full_name"].casefold() != canonical_repo.casefold():
+                raise ObservationError("canonical GitHub repository identity changed during audit")
 
         pushed_at = metadata.get("pushed_at")
         pushed = require_not_future(pushed_at, now, "GitHub repository pushed_at") if pushed_at is not None else None
