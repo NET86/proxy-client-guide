@@ -111,6 +111,10 @@ class DiscoveryBudget:
             return "time_budget_exceeded"
         return None
 
+    def ensure_time(self) -> None:
+        if self.remaining_seconds() <= 0:
+            raise DiscoveryBudgetExceeded("time_budget_exceeded")
+
     def before_attempt(self) -> float:
         if self.attempts >= self.max_requests:
             raise DiscoveryBudgetExceeded("request_budget_exceeded")
@@ -462,7 +466,7 @@ def load_observations(path: Path = DEFAULT_OBSERVATIONS) -> dict[str, Any]:
     return payload
 
 
-def read_response(response: Any) -> bytes:
+def read_response(response: Any, *, budget: DiscoveryBudget | None = None) -> bytes:
     """Bound actual bytes read, including when Content-Length is absent or wrong."""
     # HTTPResponse normalizes framing: chunked/close-delimited lengths are None.
     # Its bounded read() can silently reach EOF before a fixed length is met.
@@ -470,7 +474,11 @@ def read_response(response: Any) -> bytes:
     body = bytearray()
     try:
         while True:
+            if budget is not None:
+                budget.ensure_time()
             chunk = response.read(min(RESPONSE_CHUNK_BYTES, MAX_RESPONSE_BYTES + 1 - len(body)))
+            if budget is not None:
+                budget.ensure_time()
             if not chunk:
                 if expected_length is not None and len(body) < expected_length:
                     raise OSError("Incomplete HTTP response")
@@ -505,12 +513,16 @@ def request_json(
         timeout = budget.before_attempt() if budget is not None else 20
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
-                payload = json.loads(read_response(response))
+                payload = json.loads(read_response(response, budget=budget))
+            if budget is not None:
+                budget.ensure_time()
             if not isinstance(payload, dict):
                 raise ObservationError(f"Expected JSON object from {url}")
             return payload
         except urllib.error.HTTPError as exc:
             if exc.code == 404:
+                if budget is not None:
+                    budget.ensure_time()
                 return None
             if exc.code not in TRANSIENT_HTTP_CODES:
                 raise
@@ -544,15 +556,20 @@ def request_text(
         timeout = budget.before_attempt() if budget is not None else 20
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
-                body = read_response(response)
+                body = read_response(response, budget=budget)
                 charset = response.headers.get_content_charset() or "utf-8"
                 try:
-                    return body.decode(charset, errors="replace")
+                    text = body.decode(charset, errors="replace")
                 except LookupError as exc:
                     # A remote charset may be unknown or name a non-text codec.
                     raise OSError("Unsupported HTTP response charset") from exc
+                if budget is not None:
+                    budget.ensure_time()
+                return text
         except urllib.error.HTTPError as exc:
             if exc.code == 404:
+                if budget is not None:
+                    budget.ensure_time()
                 return None
             if exc.code not in TRANSIENT_HTTP_CODES:
                 raise

@@ -1671,6 +1671,41 @@ class AuditTests(unittest.TestCase):
         self.assertAlmostEqual(timeout, 1.75)
         self.assertEqual(budget.attempts, 1)
 
+    def test_discovery_response_body_cannot_succeed_after_deadline(self):
+        clock = [0.0]
+        captured = {}
+
+        class Headers:
+            def get_content_charset(self):
+                return "utf-8"
+
+        class Response:
+            length = None
+            headers = Headers()
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self, _size):
+                clock[0] = 2.0
+                return b"ok"
+
+        def fake_urlopen(_request, timeout):
+            captured["timeout"] = timeout
+            return Response()
+
+        with patch.object(d.time, "monotonic", side_effect=lambda: clock[0]), patch.object(
+            d.urllib.request, "urlopen", side_effect=fake_urlopen
+        ):
+            budget = d.DiscoveryBudget(max_requests=2, max_seconds=1.0)
+            with self.assertRaisesRegex(d.DiscoveryBudgetExceeded, "time_budget_exceeded"):
+                d.request_text("https://official.example/source", attempts=1, budget=budget)
+        self.assertEqual(captured["timeout"], 1.0)
+        self.assertEqual(budget.attempts, 1)
+
     def test_extreme_remote_timestamp_degrades_component_instead_of_aborting(self):
         client = self.by_id["flclash"]
         extreme = "9999-12-31T23:59:59-23:59"
