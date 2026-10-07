@@ -277,7 +277,7 @@
 - 内核：未公开
 - 官方来源：[https://quantumult.app/](https://quantumult.app/)
 - 下载：[https://apps.apple.com/us/app/id1443988620](https://apps.apple.com/us/app/id1443988620)
-- 版本：1.8.0（2026-09-15）
+- 版本：1.8.1（2026-10-07）
 
 ### Shadowrocket
 

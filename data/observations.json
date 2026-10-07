@@ -51,12 +51,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-07T07:40:41Z",
+        "last_activity_at": "2026-10-07T13:14:16Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T09:03:44Z",
-        "last_success_at": "2026-10-07T09:03:44Z"
+        "observed_at": "2026-10-07T13:31:21Z",
+        "last_success_at": "2026-10-07T13:31:21Z"
       },
       "release": {
         "state": "ok",
@@ -76,11 +76,11 @@
         "scope": "sha256:d03d777f723bc2cb2761e2eebe03667aac5a2b4795eab5c8d8ccbcd111d26eed",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T09:03:44Z",
-        "last_success_at": "2026-10-07T09:03:44Z",
+        "observed_at": "2026-10-07T13:31:21Z",
+        "last_success_at": "2026-10-07T13:31:21Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/d01f43cc783a9dbd05f064b79ea3ce39dcbfce16/docs/README_en.md",
+            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/07b0e71cc698cafbad4b463f390c33f8549e2504/docs/README_en.md",
             "sha256": "3876b26ad9c6fe016cbd6165d2d7ccd95b4b5c1941e62c1afc81421ba388ed6a"
           }
         ],
@@ -327,12 +327,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-07T08:37:07Z",
+        "last_activity_at": "2026-10-07T13:08:24Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T09:03:44Z",
-        "last_success_at": "2026-10-07T09:03:44Z"
+        "observed_at": "2026-10-07T13:31:21Z",
+        "last_success_at": "2026-10-07T13:31:21Z"
       },
       "release": {
         "state": "ok",
@@ -352,11 +352,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T09:03:44Z",
-        "last_success_at": "2026-10-07T09:03:44Z",
+        "observed_at": "2026-10-07T13:31:21Z",
+        "last_success_at": "2026-10-07T13:31:21Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/21bd0a961d19cb3f3ce50183e3ae94757b374004/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/b2c705b055fcda5fe8d7499ea4721fa703b45276/README.md",
             "sha256": "8ce2b3f283a7ae563076fa1a3b68696df09361e4e7e23cb6885572387a299c0b"
           }
         ],
@@ -857,24 +857,24 @@
         "state": "ok",
         "seller": "Cross Utility Ltd",
         "track_id": 1443988620,
-        "last_activity_at": "2026-09-15T07:05:52Z",
+        "last_activity_at": "2026-10-07T11:43:14Z",
         "scope": "sha256:31b9a340271d3798aba4aee657e464b3a033971a084f9844e0674d7df124fdec",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-10-06T18:25:56Z"
+        "observed_at": "2026-10-07T13:31:21Z",
+        "last_success_at": "2026-10-07T13:31:21Z"
       },
       "release": {
         "state": "ok",
-        "version": "1.8.0",
-        "published_at": "2026-09-15T07:05:52Z",
+        "version": "1.8.1",
+        "published_at": "2026-10-07T11:43:14Z",
         "seller": "Cross Utility Ltd",
         "track_id": 1443988620,
         "scope": "sha256:5b1669eb2d6db26c84a29e2f6f273f1a23509c1e5dda578003e0c7d675789291",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-10-06T18:25:56Z"
+        "observed_at": "2026-10-07T13:31:21Z",
+        "last_success_at": "2026-10-07T13:31:21Z"
       }
     },
     "loon": {
@@ -933,13 +933,13 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-10-06T12:45:37Z",
+        "last_activity_at": "2026-10-07T13:14:54Z",
         "rediscovered_repo": false,
         "scope": "sha256:d43580a20948f70665c6a6dc980ed9fee8e5a57efedc0aeb9c3150331bd399d3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-06T18:25:56Z",
-        "observed_at": "2026-10-06T18:25:56Z"
+        "last_success_at": "2026-10-07T13:31:21Z",
+        "observed_at": "2026-10-07T13:31:21Z"
       },
       "release": {
         "state": "ok",
@@ -959,11 +959,11 @@
         "scope": "sha256:923cb51e8e03c6292e4a5d8ac0f2eda72cf0e3ac999ff4fe39cf64e16d698978",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-07T03:24:17Z",
-        "observed_at": "2026-10-07T03:24:17Z",
+        "last_success_at": "2026-10-07T13:31:21Z",
+        "observed_at": "2026-10-07T13:31:21Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/SagerNet/sing-box/a4331b8d745971fdc1be33bba5513ab16105e2d3/README.md",
+            "url": "https://raw.githubusercontent.com/SagerNet/sing-box/1384c4cfb20198d4a5483dff658f9dd08ce155ba/README.md",
             "sha256": "6f1cd1e2a47fdb431c0ea18c45b355056530b635112de106f58ed2db477b93ed"
           }
         ],
