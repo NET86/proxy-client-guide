@@ -64,6 +64,7 @@ FORBIDDEN_AUTOMATIC_REPLACEMENTS = ("flclashx", "slothclash", "clashfest")
 TRANSIENT_HTTP_CODES = {403, 408, 425, 429, 500, 502, 503, 504}
 IDENTITY_CONFLICT_STATES = {"identity_mismatch", "asset_mismatch"}
 REQUEST_ATTEMPTS = 2
+MAX_DISCOVERY_CANDIDATES = 32
 OBSERVATION_VERSION = 2
 EVIDENCE_SCOPE_VERSION = 1
 FUTURE_SKEW = dt.timedelta(minutes=5)
@@ -75,7 +76,11 @@ GITHUB_REPO_URL_RE = re.compile(
 
 
 def display_date(value: dt.datetime) -> dt.date:
-    return value.astimezone(DISPLAY_TIMEZONE).date()
+    try:
+        return value.astimezone(DISPLAY_TIMEZONE).date()
+    except (ValueError, OverflowError):
+        # Display conversion must not abort an otherwise scoped component audit.
+        return value.date()
 
 
 class ObservationError(RuntimeError):
@@ -101,7 +106,7 @@ def parse_time(value: object) -> dt.datetime | None:
             if parsed.tzinfo is None:
                 parsed = parsed.replace(tzinfo=dt.timezone.utc)
         return parsed.astimezone(dt.timezone.utc)
-    except ValueError:
+    except (ValueError, OverflowError):
         return None
 
 
@@ -444,11 +449,17 @@ def read_response(response: Any) -> bytes:
 
 
 def request_json(url: str, token: str | None = None, attempts: int = REQUEST_ATTEMPTS) -> dict[str, Any] | None:
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme != "https" or not parsed.hostname:
+        raise ObservationError(f"JSON metadata URL must use HTTPS: {url}")
     headers = {"Accept": "application/json", "User-Agent": "NET86-clash-directory/3"}
-    if token and urllib.parse.urlparse(url).hostname == "api.github.com":
-        headers["Authorization"] = f"Bearer {token}"
+    if token and parsed.hostname == "api.github.com":
         headers["X-GitHub-Api-Version"] = "2022-11-28"
     request = urllib.request.Request(url, headers=headers)
+    if token and parsed.hostname == "api.github.com":
+        # Unredirected headers apply only to the original request. urllib's
+        # redirect handler does not copy them to a different origin.
+        request.add_unredirected_header("Authorization", f"Bearer {token}")
     last_error: BaseException | None = None
     for attempt in range(attempts):
         try:
@@ -896,6 +907,17 @@ def audit_github_discovery(
         if fetch_errors:
             return failure_record(previous, stamp, "; ".join(fetch_errors), scope)
         return positive_record(previous, stamp, scope, state="none")
+    if len(candidate_sources) > MAX_DISCOVERY_CANDIDATES:
+        # Do not inspect an arbitrary prefix and accidentally claim that a
+        # single verified repository is unique among thousands of candidates.
+        return positive_record(
+            previous,
+            stamp,
+            scope,
+            state="candidate",
+            reason="candidate_budget_exceeded",
+            candidate_count=len(candidate_sources),
+        )
 
     trusted_owner_ids = set(config.get("trusted_owner_ids", []))
     verified: list[dict[str, Any]] = []
@@ -1986,8 +2008,18 @@ def validate_readme(text: str, clients: list[dict[str, Any]]) -> None:
     for replacement in FORBIDDEN_AUTOMATIC_REPLACEMENTS:
         if replacement in lower:
             raise ValueError(f"Derivative fork leaked into directory: {replacement}")
+    # Internal maintenance vocabulary is checked only in controlled policy
+    # copy. Remote version/repository strings are factual data and must not
+    # block publication merely because they contain words such as "lookup".
+    try:
+        prefix, rest = text.split("## 收录原则", 1)
+        principles, _ = rest.split("\n## ", 1)
+        _, verification_rules = text.rsplit("## 核验规则", 1)
+        controlled_copy = prefix + principles + verification_rules
+    except ValueError:
+        controlled_copy = text
     for jargon in ("`LKG`", "`scope`", "`pin`", "canonical `", " unverified ", " failover", "lookup", "报警"):
-        if jargon in text:
+        if jargon in controlled_copy:
             raise ValueError(f"Maintenance jargon leaked into README: {jargon}")
     for client in clients:
         if text.count(f"### {client['name']}\n") != 1:
@@ -2018,18 +2050,22 @@ def main() -> int:
     observations = load_observations(args.observations)
     if args.audit:
         observations = audit(clients, observations)
-        write_json(args.observations, observations)
     rendered = render_readme(clients, observations)
     validate_readme(rendered, clients)
+    if args.health_check:
+        health_check(clients, observations)
     if args.check:
         existing = args.output.read_text(encoding="utf-8") if args.output.exists() else None
         if existing != rendered:
             print(f"{args.output} is not up to date.", file=sys.stderr)
             return 1
+        if args.audit:
+            write_json(args.observations, observations)
     else:
+        # Validate both generated artifacts before publishing either one.
+        if args.audit:
+            write_json(args.observations, observations)
         atomic_write_text(args.output, rendered)
-    if args.health_check:
-        health_check(clients, observations)
     return 0
 
 
