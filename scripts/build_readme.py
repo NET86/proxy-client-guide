@@ -111,14 +111,18 @@ class DiscoveryBudget:
             return "time_budget_exceeded"
         return None
 
-    def before_attempt(self) -> float:
-        if self.attempts >= self.max_requests:
-            raise DiscoveryBudgetExceeded("request_budget_exceeded")
+    def check_deadline(self) -> float:
         remaining = self.remaining_seconds()
         if remaining <= 0:
             raise DiscoveryBudgetExceeded("time_budget_exceeded")
-        self.attempts += 1
         return max(0.05, min(20.0, remaining))
+
+    def before_attempt(self) -> float:
+        if self.attempts >= self.max_requests:
+            raise DiscoveryBudgetExceeded("request_budget_exceeded")
+        timeout = self.check_deadline()
+        self.attempts += 1
+        return timeout
 
 
 def utc_now() -> dt.datetime:
@@ -462,15 +466,32 @@ def load_observations(path: Path = DEFAULT_OBSERVATIONS) -> dict[str, Any]:
     return payload
 
 
-def read_response(response: Any) -> bytes:
-    """Bound actual bytes read, including when Content-Length is absent or wrong."""
+def _set_response_timeout(response: Any, timeout: float) -> None:
+    """Best-effort tighten the underlying socket timeout for a streaming read."""
+    fp = getattr(response, "fp", None)
+    raw = getattr(fp, "raw", None)
+    sock = getattr(raw, "_sock", None)
+    if sock is not None and hasattr(sock, "settimeout"):
+        sock.settimeout(timeout)
+
+
+def read_response(
+    response: Any,
+    *,
+    budget: DiscoveryBudget | None = None,
+) -> bytes:
+    """Bound bytes and enforce the discovery deadline across the response body."""
     # HTTPResponse normalizes framing: chunked/close-delimited lengths are None.
     # Its bounded read() can silently reach EOF before a fixed length is met.
     expected_length = getattr(response, "length", None)
     body = bytearray()
     try:
         while True:
+            if budget is not None:
+                _set_response_timeout(response, budget.check_deadline())
             chunk = response.read(min(RESPONSE_CHUNK_BYTES, MAX_RESPONSE_BYTES + 1 - len(body)))
+            if budget is not None:
+                budget.check_deadline()
             if not chunk:
                 if expected_length is not None and len(body) < expected_length:
                     raise OSError("Incomplete HTTP response")
@@ -505,12 +526,16 @@ def request_json(
         timeout = budget.before_attempt() if budget is not None else 20
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
-                payload = json.loads(read_response(response))
+                payload = json.loads(read_response(response, budget=budget))
+            if budget is not None:
+                budget.check_deadline()
             if not isinstance(payload, dict):
                 raise ObservationError(f"Expected JSON object from {url}")
             return payload
         except urllib.error.HTTPError as exc:
             if exc.code == 404:
+                if budget is not None:
+                    budget.check_deadline()
                 return None
             if exc.code not in TRANSIENT_HTTP_CODES:
                 raise
@@ -544,15 +569,20 @@ def request_text(
         timeout = budget.before_attempt() if budget is not None else 20
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
-                body = read_response(response)
+                body = read_response(response, budget=budget)
                 charset = response.headers.get_content_charset() or "utf-8"
                 try:
-                    return body.decode(charset, errors="replace")
+                    text = body.decode(charset, errors="replace")
                 except LookupError as exc:
                     # A remote charset may be unknown or name a non-text codec.
                     raise OSError("Unsupported HTTP response charset") from exc
+            if budget is not None:
+                budget.check_deadline()
+            return text
         except urllib.error.HTTPError as exc:
             if exc.code == 404:
+                if budget is not None:
+                    budget.check_deadline()
                 return None
             if exc.code not in TRANSIENT_HTTP_CODES:
                 raise
