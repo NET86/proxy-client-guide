@@ -1635,8 +1635,9 @@ class AuditTests(unittest.TestCase):
             "https://official.example/two",
         ]
         fetched = []
+        clock = iter([0.0, 0.0, 0.0, 2.0, 2.0])
         with patch.object(d, "MAX_DISCOVERY_SECONDS", 1.0), patch.object(
-            d.time, "monotonic", side_effect=[0.0, 0.0, 2.0]
+            d.time, "monotonic", side_effect=lambda: next(clock)
         ):
             record = d.audit_github_discovery(
                 client, {}, NOW, None, "token",
@@ -1646,6 +1647,29 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(record["state"], "candidate")
         self.assertEqual(record["reason"], "time_budget_exceeded")
         self.assertEqual(fetched, ["https://official.example/one"])
+
+    def test_discovery_http_retry_consumes_actual_attempt_budget(self):
+        budget = d.DiscoveryBudget(max_requests=1, max_seconds=10.0)
+        with patch.object(
+            d.urllib.request,
+            "urlopen",
+            side_effect=urllib.error.URLError("temporary"),
+        ) as mocked, patch.object(d.time, "sleep"):
+            with self.assertRaisesRegex(d.DiscoveryBudgetExceeded, "request_budget_exceeded"):
+                d.request_json(
+                    "https://api.github.com/repos/ExampleOrg/Example",
+                    attempts=2,
+                    budget=budget,
+                )
+        self.assertEqual(mocked.call_count, 1)
+        self.assertEqual(budget.attempts, 1)
+
+    def test_discovery_http_timeout_is_capped_by_remaining_deadline(self):
+        with patch.object(d.time, "monotonic", side_effect=[100.0, 103.25]):
+            budget = d.DiscoveryBudget(max_requests=2, max_seconds=5.0)
+            timeout = budget.before_attempt()
+        self.assertAlmostEqual(timeout, 1.75)
+        self.assertEqual(budget.attempts, 1)
 
     def test_extreme_remote_timestamp_degrades_component_instead_of_aborting(self):
         client = self.by_id["flclash"]
