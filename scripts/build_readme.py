@@ -89,6 +89,38 @@ class ObservationError(RuntimeError):
     pass
 
 
+class DiscoveryBudgetExceeded(RuntimeError):
+    def __init__(self, reason: str):
+        super().__init__(reason)
+        self.reason = reason
+
+
+class DiscoveryBudget:
+    def __init__(self, max_requests: int, max_seconds: float):
+        self.max_requests = max_requests
+        self.deadline = time.monotonic() + max_seconds
+        self.attempts = 0
+
+    def remaining_seconds(self) -> float:
+        return self.deadline - time.monotonic()
+
+    def reason(self) -> str | None:
+        if self.attempts >= self.max_requests:
+            return "request_budget_exceeded"
+        if self.remaining_seconds() <= 0:
+            return "time_budget_exceeded"
+        return None
+
+    def before_attempt(self) -> float:
+        if self.attempts >= self.max_requests:
+            raise DiscoveryBudgetExceeded("request_budget_exceeded")
+        remaining = self.remaining_seconds()
+        if remaining <= 0:
+            raise DiscoveryBudgetExceeded("time_budget_exceeded")
+        self.attempts += 1
+        return max(0.05, min(20.0, remaining))
+
+
 def utc_now() -> dt.datetime:
     return dt.datetime.now(dt.timezone.utc)
 
@@ -450,7 +482,13 @@ def read_response(response: Any) -> bytes:
         raise OSError("Incomplete HTTP response") from exc
 
 
-def request_json(url: str, token: str | None = None, attempts: int = REQUEST_ATTEMPTS) -> dict[str, Any] | None:
+def request_json(
+    url: str,
+    token: str | None = None,
+    attempts: int = REQUEST_ATTEMPTS,
+    *,
+    budget: DiscoveryBudget | None = None,
+) -> dict[str, Any] | None:
     parsed = urllib.parse.urlparse(url)
     if parsed.scheme != "https" or not parsed.hostname:
         raise ObservationError(f"JSON metadata URL must use HTTPS: {url}")
@@ -464,8 +502,9 @@ def request_json(url: str, token: str | None = None, attempts: int = REQUEST_ATT
         request.add_unredirected_header("Authorization", f"Bearer {token}")
     last_error: BaseException | None = None
     for attempt in range(attempts):
+        timeout = budget.before_attempt() if budget is not None else 20
         try:
-            with urllib.request.urlopen(request, timeout=20) as response:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
                 payload = json.loads(read_response(response))
             if not isinstance(payload, dict):
                 raise ObservationError(f"Expected JSON object from {url}")
@@ -482,17 +521,29 @@ def request_json(url: str, token: str | None = None, attempts: int = REQUEST_ATT
             # Malformed HTTP framing belongs to this component's failure path.
             raise OSError("Invalid HTTP response") from exc
         if attempt + 1 < attempts:
-            time.sleep(0.5 * (attempt + 1))
+            delay = 0.5 * (attempt + 1)
+            if budget is not None:
+                remaining = budget.remaining_seconds()
+                if remaining <= 0:
+                    raise DiscoveryBudgetExceeded("time_budget_exceeded")
+                delay = min(delay, remaining)
+            time.sleep(delay)
     assert last_error is not None
     raise last_error
 
 
-def request_text(url: str, attempts: int = REQUEST_ATTEMPTS) -> str | None:
+def request_text(
+    url: str,
+    attempts: int = REQUEST_ATTEMPTS,
+    *,
+    budget: DiscoveryBudget | None = None,
+) -> str | None:
     request = urllib.request.Request(url, headers={"Accept": "text/plain", "User-Agent": "NET86-clash-directory/3"})
     last_error: BaseException | None = None
     for attempt in range(attempts):
+        timeout = budget.before_attempt() if budget is not None else 20
         try:
-            with urllib.request.urlopen(request, timeout=20) as response:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
                 body = read_response(response)
                 charset = response.headers.get_content_charset() or "utf-8"
                 try:
@@ -512,7 +563,13 @@ def request_text(url: str, attempts: int = REQUEST_ATTEMPTS) -> str | None:
             # Malformed HTTP framing belongs to this component's failure path.
             raise OSError("Invalid HTTP response") from exc
         if attempt + 1 < attempts:
-            time.sleep(0.5 * (attempt + 1))
+            delay = 0.5 * (attempt + 1)
+            if budget is not None:
+                remaining = budget.remaining_seconds()
+                if remaining <= 0:
+                    raise DiscoveryBudgetExceeded("time_budget_exceeded")
+                delay = min(delay, remaining)
+            time.sleep(delay)
     assert last_error is not None
     raise last_error
 
@@ -884,8 +941,7 @@ def audit_github_discovery(
     stamp = iso(now)
     scope = github_discovery_scope(client)
     previous = old.get("github_discovery") if isinstance(old, dict) else None
-    started = time.monotonic()
-    request_count = 0
+    budget = DiscoveryBudget(MAX_DISCOVERY_REQUESTS, MAX_DISCOVERY_SECONDS)
 
     def budget_record(reason: str, **fields: Any) -> dict[str, Any]:
         return positive_record(
@@ -894,16 +950,24 @@ def audit_github_discovery(
             scope,
             state="candidate",
             reason=reason,
-            request_count=request_count,
+            request_count=budget.attempts,
             **fields,
         )
 
     def budget_reason() -> str | None:
-        if request_count >= MAX_DISCOVERY_REQUESTS:
-            return "request_budget_exceeded"
-        if time.monotonic() - started >= MAX_DISCOVERY_SECONDS:
-            return "time_budget_exceeded"
-        return None
+        return budget.reason()
+
+    def discovery_text(url: str) -> str | None:
+        if fetch_text is request_text:
+            return request_text(url, budget=budget)
+        budget.before_attempt()
+        return fetch_text(url)
+
+    def discovery_json(url: str, token_value: str | None) -> dict[str, Any] | None:
+        if request is request_json:
+            return request_json(url, token_value, budget=budget)
+        budget.before_attempt()
+        return request(url, token_value)
 
     source_texts: dict[str, str] = {}
     description = entry.get("description") if isinstance(entry, dict) else None
@@ -914,11 +978,12 @@ def audit_github_discovery(
         reason = budget_reason()
         if reason:
             return budget_record(reason)
-        request_count += 1
         try:
-            text = fetch_text(url)
+            text = discovery_text(url)
             if text:
                 source_texts[url] = text
+        except DiscoveryBudgetExceeded as exc:
+            return budget_record(exc.reason)
         except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError) as exc:
             fetch_errors.append(f"{url}: {exc}")
 
@@ -959,8 +1024,7 @@ def audit_github_discovery(
                     inspected_count=len(candidates) + len(verified),
                 )
             requested_name = candidate_display_names[key]
-            request_count += 1
-            metadata = request(f"https://api.github.com/repos/{requested_name}", token)
+            metadata = discovery_json(f"https://api.github.com/repos/{requested_name}", token)
             if metadata is None:
                 candidates.append(
                     {
@@ -1001,6 +1065,12 @@ def audit_github_discovery(
             if pushed is not None:
                 candidate["last_activity_at"] = iso(require_not_future(pushed, now, "GitHub discovery pushed_at"))
             verified.append(candidate)
+    except DiscoveryBudgetExceeded as exc:
+        return budget_record(
+            exc.reason,
+            candidate_count=len(candidate_sources),
+            inspected_count=len(candidates) + len(verified),
+        )
     except (OSError, urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, ObservationError, ValueError, re.error) as exc:
         return failure_record(previous, stamp, str(exc), scope)
 
