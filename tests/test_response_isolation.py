@@ -107,9 +107,16 @@ class ResponseIsolationTests(unittest.TestCase):
                             if client is bad and mode.startswith("json-"):
                                 return self.response(self.bad_wire(mode.removeprefix("json-")))
                             return self.json_response(helpers.repo(client, id=-1 if client is conflict else client["official_repo_id"], pushed_at=d.iso(later)))
+                        if url.startswith(repo_url + "/commits/"):
+                            return self.json_response({"sha": "a" * 40})
                         if url == repo_url + "/releases/latest":
                             return self.json_response(helpers.release("v2", d.iso(later), rid=2))
-                        if url in {item["url"] for item in client.get("core_evidence", [])}:
+                        pinned_urls = set()
+                        for item in client.get("core_evidence", []):
+                            parts = item["url"].split("/")
+                            parts[5] = "a" * 40
+                            pinned_urls.add("/".join(parts))
+                        if url in pinned_urls:
                             if client is bad and not mode.startswith("json-"):
                                 if mode.startswith("charset-"):
                                     return self.text_response(charset="base64_codec" if mode.endswith("non-text") else "unknown-fixture-charset")

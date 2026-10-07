@@ -77,6 +77,8 @@ class GithubRediscoveryTests(unittest.TestCase):
         new_repo_id = 990001
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url == f"https://api.github.com/repos/{client['github_repo']}":
                 return self.repo(new_repo_id, 131734194, client["github_repo"], "Karing proxy utility")
             if url == f"https://api.github.com/repositories/{client['official_repo_id']}":
@@ -106,6 +108,8 @@ class GithubRediscoveryTests(unittest.TestCase):
         new_repo_id = 990002
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url == f"https://api.github.com/repos/{client['github_repo']}":
                 return None
             if url == f"https://api.github.com/repositories/{client['official_repo_id']}":
@@ -143,9 +147,13 @@ class GithubRediscoveryTests(unittest.TestCase):
         canonical_name = "KaringX/karing-renamed"
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url == f"https://api.github.com/repos/{client['github_repo']}":
                 return self.repo(880001, 999999, client["github_repo"], "Karing lookalike")
             if url == f"https://api.github.com/repositories/{client['official_repo_id']}":
+                return self.repo(client["official_repo_id"], 131734194, canonical_name, "Karing proxy utility")
+            if url == f"https://api.github.com/repos/{canonical_name}":
                 return self.repo(client["official_repo_id"], 131734194, canonical_name, "Karing proxy utility")
             if url == f"https://api.github.com/repos/{canonical_name}/releases/latest":
                 return self.release()
@@ -169,6 +177,8 @@ class GithubRediscoveryTests(unittest.TestCase):
         new_full_name = "NewKaringOrg/karing"
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url in {
                 f"https://api.github.com/repos/{client['github_repo']}",
                 f"https://api.github.com/repositories/{client['official_repo_id']}",
@@ -206,6 +216,8 @@ class GithubRediscoveryTests(unittest.TestCase):
         new_full_name = "NewKaringOrg/karing"
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url in {
                 f"https://api.github.com/repos/{client['github_repo']}",
                 f"https://api.github.com/repositories/{client['official_repo_id']}",
@@ -241,6 +253,8 @@ class GithubRediscoveryTests(unittest.TestCase):
         new_full_name = "NewKaringOrg/karing"
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url in {
                 f"https://api.github.com/repos/{client['github_repo']}",
                 f"https://api.github.com/repositories/{client['official_repo_id']}",
@@ -275,6 +289,8 @@ class GithubRediscoveryTests(unittest.TestCase):
         second = "KaringX/karing-tools"
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url in {
                 f"https://api.github.com/repos/{client['github_repo']}",
                 f"https://api.github.com/repositories/{client['official_repo_id']}",
@@ -320,6 +336,8 @@ class GithubRediscoveryTests(unittest.TestCase):
         }
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url == f"https://api.github.com/repos/{client['github_repo']}":
                 return self.repo(
                     client["official_repo_id"],
@@ -346,6 +364,8 @@ class GithubRediscoveryTests(unittest.TestCase):
         client = self.by_id["flclash"]
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url == f"https://api.github.com/repos/{client['github_repo']}":
                 return self.repo(
                     client["official_repo_id"],
@@ -399,6 +419,8 @@ class GithubRediscoveryTests(unittest.TestCase):
         }
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url in {
                 f"https://api.github.com/repos/{client['github_repo']}",
                 f"https://api.github.com/repositories/{client['official_repo_id']}",
@@ -444,6 +466,8 @@ class GithubRediscoveryTests(unittest.TestCase):
         }
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url in {
                 f"https://api.github.com/repos/{client['github_repo']}",
                 f"https://api.github.com/repositories/{client['official_repo_id']}",

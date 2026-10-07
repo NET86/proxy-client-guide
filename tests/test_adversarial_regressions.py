@@ -215,6 +215,8 @@ class AdversarialRegressionTests(unittest.TestCase):
         calls = 0
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             nonlocal calls
             if url == f"https://api.github.com/repos/{client['github_repo']}":
                 calls += 1
@@ -242,6 +244,8 @@ class AdversarialRegressionTests(unittest.TestCase):
         old = self.healthy_github_record(client)
         old["release"]["published_at"] = "2026-09-15T10:30:00Z"
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release_payload("v9", "2026-09-15T09:30:00Z", 99)
             return self.repo_payload(client)
@@ -256,6 +260,8 @@ class AdversarialRegressionTests(unittest.TestCase):
         old = self.healthy_github_record(client)
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release_payload("v10", "2026-09-15T09:30:00Z", 100)
             return self.repo_payload(client)
@@ -279,6 +285,8 @@ class AdversarialRegressionTests(unittest.TestCase):
         client = self.by_id["flclash"]
         old = self.healthy_github_record(client)
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release_payload(published="2026-09-16T12:00:00Z")
             return self.repo_payload(client)
@@ -373,6 +381,8 @@ class AdversarialRegressionTests(unittest.TestCase):
         old = self.healthy_github_record(client)
         old["release"]["asset_count"] = 7
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release_payload(assets=[])
             return self.repo_payload(client)
@@ -400,6 +410,8 @@ class AdversarialRegressionTests(unittest.TestCase):
     def test_same_day_healthy_scoped_audit_is_byte_stable(self):
         client = copy.deepcopy(self.by_id["flclash"])
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release_payload()
             return self.repo_payload(client)

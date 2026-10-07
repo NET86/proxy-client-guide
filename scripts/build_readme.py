@@ -740,6 +740,7 @@ def audit_core_evidence(
     canonical_repo: str | None = None,
     canonical_repo_id: int | None = None,
     verify_identity: Callable[[], None] | None = None,
+    resolve_evidence_url: Callable[[str], str] | None = None,
 ) -> tuple[dict[str, Any] | None, list[str], bool]:
     evidence = client.get("core_evidence", [])
     if not evidence:
@@ -755,6 +756,7 @@ def audit_core_evidence(
         if type(previous_repo_id) is int and previous_repo_id != canonical_repo_id:
             previous = None
     scope = core_evidence_scope(client)
+    snapshots: list[dict[str, str]] = []
     try:
         for item in evidence:
             evidence_url = item["url"]
@@ -766,6 +768,8 @@ def audit_core_evidence(
                         break
             if verify_identity is not None:
                 verify_identity()
+            if resolve_evidence_url is not None:
+                evidence_url = resolve_evidence_url(evidence_url)
             text = fetch_text(evidence_url)
             if verify_identity is not None:
                 verify_identity()
@@ -777,6 +781,7 @@ def audit_core_evidence(
             if text is None:
                 record = negative_record(previous, stamp, scope, "missing", **identity_fields)
                 return record, [f"{client['id']}: core evidence URL returned 404"], False
+            snapshots.append({"url": evidence_url, "sha256": hashlib.sha256(text.encode("utf-8")).hexdigest()})
             missing = [pattern for pattern in item["patterns"] if re.search(pattern, text, re.IGNORECASE) is None]
             if missing:
                 record = negative_record(
@@ -788,8 +793,8 @@ def audit_core_evidence(
                     **identity_fields,
                 )
                 return record, [f"{client['id']}: core evidence no longer matches"], False
-        return positive_record(previous, stamp, scope, state="ok", **identity_fields), [], True
-    except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, re.error, ObservationError) as exc:
+        return positive_record(previous, stamp, scope, state="ok", evidence_snapshots=snapshots, **identity_fields), [], True
+    except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, re.error, ObservationError, ValueError) as exc:
         return failure_record(previous, stamp, str(exc), scope), [], False
 
 
@@ -983,12 +988,9 @@ def audit_github(
     anomalies: list[str] = []
     ok = True
     try:
-        path_identity_verified = False
         metadata = request(f"https://api.github.com/repos/{repo}", token)
         if metadata is not None:
             require_repo_schema(metadata)
-            if metadata["id"] == client["official_repo_id"]:
-                path_identity_verified = True
             if metadata["id"] != client["official_repo_id"]:
                 pinned_metadata = request(f"https://api.github.com/repositories/{client['official_repo_id']}", token)
                 if pinned_metadata is not None:
@@ -1026,7 +1028,6 @@ def audit_github(
                         ):
                             metadata = candidate_metadata
                             recovered_by_discovery = True
-                            path_identity_verified = True
         if metadata is None:
             result["source"] = negative_record(previous_source, stamp, source_scope_value, "missing")
             return result, [f"{client['id']}: official repository returned 404 by path and pinned repository ID"], False
@@ -1047,21 +1048,52 @@ def audit_github(
         canonical_repo_id = metadata["id"]
 
         def verify_canonical_repo_identity() -> None:
-            if path_identity_verified:
-                current = request(f"https://api.github.com/repos/{canonical_repo}", token)
-                if current is None:
-                    raise ObservationError("canonical GitHub repository path disappeared during audit")
-                require_repo_schema(current)
-                if current["id"] != canonical_repo_id:
-                    raise ObservationError("canonical GitHub repository path changed identity during audit")
-                return
-
-            current = request(f"https://api.github.com/repositories/{canonical_repo_id}", token)
+            # Always verify the path actually used for release/content requests,
+            # including after recovery through the pinned numeric repository ID.
+            current = request(f"https://api.github.com/repos/{canonical_repo}", token)
             if current is None:
-                raise ObservationError("canonical GitHub repository identity disappeared during audit")
+                raise ObservationError("canonical GitHub repository path disappeared during audit")
             require_repo_schema(current)
             if current["id"] != canonical_repo_id or current["full_name"].casefold() != canonical_repo.casefold():
-                raise ObservationError("canonical GitHub repository identity changed during audit")
+                # A confirmed identity conflict is not a transient HTTP failure.
+                # Persist it on source so cached successful releases cannot keep
+                # exposing a path now owned by a different repository.
+                result["source"] = negative_record(
+                    result.get("source", previous_source), stamp, source_scope_value,
+                    "identity_mismatch", observed_repo_id=current["id"],
+                    observed_full_name=current["full_name"],
+                )
+                raise ObservationError("canonical GitHub repository path changed identity during audit")
+
+        resolved_core_refs: dict[tuple[str, str], str] = {}
+
+        def pin_core_evidence_url(url: str) -> str:
+            # The reviewed catalog can name another repository as core evidence.
+            # Pin it in its own repository; never rewrite it to the client repo.
+            # Wikis/non-repository pages retain content digests, not a false
+            # claim that their contents belong to the main repository HEAD.
+            raw_prefix = "https://raw.githubusercontent.com/"
+            if not url.casefold().startswith(raw_prefix) or url.casefold().startswith(raw_prefix + "wiki/"):
+                return url
+            parts = url[len(raw_prefix):].split("/", 3)
+            if len(parts) != 4 or not all(parts):
+                raise ObservationError("core evidence URL lacks a repository, revision or path")
+            owner, repo_name, ref, path = parts
+            evidence_repo = f"{owner}/{repo_name}"
+            key = (evidence_repo.casefold(), ref)
+            if re.fullmatch(r"[0-9a-fA-F]{40}", ref):
+                commit_sha = ref.lower()
+            else:
+                if key not in resolved_core_refs:
+                    commit = request(
+                        f"https://api.github.com/repos/{evidence_repo}/commits/"
+                        + urllib.parse.quote(urllib.parse.unquote(ref), safe=""), token,
+                    )
+                    if not isinstance(commit, dict) or not isinstance(commit.get("sha"), str) or not re.fullmatch(r"[0-9a-fA-F]{40}", commit["sha"]):
+                        raise ObservationError("core evidence revision could not be resolved to a commit")
+                    resolved_core_refs[key] = commit["sha"].lower()
+                commit_sha = resolved_core_refs[key]
+            return f"{raw_prefix}{evidence_repo}/{commit_sha}/{path}"
 
         pushed_at = metadata.get("pushed_at")
         pushed = require_not_future(pushed_at, now, "GitHub repository pushed_at") if pushed_at is not None else None
@@ -1282,6 +1314,7 @@ def audit_github(
         canonical_repo,
         canonical_repo_id,
         verify_canonical_repo_identity,
+        pin_core_evidence_url,
     )
     if core is not None:
         result["core_evidence"] = core

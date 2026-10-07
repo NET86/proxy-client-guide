@@ -27,6 +27,8 @@ CLIENT = {
 
 
 def api(url, token=None):
+    if "/commits/" in url:
+        return {"sha": "a" * 40}
     if "/releases/latest" in url:
         return {
             "id": 303,
@@ -197,9 +199,11 @@ class CrossLayerBoundaryTests(unittest.TestCase):
         out = d.audit([client], d.empty_observations(), transferred, lambda u: (seen.append(u) or "Mihomo"), NOW)
         d.health_check([client], out, NOW)
         self.assertIn("https://api.github.com/repos/new-owner/renamed/releases/latest", seen)
-        self.assertIn("https://raw.githubusercontent.com/new-owner/renamed/main/README.md", seen)
+        self.assertIn("https://raw.githubusercontent.com/new-owner/renamed/" + "a" * 40 + "/README.md", seen)
         self.assertIn("https://raw.githubusercontent.com/wiki/new-owner/renamed/Guide.md", seen)
-        self.assertIn(urls[2], seen)
+        self.assertIn(urls[2].replace("/main/", "/" + "a" * 40 + "/"), seen)
+        self.assertIn("https://api.github.com/repos/example/kernel/commits/main", seen)
+        self.assertNotIn(urls[2], seen)
         record = out["clients"]["sample"]
         self.assertEqual(d.links_for(client, record, NOW), ("https://github.com/new-owner/renamed", "https://github.com/new-owner/renamed/releases"))
         self.assertTrue(all(d.component_is_scoped(client, record, name) for name in d.expected_observation_components(client)))
