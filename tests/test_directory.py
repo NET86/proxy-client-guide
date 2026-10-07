@@ -410,6 +410,50 @@ class ResponseLimitTests(unittest.TestCase):
             self.assertEqual(record[key], previous[key])
         self.assertEqual(record["consecutive_failures"], 1)
 
+
+    def test_github_authorization_is_not_forwarded_by_redirects(self):
+        response = self.http_response(b'{"ok": true}')
+        captured = []
+        credential_value = "unit-test-value"
+
+        def opener(request, timeout=20):
+            captured.append(request)
+            return response
+
+        with patch.object(d.urllib.request, "urlopen", side_effect=opener):
+            self.assertEqual(
+                d.request_json(
+                    "https://api.github.com/repos/NET86/proxy-client-guide",
+                    token=credential_value,
+                    attempts=1,
+                ),
+                {"ok": True},
+            )
+        self.assertEqual(len(captured), 1)
+        original = captured[0]
+        self.assertTrue(
+            original.unredirected_hdrs.get("Authorization", "").endswith(credential_value)
+        )
+
+        redirected = d.urllib.request.HTTPRedirectHandler().redirect_request(
+            original,
+            None,
+            302,
+            "Found",
+            {},
+            "https://example.invalid/redirected",
+        )
+        self.assertIsNotNone(redirected)
+        self.assertNotIn("Authorization", redirected.headers)
+        self.assertNotIn("Authorization", redirected.unredirected_hdrs)
+
+        with self.assertRaisesRegex(d.ObservationError, "must use HTTPS"):
+            d.request_json(
+                "http://api.github.com/repos/NET86/proxy-client-guide",
+                token=credential_value,
+                attempts=1,
+            )
+
     class Response(io.BytesIO):
         def __init__(self, body, length=None, charset="utf-8"):
             super().__init__(body)
@@ -973,7 +1017,15 @@ class AuditTests(unittest.TestCase):
     def test_app_store_core_evidence_success(self):
         client = self.by_id["hako"]
         payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z", "description": "Hako builds on the open-source mihomo project"}]}
-        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload)
+        text_calls = []
+        def fetch_text(url):
+            text_calls.append(url)
+            self.assertEqual(url, "https://clash.md/")
+            return "official Hako site"
+        out, issues, ok = d.audit_app_store_source(
+            client, {}, NOW, lambda *args: payload, fetch_text
+        )
+        self.assertEqual(text_calls, ["https://clash.md/"])
         self.assertTrue(ok)
         self.assertEqual(issues, [])
         self.assertEqual(out["source"]["state"], "ok")
@@ -984,7 +1036,15 @@ class AuditTests(unittest.TestCase):
     def test_app_store_core_evidence_mismatch(self):
         client = self.by_id["hako"]
         payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z", "description": "Hako is an unrelated proxy engine"}]}
-        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload)
+        text_calls = []
+        def fetch_text(url):
+            text_calls.append(url)
+            self.assertEqual(url, "https://clash.md/")
+            return "official Hako site"
+        out, issues, ok = d.audit_app_store_source(
+            client, {}, NOW, lambda *args: payload, fetch_text
+        )
+        self.assertEqual(text_calls, ["https://clash.md/"])
         self.assertFalse(ok)
         self.assertEqual(out["source"]["state"], "ok")
         self.assertEqual(out["release"]["state"], "ok")
@@ -994,7 +1054,15 @@ class AuditTests(unittest.TestCase):
     def test_app_store_core_evidence_missing_description(self):
         client = self.by_id["hako"]
         payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z"}]}
-        out, issues, ok = d.audit_app_store_source(client, {}, NOW, lambda *args: payload)
+        text_calls = []
+        def fetch_text(url):
+            text_calls.append(url)
+            self.assertEqual(url, "https://clash.md/")
+            return "official Hako site"
+        out, issues, ok = d.audit_app_store_source(
+            client, {}, NOW, lambda *args: payload, fetch_text
+        )
+        self.assertEqual(text_calls, ["https://clash.md/"])
         self.assertFalse(ok)
         self.assertEqual(out["source"]["state"], "ok")
         self.assertEqual(out["release"]["state"], "ok")
@@ -1516,6 +1584,85 @@ class AuditTests(unittest.TestCase):
         out = d.audit([client], old, api, lambda _url: (_ for _ in ()).throw(OSError("evidence endpoint down")), NOW)
         self.assertTrue(any("core_evidence evidence stale" in issue for issue in out["health"]["anomalies"]))
 
+    def test_discovery_candidate_budget_fails_closed_without_metadata_fanout(self):
+        client = self.by_id["hako"]
+        links = " ".join(
+            f"https://github.com/ExampleOrg/Hako-{index}"
+            for index in range(d.MAX_DISCOVERY_CANDIDATES + 1)
+        )
+        metadata_calls = []
+
+        def api(url, token=None):
+            metadata_calls.append(url)
+            self.fail(f"metadata request escaped candidate budget: {url}")
+
+        record = d.audit_github_discovery(
+            client,
+            {},
+            NOW,
+            None,
+            "token",
+            api,
+            lambda url: links,
+        )
+        self.assertEqual(record["state"], "candidate")
+        self.assertEqual(record["reason"], "candidate_budget_exceeded")
+        self.assertEqual(record["candidate_count"], d.MAX_DISCOVERY_CANDIDATES + 1)
+        self.assertEqual(metadata_calls, [])
+
+    def test_discovery_request_budget_fails_closed_before_extra_fetch(self):
+        client = copy.deepcopy(self.by_id["hako"])
+        client["github_discovery"]["trusted_text_urls"] = [
+            "https://official.example/one",
+            "https://official.example/two",
+        ]
+        fetched = []
+        with patch.object(d, "MAX_DISCOVERY_REQUESTS", 1):
+            record = d.audit_github_discovery(
+                client, {}, NOW, None, "token",
+                lambda *_args: self.fail("metadata request should not run"),
+                lambda url: fetched.append(url) or "no repository links",
+            )
+        self.assertEqual(record["state"], "candidate")
+        self.assertEqual(record["reason"], "request_budget_exceeded")
+        self.assertEqual(record["request_count"], 1)
+        self.assertEqual(fetched, ["https://official.example/one"])
+
+    def test_discovery_time_budget_fails_closed_without_claiming_partial_result(self):
+        client = copy.deepcopy(self.by_id["hako"])
+        client["github_discovery"]["trusted_text_urls"] = [
+            "https://official.example/one",
+            "https://official.example/two",
+        ]
+        fetched = []
+        with patch.object(d, "MAX_DISCOVERY_SECONDS", 1.0), patch.object(
+            d.time, "monotonic", side_effect=[0.0, 0.0, 2.0]
+        ):
+            record = d.audit_github_discovery(
+                client, {}, NOW, None, "token",
+                lambda *_args: self.fail("metadata request should not run"),
+                lambda url: fetched.append(url) or "no repository links",
+            )
+        self.assertEqual(record["state"], "candidate")
+        self.assertEqual(record["reason"], "time_budget_exceeded")
+        self.assertEqual(fetched, ["https://official.example/one"])
+
+    def test_extreme_remote_timestamp_degrades_component_instead_of_aborting(self):
+        client = self.by_id["flclash"]
+        extreme = "9999-12-31T23:59:59-23:59"
+        self.assertIsNone(d.parse_time(extreme))
+
+        def api(url, token=None):
+            if url.endswith("/releases/latest"):
+                return self.release(published=extreme)
+            return self.repo(client)
+
+        out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
+        self.assertFalse(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(out["source"]["observation_state"], "fresh")
+        self.assertEqual(out["release"]["observation_state"], "error")
+
     def test_persisted_identity_failure_remains_health_anomaly(self):
         client = copy.deepcopy(self.by_id["flclash"])
         old = {
@@ -1678,6 +1825,21 @@ class RenderTests(unittest.TestCase):
         record["release"]["published_at"] = "2025-01-01T00:00:00Z"
         status, _ = d.activity_status(self.by_id["flclash"], record, NOW)
         self.assertEqual(status, "🕒")
+
+    def test_remote_version_text_does_not_trip_controlled_copy_jargon_gate(self):
+        observations = self.base_observations()
+        observations["clients"]["flclash"]["release"]["version"] = "v2-lookup"
+        text = d.render_readme(self.clients, observations, NOW)
+        self.assertIn("- 版本：v2-lookup", text)
+        d.validate_readme(text, self.clients)
+
+        poisoned = text.replace(
+            "- 来源身份校验不等同于安装包安全认证。",
+            "- 来源身份校验不等同于安装包安全认证；lookup。",
+            1,
+        )
+        with self.assertRaisesRegex(ValueError, "Maintenance jargon"):
+            d.validate_readme(poisoned, self.clients)
 
     def test_render_is_deterministic(self):
         observations = self.base_observations()
