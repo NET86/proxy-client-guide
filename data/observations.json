@@ -51,12 +51,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-07T05:37:31Z",
+        "last_activity_at": "2026-10-07T07:40:41Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T06:06:38Z",
-        "last_success_at": "2026-10-07T06:06:38Z"
+        "observed_at": "2026-10-07T09:03:44Z",
+        "last_success_at": "2026-10-07T09:03:44Z"
       },
       "release": {
         "state": "ok",
@@ -76,11 +76,11 @@
         "scope": "sha256:d03d777f723bc2cb2761e2eebe03667aac5a2b4795eab5c8d8ccbcd111d26eed",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T06:06:38Z",
-        "last_success_at": "2026-10-07T06:06:38Z",
+        "observed_at": "2026-10-07T09:03:44Z",
+        "last_success_at": "2026-10-07T09:03:44Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/78691ea5c848fff9d150af4bedee4fe0422a4cc1/docs/README_en.md",
+            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/d01f43cc783a9dbd05f064b79ea3ce39dcbfce16/docs/README_en.md",
             "sha256": "3876b26ad9c6fe016cbd6165d2d7ccd95b4b5c1941e62c1afc81421ba388ed6a"
           }
         ],
@@ -327,12 +327,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-07T02:34:41Z",
+        "last_activity_at": "2026-10-07T08:37:07Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T03:24:17Z",
-        "last_success_at": "2026-10-07T03:24:17Z"
+        "observed_at": "2026-10-07T09:03:44Z",
+        "last_success_at": "2026-10-07T09:03:44Z"
       },
       "release": {
         "state": "ok",
@@ -352,11 +352,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T03:24:17Z",
-        "last_success_at": "2026-10-07T03:24:17Z",
+        "observed_at": "2026-10-07T09:03:44Z",
+        "last_success_at": "2026-10-07T09:03:44Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/440885ab46bf8ffd912690a58a0a18a62d4c7f55/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/21bd0a961d19cb3f3ce50183e3ae94757b374004/README.md",
             "sha256": "8ce2b3f283a7ae563076fa1a3b68696df09361e4e7e23cb6885572387a299c0b"
           }
         ],
