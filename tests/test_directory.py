@@ -1671,6 +1671,71 @@ class AuditTests(unittest.TestCase):
         self.assertAlmostEqual(timeout, 1.75)
         self.assertEqual(budget.attempts, 1)
 
+    def test_discovery_response_body_crossing_deadline_is_rejected(self):
+        clock = [0.0]
+
+        class Headers:
+            @staticmethod
+            def get_content_charset():
+                return "utf-8"
+
+        class Response:
+            length = None
+            headers = Headers()
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self, _size):
+                if clock[0] < 2.0:
+                    clock[0] = 2.0
+                    return b"ok"
+                return b""
+
+        def fake_urlopen(_request, timeout):
+            self.assertLessEqual(timeout, 1.0)
+            return Response()
+
+        with patch.object(d.time, "monotonic", side_effect=lambda: clock[0]), patch.object(
+            d.urllib.request, "urlopen", side_effect=fake_urlopen
+        ):
+            budget = d.DiscoveryBudget(max_requests=2, max_seconds=1.0)
+            with self.assertRaisesRegex(d.DiscoveryBudgetExceeded, "time_budget_exceeded"):
+                d.request_text(
+                    "https://official.example/source",
+                    attempts=1,
+                    budget=budget,
+                )
+        self.assertEqual(budget.attempts, 1)
+
+    def test_discovery_404_after_deadline_is_not_treated_as_normal_absence(self):
+        clock = [0.0]
+
+        def delayed_404(_request, timeout):
+            self.assertLessEqual(timeout, 1.0)
+            clock[0] = 2.0
+            raise urllib.error.HTTPError(
+                "https://api.github.com/repos/ExampleOrg/Example",
+                404,
+                "Not Found",
+                None,
+                None,
+            )
+
+        with patch.object(d.time, "monotonic", side_effect=lambda: clock[0]), patch.object(
+            d.urllib.request, "urlopen", side_effect=delayed_404
+        ):
+            budget = d.DiscoveryBudget(max_requests=2, max_seconds=1.0)
+            with self.assertRaisesRegex(d.DiscoveryBudgetExceeded, "time_budget_exceeded"):
+                d.request_json(
+                    "https://api.github.com/repos/ExampleOrg/Example",
+                    attempts=1,
+                    budget=budget,
+                )
+
     def test_extreme_remote_timestamp_degrades_component_instead_of_aborting(self):
         client = self.by_id["flclash"]
         extreme = "9999-12-31T23:59:59-23:59"
