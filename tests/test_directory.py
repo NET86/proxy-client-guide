@@ -2153,6 +2153,20 @@ class WorkflowTests(unittest.TestCase):
         self.assertNotIn("--force", text)
         self.assertNotIn("push -f", text)
 
+    def test_refresh_skips_superseded_trigger_revision(self):
+        text = (ROOT / ".github/workflows/refresh-directory.yml").read_text(encoding="utf-8")
+        self.assertIn("git ls-remote --heads origin refs/heads/main", text)
+        self.assertIn('if [[ "$remote_head" != "$GITHUB_SHA" ]]', text)
+        self.assertIn('echo "current=false" >> "$GITHUB_OUTPUT"', text)
+        self.assertGreaterEqual(
+            text.count("if: steps.freshness.outputs.current == 'true'"),
+            2,
+        )
+        self.assertIn(
+            "if: always() && steps.freshness.outputs.current == 'true'",
+            text,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

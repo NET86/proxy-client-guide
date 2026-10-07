@@ -30,7 +30,25 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
+      - name: Check triggering revision is current
+        id: freshness
+        shell: bash
+        run: |
+          set -euo pipefail
+          remote_head="$(git ls-remote --heads origin refs/heads/main | awk '{print $1}')"
+          if [[ -z "$remote_head" ]]; then
+            echo "Unable to resolve origin/main." >&2
+            exit 1
+          fi
+          if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
+            echo "Superseded refresh: trigger=$GITHUB_SHA current=$remote_head"
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "current=true" >> "$GITHUB_OUTPUT"
+
       - name: Audit sources and render directory
+        if: steps.freshness.outputs.current == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -38,6 +56,7 @@ jobs:
           git diff --check
 
       - name: Publish generated changes
+        if: steps.freshness.outputs.current == 'true'
         run: |
           set -euo pipefail
           if git diff --quiet -- README.md data/observations.json; then
@@ -51,5 +70,5 @@ jobs:
           git push origin HEAD:main
 
       - name: Enforce audit health
-        if: always()
+        if: always() && steps.freshness.outputs.current == 'true'
         run: python3 scripts/build_readme.py --health-check --check
