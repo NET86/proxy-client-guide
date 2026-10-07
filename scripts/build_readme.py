@@ -738,13 +738,25 @@ def audit_core_evidence(
     now: dt.datetime,
     fetch_text: Callable[[str], str | None],
     canonical_repo: str | None = None,
+    canonical_repo_id: int | None = None,
+    verify_identity: Callable[[], None] | None = None,
+    resolve_evidence_url: Callable[[str], str] | None = None,
 ) -> tuple[dict[str, Any] | None, list[str], bool]:
     evidence = client.get("core_evidence", [])
     if not evidence:
         return None, [], True
     stamp = iso(now)
     previous = old.get("core_evidence") if isinstance(old, dict) else None
+    if canonical_repo_id is not None:
+        previous_source = old.get("source") if isinstance(old, dict) else None
+        previous_source = scoped_lkg(previous_source, source_scope(client))
+        previous_repo_id = previous.get("repo_id") if isinstance(previous, dict) else None
+        if type(previous_repo_id) is not int:
+            previous_repo_id = previous_source.get("repo_id")
+        if type(previous_repo_id) is int and previous_repo_id != canonical_repo_id:
+            previous = None
     scope = core_evidence_scope(client)
+    snapshots: list[dict[str, str]] = []
     try:
         for item in evidence:
             evidence_url = item["url"]
@@ -754,16 +766,35 @@ def audit_core_evidence(
                     if evidence_url.casefold().startswith(configured.casefold()):
                         evidence_url = f"{base}{canonical_repo}/{evidence_url[len(configured):]}"
                         break
+            if verify_identity is not None:
+                verify_identity()
+            if resolve_evidence_url is not None:
+                evidence_url = resolve_evidence_url(evidence_url)
             text = fetch_text(evidence_url)
+            if verify_identity is not None:
+                verify_identity()
+            identity_fields = {}
+            if canonical_repo_id is not None:
+                identity_fields["repo_id"] = canonical_repo_id
+            if canonical_repo is not None:
+                identity_fields["repo_full_name"] = canonical_repo
             if text is None:
-                record = negative_record(previous, stamp, scope, "missing")
+                record = negative_record(previous, stamp, scope, "missing", **identity_fields)
                 return record, [f"{client['id']}: core evidence URL returned 404"], False
+            snapshots.append({"url": evidence_url, "sha256": hashlib.sha256(text.encode("utf-8")).hexdigest()})
             missing = [pattern for pattern in item["patterns"] if re.search(pattern, text, re.IGNORECASE) is None]
             if missing:
-                record = negative_record(previous, stamp, scope, "mismatch", observed_missing_patterns=missing)
+                record = negative_record(
+                    previous,
+                    stamp,
+                    scope,
+                    "mismatch",
+                    observed_missing_patterns=missing,
+                    **identity_fields,
+                )
                 return record, [f"{client['id']}: core evidence no longer matches"], False
-        return positive_record(previous, stamp, scope, state="ok"), [], True
-    except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, re.error) as exc:
+        return positive_record(previous, stamp, scope, state="ok", evidence_snapshots=snapshots, **identity_fields), [], True
+    except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, re.error, ObservationError, ValueError) as exc:
         return failure_record(previous, stamp, str(exc), scope), [], False
 
 
@@ -1014,6 +1045,56 @@ def audit_github(
             )
             return result, [f"{client['id']}: repository identity changed"], False
         canonical_repo = metadata["full_name"]
+        canonical_repo_id = metadata["id"]
+
+        def verify_canonical_repo_identity() -> None:
+            # Always verify the path actually used for release/content requests,
+            # including after recovery through the pinned numeric repository ID.
+            current = request(f"https://api.github.com/repos/{canonical_repo}", token)
+            if current is None:
+                raise ObservationError("canonical GitHub repository path disappeared during audit")
+            require_repo_schema(current)
+            if current["id"] != canonical_repo_id or current["full_name"].casefold() != canonical_repo.casefold():
+                # A confirmed identity conflict is not a transient HTTP failure.
+                # Persist it on source so cached successful releases cannot keep
+                # exposing a path now owned by a different repository.
+                result["source"] = negative_record(
+                    result.get("source", previous_source), stamp, source_scope_value,
+                    "identity_mismatch", observed_repo_id=current["id"],
+                    observed_full_name=current["full_name"],
+                )
+                raise ObservationError("canonical GitHub repository path changed identity during audit")
+
+        resolved_core_refs: dict[tuple[str, str], str] = {}
+
+        def pin_core_evidence_url(url: str) -> str:
+            # The reviewed catalog can name another repository as core evidence.
+            # Pin it in its own repository; never rewrite it to the client repo.
+            # Wikis/non-repository pages retain content digests, not a false
+            # claim that their contents belong to the main repository HEAD.
+            raw_prefix = "https://raw.githubusercontent.com/"
+            if not url.casefold().startswith(raw_prefix) or url.casefold().startswith(raw_prefix + "wiki/"):
+                return url
+            parts = url[len(raw_prefix):].split("/", 3)
+            if len(parts) != 4 or not all(parts):
+                raise ObservationError("core evidence URL lacks a repository, revision or path")
+            owner, repo_name, ref, path = parts
+            evidence_repo = f"{owner}/{repo_name}"
+            key = (evidence_repo.casefold(), ref)
+            if re.fullmatch(r"[0-9a-fA-F]{40}", ref):
+                commit_sha = ref.lower()
+            else:
+                if key not in resolved_core_refs:
+                    commit = request(
+                        f"https://api.github.com/repos/{evidence_repo}/commits/"
+                        + urllib.parse.quote(urllib.parse.unquote(ref), safe=""), token,
+                    )
+                    if not isinstance(commit, dict) or not isinstance(commit.get("sha"), str) or not re.fullmatch(r"[0-9a-fA-F]{40}", commit["sha"]):
+                        raise ObservationError("core evidence revision could not be resolved to a commit")
+                    resolved_core_refs[key] = commit["sha"].lower()
+                commit_sha = resolved_core_refs[key]
+            return f"{raw_prefix}{evidence_repo}/{commit_sha}/{path}"
+
         pushed_at = metadata.get("pushed_at")
         pushed = require_not_future(pushed_at, now, "GitHub repository pushed_at") if pushed_at is not None else None
         state = "disabled" if metadata["disabled"] else "archived" if metadata["archived"] else "ok"
@@ -1054,11 +1135,27 @@ def audit_github(
     if release_source == "github" and not client.get("historical_release"):
         previous_release = old.get("release") if isinstance(old, dict) else None
         release_scope_value = release_scope(client)
+        previous_release_effective = previous_release
         previous_release_scoped = scoped_lkg(previous_release, release_scope_value)
+        previous_repo_id = previous_release_scoped.get("repo_id")
+        if type(previous_repo_id) is not int:
+            previous_source_scoped = scoped_lkg(previous_source, source_scope_value)
+            previous_repo_id = previous_source_scoped.get("repo_id")
+        if type(previous_repo_id) is int and previous_repo_id != canonical_repo_id:
+            previous_release_effective = None
+            previous_release_scoped = {}
         try:
+            verify_canonical_repo_identity()
             release = request(f"https://api.github.com/repos/{canonical_repo}/releases/latest", token)
+            verify_canonical_repo_identity()
             if release is None:
-                result["release"] = negative_record(previous_release, stamp, release_scope_value, "missing")
+                result["release"] = negative_record(
+                    previous_release_effective,
+                    stamp,
+                    release_scope_value,
+                    "missing",
+                    observed_repo_id=canonical_repo_id,
+                )
                 if previous_release_scoped.get("version"):
                     anomalies.append(f"{client['id']}: previously observed latest release disappeared")
                 else:
@@ -1076,10 +1173,11 @@ def audit_github(
                 old_release_id = previous_release_scoped.get("release_id")
                 if old_version == version and type(old_release_id) is int and release["id"] != old_release_id:
                     result["release"] = negative_record(
-                        previous_release,
+                        previous_release_effective,
                         stamp,
                         release_scope_value,
                         "identity_mismatch",
+                        observed_repo_id=canonical_repo_id,
                         observed_release_id=release["id"],
                         observed_asset_count=asset_count,
                     )
@@ -1093,10 +1191,11 @@ def audit_github(
                         release["id"],
                     ):
                         result["release"] = positive_record(
-                            previous_release,
+                            previous_release_effective,
                             stamp,
                             release_scope_value,
                             state="ok",
+                            repo_id=canonical_repo_id,
                             version=version,
                             published_at=iso(published),
                             release_id=release["id"],
@@ -1104,10 +1203,11 @@ def audit_github(
                         )
                     else:
                         result["release"] = negative_record(
-                            previous_release,
+                            previous_release_effective,
                             stamp,
                             release_scope_value,
                             "rollback",
+                            observed_repo_id=canonical_repo_id,
                             observed_version=version,
                             observed_published_at=iso(published),
                             observed_release_id=release["id"],
@@ -1117,10 +1217,11 @@ def audit_github(
                         ok = False
                 elif asset_count == 0:
                     result["release"] = negative_record(
-                        previous_release,
+                        previous_release_effective,
                         stamp,
                         release_scope_value,
                         "assets_missing",
+                        observed_repo_id=canonical_repo_id,
                         observed_version=version,
                         observed_published_at=iso(published),
                         observed_release_id=release["id"],
@@ -1130,17 +1231,18 @@ def audit_github(
                     ok = False
                 else:
                     result["release"] = positive_record(
-                        previous_release,
+                        previous_release_effective,
                         stamp,
                         release_scope_value,
                         state="ok",
+                        repo_id=canonical_repo_id,
                         version=version,
                         published_at=iso(published),
                         release_id=release["id"],
                         asset_count=asset_count,
                     )
         except (OSError, urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, ObservationError, ValueError) as exc:
-            result["release"] = failure_record(previous_release, stamp, str(exc), release_scope_value)
+            result["release"] = failure_record(previous_release_effective, stamp, str(exc), release_scope_value)
             ok = False
     elif release_source == "app_store":
         release, issues, release_ok = audit_app_store_release(client, old, now, request)
@@ -1154,7 +1256,9 @@ def audit_github(
         history_scope_value = historical_release_scope(client)
         try:
             tag = urllib.parse.quote(history["tag"], safe="")
+            verify_canonical_repo_identity()
             release = request(f"https://api.github.com/repos/{canonical_repo}/releases/tags/{tag}", token)
+            verify_canonical_repo_identity()
             if release is None:
                 result["historical_release"] = negative_record(previous_history, stamp, history_scope_value, "missing")
                 anomalies.append(f"{client['id']}: official historical release disappeared")
@@ -1202,7 +1306,16 @@ def audit_github(
             result["historical_release"] = failure_record(previous_history, stamp, str(exc), history_scope_value)
             ok = False
 
-    core, issues, core_ok = audit_core_evidence(client, old, now, fetch_text, canonical_repo)
+    core, issues, core_ok = audit_core_evidence(
+        client,
+        old,
+        now,
+        fetch_text,
+        canonical_repo,
+        canonical_repo_id,
+        verify_canonical_repo_identity,
+        pin_core_evidence_url,
+    )
     if core is not None:
         result["core_evidence"] = core
     anomalies.extend(issues)

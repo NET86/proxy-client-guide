@@ -210,11 +210,42 @@ class AdversarialRegressionTests(unittest.TestCase):
         self.assertEqual(rolled["release"]["state"], "rollback")
         self.assertTrue(any("timestamp moved backwards" in item for item in issues))
 
+    def test_repo_path_identity_change_during_audit_is_rejected(self):
+        client = self.by_id["flclash"]
+        calls = 0
+
+        def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
+            nonlocal calls
+            if url == f"https://api.github.com/repos/{client['github_repo']}":
+                calls += 1
+                if calls == 1:
+                    return self.repo_payload(client)
+                return self.repo_payload(client, id=client["official_repo_id"] + 1)
+            if "/releases/latest" in url:
+                return self.release_payload()
+            self.fail(f"unexpected API URL: {url}")
+
+        out, _, ok = d.audit_github(
+            client,
+            {},
+            None,
+            NOW,
+            api,
+            lambda _url: "github.com/metacubex/mihomo/",
+        )
+        self.assertFalse(ok)
+        self.assertEqual(out["release"]["observation_state"], "error")
+        self.assertIn("changed identity during audit", out["release"]["error"])
+
     def test_github_same_day_release_rollback_detected(self):
         client = self.by_id["flclash"]
         old = self.healthy_github_record(client)
         old["release"]["published_at"] = "2026-09-15T10:30:00Z"
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release_payload("v9", "2026-09-15T09:30:00Z", 99)
             return self.repo_payload(client)
@@ -229,6 +260,8 @@ class AdversarialRegressionTests(unittest.TestCase):
         old = self.healthy_github_record(client)
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release_payload("v10", "2026-09-15T09:30:00Z", 100)
             return self.repo_payload(client)
@@ -252,6 +285,8 @@ class AdversarialRegressionTests(unittest.TestCase):
         client = self.by_id["flclash"]
         old = self.healthy_github_record(client)
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release_payload(published="2026-09-16T12:00:00Z")
             return self.repo_payload(client)
@@ -346,6 +381,8 @@ class AdversarialRegressionTests(unittest.TestCase):
         old = self.healthy_github_record(client)
         old["release"]["asset_count"] = 7
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release_payload(assets=[])
             return self.repo_payload(client)
@@ -373,6 +410,8 @@ class AdversarialRegressionTests(unittest.TestCase):
     def test_same_day_healthy_scoped_audit_is_byte_stable(self):
         client = copy.deepcopy(self.by_id["flclash"])
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release_payload()
             return self.repo_payload(client)

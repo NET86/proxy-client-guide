@@ -596,6 +596,8 @@ class AuditTests(unittest.TestCase):
     def test_different_repo_id_at_configured_path_is_confirmed_bad(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release()
             return self.repo(client, id=-1)
@@ -607,6 +609,8 @@ class AuditTests(unittest.TestCase):
     def test_same_repo_id_owner_transfer_is_followed(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release()
             return self.repo(client, owner={"id": -1}, full_name="new-owner/FlClash")
@@ -620,6 +624,8 @@ class AuditTests(unittest.TestCase):
     def test_repo_canonical_name_change_updates_rendered_links(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release()
             return self.repo(client, owner={"id": -1}, full_name="new-owner/FlClash")
@@ -638,9 +644,14 @@ class AuditTests(unittest.TestCase):
 
     def test_path_404_recovers_by_pinned_repo_id(self):
         client = self.by_id["flclash"]
+        path_calls = 0
         def api(url, token=None):
+            nonlocal path_calls
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url == f"https://api.github.com/repos/{client['github_repo']}":
-                return None
+                path_calls += 1
+                return None if path_calls == 1 else self.repo(client)
             if url == f"https://api.github.com/repositories/{client['official_repo_id']}":
                 return self.repo(client)
             if url.endswith("/releases/latest"):
@@ -655,9 +666,13 @@ class AuditTests(unittest.TestCase):
     def test_path_404_follows_pinned_repo_id_canonical_name(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url == f"https://api.github.com/repos/{client['github_repo']}":
                 return None
             if url == f"https://api.github.com/repositories/{client['official_repo_id']}":
+                return self.repo(client, full_name="new-owner/FlClash")
+            if url == "https://api.github.com/repos/new-owner/FlClash":
                 return self.repo(client, full_name="new-owner/FlClash")
             if url == "https://api.github.com/repos/new-owner/FlClash/releases/latest":
                 return self.release()
@@ -673,6 +688,8 @@ class AuditTests(unittest.TestCase):
     def test_path_404_rejects_pinned_id_response_with_different_repo_id(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url == f"https://api.github.com/repos/{client['github_repo']}":
                 return None
             if url == f"https://api.github.com/repositories/{client['official_repo_id']}":
@@ -716,6 +733,8 @@ class AuditTests(unittest.TestCase):
     def test_active_archived_repo_is_automatically_historical(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release()
             return self.repo(client, archived=True)
@@ -746,6 +765,8 @@ class AuditTests(unittest.TestCase):
             ),
         }
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release("v9", "2026-09-01T00:00:00Z")
             return self.repo(client)
@@ -763,6 +784,8 @@ class AuditTests(unittest.TestCase):
         }
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release("v9", "2026-09-01T00:00:00Z", 99)
             return self.repo(client)
@@ -827,6 +850,8 @@ class AuditTests(unittest.TestCase):
         client = self.by_id["flclash"]
         old = {"release": {"state": "ok", "version": "v10", "published_at": "2026-09-14"}}
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             return None if "/releases/latest" in url else self.repo(client)
         out, issues, ok = d.audit_github(client, old, None, NOW, api, self.evidence)
         self.assertFalse(ok)
@@ -836,6 +861,8 @@ class AuditTests(unittest.TestCase):
     def test_first_observation_without_latest_release_is_anomaly(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             return None if "/releases/latest" in url else self.repo(client)
         out, issues, ok = d.audit_github(client, {}, None, NOW, api, self.evidence)
         self.assertFalse(ok)
@@ -847,6 +874,8 @@ class AuditTests(unittest.TestCase):
     def test_latest_release_without_usable_assets_is_anomaly(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release("v10", "2026-09-14T00:00:00Z", 100, [])
             return self.repo(client)
@@ -862,6 +891,8 @@ class AuditTests(unittest.TestCase):
         client = self.by_id["flclash"]
         old = {"release": self.scoped_release(client)}
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release("v10", "2026-09-14T00:00:00Z", 101)
             return self.repo(client)
@@ -878,6 +909,8 @@ class AuditTests(unittest.TestCase):
         history = client["historical_release"]
         assets = [dict(asset, state="uploaded") for asset in history["assets"]]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/tags/" in url:
                 return self.release("v1.3.8", "2023-10-30T17:38:38Z", history["release_id"], assets)
             return self.repo(client, archived=True, pushed_at="2023-11-03T08:00:47Z")
@@ -890,6 +923,8 @@ class AuditTests(unittest.TestCase):
     def test_historical_release_recreation_is_blocked(self):
         client = self.by_id["clash-verge-legacy"]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/tags/" in url:
                 return self.release("v1.3.8", "2023-10-30T17:38:38Z", 999, [])
             return self.repo(client, archived=True, pushed_at="2023-11-03T08:00:47Z")
@@ -904,6 +939,8 @@ class AuditTests(unittest.TestCase):
         assets = [dict(asset, state="uploaded") for asset in history["assets"]]
         assets[0]["id"] += 1
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/tags/" in url:
                 return self.release("v1.3.8", "2023-10-30T17:38:38Z", history["release_id"], assets)
             return self.repo(client, archived=True, pushed_at="2023-11-03T08:00:47Z")
@@ -915,6 +952,8 @@ class AuditTests(unittest.TestCase):
     def test_core_evidence_mismatch_is_anomaly(self):
         client = self.by_id["flclash"]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release()
             return self.repo(client)
@@ -985,6 +1024,8 @@ class AuditTests(unittest.TestCase):
         }
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url.startswith("https://itunes.apple.com/lookup"):
                 return payload
             if url == "https://api.github.com/repos/TokenPLS/Hako-Next":
@@ -1022,6 +1063,8 @@ class AuditTests(unittest.TestCase):
         }
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url.startswith("https://itunes.apple.com/lookup"):
                 return payload
             if url == "https://api.github.com/repos/NewHakoOrg/Hako":
@@ -1058,6 +1101,8 @@ class AuditTests(unittest.TestCase):
         }
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url.startswith("https://itunes.apple.com/lookup"):
                 return payload
             if url == "https://api.github.com/repos/NewHakoOrg/Hako":
@@ -1093,6 +1138,8 @@ class AuditTests(unittest.TestCase):
         }
 
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if url.startswith("https://itunes.apple.com/lookup"):
                 return payload
             if url == "https://api.github.com/repos/TokenPLS/Tools":
@@ -1140,6 +1187,8 @@ class AuditTests(unittest.TestCase):
             })
         failed = {0, 1}
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             repo = url.split("/repos/")[1].split("/")[1]
             index = int(repo[1:])
             if index in failed and "/releases/" not in url:
@@ -1175,6 +1224,8 @@ class AuditTests(unittest.TestCase):
             },
         ]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 rid = 301 if "/o/a/" in url else 302
                 return self.release("v1", "2026-09-14T00:00:00Z", rid)
@@ -1198,6 +1249,8 @@ class AuditTests(unittest.TestCase):
                 "download_url": f"https://github.com/o/r{index}/releases"
             })
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             repo = url.split("/repos/")[1].split("/")[1]
             index = int(repo[1:])
             if index == 0 and "/releases/" not in url:
@@ -1237,6 +1290,8 @@ class AuditTests(unittest.TestCase):
             "health": {"attempted": 20, "succeeded": 20, "coverage": 1.0, "anomalies": []},
         }
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             repo = url.split("/repos/")[1].split("/")[1]
             index = int(repo[1:])
             if index == 0 and "/releases/" not in url:
@@ -1261,6 +1316,8 @@ class AuditTests(unittest.TestCase):
         }
         pushed = "2026-01-01T00:00:00Z"
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release("v1", "2026-09-14T12:00:00Z", 303)
             return {"id": 101, "full_name": "o/r", "owner": {"id": 202}, "archived": False, "disabled": False, "pushed_at": pushed}
@@ -1276,6 +1333,8 @@ class AuditTests(unittest.TestCase):
         history = client["historical_release"]
         assets = [dict(asset, state="uploaded") for asset in history["assets"]]
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/tags/" in url:
                 return self.release("v1.3.8", "2023-10-30T17:38:38Z", history["release_id"], assets)
             return self.repo(client, archived=False, pushed_at="2026-09-15T00:00:00Z")
@@ -1294,6 +1353,8 @@ class AuditTests(unittest.TestCase):
             "download_url": "https://github.com/o/r/releases",
         }
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release("v1", "2026-09-14T00:00:00Z", 303)
             return {"id": 101, "full_name": "o/r", "owner": {"id": 202}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
@@ -1310,6 +1371,8 @@ class AuditTests(unittest.TestCase):
             "download_url": "https://github.com/o/r/releases",
         }
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release("v1", "2026-09-14T00:00:00Z", 303)
             return {"id": 101, "full_name": "o/r", "owner": {"id": 202}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
@@ -1331,6 +1394,8 @@ class AuditTests(unittest.TestCase):
             "download_url": "https://github.com/o/r/releases",
         }
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release("v1", "2026-09-14T00:00:00Z", 303)
             return {"id": 101, "full_name": "o/r", "owner": {"id": 202}, "archived": False, "disabled": False, "pushed_at": "2026-09-14T00:00:00Z"}
@@ -1417,6 +1482,8 @@ class AuditTests(unittest.TestCase):
             },
         }
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 raise OSError("release endpoint down")
             return self.repo(client)
@@ -1441,6 +1508,8 @@ class AuditTests(unittest.TestCase):
             },
         }
         def api(url, token=None):
+            if "/commits/" in url:
+                return {"sha": "a" * 40}
             if "/releases/latest" in url:
                 return self.release()
             return self.repo(client)
