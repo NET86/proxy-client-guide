@@ -1610,6 +1610,43 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(record["candidate_count"], d.MAX_DISCOVERY_CANDIDATES + 1)
         self.assertEqual(metadata_calls, [])
 
+    def test_discovery_request_budget_fails_closed_before_extra_fetch(self):
+        client = copy.deepcopy(self.by_id["hako"])
+        client["github_discovery"]["trusted_text_urls"] = [
+            "https://official.example/one",
+            "https://official.example/two",
+        ]
+        fetched = []
+        with patch.object(d, "MAX_DISCOVERY_REQUESTS", 1):
+            record = d.audit_github_discovery(
+                client, {}, NOW, None, "token",
+                lambda *_args: self.fail("metadata request should not run"),
+                lambda url: fetched.append(url) or "no repository links",
+            )
+        self.assertEqual(record["state"], "candidate")
+        self.assertEqual(record["reason"], "request_budget_exceeded")
+        self.assertEqual(record["request_count"], 1)
+        self.assertEqual(fetched, ["https://official.example/one"])
+
+    def test_discovery_time_budget_fails_closed_without_claiming_partial_result(self):
+        client = copy.deepcopy(self.by_id["hako"])
+        client["github_discovery"]["trusted_text_urls"] = [
+            "https://official.example/one",
+            "https://official.example/two",
+        ]
+        fetched = []
+        with patch.object(d, "MAX_DISCOVERY_SECONDS", 1.0), patch.object(
+            d.time, "monotonic", side_effect=[0.0, 0.0, 2.0]
+        ):
+            record = d.audit_github_discovery(
+                client, {}, NOW, None, "token",
+                lambda *_args: self.fail("metadata request should not run"),
+                lambda url: fetched.append(url) or "no repository links",
+            )
+        self.assertEqual(record["state"], "candidate")
+        self.assertEqual(record["reason"], "time_budget_exceeded")
+        self.assertEqual(fetched, ["https://official.example/one"])
+
     def test_extreme_remote_timestamp_degrades_component_instead_of_aborting(self):
         client = self.by_id["flclash"]
         extreme = "9999-12-31T23:59:59-23:59"

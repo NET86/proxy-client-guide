@@ -65,6 +65,8 @@ TRANSIENT_HTTP_CODES = {403, 408, 425, 429, 500, 502, 503, 504}
 IDENTITY_CONFLICT_STATES = {"identity_mismatch", "asset_mismatch"}
 REQUEST_ATTEMPTS = 2
 MAX_DISCOVERY_CANDIDATES = 32
+MAX_DISCOVERY_REQUESTS = 24
+MAX_DISCOVERY_SECONDS = 15.0
 OBSERVATION_VERSION = 2
 EVIDENCE_SCOPE_VERSION = 1
 FUTURE_SKEW = dt.timedelta(minutes=5)
@@ -882,12 +884,37 @@ def audit_github_discovery(
     stamp = iso(now)
     scope = github_discovery_scope(client)
     previous = old.get("github_discovery") if isinstance(old, dict) else None
+    started = time.monotonic()
+    request_count = 0
+
+    def budget_record(reason: str, **fields: Any) -> dict[str, Any]:
+        return positive_record(
+            previous,
+            stamp,
+            scope,
+            state="candidate",
+            reason=reason,
+            request_count=request_count,
+            **fields,
+        )
+
+    def budget_reason() -> str | None:
+        if request_count >= MAX_DISCOVERY_REQUESTS:
+            return "request_budget_exceeded"
+        if time.monotonic() - started >= MAX_DISCOVERY_SECONDS:
+            return "time_budget_exceeded"
+        return None
+
     source_texts: dict[str, str] = {}
     description = entry.get("description") if isinstance(entry, dict) else None
     if isinstance(description, str) and description.strip():
         source_texts["app_store_description"] = description
     fetch_errors: list[str] = []
     for url in config.get("trusted_text_urls", []):
+        reason = budget_reason()
+        if reason:
+            return budget_record(reason)
+        request_count += 1
         try:
             text = fetch_text(url)
             if text:
@@ -924,7 +951,15 @@ def audit_github_discovery(
     candidates: list[dict[str, Any]] = []
     try:
         for key in sorted(candidate_sources):
+            reason = budget_reason()
+            if reason:
+                return budget_record(
+                    reason,
+                    candidate_count=len(candidate_sources),
+                    inspected_count=len(candidates) + len(verified),
+                )
             requested_name = candidate_display_names[key]
+            request_count += 1
             metadata = request(f"https://api.github.com/repos/{requested_name}", token)
             if metadata is None:
                 candidates.append(
