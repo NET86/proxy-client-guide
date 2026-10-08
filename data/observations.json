@@ -284,12 +284,12 @@
         "repo_id": 500719319,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/ClashMetaForAndroid",
-        "last_activity_at": "2026-10-02T05:19:05Z",
+        "last_activity_at": "2026-10-08T08:06:55Z",
         "scope": "sha256:4543876f0b18d44b652905be8ccb5c577ac38a64a5c1dd93a0dbab67be2a9c6a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-02T05:45:50Z",
-        "last_success_at": "2026-10-07T23:08:41Z"
+        "observed_at": "2026-10-08T13:37:26Z",
+        "last_success_at": "2026-10-08T13:37:26Z"
       },
       "release": {
         "state": "ok",
@@ -327,12 +327,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-08T04:02:07Z",
+        "last_activity_at": "2026-10-08T13:30:26Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-08T06:12:02Z",
-        "last_success_at": "2026-10-08T06:12:02Z"
+        "observed_at": "2026-10-08T13:37:26Z",
+        "last_success_at": "2026-10-08T13:37:26Z"
       },
       "release": {
         "state": "ok",
@@ -542,12 +542,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-10-07T19:11:17Z",
+        "last_activity_at": "2026-10-08T09:35:01Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T23:08:41Z",
-        "last_success_at": "2026-10-07T23:08:41Z"
+        "observed_at": "2026-10-08T13:37:26Z",
+        "last_success_at": "2026-10-08T13:37:26Z"
       },
       "release": {
         "state": "ok",
@@ -567,11 +567,11 @@
         "scope": "sha256:a3b22259f2a783b61759954ec656d3c29ea030964e69929a93e9d602fdeba5f1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T23:08:41Z",
-        "last_success_at": "2026-10-07T23:08:41Z",
+        "observed_at": "2026-10-08T13:37:26Z",
+        "last_success_at": "2026-10-08T13:37:26Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/303ae8e6fa7735d360cd8418dd16fbea18dc850b/README.md",
+            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/598b0051029b4b102515ba82372e34e988dc883e/README.md",
             "sha256": "3b87beb2e29389458d3a999a5f834c149f53d3b92544d9743c8d1f8433862fce"
           }
         ],
