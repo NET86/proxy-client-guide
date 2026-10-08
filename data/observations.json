@@ -51,12 +51,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-07T18:35:32Z",
+        "last_activity_at": "2026-10-07T23:18:29Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T23:08:41Z",
-        "last_success_at": "2026-10-07T23:08:41Z"
+        "observed_at": "2026-10-08T00:51:24Z",
+        "last_success_at": "2026-10-08T00:51:24Z"
       },
       "release": {
         "state": "ok",
@@ -327,12 +327,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-07T22:09:41Z",
+        "last_activity_at": "2026-10-08T00:50:01Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T23:08:41Z",
-        "last_success_at": "2026-10-07T23:08:41Z"
+        "observed_at": "2026-10-08T00:51:24Z",
+        "last_success_at": "2026-10-08T00:51:24Z"
       },
       "release": {
         "state": "ok",
@@ -352,11 +352,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T23:08:41Z",
-        "last_success_at": "2026-10-07T23:08:41Z",
+        "observed_at": "2026-10-08T00:51:24Z",
+        "last_success_at": "2026-10-08T00:51:24Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/90d492b30659c6bfcef30d10de945960700952dd/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/f7baf3407046ad5b67dc2e4058ebd975b764798b/README.md",
             "sha256": "8ce2b3f283a7ae563076fa1a3b68696df09361e4e7e23cb6885572387a299c0b"
           }
         ],
