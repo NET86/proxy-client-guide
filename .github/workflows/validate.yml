@@ -3,7 +3,7 @@ name: Validate directory changes
 on:
   pull_request:
   push:
-    branches: [main, fix/bounded-http-response, fix/response-error-isolation]
+    branches: [main]
 
 permissions:
   contents: read
