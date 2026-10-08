@@ -2166,6 +2166,10 @@ class WorkflowTests(unittest.TestCase):
             "if: always() && steps.freshness.outputs.current == 'true'",
             text,
         )
+        self.assertIn("Superseded before publish:", text)
+        self.assertIn("if ! git push origin HEAD:main; then", text)
+        self.assertIn("Superseded during publish:", text)
+        self.assertIn("Publishing failed without a remote main advance.", text)
 
 
 if __name__ == "__main__":

@@ -65,9 +65,26 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          remote_head="$(git ls-remote --heads origin refs/heads/main | awk '{print $1}')"
+          if [[ -z "$remote_head" ]]; then
+            echo "Unable to resolve origin/main before publish." >&2
+            exit 1
+          fi
+          if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
+            echo "Superseded before publish: trigger=$GITHUB_SHA current=$remote_head"
+            exit 0
+          fi
           git add README.md data/observations.json
           git commit -m "chore: refresh client observations"
-          git push origin HEAD:main
+          if ! git push origin HEAD:main; then
+            remote_head="$(git ls-remote --heads origin refs/heads/main | awk '{print $1}')"
+            if [[ -n "$remote_head" && "$remote_head" != "$GITHUB_SHA" ]]; then
+              echo "Superseded during publish: trigger=$GITHUB_SHA current=$remote_head"
+              exit 0
+            fi
+            echo "Publishing failed without a remote main advance." >&2
+            exit 1
+          fi
 
       - name: Enforce audit health
         if: always() && steps.freshness.outputs.current == 'true'

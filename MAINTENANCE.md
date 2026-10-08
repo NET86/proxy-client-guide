@@ -49,7 +49,7 @@ Refresh 自动处理新版本、同一 GitHub repository ID 的改名或迁移�
 - 普通 GitHub raw 内核证据先将 ref 解析为完整 commit SHA，再读取该不可变 URL，并记录正文 SHA-256。同仓同 ref 一轮只解析一次；解析失败不退回可变分支。静态配置明确引用其他仓库时，在该仓库内固定提交，不改写到客户端仓库。Wiki 和非仓库网页只记录正文摘要，不声称绑定主仓 commit；这些读取与前后身份检查不能提供跨 API 请求的原子快照保证。
 - GitHub 官方仓库归档后转入历史；动态归档可恢复，静态 `legacy` 不自动恢复。第三方资料只用于历史项目。
 - 不因同名、相似 README、同一官网下的多个页面或单一新来源自动替换为新仓库、fork、第三方镜像或继任项目；仓库重建只有在可信开发者身份或两个不同官方来源域交叉确认后才自动恢复。Discovery 的请求预算按真实 HTTP attempt（含重试）计数，单次连接和响应体分块读取都受剩余 deadline 约束；超预算只保留候选状态，不把部分结果当成完成发现。
-- 主分支保持 linear history，禁止删除和强推。Refresh 只使用短期 `contents: write`，不保存长期写密钥；若触发 SHA 已不是当前 `main`，该轮直接按 superseded 跳过，不发布旧基线结果。
+- 主分支保持 linear history，禁止删除和强推。Refresh 只使用短期 `contents: write`，不保存长期写密钥；刷新开始与发布前核对当前 `main`；旧 SHA 的运行按 superseded 跳过，推送失败时只在确认主分支已前进后才视作 superseded，其他失败保持报错。
 - CI 只允许预期的 NET86 / GitHub / github-actions 提交身份。
 
 ## 本地验证
