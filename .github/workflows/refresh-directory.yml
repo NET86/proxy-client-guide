@@ -23,10 +23,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - name: Check out triggering revision
+      - name: Check out latest main for refresh
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          ref: ${{ github.sha }}
+          ref: main
           fetch-depth: 0
           persist-credentials: true
 
@@ -40,11 +40,13 @@ jobs:
             echo "Unable to resolve origin/main." >&2
             exit 1
           fi
-          if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
-            echo "Superseded refresh: trigger=$GITHUB_SHA current=$remote_head"
+          checked_out="$(git rev-parse HEAD)"
+          if [[ "$remote_head" != "$checked_out" ]]; then
+            echo "Superseded after checkout: checkout=$checked_out current=$remote_head"
             echo "current=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          echo "base_sha=$checked_out" >> "$GITHUB_OUTPUT"
           echo "current=true" >> "$GITHUB_OUTPUT"
 
       - name: Audit sources and render directory
@@ -70,16 +72,16 @@ jobs:
             echo "Unable to resolve origin/main before publish." >&2
             exit 1
           fi
-          if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
-            echo "Superseded before publish: trigger=$GITHUB_SHA current=$remote_head"
+          if [[ "$remote_head" != "${{ steps.freshness.outputs.base_sha }}" ]]; then
+            echo "Superseded before publish: base=${{ steps.freshness.outputs.base_sha }} current=$remote_head"
             exit 0
           fi
           git add README.md data/observations.json
           git commit -m "chore: refresh client observations"
           if ! git push origin HEAD:main; then
             remote_head="$(git ls-remote --heads origin refs/heads/main | awk '{print $1}')"
-            if [[ -n "$remote_head" && "$remote_head" != "$GITHUB_SHA" ]]; then
-              echo "Superseded during publish: trigger=$GITHUB_SHA current=$remote_head"
+            if [[ -n "$remote_head" && "$remote_head" != "${{ steps.freshness.outputs.base_sha }}" ]]; then
+              echo "Superseded during publish: base=${{ steps.freshness.outputs.base_sha }} current=$remote_head"
               exit 0
             fi
             echo "Publishing failed without a remote main advance." >&2
