@@ -2153,10 +2153,15 @@ class WorkflowTests(unittest.TestCase):
         self.assertNotIn("--force", text)
         self.assertNotIn("push -f", text)
 
-    def test_refresh_skips_superseded_trigger_revision(self):
+    def test_refresh_uses_current_checkout_and_rejects_later_conflicts(self):
         text = (ROOT / ".github/workflows/refresh-directory.yml").read_text(encoding="utf-8")
         self.assertIn("git ls-remote --heads origin refs/heads/main", text)
-        self.assertIn('if [[ "$remote_head" != "$GITHUB_SHA" ]]', text)
+        self.assertIn("ref: main", text)
+        self.assertIn('checked_out="$(git rev-parse HEAD)"', text)
+        self.assertIn('if [[ "$remote_head" != "$checked_out" ]]; then', text)
+        self.assertIn('echo "base_sha=$checked_out" >> "$GITHUB_OUTPUT"', text)
+        self.assertEqual(text.count('"$remote_head" != "${{ steps.freshness.outputs.base_sha }}"'), 2)
+        self.assertNotIn("GITHUB_SHA", text)
         self.assertIn('echo "current=false" >> "$GITHUB_OUTPUT"', text)
         self.assertGreaterEqual(
             text.count("if: steps.freshness.outputs.current == 'true'"),

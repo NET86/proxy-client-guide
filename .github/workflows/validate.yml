@@ -21,9 +21,6 @@ jobs:
       - name: Check commit identity
         run: python3 scripts/check_commit_identity.py
 
-      - name: Run focused HTTP response tests
-        run: PYTHONPATH=tests python3 -m unittest test_directory.ResponseLimitTests test_response_isolation.ResponseIsolationTests -v
-
       - name: Run tests
         run: PYTHONPATH=tests python3 -m unittest discover -s tests -v
 

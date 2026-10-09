@@ -14,12 +14,12 @@
 
 流程只有四步：
 
-1. 基于当前 `main` 核验官方来源并生成 observations/README。
+1. 运行时检出最新 `main` 核验官方来源并生成 observations/README；排队期间触发版本过时也不浪费整轮刷新。
 2. 身份冲突时隐藏入口；普通网络或区域失败标记待确认，并保留已配置入口。
 3. 生成文件有变化时，用 Refresh job 的短期 `GITHUB_TOKEN` 普通 push 到 `main`。
 4. 最后执行 health gate；异常状态会先写回，再让 workflow 失败。
 
-Refresh 只写 `README.md` 和 `data/observations.json`。若 `main` 已前进，旧任务跳过发布，下一轮从最新提交核验；若 push 失败但远端未前进，则保留失败状态，不强推。
+Refresh 只写 `README.md` 和 `data/observations.json`。若检出后 `main` 又前进，本次跳过旧结果发布，下一轮仍从最新提交核验；若 push 失败但远端未前进，则保留失败状态，不强推。
 
 ## 时间字段
 
