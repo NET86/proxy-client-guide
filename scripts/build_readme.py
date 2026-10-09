@@ -1500,11 +1500,13 @@ def audit_app_store_source(
         entry = validate_app_store(payload)
         if entry is None:
             return {
+                **copy.deepcopy(old or {}),
                 "source": unverified_record(previous_source, stamp, source_scope_value, "region_missing"),
                 "release": unverified_record(previous_release, stamp, release_scope_value, "region_missing"),
             }, [f"{client['id']}: US App Store lookup returned no app"], False
         if entry["trackId"] != int(client["app_store_id"]) or entry["sellerName"] != client["app_store_seller"]:
             return {
+                **copy.deepcopy(old or {}),
                 "source": negative_record(
                     previous_source,
                     stamp,
@@ -1571,6 +1573,8 @@ def audit_app_store_source(
         return result, issues, release_ok and core_ok
     except (OSError, urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, ObservationError, ValueError) as exc:
         return {
+            # A failed lookup did not re-observe independent core/discovery evidence.
+            **copy.deepcopy(old or {}),
             "source": failure_record(previous_source, stamp, str(exc), source_scope_value),
             "release": failure_record(previous_release, stamp, str(exc), release_scope_value),
         }, [], False
