@@ -217,7 +217,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 - 下载：[https://github.com/SagerNet/sing-box/releases](https://github.com/SagerNet/sing-box/releases)
-- 版本：v1.14.2（2026-09-24）
+- 版本：v1.14.3（2026-10-09）
 
 ### Clash Nyanpasu
 
