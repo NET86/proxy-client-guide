@@ -268,6 +268,7 @@ class CatalogTests(unittest.TestCase):
 class RequestRetryTests(unittest.TestCase):
     def test_json_transient_network_failure_retries_once(self):
         response = io.BytesIO(b'{"ok": true}')
+        response.url = "https://example.invalid/test"
         with patch.object(d.urllib.request, "urlopen", side_effect=[urllib.error.URLError("tls eof"), response]) as opener:
             with patch.object(d.time, "sleep") as sleeper:
                 self.assertEqual(d.request_json("https://example.invalid/test", attempts=2), {"ok": True})
@@ -276,6 +277,7 @@ class RequestRetryTests(unittest.TestCase):
 
     def test_text_transient_network_failure_retries_once(self):
         class TextResponse(io.BytesIO):
+            url = "https://example.invalid/test"
             class Headers:
                 @staticmethod
                 def get_content_charset():
@@ -308,6 +310,7 @@ class ResponseLimitTests(unittest.TestCase):
 
         response = http.client.HTTPResponse(Socket())
         response.begin()
+        response.url = "https://example.invalid/test"
         return response
 
     @staticmethod
@@ -455,6 +458,7 @@ class ResponseLimitTests(unittest.TestCase):
             )
 
     class Response(io.BytesIO):
+        url = "https://example.invalid/test"
         def __init__(self, body, length=None, charset="utf-8"):
             super().__init__(body)
             self.headers = email.message.Message()
@@ -1680,6 +1684,7 @@ class AuditTests(unittest.TestCase):
                 return "utf-8"
 
         class Response:
+            url = "https://official.example/source"
             length = None
             headers = Headers()
 
