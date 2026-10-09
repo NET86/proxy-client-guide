@@ -327,24 +327,24 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-09T05:40:56Z",
+        "last_activity_at": "2026-10-09T12:22:11Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-09T06:15:29Z",
-        "last_success_at": "2026-10-09T06:15:29Z"
+        "observed_at": "2026-10-09T13:27:43Z",
+        "last_success_at": "2026-10-09T13:27:43Z"
       },
       "release": {
         "state": "ok",
-        "version": "v2.0.0-beta.3",
-        "published_at": "2026-10-07T13:35:21Z",
-        "release_id": 405765283,
+        "version": "v2.0.0-rc.1",
+        "published_at": "2026-10-09T09:44:24Z",
+        "release_id": 407771089,
         "asset_count": 36,
         "scope": "sha256:46a12bead5118ca8aa64a064869a8cd770faf158ceac067c0dca2037e6463439",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-07T15:55:59Z",
-        "last_success_at": "2026-10-08T23:24:14Z",
+        "observed_at": "2026-10-09T13:27:43Z",
+        "last_success_at": "2026-10-09T13:27:43Z",
         "repo_id": 716838500
       },
       "core_evidence": {
@@ -352,11 +352,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-08T23:24:14Z",
-        "last_success_at": "2026-10-08T23:24:14Z",
+        "observed_at": "2026-10-09T13:27:43Z",
+        "last_success_at": "2026-10-09T13:27:43Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/8d17b145625d4ba0fadfcf8d61d4fc0069ef2191/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/aad4a0dfc175c61f78494628290af927c17f06e5/README.md",
             "sha256": "8ce2b3f283a7ae563076fa1a3b68696df09361e4e7e23cb6885572387a299c0b"
           }
         ],
