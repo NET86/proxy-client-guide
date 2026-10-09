@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-10-09（北京时间，下同）。
+核验：最近成功日期 2026-10-10（北京时间，下同）。
 > 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -83,7 +83,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
-- 版本：v1.2.13（2026-10-05）
+- 版本：v1.2.14（2026-10-10）
 
 ### Bettbox
 
@@ -297,7 +297,7 @@
 - 内核：未公开
 - 官方来源：[https://stash.ws/](https://stash.ws/)
 - 下载：[https://stash.ws/download](https://stash.ws/download)
-- 版本：3.4.1（2026-07-17）
+- 版本：3.6.0（2026-10-10）
 - 说明：完整兼容 Clash Premium 配置格式。
 
 ### Surge
