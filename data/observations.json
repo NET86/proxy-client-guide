@@ -51,12 +51,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-09T01:12:16Z",
+        "last_activity_at": "2026-10-09T02:05:40Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-09T01:22:25Z",
-        "last_success_at": "2026-10-09T01:22:25Z"
+        "observed_at": "2026-10-09T02:20:44Z",
+        "last_success_at": "2026-10-09T02:20:44Z"
       },
       "release": {
         "state": "ok",
@@ -76,11 +76,11 @@
         "scope": "sha256:d03d777f723bc2cb2761e2eebe03667aac5a2b4795eab5c8d8ccbcd111d26eed",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-09T01:22:25Z",
-        "last_success_at": "2026-10-09T01:22:25Z",
+        "observed_at": "2026-10-09T02:20:44Z",
+        "last_success_at": "2026-10-09T02:20:44Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/cb751052a423c017e75cf0379adb12848e3f0fae/docs/README_en.md",
+            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/4337bd85758d54d7b9044b2da3c9ac1176eae1f3/docs/README_en.md",
             "sha256": "7beb89da0519b75bd4f2de081440991a65526df57b93878ba36f9f46d9a2f377"
           }
         ],
@@ -94,13 +94,13 @@
         "repo_id": 966153123,
         "owner_id": 131734194,
         "full_name": "KaringX/clashmi",
-        "last_activity_at": "2026-10-08T03:30:24Z",
+        "last_activity_at": "2026-10-09T01:43:23Z",
         "rediscovered_repo": false,
         "scope": "sha256:c6d635e584c29b3325ecd25a64a7a4f1ba14892cdb04034886c005cdd21c7c1d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-08T23:24:14Z",
-        "observed_at": "2026-10-08T06:12:02Z"
+        "last_success_at": "2026-10-09T02:20:44Z",
+        "observed_at": "2026-10-09T02:20:44Z"
       },
       "release": {
         "state": "ok",
@@ -120,11 +120,11 @@
         "scope": "sha256:539d0dae6ea8918247c0359585c6bfc893a0926135aea89a3b15210b4d6a11bb",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-08T23:24:14Z",
-        "observed_at": "2026-10-08T03:02:46Z",
+        "last_success_at": "2026-10-09T02:20:44Z",
+        "observed_at": "2026-10-09T02:20:44Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/KaringX/clashmi/49147c7b65d8d940fb1a12d009bd4052aac7b15a/README.md",
+            "url": "https://raw.githubusercontent.com/KaringX/clashmi/620d6e44b179bdd4ac076ad30e33b74979edebc6/README.md",
             "sha256": "09aebeb1841c85319ac5ab1e0d0869bd355cd9775cd664b73d396462e50743c4"
           }
         ],
@@ -327,12 +327,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-09T00:17:53Z",
+        "last_activity_at": "2026-10-09T02:02:58Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-09T01:22:25Z",
-        "last_success_at": "2026-10-09T01:22:25Z"
+        "observed_at": "2026-10-09T02:20:44Z",
+        "last_success_at": "2026-10-09T02:20:44Z"
       },
       "release": {
         "state": "ok",
