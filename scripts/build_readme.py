@@ -26,7 +26,6 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any, Callable
-from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CATALOG = ROOT / "data" / "clients.json"
@@ -70,7 +69,8 @@ MAX_DISCOVERY_SECONDS = 15.0
 OBSERVATION_VERSION = 2
 EVIDENCE_SCOPE_VERSION = 1
 FUTURE_SKEW = dt.timedelta(minutes=5)
-DISPLAY_TIMEZONE = ZoneInfo("Asia/Shanghai")
+# This directory displays modern Beijing dates, not historical IANA transitions.
+DISPLAY_TIMEZONE = dt.timezone(dt.timedelta(hours=8), name="UTC+08:00")
 GITHUB_REPO_URL_RE = re.compile(
     r"https?://github\.com/([A-Za-z0-9](?:[A-Za-z0-9-]{0,38}))/([A-Za-z0-9_.-]+)",
     re.IGNORECASE,
@@ -503,6 +503,26 @@ def read_response(
         raise OSError("Incomplete HTTP response") from exc
 
 
+def require_https_metadata_url(url: object) -> None:
+    if not isinstance(url, str):
+        raise ObservationError("Metadata response lacks its final HTTPS URL")
+    try:
+        parsed = urllib.parse.urlparse(url)
+        valid = parsed.scheme == "https" and bool(parsed.hostname) and parsed.username is None and parsed.password is None
+    except ValueError:
+        valid = False
+    if not valid:
+        raise ObservationError("Metadata evidence must use HTTPS throughout redirects")
+
+
+def require_https_response(request: urllib.request.Request, response: Any) -> None:
+    require_https_metadata_url(getattr(response, "url", None))
+    # urllib shares this redirect history between successive requests, including
+    # an eventual HTTPError. A downgrade-and-return is not authenticated evidence.
+    for target in getattr(request, "redirect_dict", {}):
+        require_https_metadata_url(target)
+
+
 def request_json(
     url: str,
     token: str | None = None,
@@ -510,9 +530,8 @@ def request_json(
     *,
     budget: DiscoveryBudget | None = None,
 ) -> dict[str, Any] | None:
+    require_https_metadata_url(url)
     parsed = urllib.parse.urlparse(url)
-    if parsed.scheme != "https" or not parsed.hostname:
-        raise ObservationError(f"JSON metadata URL must use HTTPS: {url}")
     headers = {"Accept": "application/json", "User-Agent": "NET86-clash-directory/3"}
     if token and parsed.hostname == "api.github.com":
         headers["X-GitHub-Api-Version"] = "2022-11-28"
@@ -526,6 +545,7 @@ def request_json(
         timeout = budget.before_attempt() if budget is not None else 20
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
+                require_https_response(request, response)
                 payload = json.loads(read_response(response, budget=budget))
             if budget is not None:
                 budget.check_deadline()
@@ -533,6 +553,10 @@ def request_json(
                 raise ObservationError(f"Expected JSON object from {url}")
             return payload
         except urllib.error.HTTPError as exc:
+            try:
+                require_https_response(request, exc)
+            finally:
+                exc.close()
             if exc.code == 404:
                 if budget is not None:
                     budget.check_deadline()
@@ -563,12 +587,14 @@ def request_text(
     *,
     budget: DiscoveryBudget | None = None,
 ) -> str | None:
+    require_https_metadata_url(url)
     request = urllib.request.Request(url, headers={"Accept": "text/plain", "User-Agent": "NET86-clash-directory/3"})
     last_error: BaseException | None = None
     for attempt in range(attempts):
         timeout = budget.before_attempt() if budget is not None else 20
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
+                require_https_response(request, response)
                 body = read_response(response, budget=budget)
                 charset = response.headers.get_content_charset() or "utf-8"
                 try:
@@ -580,6 +606,10 @@ def request_text(
                 budget.check_deadline()
             return text
         except urllib.error.HTTPError as exc:
+            try:
+                require_https_response(request, exc)
+            finally:
+                exc.close()
             if exc.code == 404:
                 if budget is not None:
                     budget.check_deadline()

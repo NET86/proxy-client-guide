@@ -20,6 +20,7 @@ class ResponseIsolationTests(unittest.TestCase):
                 return io.BytesIO(wire)
         response = http.client.HTTPResponse(Socket())
         response.begin()
+        response.url = "https://example.invalid/response"
         return response
 
     @classmethod
