@@ -51,12 +51,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-10T04:28:34Z",
+        "last_activity_at": "2026-10-10T09:27:21Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-10T05:58:36Z",
-        "last_success_at": "2026-10-10T05:58:36Z"
+        "observed_at": "2026-10-10T12:38:31Z",
+        "last_success_at": "2026-10-10T12:38:31Z"
       },
       "release": {
         "state": "ok",
@@ -76,11 +76,11 @@
         "scope": "sha256:d03d777f723bc2cb2761e2eebe03667aac5a2b4795eab5c8d8ccbcd111d26eed",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-09T06:15:29Z",
-        "last_success_at": "2026-10-09T22:42:23Z",
+        "observed_at": "2026-10-10T12:38:31Z",
+        "last_success_at": "2026-10-10T12:38:31Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/44477d97d4f568e8016d6a2b9a0001d52d8f56a1/docs/README_en.md",
+            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/52dca35acb4fa39bc37e258800a6324fd9a582c9/docs/README_en.md",
             "sha256": "7beb89da0519b75bd4f2de081440991a65526df57b93878ba36f9f46d9a2f377"
           }
         ],
@@ -137,24 +137,24 @@
         "state": "ok",
         "seller": "OmniWide Media Limited",
         "track_id": 6794257189,
-        "last_activity_at": "2026-09-27T17:18:57Z",
+        "last_activity_at": "2026-10-10T08:39:41Z",
         "scope": "sha256:4d4e51a481203322259a4fc4a6554561be8146968d1e9de68fbad623451fef5a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-09T22:42:23Z",
-        "observed_at": "2026-09-27T21:23:54Z"
+        "last_success_at": "2026-10-10T12:38:31Z",
+        "observed_at": "2026-10-10T12:38:31Z"
       },
       "release": {
         "state": "ok",
-        "version": "1.0.10",
-        "published_at": "2026-09-27T17:18:57Z",
+        "version": "1.0.11",
+        "published_at": "2026-10-10T08:39:41Z",
         "seller": "OmniWide Media Limited",
         "track_id": 6794257189,
         "scope": "sha256:1bc03a3b458728c6982287164117d9fc197490d8771fe3557e474209d8fc6d92",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-09T22:42:23Z",
-        "observed_at": "2026-09-27T21:23:54Z"
+        "last_success_at": "2026-10-10T12:38:31Z",
+        "observed_at": "2026-10-10T12:38:31Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -165,7 +165,7 @@
         "observed_at": "2026-09-26T16:40:27Z"
       },
       "github_discovery": {
-        "state": "verified",
+        "state": "candidate",
         "reason": "insufficient_identity_evidence",
         "candidates": [
           {
@@ -211,18 +211,25 @@
             "reason": "project_evidence_mismatch"
           },
           {
-            "full_name": "TokenPLS/Hako",
+            "repo_id": 1315918490,
+            "owner_id": 334401670,
+            "full_name": "ProjectClash/Clash-Legacy",
             "sources": [
               "app_store_description"
             ],
-            "reason": "missing"
+            "source_identities": [
+              "app_store"
+            ],
+            "evidence_match": true,
+            "trusted_owner": false,
+            "reason": "inactive"
           }
         ],
         "scope": "sha256:f7d8f86164448842ec1b6a5ea8e9c600a5ee733dc6c8cebec43c76d492642300",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-09T22:42:23Z",
-        "observed_at": "2026-09-29T05:48:38Z",
+        "last_success_at": "2026-10-10T12:38:31Z",
+        "observed_at": "2026-10-10T12:38:31Z",
         "repo_id": 1315918490,
         "owner_id": 305755057,
         "full_name": "TokenPLS/Hako",
@@ -327,12 +334,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-10T05:04:30Z",
+        "last_activity_at": "2026-10-10T12:14:10Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-10T05:58:36Z",
-        "last_success_at": "2026-10-10T05:58:36Z"
+        "observed_at": "2026-10-10T12:38:31Z",
+        "last_success_at": "2026-10-10T12:38:31Z"
       },
       "release": {
         "state": "ok",
@@ -352,11 +359,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-10T05:58:36Z",
-        "last_success_at": "2026-10-10T05:58:36Z",
+        "observed_at": "2026-10-10T12:38:31Z",
+        "last_success_at": "2026-10-10T12:38:31Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/13b1026f12ed02d1be1566e5a381b64fa1fff1ca/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/93482a814fd5e11eefed195ae251f58c30f2058b/README.md",
             "sha256": "8ce2b3f283a7ae563076fa1a3b68696df09361e4e7e23cb6885572387a299c0b"
           }
         ],
@@ -542,12 +549,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-10-10T05:17:33Z",
+        "last_activity_at": "2026-10-10T11:36:33Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-10T05:58:36Z",
-        "last_success_at": "2026-10-10T05:58:36Z"
+        "observed_at": "2026-10-10T12:38:31Z",
+        "last_success_at": "2026-10-10T12:38:31Z"
       },
       "release": {
         "state": "ok",
@@ -567,11 +574,11 @@
         "scope": "sha256:a3b22259f2a783b61759954ec656d3c29ea030964e69929a93e9d602fdeba5f1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-10T05:58:36Z",
-        "last_success_at": "2026-10-10T05:58:36Z",
+        "observed_at": "2026-10-10T12:38:31Z",
+        "last_success_at": "2026-10-10T12:38:31Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/3b9a24fcfec274a42847522e2b06efa8402d5f64/README.md",
+            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/65b8cd0f87a77a19e6eb406d5af6f830217a782c/README.md",
             "sha256": "3b87beb2e29389458d3a999a5f834c149f53d3b92544d9743c8d1f8433862fce"
           }
         ],

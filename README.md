@@ -23,7 +23,7 @@
 
 | 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
-| Clash（Hako） | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/TokenPLS/Hako) | [App Store](https://apps.apple.com/app/id6794257189) |
+| Clash（Hako） | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://clash.md/) | [App Store](https://apps.apple.com/app/id6794257189) |
 | ClashMi | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/clashmi) | [下载页](https://github.com/KaringX/clashmi/releases) |
 | Bettbox | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/appshubcc/Bettbox) | [下载页](https://github.com/appshubcc/Bettbox/releases) |
 | FlClash | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/chen08209/FlClash) | [下载页](https://github.com/chen08209/FlClash/releases) |
@@ -142,10 +142,10 @@
 - 状态：🟢 近半年有更新
 - 平台：macOS / iOS / tvOS
 - 内核：Hako（基于 Mihomo）
-- 官方来源：[https://github.com/TokenPLS/Hako](https://github.com/TokenPLS/Hako)
+- 官方来源：[https://clash.md/](https://clash.md/)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
-- 版本：1.0.10（2026-09-28）
-- 官网：[https://clash.md/](https://clash.md/)
+- 版本：1.0.11（2026-10-10）
+- 核验：发现 GitHub 候选仓库，但身份未达到自动确认门槛。
 
 ### FlClash
 
