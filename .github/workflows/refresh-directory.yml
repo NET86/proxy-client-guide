@@ -3,7 +3,8 @@ name: Refresh client directory
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "1 0,6,12,18 * * *"
+      timezone: "Asia/Shanghai"
   push:
     branches: [main]
     paths-ignore:
