@@ -1044,7 +1044,7 @@ def audit_github_discovery(
                 source_texts[url] = text
         except DiscoveryBudgetExceeded as exc:
             return budget_record(exc.reason)
-        except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError) as exc:
+        except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, ObservationError) as exc:
             fetch_errors.append(f"{url}: {exc}")
 
     candidate_sources: dict[str, set[str]] = {}
