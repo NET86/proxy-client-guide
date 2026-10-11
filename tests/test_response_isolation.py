@@ -154,7 +154,7 @@ class ResponseIsolationTests(unittest.TestCase):
     def test_hako_discovery_failure_preserves_completed_app_store_components(self):
         client = next(client for client in d.load_clients() if client["id"] == "hako")
         entry = {"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "v2", "currentVersionReleaseDate": STAMP, "description": "Hako builds on the open-source mihomo project"}
-        for mode in ("charset", "header", "status", "chunk-length"):
+        for mode in ("charset", "header", "status", "chunk-length", "https-downgrade"):
             with self.subTest(mode=mode):
                 def opener(request, **kwargs):
                     if request.full_url.startswith("https://itunes.apple.com/"):
@@ -162,6 +162,10 @@ class ResponseIsolationTests(unittest.TestCase):
                     self.assertEqual(request.full_url, "https://clash.md/")
                     if mode == "charset":
                         return self.text_response(charset="unknown-fixture-charset")
+                    if mode == "https-downgrade":
+                        response = self.text_response()
+                        response.url = "http://clash.md/"
+                        return response
                     return self.response(self.bad_wire(mode))
                 with patch.object(d.urllib.request, "urlopen", side_effect=opener):
                     out = d.audit([client], {"clients": {}}, now=NOW)
