@@ -83,7 +83,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
-- 版本：v1.2.14（2026-10-10）
+- 版本：v1.2.16（2026-10-13）
 
 ### Bettbox
 
@@ -308,7 +308,7 @@
 - 内核：未公开
 - 官方来源：[https://nssurge.com/](https://nssurge.com/)
 - 下载：[https://apps.apple.com/us/app/surge-5/id1442620678](https://apps.apple.com/us/app/surge-5/id1442620678)
-- 版本：5.22.1（2026-09-14）
+- 版本：5.23.0（2026-10-13）
 
 ### Clash for Android
 
