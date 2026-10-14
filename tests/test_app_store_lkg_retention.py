@@ -77,6 +77,20 @@ class AppStoreEvidenceRetentionTests(unittest.TestCase):
         self.assertFalse(directory.component_positive(changed, record, 'core_evidence'))
         self.assertFalse(directory.component_fresh(changed, record, 'github_discovery', self.now))
 
+    def test_malformed_auxiliary_redirect_keeps_completed_store_and_core_observations(self):
+        payload = {'resultCount': 1, 'results': [{'trackId': int(self.client['app_store_id']),
+            'sellerName': self.client['app_store_seller'], 'version': '2.0',
+            'currentVersionReleaseDate': directory.iso(self.now - dt.timedelta(hours=1)),
+            'description': 'Hako builds on the open-source mihomo project'}]}
+        def malformed(url):
+            raise ValueError('Invalid IPv6 URL in auxiliary redirect')
+        record, _, ok = directory.audit_app_store_source(self.client, {}, self.now, lambda *_: payload, malformed)
+        self.assertTrue(ok)
+        for component in ('source', 'release', 'core_evidence'):
+            self.assertEqual(record[component]['state'], 'ok')
+            self.assertEqual(record[component]['observation_state'], 'fresh')
+        self.assertEqual(record['github_discovery']['observation_state'], 'error')
+
 
 if __name__ == '__main__':
     unittest.main()

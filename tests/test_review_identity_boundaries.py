@@ -148,6 +148,39 @@ class ReviewIdentityBoundaryTests(unittest.TestCase):
                 self.assertEqual(fetched, [])
                 self.assertEqual(out['core_evidence']['observation_state'], 'error')
 
+    def test_confirmed_archive_survives_missing_source_until_positive_unarchive(self):
+        def archived_api(url, token=None):
+            value = self.api(url, token)
+            if url == self.base:
+                value = dict(value, archived=True)
+            return value
+        archived, _, _ = d.audit_github(self.client, {}, None, NOW, archived_api, lambda _: TEXT)
+        self.assertEqual(d.effective_category(self.client, archived), 'legacy')
+        for old_format in (False, True):
+            with self.subTest(old_format=old_format):
+                previous = copy.deepcopy(archived)
+                if old_format:
+                    previous['source'].pop('confirmed_archived', None)
+                before = copy.deepcopy(previous)
+                missing, _, ok = d.audit_github(self.client, previous, None, NOW + dt.timedelta(hours=1), lambda *_: None)
+                self.assertFalse(ok)
+                self.assertEqual(missing['source']['state'], 'missing')
+                self.assertEqual(d.effective_category(self.client, missing), 'legacy')
+                self.assertEqual(d.activity_status(self.client, missing, NOW + dt.timedelta(hours=1))[0], '❓')
+                with self.assertRaises(ValueError):
+                    d.health_check([self.client], {'clients': {'flclash': missing}}, NOW + dt.timedelta(hours=1))
+                self.assertEqual(previous, before)
+                recovered, _, ok = d.audit_github(self.client, missing, None, NOW + dt.timedelta(hours=2), self.api, lambda _: TEXT)
+                self.assertTrue(ok)
+                self.assertEqual(d.effective_category(self.client, recovered), 'mihomo')
+
+    def test_confirmed_archive_is_scoped_to_reviewed_repository_identity(self):
+        previous = {'source': d.positive_record({}, d.iso(NOW), d.source_scope(self.client),
+                    state='archived', confirmed_archived=True)}
+        changed = copy.deepcopy(self.client)
+        changed['official_repo_id'] += 1
+        self.assertEqual(d.effective_category(changed, previous), 'mihomo')
+
     def test_one_ref_is_resolved_once_for_multiple_evidence_files(self):
         client = copy.deepcopy(self.client)
         client['core_evidence'].append(dict(client['core_evidence'][0],
