@@ -92,6 +92,46 @@ class ReviewIdentityBoundaryTests(unittest.TestCase):
         self.assertEqual(out['core_evidence']['evidence_snapshots'], [
             {'url': pinned, 'sha256': hashlib.sha256(TEXT.encode()).hexdigest()}])
 
+    def test_current_flclash_config_evidence_recovers_old_missing_record(self):
+        old_client = copy.deepcopy(self.client)
+        old_client['core_evidence'][0]['url'] = (
+            'https://raw.githubusercontent.com/chen08209/FlClash/main/core/common.go')
+        old, _, ok = d.audit_github(old_client, {}, None, NOW, self.api, lambda _: None)
+        self.assertFalse(ok)
+        self.assertEqual(old['core_evidence']['state'], 'missing')
+        with self.assertRaisesRegex(ValueError, 'core_evidence'):
+            d.health_check([old_client], {'clients': {'flclash': old}}, NOW)
+
+        pinned = f'https://raw.githubusercontent.com/chen08209/FlClash/{COMMIT}/core/config.go'
+        content = 'package core\nimport "github.com/metacubex/mihomo/config"\n'
+        fetched = []
+
+        def fetch(url):
+            fetched.append(url)
+            return content if url == pinned else None
+
+        refreshed_at = NOW + dt.timedelta(hours=1)
+        out, issues, ok = d.audit_github(self.client, old, None, refreshed_at, self.api, fetch)
+        self.assertTrue(ok, issues)
+        self.assertEqual(fetched, [pinned])
+        self.assertEqual(out['core_evidence']['state'], 'ok')
+        self.assertEqual(out['core_evidence']['scope'], d.core_evidence_scope(self.client))
+        self.assertEqual(out['core_evidence']['last_success_at'], d.iso(refreshed_at))
+        self.assertEqual(out['core_evidence']['evidence_snapshots'], [
+            {'url': pinned, 'sha256': hashlib.sha256(content.encode()).hexdigest()}])
+        observations = {'clients': {'flclash': out}}
+        d.health_check([self.client], observations, refreshed_at)
+        self.assertIn('| FlClash | 🟢 |', d.render_readme([self.client], observations, refreshed_at))
+
+    def test_current_flclash_config_evidence_still_requires_mihomo_import(self):
+        for content, state in ((None, 'missing'), ('package core\nimport "example.com/other"\n', 'mismatch')):
+            with self.subTest(state=state):
+                out, _, ok = d.audit_github(self.client, {}, None, NOW, self.api, lambda _: content)
+                self.assertFalse(ok)
+                self.assertEqual(out['core_evidence']['state'], state)
+                with self.assertRaisesRegex(ValueError, 'core_evidence'):
+                    d.health_check([self.client], {'clients': {'flclash': out}}, NOW)
+
     def test_invalid_commit_response_never_falls_back_to_mutable_branch(self):
         for response in (None, {}, {'sha': 'main'}, {'sha': '../foreign'}, {'sha': 'z' * 40}):
             fetched = []
@@ -111,11 +151,12 @@ class ReviewIdentityBoundaryTests(unittest.TestCase):
     def test_one_ref_is_resolved_once_for_multiple_evidence_files(self):
         client = copy.deepcopy(self.client)
         client['core_evidence'].append(dict(client['core_evidence'][0],
-                                          url=client['core_evidence'][0]['url'].replace('common.go', 'second.go')))
+                                          url=client['core_evidence'][0]['url'].rsplit('/', 1)[0] + '/second.go'))
         out, _, ok = d.audit_github(client, {}, None, NOW, self.api, lambda _: TEXT)
         self.assertTrue(ok)
         self.assertEqual(self.calls.count(self.base + '/commits/main'), 1)
         self.assertEqual(len(out['core_evidence']['evidence_snapshots']), 2)
+        self.assertEqual(len({s['url'] for s in out['core_evidence']['evidence_snapshots']}), 2)
 
     def test_wiki_evidence_records_digest_without_claiming_main_repo_commit(self):
         client = copy.deepcopy(self.client)

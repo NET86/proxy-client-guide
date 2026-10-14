@@ -27,7 +27,7 @@
       "core": "Mihomo",
       "core_evidence": [
         {
-          "url": "https://raw.githubusercontent.com/chen08209/FlClash/main/core/common.go",
+          "url": "https://raw.githubusercontent.com/chen08209/FlClash/main/core/config.go",
           "patterns": [
             "github\\.com/metacubex/mihomo/"
           ]
