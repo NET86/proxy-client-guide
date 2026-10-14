@@ -28,7 +28,7 @@ class HttpsEvidenceTests(unittest.TestCase):
     def test_final_http_body_is_rejected_before_reading(self):
         for method, body in ((d.request_json, b'{"ok":true}'), (d.request_text, b'official evidence')):
             response = Response(body, 'http://example.invalid/redirected')
-            with self.subTest(method=method.__name__), patch.object(d.urllib.request, 'urlopen', return_value=response):
+            with self.subTest(method=method.__name__), patch.object(d, "_open_request", return_value=response):
                 with self.assertRaises(d.ObservationError):
                     method('https://example.invalid/start')
             self.assertEqual(response.reads, 0)
@@ -36,7 +36,7 @@ class HttpsEvidenceTests(unittest.TestCase):
 
     def test_initial_plain_http_never_reaches_the_network(self):
         for method in (d.request_json, d.request_text):
-            with self.subTest(method=method.__name__), patch.object(d.urllib.request, 'urlopen',
+            with self.subTest(method=method.__name__), patch.object(d, "_open_request",
                     return_value=Response(b'{}', 'http://example.invalid/start')) as opened:
                 with self.assertRaises(d.ObservationError):
                     method('http://example.invalid/start')
@@ -45,7 +45,7 @@ class HttpsEvidenceTests(unittest.TestCase):
     def test_downgraded_404_is_not_trusted_as_confirmed_official_absence(self):
         for method in (d.request_json, d.request_text):
             error = HTTPError('http://example.invalid/redirected', 404, 'missing', {}, None)
-            with self.subTest(method=method.__name__), patch.object(d.urllib.request, 'urlopen', side_effect=error):
+            with self.subTest(method=method.__name__), patch.object(d, "_open_request", side_effect=error):
                 with self.assertRaises(d.ObservationError):
                     method('https://example.invalid/start')
 
@@ -53,7 +53,7 @@ class HttpsEvidenceTests(unittest.TestCase):
         for method, body, expected in ((d.request_json, b'{"ok":true}', {'ok': True}),
                                        (d.request_text, b'official evidence', 'official evidence')):
             response = Response(body, 'https://cdn.example.invalid/redirected')
-            with self.subTest(method=method.__name__), patch.object(d.urllib.request, 'urlopen', return_value=response):
+            with self.subTest(method=method.__name__), patch.object(d, "_open_request", return_value=response):
                 self.assertEqual(method('https://example.invalid/start'), expected)
 
     def test_native_redirect_history_catches_downgrade_then_return_to_https(self):
@@ -65,7 +65,7 @@ class HttpsEvidenceTests(unittest.TestCase):
             handler.parent = types.SimpleNamespace(open=lambda *args, **kwargs: response)
             return handler.http_error_302(request, io.BytesIO(), 302, 'Found',
                                           {'location': 'http://example.invalid/intermediate'})
-        with patch.object(d.urllib.request, 'urlopen', side_effect=opener):
+        with patch.object(d, "_open_request", side_effect=opener):
             with self.assertRaises(d.ObservationError):
                 d.request_json('https://example.invalid/start')
         self.assertEqual(response.reads, 0)
@@ -74,7 +74,7 @@ class HttpsEvidenceTests(unittest.TestCase):
         for url in ('http://example.invalid/error', 'https://example.invalid/error'):
             body = io.BytesIO(b'error body')
             error = HTTPError(url, 404, 'missing', {}, body)
-            with self.subTest(url=url), patch.object(d.urllib.request, 'urlopen', side_effect=error):
+            with self.subTest(url=url), patch.object(d, "_open_request", side_effect=error):
                 if url.startswith('https:'):
                     self.assertIsNone(d.request_json('https://example.invalid/start'))
                 else:
@@ -85,7 +85,7 @@ class HttpsEvidenceTests(unittest.TestCase):
     def test_missing_or_malformed_final_url_is_not_silently_trusted(self):
         for url in (None, '', 'file:///etc/passwd', 'https:///missing-host'):
             response = Response(b'{"ok":true}', url)
-            with self.subTest(url=url), patch.object(d.urllib.request, 'urlopen', return_value=response):
+            with self.subTest(url=url), patch.object(d, "_open_request", return_value=response):
                 with self.assertRaises(d.ObservationError):
                     d.request_json('https://example.invalid/start')
 

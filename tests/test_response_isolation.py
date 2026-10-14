@@ -45,7 +45,7 @@ class ResponseIsolationTests(unittest.TestCase):
         for charset in ("unknown-fixture-charset", "base64_codec", "hex_codec", "rot_13"):
             with self.subTest(charset=charset):
                 response = self.text_response(charset=charset)
-                with patch.object(d.urllib.request, "urlopen", return_value=response) as opener:
+                with patch.object(d, "_open_request", return_value=response) as opener:
                     with self.assertRaises(OSError):
                         d.request_text("https://example.invalid/text")
                 self.assertTrue(response.closed)
@@ -60,7 +60,7 @@ class ResponseIsolationTests(unittest.TestCase):
                         response = self.response(self.bad_wire(kind))
                         opened.append(response)
                         return response
-                    with patch.object(d.urllib.request, "urlopen", side_effect=opener) as urlopen:
+                    with patch.object(d, "_open_request", side_effect=opener) as urlopen:
                         with self.assertRaises(OSError):
                             request("https://example.invalid/response")
                     urlopen.assert_called_once()
@@ -70,7 +70,7 @@ class ResponseIsolationTests(unittest.TestCase):
         for request in (d.request_json, d.request_text):
             for error in (AssertionError("bug"), TypeError("bug"), LookupError("unrelated bug")):
                 with self.subTest(request=request.__name__, error=type(error).__name__):
-                    with patch.object(d.urllib.request, "urlopen", side_effect=error):
+                    with patch.object(d, "_open_request", side_effect=error):
                         with self.assertRaises(type(error)):
                             request("https://example.invalid/response")
 
@@ -78,7 +78,7 @@ class ResponseIsolationTests(unittest.TestCase):
         for body, charset, expected in ((b"caf\xe9", "iso-8859-1", "caf\u00e9"), (b"x\xff", "utf-8", "x\ufffd")):
             with self.subTest(charset=charset):
                 response = self.text_response(body, charset)
-                with patch.object(d.urllib.request, "urlopen", return_value=response):
+                with patch.object(d, "_open_request", return_value=response):
                     self.assertEqual(d.request_text("https://example.invalid/text"), expected)
                 self.assertTrue(response.closed)
 
@@ -125,7 +125,7 @@ class ResponseIsolationTests(unittest.TestCase):
                             return self.text_response(helpers.evidence(url).encode())
                     raise AssertionError(f"Unexpected fixture URL: {url}")
                 args = argparse.Namespace(catalog=home / "clients.json", observations=observations, output=output, audit=True, check=False, health_check=False)
-                with patch.object(d, "parse_args", return_value=args), patch.object(d, "load_clients", return_value=clients), patch.object(d, "utc_now", return_value=later), patch.object(d.urllib.request, "urlopen", side_effect=opener):
+                with patch.object(d, "parse_args", return_value=args), patch.object(d, "load_clients", return_value=clients), patch.object(d, "utc_now", return_value=later), patch.object(d, "_open_request", side_effect=opener):
                     self.assertEqual(d.main(), 0)
                 saved = json.loads(observations.read_text(encoding="utf-8"))
                 self.assertTrue(output.exists())
@@ -167,7 +167,7 @@ class ResponseIsolationTests(unittest.TestCase):
                         response.url = "http://clash.md/"
                         return response
                     return self.response(self.bad_wire(mode))
-                with patch.object(d.urllib.request, "urlopen", side_effect=opener):
+                with patch.object(d, "_open_request", side_effect=opener):
                     out = d.audit([client], {"clients": {}}, now=NOW)
                 record = out["clients"][client["id"]]
                 for component in ("source", "release", "core_evidence"):
