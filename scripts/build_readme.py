@@ -1111,7 +1111,7 @@ def audit_github_discovery(
                 source_texts[url] = text
         except DiscoveryBudgetExceeded as exc:
             return budget_record(exc.reason)
-        except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, ObservationError) as exc:
+        except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, ObservationError, ValueError) as exc:
             fetch_errors.append(f"{url}: {exc}")
 
     candidate_sources: dict[str, set[str]] = {}
@@ -1238,6 +1238,14 @@ def audit_github(
     repo = client["github_repo"]
     previous_source = old.get("source") if isinstance(old, dict) else None
     source_scope_value = source_scope(client)
+    # Older snapshots stored lifecycle only in state. Preserve that affirmative
+    # observation before a 404/error changes the current fetch result.
+    scoped_previous = scoped_lkg(previous_source, source_scope_value)
+    if 'confirmed_archived' not in scoped_previous and scoped_previous.get('state') in {'ok', 'archived'}:
+        previous_source = {
+            **scoped_previous,
+            'confirmed_archived': scoped_previous['state'] == 'archived',
+        }
     result = copy.deepcopy(old or {})
     anomalies: list[str] = []
     ok = True
@@ -1361,6 +1369,7 @@ def audit_github(
                 observed_repo_id=metadata["id"],
                 observed_owner_id=metadata["owner"]["id"],
                 observed_full_name=metadata["full_name"],
+                confirmed_archived=metadata['archived'],
             )
             anomalies.append(f"{client['id']}: official repository disabled")
             ok = False
@@ -1371,6 +1380,7 @@ def audit_github(
                 "owner_id": metadata["owner"]["id"],
                 "full_name": metadata["full_name"],
                 "last_activity_at": iso(pushed) if pushed is not None else None,
+                'confirmed_archived': metadata['archived'],
             }
             if client.get("github_discovery"):
                 source_fields["rediscovered_repo"] = recovered_by_discovery
@@ -1775,7 +1785,9 @@ def source_is_confirmed_archived(client: dict[str, Any], record: dict[str, Any])
     if client.get("source_type") != "github" or client.get("category") == "legacy":
         return False
     source = record.get("source", {}) if isinstance(record, dict) else {}
-    return component_is_scoped(client, record, "source") and source.get("state") == "archived"
+    confirmed = source.get('confirmed_archived')
+    archived = confirmed if type(confirmed) is bool else source.get('state') == 'archived'
+    return component_is_scoped(client, record, "source") and archived
 
 
 def effective_category(client: dict[str, Any], record: dict[str, Any]) -> str:
@@ -1848,6 +1860,9 @@ def activity_status(client: dict[str, Any], record: dict[str, Any], now: dt.date
     if client["category"] == "legacy":
         return "🔴", "历史项目"
     if source_is_confirmed_archived(client, record):
+        source = record.get('source', {})
+        if source.get('state') != 'archived' or source.get('observation_state') == 'error':
+            return '❓', '已确认归档，来源待重新核验'
         return "🔴", "官方仓库已归档"
     current = now or utc_now()
     for component_name in expected_observation_components(client):
