@@ -1139,6 +1139,8 @@ def audit_github_discovery(
         )
 
     trusted_owner_ids = set(config.get("trusted_owner_ids", []))
+    previous_source = scoped_lkg(old.get('source'), source_scope(client))
+    previous_success = parse_time(previous_source.get('last_success_at'))
     verified: list[dict[str, Any]] = []
     candidates: list[dict[str, Any]] = []
     try:
@@ -1176,7 +1178,16 @@ def audit_github_discovery(
                 "evidence_match": evidence_match,
                 "trusted_owner": owner_id in trusted_owner_ids,
             }
-            if metadata["archived"] or metadata["disabled"]:
+            # An inactive repository cannot be claimed for the first time. A
+            # confirmed rebuild with the same scope/ID may still report archive
+            # lifecycle, subject to all current trust/evidence/uniqueness checks.
+            confirmed_rebuild = (
+                previous_source.get('rediscovered_repo') is True
+                and type(previous_source.get('repo_id')) is int
+                and previous_source['repo_id'] == metadata['id']
+                and previous_success is not None and previous_success <= now
+            )
+            if metadata["disabled"] or (metadata["archived"] and not confirmed_rebuild):
                 candidate["reason"] = "inactive"
                 candidates.append(candidate)
                 continue
