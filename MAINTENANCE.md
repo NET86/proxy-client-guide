@@ -10,7 +10,7 @@
 
 ## 自动更新闭环
 
-`.github/workflows/refresh-directory.yml` 每 6 小时运行一次，也可手动触发。
+`.github/workflows/refresh-directory.yml` 每 6 小时运行一次；`main` 上除生成文件外的变更也会自动触发。需要额外手动维护时须单独授权。
 
 流程只有四步：
 
@@ -55,11 +55,9 @@ Refresh 自动处理新版本、同一 GitHub repository ID 的改名或迁移�
 
 ## 本地验证
 
-项目的 Python 依赖仅为标准库；现代北京时间显示使用 UTC+8，不要求主机安装 IANA 时区数据。
+项目的 Python 依赖仅为标准库；现代北京时间显示使用 UTC+8，不要求主机安装 IANA 时区数据。以下离线入口包含重定向预算、HTTP/FTP 隔离及响应正文边界回归。
 
 ```bash
-python scripts/build_readme.py --audit
-python scripts/build_readme.py --health-check
 PYTHONPATH=tests python -m unittest discover -s tests -v
 python -m py_compile scripts/build_readme.py scripts/check_commit_identity.py
 python scripts/build_readme.py --check
@@ -70,6 +68,5 @@ git diff --check
 
 - 上游网络故障：等待下一次 Refresh，不手工改 observations。
 - push 冲突：不强推、不自动 rebase，等待下一次 Refresh。
-- workflow 或保护规则异常：修复后手动运行一次 Refresh。
+- workflow 或保护规则异常：通过 PR 修复，用主干 CI 核对离线检查；联网维护仍按既有触发条件执行。
 - 身份冲突：保持入口隐藏，人工核对并更新静态配置。
-- workflow 代码变更：合并后手动运行一次 Refresh 验收。
