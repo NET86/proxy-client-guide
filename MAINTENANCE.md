@@ -10,7 +10,7 @@
 
 ## 自动更新闭环
 
-`.github/workflows/refresh-directory.yml` 每 6 小时运行一次，也可手动触发。
+`.github/workflows/refresh-directory.yml` 每 6 小时运行一次；`main` 上除生成文件外的变更也会自动触发。需要额外手动维护时须单独授权。
 
 流程只有四步：
 
@@ -49,18 +49,16 @@ Refresh 自动处理新版本、同一 GitHub repository ID 的改名或迁移�
 - release/core 缓存另外绑定实际 repository ID。可信新仓库获准恢复时不继承旧仓同 tag 的 release ID；同一仓库同 tag 重发仍须人工核准。通过固定 ID 找回仓库后，实际用于发布和内容读取的路径仍须在读取前后核验；确认路径身份冲突时立即记录 source 冲突并隐藏入口，不能降格成普通网络错误。
 - 普通 GitHub raw 内核证据先将 ref 解析为完整 commit SHA，再读取该不可变 URL，并记录正文 SHA-256。同仓同 ref 一轮只解析一次；解析失败不退回可变分支。静态配置明确引用其他仓库时，在该仓库内固定提交，不改写到客户端仓库。Wiki 和非仓库网页只记录正文摘要，不声称绑定主仓 commit；这些读取与前后身份检查不能提供跨 API 请求的原子快照保证。
 - GitHub 官方仓库归档后转入历史；动态归档可恢复，静态 `legacy` 不自动恢复。第三方资料只用于历史项目。
-- 不因同名、相似 README、同一官网下的多个页面或单一新来源自动替换为新仓库、fork、第三方镜像或继任项目；仓库重建只有在可信开发者身份或两个不同官方来源域交叉确认后才自动恢复。Discovery 的请求预算按真实 HTTP attempt（含重试）计数，单次连接和响应体分块读取都受剩余 deadline 约束；超预算只保留候选状态，不把部分结果当成完成发现。
+- 不因同名、相似 README、同一官网下的多个页面或单一新来源自动替换为新仓库、fork、第三方镜像或继任项目；仓库重建只有在可信开发者身份或两个不同官方来源域交叉确认后才自动恢复。Discovery 的请求预算按真实 HTTP attempt（含重试及每一跳重定向）计数，每次发送前检查预算并按剩余 deadline 限制 timeout，最终响应体分块读取也受剩余 deadline 约束，重定向正文直接关闭而不读取，非 HTTPS 跳转在发送前拒绝；超预算只保留候选状态，不把部分结果当成完成发现。
 - 主分支保持 linear history，禁止删除和强推。Refresh 只使用短期 `contents: write`，不保存长期写密钥；刷新开始与发布前核对当前 `main`；旧 SHA 的运行按 superseded 跳过，推送失败时只在确认主分支已前进后才视作 superseded，其他失败保持报错。
 - CI 只允许预期的 NET86 / GitHub / github-actions 提交身份。
 
 ## 本地验证
 
-项目的 Python 依赖仅为标准库；现代北京时间显示使用 UTC+8，不要求主机安装 IANA 时区数据。
+项目的 Python 依赖仅为标准库；现代北京时间显示使用 UTC+8，不要求主机安装 IANA 时区数据。以下离线入口包含重定向预算、HTTP/FTP 隔离及响应正文边界回归。
 
 ```bash
-python scripts/build_readme.py --audit
-python scripts/build_readme.py --health-check
-python -m unittest discover -s tests -v
+PYTHONPATH=tests python -m unittest discover -s tests -v
 python -m py_compile scripts/build_readme.py scripts/check_commit_identity.py
 python scripts/build_readme.py --check
 git diff --check
@@ -70,6 +68,5 @@ git diff --check
 
 - 上游网络故障：等待下一次 Refresh，不手工改 observations。
 - push 冲突：不强推、不自动 rebase，等待下一次 Refresh。
-- workflow 或保护规则异常：修复后手动运行一次 Refresh。
+- workflow 或保护规则异常：通过 PR 修复，用主干 CI 核对离线检查；联网维护仍按既有触发条件执行。
 - 身份冲突：保持入口隐藏，人工核对并更新静态配置。
-- workflow 代码变更：合并后手动运行一次 Refresh 验收。

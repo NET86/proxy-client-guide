@@ -269,7 +269,7 @@ class RequestRetryTests(unittest.TestCase):
     def test_json_transient_network_failure_retries_once(self):
         response = io.BytesIO(b'{"ok": true}')
         response.url = "https://example.invalid/test"
-        with patch.object(d.urllib.request, "urlopen", side_effect=[urllib.error.URLError("tls eof"), response]) as opener:
+        with patch.object(d, "_open_request", side_effect=[urllib.error.URLError("tls eof"), response]) as opener:
             with patch.object(d.time, "sleep") as sleeper:
                 self.assertEqual(d.request_json("https://example.invalid/test", attempts=2), {"ok": True})
         self.assertEqual(opener.call_count, 2)
@@ -285,7 +285,7 @@ class RequestRetryTests(unittest.TestCase):
             headers = Headers()
 
         response = TextResponse("Mihomo".encode("utf-8"))
-        with patch.object(d.urllib.request, "urlopen", side_effect=[urllib.error.URLError("tls eof"), response]) as opener:
+        with patch.object(d, "_open_request", side_effect=[urllib.error.URLError("tls eof"), response]) as opener:
             with patch.object(d.time, "sleep") as sleeper:
                 self.assertEqual(d.request_text("https://example.invalid/test", attempts=2), "Mihomo")
         self.assertEqual(opener.call_count, 2)
@@ -293,7 +293,7 @@ class RequestRetryTests(unittest.TestCase):
 
     def test_404_is_not_retried(self):
         error = urllib.error.HTTPError("https://example.invalid/missing", 404, "missing", {}, None)
-        with patch.object(d.urllib.request, "urlopen", side_effect=error) as opener:
+        with patch.object(d, "_open_request", side_effect=error) as opener:
             self.assertIsNone(d.request_json("https://example.invalid/missing", attempts=2))
         self.assertEqual(opener.call_count, 1)
 
@@ -321,7 +321,7 @@ class ResponseLimitTests(unittest.TestCase):
         for request, body in ((d.request_json, b'{"ok": true}'), (d.request_text, b"Mihomo")):
             with self.subTest(request=request.__name__):
                 response = self.http_response(body, f"Content-Length: {len(body) + 10}\r\n".encode())
-                with patch.object(d.urllib.request, "urlopen", return_value=response):
+                with patch.object(d, "_open_request", return_value=response):
                     with self.assertRaisesRegex(OSError, "Incomplete HTTP response"):
                         request("https://example.invalid/test")
                 self.assertTrue(response.closed)
@@ -341,7 +341,7 @@ class ResponseLimitTests(unittest.TestCase):
             ):
                 with self.subTest(request=request.__name__, headers=headers):
                     response = self.http_response(wire_body, headers)
-                    with patch.object(d.urllib.request, "urlopen", return_value=response):
+                    with patch.object(d, "_open_request", return_value=response):
                         self.assertEqual(request("https://example.invalid/test"), expected)
                     self.assertTrue(response.closed)
 
@@ -356,7 +356,7 @@ class ResponseLimitTests(unittest.TestCase):
                 with self.subTest(request=request.__name__, headers=headers):
                     response = self.http_response(wire_body, headers)
                     with patch.object(d, "MAX_RESPONSE_BYTES", 32):
-                        with patch.object(d.urllib.request, "urlopen", return_value=response):
+                        with patch.object(d, "_open_request", return_value=response):
                             with self.assertRaisesRegex(OSError, "exceeds 32 byte limit"):
                                 request("https://example.invalid/test")
                     self.assertTrue(response.closed)
@@ -366,7 +366,7 @@ class ResponseLimitTests(unittest.TestCase):
             with self.subTest(request=request.__name__):
                 wire_body = f"{len(body):x}\r\n".encode() + body + b"\r\n"
                 response = self.http_response(wire_body, b"Transfer-Encoding: chunked\r\n")
-                with patch.object(d.urllib.request, "urlopen", return_value=response):
+                with patch.object(d, "_open_request", return_value=response):
                     with self.assertRaisesRegex(OSError, "Incomplete HTTP response"):
                         request("https://example.invalid/test")
                 self.assertTrue(response.closed)
@@ -385,7 +385,7 @@ class ResponseLimitTests(unittest.TestCase):
             "archived": False, "disabled": False, "pushed_at": d.iso(later),
         }).encode()
         response = self.http_response(body, f"Content-Length: {len(body) + 10}\r\n".encode())
-        with patch.object(d.urllib.request, "urlopen", return_value=response):
+        with patch.object(d, "_open_request", return_value=response):
             out = d.audit([client], {"clients": {client["id"]: old}}, fetch_text=AuditTests.evidence, now=later)
         record = out["clients"][client["id"]]
         self.assertEqual(record["source"]["observation_state"], "error")
@@ -402,7 +402,7 @@ class ResponseLimitTests(unittest.TestCase):
         previous = d.positive_record(None, STAMP, d.core_evidence_scope(client), state="ok")
         body = AuditTests.evidence("").encode()
         response = self.http_response(body, f"Content-Length: {len(body) + 10}\r\n".encode())
-        with patch.object(d.urllib.request, "urlopen", return_value=response):
+        with patch.object(d, "_open_request", return_value=response):
             record, issues, ok = d.audit_core_evidence(
                 client, {"core_evidence": previous}, NOW + dt.timedelta(hours=1), d.request_text,
             )
@@ -423,7 +423,7 @@ class ResponseLimitTests(unittest.TestCase):
             captured.append(request)
             return response
 
-        with patch.object(d.urllib.request, "urlopen", side_effect=opener):
+        with patch.object(d, "_open_request", side_effect=opener):
             self.assertEqual(
                 d.request_json(
                     "https://api.github.com/repos/NET86/proxy-client-guide",
@@ -484,7 +484,7 @@ class ResponseLimitTests(unittest.TestCase):
             ):
                 with self.subTest(length=length, request=request.__name__, charset=charset):
                     response = self.Response(body, length, charset)
-                    with patch.object(d.urllib.request, "urlopen", return_value=response):
+                    with patch.object(d, "_open_request", return_value=response):
                         self.assertEqual(request("https://example.invalid/test"), expected)
                     self.assertTrue(response.closed)
 
@@ -496,7 +496,7 @@ class ResponseLimitTests(unittest.TestCase):
             with self.subTest(request=request.__name__):
                 response = self.Response(body)
                 with patch.object(d, "MAX_RESPONSE_BYTES", 32):
-                    with patch.object(d.urllib.request, "urlopen", return_value=response):
+                    with patch.object(d, "_open_request", return_value=response):
                         self.assertEqual(request("https://example.invalid/test"), expected)
                 self.assertEqual(response.bytes_read, 32)
 
@@ -506,7 +506,7 @@ class ResponseLimitTests(unittest.TestCase):
                 with self.subTest(length=length, request=request.__name__):
                     response = self.Response(b"x" * 1000, length)
                     with patch.object(d, "MAX_RESPONSE_BYTES", 32):
-                        with patch.object(d.urllib.request, "urlopen", return_value=response) as opener:
+                        with patch.object(d, "_open_request", return_value=response) as opener:
                             with self.assertRaisesRegex(OSError, "exceeds 32 byte limit"):
                                 request("https://example.invalid/test")
                     self.assertEqual(response.bytes_read, 33)
@@ -515,7 +515,7 @@ class ResponseLimitTests(unittest.TestCase):
 
     def test_truncated_json_is_not_accepted_or_retried(self):
         response = self.Response(b'{"ok":')
-        with patch.object(d.urllib.request, "urlopen", return_value=response) as opener:
+        with patch.object(d, "_open_request", return_value=response) as opener:
             with self.assertRaises(json.JSONDecodeError):
                 d.request_json("https://example.invalid/test")
         self.assertTrue(response.closed)
@@ -526,7 +526,7 @@ class ResponseLimitTests(unittest.TestCase):
             with self.subTest(request=request.__name__):
                 response = self.Response(b"")
                 with patch.object(response, "read", side_effect=http.client.IncompleteRead(b"partial", 100)):
-                    with patch.object(d.urllib.request, "urlopen", return_value=response):
+                    with patch.object(d, "_open_request", return_value=response):
                         with self.assertRaisesRegex(OSError, "Incomplete HTTP response"):
                             request("https://example.invalid/test")
                 self.assertTrue(response.closed)
@@ -544,7 +544,7 @@ class ResponseLimitTests(unittest.TestCase):
             with self.subTest(body_size=len(body)):
                 response = self.Response(body)
                 with patch.object(d, "MAX_RESPONSE_BYTES", 32):
-                    with patch.object(d.urllib.request, "urlopen", return_value=response):
+                    with patch.object(d, "_open_request", return_value=response):
                         out = d.audit([client], {"clients": {client["id"]: old}}, now=later)
                 record = out["clients"][client["id"]]
                 source = record["source"]
@@ -563,7 +563,7 @@ class ResponseLimitTests(unittest.TestCase):
         previous = d.positive_record(None, STAMP, d.core_evidence_scope(client), state="ok")
         response = self.Response(b"x" * 1000)
         with patch.object(d, "MAX_RESPONSE_BYTES", 32):
-            with patch.object(d.urllib.request, "urlopen", return_value=response):
+            with patch.object(d, "_open_request", return_value=response):
                 record, issues, ok = d.audit_core_evidence(
                     client, {"core_evidence": previous}, NOW + dt.timedelta(hours=1), d.request_text,
                 )
@@ -1654,9 +1654,7 @@ class AuditTests(unittest.TestCase):
 
     def test_discovery_http_retry_consumes_actual_attempt_budget(self):
         budget = d.DiscoveryBudget(max_requests=1, max_seconds=10.0)
-        with patch.object(
-            d.urllib.request,
-            "urlopen",
+        with patch.object(d, "_open_request",
             side_effect=urllib.error.URLError("temporary"),
         ) as mocked, patch.object(d.time, "sleep"):
             with self.assertRaisesRegex(d.DiscoveryBudgetExceeded, "request_budget_exceeded"):
@@ -1704,8 +1702,7 @@ class AuditTests(unittest.TestCase):
             self.assertLessEqual(timeout, 1.0)
             return Response()
 
-        with patch.object(d.time, "monotonic", side_effect=lambda: clock[0]), patch.object(
-            d.urllib.request, "urlopen", side_effect=fake_urlopen
+        with patch.object(d.time, "monotonic", side_effect=lambda: clock[0]), patch.object(d, "_open_request", side_effect=fake_urlopen
         ):
             budget = d.DiscoveryBudget(max_requests=2, max_seconds=1.0)
             with self.assertRaisesRegex(d.DiscoveryBudgetExceeded, "time_budget_exceeded"):
@@ -1730,8 +1727,7 @@ class AuditTests(unittest.TestCase):
                 None,
             )
 
-        with patch.object(d.time, "monotonic", side_effect=lambda: clock[0]), patch.object(
-            d.urllib.request, "urlopen", side_effect=delayed_404
+        with patch.object(d.time, "monotonic", side_effect=lambda: clock[0]), patch.object(d, "_open_request", side_effect=delayed_404
         ):
             budget = d.DiscoveryBudget(max_requests=2, max_seconds=1.0)
             with self.assertRaisesRegex(d.DiscoveryBudgetExceeded, "time_budget_exceeded"):

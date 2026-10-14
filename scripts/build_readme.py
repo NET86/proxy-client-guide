@@ -115,7 +115,7 @@ class DiscoveryBudget:
         remaining = self.remaining_seconds()
         if remaining <= 0:
             raise DiscoveryBudgetExceeded("time_budget_exceeded")
-        return max(0.05, min(20.0, remaining))
+        return min(20.0, remaining)
 
     def before_attempt(self) -> float:
         if self.attempts >= self.max_requests:
@@ -523,6 +523,71 @@ def require_https_response(request: urllib.request.Request, response: Any) -> No
         require_https_metadata_url(target)
 
 
+class _DiscardRedirectBody:
+    """Redirect bodies are not evidence; never drain a potentially unbounded stream."""
+
+    def __init__(self, response):
+        self.response = response
+
+    def __getattr__(self, name):
+        return getattr(self.response, name)
+
+    def read(self, *args, **kwargs):
+        return b""
+
+    def close(self):
+        self.response.close()
+
+
+class _BudgetRedirectHandler(urllib.request.HTTPRedirectHandler):
+    def http_error_302(self, request, response, code, message, headers):
+        try:
+            return super().http_error_302(
+                request, _DiscardRedirectBody(response), code, message, headers
+            )
+        finally:
+            response.close()
+
+    http_error_301 = http_error_303 = http_error_307 = http_error_308 = http_error_302
+
+
+class _RedirectBudgetProcessor(urllib.request.BaseHandler):
+    """Require HTTPS and apply any shared budget before every dispatch."""
+    handler_order = 1000
+
+    def __init__(self, budget: DiscoveryBudget | None):
+        self.budget = budget
+        self.first = True
+
+    def http_request(self, request):
+        require_https_metadata_url(request.full_url)
+        if self.budget is None:
+            return request
+        if self.first:
+            # The outer retry loop already charged this initial attempt. Tighten
+            # its timeout again after request preparation, before dispatch.
+            self.first = False
+            request.timeout = min(request.timeout, self.budget.check_deadline())
+        else:
+            request.timeout = self.budget.before_attempt()
+        return request
+
+    https_request = http_request
+    ftp_request = http_request
+
+
+def _open_request(request, *, timeout):
+    budget = getattr(request, "_discovery_budget", None)
+    # Every request skips redirect bodies, even outside discovery. A local
+    # opener also keeps optional redirect budgets isolated between workers.
+    # The standard redirect handler still owns history, loop limits and the
+    # exclusion of unredirected Authorization headers from redirected requests.
+    opener = urllib.request.build_opener(
+        _BudgetRedirectHandler(), _RedirectBudgetProcessor(budget)
+    )
+    return opener.open(request, timeout=timeout)
+
+
 def request_json(
     url: str,
     token: str | None = None,
@@ -536,6 +601,7 @@ def request_json(
     if token and parsed.hostname == "api.github.com":
         headers["X-GitHub-Api-Version"] = "2022-11-28"
     request = urllib.request.Request(url, headers=headers)
+    request._discovery_budget = budget
     if token and parsed.hostname == "api.github.com":
         # Unredirected headers apply only to the original request. urllib's
         # redirect handler does not copy them to a different origin.
@@ -544,7 +610,7 @@ def request_json(
     for attempt in range(attempts):
         timeout = budget.before_attempt() if budget is not None else 20
         try:
-            with urllib.request.urlopen(request, timeout=timeout) as response:
+            with _open_request(request, timeout=timeout) as response:
                 require_https_response(request, response)
                 payload = json.loads(read_response(response, budget=budget))
             if budget is not None:
@@ -589,11 +655,12 @@ def request_text(
 ) -> str | None:
     require_https_metadata_url(url)
     request = urllib.request.Request(url, headers={"Accept": "text/plain", "User-Agent": "NET86-clash-directory/3"})
+    request._discovery_budget = budget
     last_error: BaseException | None = None
     for attempt in range(attempts):
         timeout = budget.before_attempt() if budget is not None else 20
         try:
-            with urllib.request.urlopen(request, timeout=timeout) as response:
+            with _open_request(request, timeout=timeout) as response:
                 require_https_response(request, response)
                 body = read_response(response, budget=budget)
                 charset = response.headers.get_content_charset() or "utf-8"
