@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-14T17:04:25Z",
+        "last_activity_at": "2026-10-14T22:03:49Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-14T20:04:26Z",
-        "last_success_at": "2026-10-14T20:04:26Z",
+        "observed_at": "2026-10-15T00:22:11Z",
+        "last_success_at": "2026-10-15T00:22:11Z",
         "confirmed_archived": false
       },
       "release": {
@@ -339,42 +339,37 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-14T19:29:10Z",
+        "last_activity_at": "2026-10-14T22:21:53Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-14T20:04:26Z",
-        "last_success_at": "2026-10-14T20:04:26Z",
+        "observed_at": "2026-10-15T00:22:11Z",
+        "last_success_at": "2026-10-15T00:22:11Z",
         "confirmed_archived": false
       },
       "release": {
-        "state": "assets_missing",
-        "version": "v2.0.0-rc.1",
-        "published_at": "2026-10-09T09:44:24Z",
-        "release_id": 407771089,
+        "state": "ok",
+        "version": "v2.0.0-rc.2",
+        "published_at": "2026-10-14T19:17:20Z",
+        "release_id": 413091001,
         "asset_count": 36,
         "scope": "sha256:46a12bead5118ca8aa64a064869a8cd770faf158ceac067c0dca2037e6463439",
-        "observation_state": "verified_negative",
+        "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-14T20:04:26Z",
-        "last_success_at": "2026-10-13T21:05:46Z",
-        "repo_id": 716838500,
-        "observed_repo_id": 716838500,
-        "observed_version": "v2.0.0-rc.2",
-        "observed_published_at": "2026-10-14T19:17:20Z",
-        "observed_release_id": 413091001,
-        "observed_asset_count": 0
+        "observed_at": "2026-10-15T00:22:11Z",
+        "last_success_at": "2026-10-15T00:22:11Z",
+        "repo_id": 716838500
       },
       "core_evidence": {
         "state": "ok",
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-14T20:04:26Z",
-        "last_success_at": "2026-10-14T20:04:26Z",
+        "observed_at": "2026-10-15T00:22:11Z",
+        "last_success_at": "2026-10-15T00:22:11Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/c85406d3a16ba61cecf7f8aec7a5a051523cbc2d/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/5ed238841d98b47ae5e2fdfeb433d4946ba43bbb/README.md",
             "sha256": "8ce2b3f283a7ae563076fa1a3b68696df09361e4e7e23cb6885572387a299c0b"
           }
         ],
@@ -1003,12 +998,10 @@
   },
   "health": {
     "attempted": 24,
-    "succeeded": 23,
-    "coverage": 0.9583,
-    "anomalies": [
-      "clash-nyanpasu: unresolved release state assets_missing"
-    ],
+    "succeeded": 24,
+    "coverage": 1.0,
+    "anomalies": [],
     "attempted_last_run": 24,
-    "succeeded_last_run": 23
+    "succeeded_last_run": 24
   }
 }
