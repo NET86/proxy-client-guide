@@ -52,7 +52,7 @@ class CatalogTests(unittest.TestCase):
         self.assertNotIn("github_repo", self.by_id["hako"])
         self.assertNotIn("official_repo_id", self.by_id["hako"])
         self.assertNotIn("core_evidence", self.by_id["hako"])
-        self.assertEqual(self.by_id["hako"]["app_store_core_patterns"], ["Hako builds on the open-source mihomo project"])
+        self.assertEqual(self.by_id["hako"]["app_store_core_patterns"], ["(?:Hako builds on|Its core builds on|The core is built on) the open-source mihomo project"])
         self.assertEqual(self.by_id["hako"]["github_discovery"]["trusted_text_urls"], ["https://clash.md/"])
         self.assertEqual(self.by_id["hako"]["github_discovery"]["trusted_owner_ids"], [305755057])
         self.assertEqual(self.by_id["hako"]["github_discovery"]["repo_patterns"], [r"\bHako\b"])
@@ -1036,6 +1036,45 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(out["release"]["state"], "ok")
         self.assertEqual(out["core_evidence"]["state"], "ok")
         self.assertEqual(d.links_for(client, out, NOW), (client["website_url"], client["download_url"]))
+
+    def test_app_store_core_evidence_accepts_current_official_wording(self):
+        client = self.by_id["hako"]
+        for description in (
+            "Its core builds on the open-source mihomo project and powers the app.",
+            "The core is built on the open-source mihomo project.",
+        ):
+            with self.subTest(description=description):
+                payload = {"resultCount": 1, "results": [{
+                    "trackId": int(client["app_store_id"]),
+                    "sellerName": client["app_store_seller"],
+                    "version": "1.0.12",
+                    "currentVersionReleaseDate": "2026-09-14T00:00:00Z",
+                    "description": description,
+                }]}
+                out, issues, ok = d.audit_app_store_source(
+                    client, {}, NOW, lambda *args: payload,
+                    lambda _url: "official Hako website",
+                )
+                self.assertTrue(ok)
+                self.assertEqual(issues, [])
+                self.assertEqual(out["core_evidence"]["state"], "ok")
+
+    def test_app_store_core_evidence_does_not_accept_profile_compatibility(self):
+        client = self.by_id["hako"]
+        payload = {"resultCount": 1, "results": [{
+            "trackId": int(client["app_store_id"]),
+            "sellerName": client["app_store_seller"],
+            "version": "1.0.12",
+            "currentVersionReleaseDate": "2026-09-14T00:00:00Z",
+            "description": "Import your existing mihomo project profiles.",
+        }]}
+        out, issues, ok = d.audit_app_store_source(
+            client, {}, NOW, lambda *args: payload,
+            lambda _url: "official Hako website",
+        )
+        self.assertFalse(ok)
+        self.assertEqual(out["core_evidence"]["state"], "mismatch")
+        self.assertTrue(issues)
 
     def test_app_store_core_evidence_mismatch(self):
         client = self.by_id["hako"]

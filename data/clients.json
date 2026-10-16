@@ -117,7 +117,7 @@
       "website_url": "https://clash.md/",
       "core": "Hako（基于 Mihomo）",
       "app_store_core_patterns": [
-        "Hako builds on the open-source mihomo project"
+        "(?:Hako builds on|Its core builds on|The core is built on) the open-source mihomo project"
       ],
       "github_discovery": {
         "trusted_text_urls": [
