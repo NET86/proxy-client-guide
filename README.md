@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-10-16；1 项待成功核验（北京时间，下同）。
+核验：最近成功日期 2026-10-16（北京时间，下同）。
 > 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -23,6 +23,7 @@
 
 | 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
+| Clash | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/ProjectClash/Clash) | [App Store](https://apps.apple.com/app/id6794257189) |
 | ClashMi | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/clashmi) | [下载页](https://github.com/KaringX/clashmi/releases) |
 | Bettbox | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/appshubcc/Bettbox) | [下载页](https://github.com/appshubcc/Bettbox/releases) |
 | FlClash | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/chen08209/FlClash) | [下载页](https://github.com/chen08209/FlClash/releases) |
@@ -32,7 +33,6 @@
 | ClashX Meta | 🟢 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashX.Meta) | [下载页](https://github.com/MetaCubeX/ClashX.Meta/releases) |
 | AsteriskMETA | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/Asterisk4Magisk/AsteriskMETA) | [下载页](https://github.com/Asterisk4Magisk/AsteriskMETA/releases) |
 | Clash Meta for Android | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashMetaForAndroid) | [下载页](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
-| Clash | ❓ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官网](https://clash.md/) | [App Store](https://apps.apple.com/app/id6794257189) |
 
 ## sing-box 内核客户端
 
@@ -98,12 +98,13 @@
 ### Clash
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：❓ 待确认｜配置已变更，待重新核验
+- 状态：🟢 近半年有更新
 - 平台：macOS / iOS / tvOS
 - 内核：Clash（基于 Mihomo）
-- 官方来源：[https://clash.md/](https://clash.md/)
+- 官方来源：[https://github.com/ProjectClash/Clash](https://github.com/ProjectClash/Clash)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
 - 版本：1.0.12（2026-10-15）
+- 官网：[https://clash.md/](https://clash.md/)
 - 说明：原 Hako 已更名为 Clash；旧源码仓库已归档，现由 ProjectClash 维护内核与 Apple 客户端源码。
 
 ### Clash Meta for Android
