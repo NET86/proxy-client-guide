@@ -160,15 +160,12 @@
         "observed_at": "2026-10-15T09:01:54Z"
       },
       "core_evidence": {
-        "state": "mismatch",
-        "scope": "sha256:3e3adccc626b2b5eab026efc2dca3f5662d45a676e6d6c987ded416a9d1cc8c6",
-        "observation_state": "verified_negative",
+        "state": "ok",
+        "scope": "sha256:25a6a3f5bdfb987653f1420e7c6a36438958de5b3e08f913483e7a5408d0c5ff",
+        "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-14T20:04:26Z",
-        "observed_at": "2026-10-16T00:09:53Z",
-        "observed_missing_patterns": [
-          "Hako builds on the open-source mihomo project"
-        ]
+        "last_success_at": "2026-10-16T02:14:28Z",
+        "observed_at": "2026-10-16T02:14:28Z"
       },
       "github_discovery": {
         "state": "candidate",
@@ -330,12 +327,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-15T22:14:45Z",
+        "last_activity_at": "2026-10-16T02:02:34Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-16T00:09:53Z",
-        "last_success_at": "2026-10-16T00:09:53Z",
+        "observed_at": "2026-10-16T02:14:28Z",
+        "last_success_at": "2026-10-16T02:14:28Z",
         "confirmed_archived": false
       },
       "release": {
@@ -989,12 +986,10 @@
   },
   "health": {
     "attempted": 24,
-    "succeeded": 23,
-    "coverage": 0.9583,
-    "anomalies": [
-      "hako: unresolved core_evidence state mismatch"
-    ],
+    "succeeded": 24,
+    "coverage": 1.0,
+    "anomalies": [],
     "attempted_last_run": 24,
-    "succeeded_last_run": 23
+    "succeeded_last_run": 24
   }
 }
