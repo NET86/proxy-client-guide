@@ -99,7 +99,7 @@
     },
     {
       "id": "hako",
-      "name": "Clash（Hako）",
+      "name": "Clash",
       "category": "mihomo",
       "platforms": {
         "windows": false,
@@ -115,20 +115,38 @@
       "release_source": "app_store",
       "download_url": "https://apps.apple.com/app/id6794257189",
       "website_url": "https://clash.md/",
-      "core": "Hako（基于 Mihomo）",
-      "app_store_core_patterns": [
-        "(?:Hako builds on|Its core builds on|The core is built on) the open-source mihomo project"
+      "core": "Clash（基于 Mihomo）",
+      "source_note": "原 Hako 已更名为 Clash；旧源码仓库已归档，现由 ProjectClash 维护内核与 Apple 客户端源码。",
+      "app_store_core_repo": {
+        "id": 1390230283,
+        "repository": "ProjectClash/Clash"
+      },
+      "core_evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/ProjectClash/Clash/main/README.md",
+          "patterns": [
+            "(?im)^# Clash\\s*$",
+            "(?is)\\b(?:proxy kernel based on|independent derivative of)\\b.{0,120}\\bmihomo\\b"
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ProjectClash/Clash/main/UPSTREAM_VERSION",
+          "patterns": [
+            "(?m)^v[0-9]+\\.[0-9]+\\.[0-9]+\\s*$"
+          ]
+        }
       ],
       "github_discovery": {
         "trusted_text_urls": [
           "https://clash.md/"
         ],
         "trusted_owner_ids": [
-          305755057
+          334401670
         ],
         "repo_patterns": [
-          "\\bHako\\b"
-        ]
+          "\\bClash\\b"
+        ],
+        "target_repo_id": 1390230283
       }
     },
     {

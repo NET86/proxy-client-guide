@@ -51,11 +51,16 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(self.by_id["hako"]["source_type"], "app_store")
         self.assertNotIn("github_repo", self.by_id["hako"])
         self.assertNotIn("official_repo_id", self.by_id["hako"])
-        self.assertNotIn("core_evidence", self.by_id["hako"])
-        self.assertEqual(self.by_id["hako"]["app_store_core_patterns"], ["(?:Hako builds on|Its core builds on|The core is built on) the open-source mihomo project"])
+        self.assertEqual(self.by_id["hako"]["name"], "Clash")
+        self.assertNotIn("app_store_core_patterns", self.by_id["hako"])
+        self.assertEqual(self.by_id["hako"]["app_store_core_repo"], {
+            "id": 1390230283, "repository": "ProjectClash/Clash",
+        })
+        self.assertEqual(len(self.by_id["hako"]["core_evidence"]), 2)
         self.assertEqual(self.by_id["hako"]["github_discovery"]["trusted_text_urls"], ["https://clash.md/"])
-        self.assertEqual(self.by_id["hako"]["github_discovery"]["trusted_owner_ids"], [305755057])
-        self.assertEqual(self.by_id["hako"]["github_discovery"]["repo_patterns"], [r"\bHako\b"])
+        self.assertEqual(self.by_id["hako"]["github_discovery"]["trusted_owner_ids"], [334401670])
+        self.assertEqual(self.by_id["hako"]["github_discovery"]["repo_patterns"], [r"\bClash\b"])
+        self.assertEqual(self.by_id["hako"]["github_discovery"]["target_repo_id"], 1390230283)
         self.assertEqual(self.by_id["hako"]["platforms"]["tvos"], True)
         self.assertEqual(self.by_id["stash"]["core"], "未公开")
         self.assertEqual(self.by_id["surge"]["name"], "Surge")
@@ -78,7 +83,7 @@ class CatalogTests(unittest.TestCase):
         self.assertRegex("Bettbox 基于强大的 Mihomo(Clash Meta) 内核深度打造", pattern)
 
     def test_core_labels_follow_display_convention(self):
-        simple = {"Mihomo", "Clash", "sing-box", "Hako（基于 Mihomo）", "未公开"}
+        simple = {"Mihomo", "Clash", "sing-box", "Clash（基于 Mihomo）", "未公开"}
         for client in self.clients:
             core = client.get("core")
             if not core:
@@ -100,7 +105,7 @@ class CatalogTests(unittest.TestCase):
             if client["category"] == "legacy":
                 continue
             core = client.get("core")
-            if core in {"Mihomo", "Clash"} or str(core).startswith("Hako（"):
+            if core in {"Mihomo", "Clash"} or str(core).startswith("Clash（基于 Mihomo）"):
                 expected = "mihomo"
             elif core == "sing-box":
                 expected = "sing_box"
@@ -191,6 +196,7 @@ class CatalogTests(unittest.TestCase):
         payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
         target = next(client for client in payload["clients"] if client["id"] == "hako")
         target.pop("core_evidence", None)
+        target.pop("app_store_core_repo", None)
         target.pop("app_store_core_patterns", None)
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "clients.json"
@@ -201,11 +207,41 @@ class CatalogTests(unittest.TestCase):
     def test_loader_rejects_both_app_store_core_evidence_modes(self):
         payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
         target = next(client for client in payload["clients"] if client["id"] == "hako")
-        target["core_evidence"] = [{"url": "https://raw.githubusercontent.com/example/repo/main/README.md", "patterns": ["mihomo"]}]
+        target["app_store_core_patterns"] = ["mihomo"]
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "clients.json"
             path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "cannot both be configured"):
+                d.load_clients(path)
+
+    def test_loader_requires_id_pin_for_app_store_raw_evidence(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(c for c in payload["clients"] if c["id"] == "hako")
+        target.pop("app_store_core_repo")
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "requires a repository ID pin"):
+                d.load_clients(path)
+
+    def test_loader_rejects_cross_repository_core_evidence(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(c for c in payload["clients"] if c["id"] == "hako")
+        target["core_evidence"][0]["url"] = "https://raw.githubusercontent.com/ProjectClash/Clash-Client/main/README.md"
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "remain in the pinned repository"):
+                d.load_clients(path)
+
+    def test_loader_rejects_invalid_discovery_repo_id(self):
+        payload = json.loads((ROOT / "data" / "clients.json").read_text(encoding="utf-8"))
+        target = next(c for c in payload["clients"] if c["id"] == "hako")
+        target["github_discovery"]["target_repo_id"] = True
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "clients.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "target_repo_id must be a positive"):
                 d.load_clients(path)
 
     def test_app_store_identity_has_seller_pin(self):
@@ -1018,8 +1054,135 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(out["source"]["state"], "identity_mismatch")
         self.assertTrue(issues)
 
-    def test_app_store_core_evidence_success(self):
+    @staticmethod
+    def clash_core_metadata(repo_id=1390230283):
+        return {
+            "id": repo_id,
+            "name": "Clash",
+            "full_name": "ProjectClash/Clash",
+            "description": "Official Clash kernel for Apple devices",
+            "owner": {"id": 334401670},
+            "archived": False,
+            "disabled": False,
+            "pushed_at": STAMP,
+        }
+
+    def test_clash_core_pins_official_repo_and_immutable_revision(self):
         client = self.by_id["hako"]
+        payload = {"resultCount": 1, "results": [{
+            "trackId": int(client["app_store_id"]),
+            "sellerName": client["app_store_seller"],
+            "version": "1.0.12",
+            "currentVersionReleaseDate": STAMP,
+            # Marketing text intentionally contains no kernel or GitHub statement.
+            "description": "Clash for Apple platforms with easy profile import.",
+        }]}
+        calls = []
+        sha = "a" * 40
+
+        def api(url, token=None):
+            calls.append(url)
+            if url.startswith("https://itunes.apple.com/lookup"):
+                return payload
+            if url == "https://api.github.com/repositories/1390230283":
+                return self.clash_core_metadata()
+            if url == "https://api.github.com/repos/ProjectClash/Clash/commits/main":
+                return {"sha": sha}
+            if url == "https://api.github.com/repos/ProjectClash/Clash":
+                return self.clash_core_metadata()
+            self.fail(f"unexpected GitHub API request: {url}")
+
+        def fetch(url):
+            if url == "https://clash.md/":
+                return "Official core: https://github.com/ProjectClash/Clash"
+            self.assertTrue(url.startswith(f"https://raw.githubusercontent.com/ProjectClash/Clash/{sha}/"))
+            if url.endswith("/README.md"):
+                return "# Clash\nClash is a proxy kernel based on **mihomo v1.19.32**."
+            if url.endswith("/UPSTREAM_VERSION"):
+                return "v1.19.32\n"
+            self.fail(f"unknown immutable evidence: {url}")
+
+        record, issues, ok = d.audit_app_store_source(client, {}, NOW, api, fetch, "token")
+        self.assertTrue(ok)
+        self.assertEqual(issues, [])
+        self.assertEqual(record["core_evidence"]["state"], "ok")
+        self.assertEqual(record["core_evidence"]["repo_id"], 1390230283)
+        self.assertEqual(len(record["core_evidence"]["evidence_snapshots"]), 2)
+        self.assertEqual(calls.count("https://api.github.com/repos/ProjectClash/Clash/commits/main"), 1)
+        self.assertEqual(record["github_discovery"]["state"], "verified")
+        self.assertEqual(record["github_discovery"]["repo_id"], 1390230283)
+        self.assertEqual(d.links_for(client, record, NOW)[0], "https://github.com/ProjectClash/Clash")
+
+    def test_clash_core_detects_pinned_repository_substitution(self):
+        client = self.by_id["hako"]
+
+        def api(url, token=None):
+            self.assertEqual(url, "https://api.github.com/repositories/1390230283")
+            return self.clash_core_metadata(repo_id=987654)
+
+        record, issues, ok = d.audit_app_store_pinned_core_evidence(
+            client, {}, NOW, api, lambda _url: self.fail("must not fetch untrusted raw content"), "token"
+        )
+        self.assertFalse(ok)
+        self.assertEqual(record["state"], "identity_mismatch")
+        self.assertEqual(record["observation_state"], "verified_negative")
+        self.assertTrue(issues)
+
+    def test_clash_core_does_not_accept_a_mihomo_config_mention(self):
+        client = self.by_id["hako"]
+        sha = "b" * 40
+
+        def api(url, token=None):
+            if url == "https://api.github.com/repositories/1390230283":
+                return self.clash_core_metadata()
+            if url == "https://api.github.com/repos/ProjectClash/Clash/commits/main":
+                return {"sha": sha}
+            self.fail(f"unexpected API request: {url}")
+
+        record, issues, ok = d.audit_app_store_pinned_core_evidence(
+            client, {}, NOW, api, lambda _url: "# Clash\nImport your mihomo configuration profiles.", "token"
+        )
+        self.assertFalse(ok)
+        self.assertEqual(record["state"], "mismatch")
+        self.assertTrue(issues)
+
+    def test_clash_discovery_pins_kernel_not_client_or_legacy(self):
+        client = self.by_id["hako"]
+        self.assertFalse(d.github_candidate_matches(
+            client["github_discovery"], {
+                "id": 1390234592, "name": "Clash-Client",
+                "full_name": "ProjectClash/Clash-Client",
+                "description": "Clash client", "owner": {"id": 334401670},
+            },
+        ))
+        self.assertFalse(d.github_candidate_matches(
+            client["github_discovery"], {
+                "id": 1315918490, "name": "Clash-Legacy",
+                "full_name": "ProjectClash/Clash-Legacy",
+                "description": "Clash historical kernel", "owner": {"id": 334401670},
+            },
+        ))
+        self.assertTrue(d.github_candidate_matches(
+            client["github_discovery"], self.clash_core_metadata(),
+        ))
+
+    def legacy_description_hako(self):
+        """Retain independent tests for the older App Store-only evidence mode."""
+        client = copy.deepcopy(self.by_id["hako"])
+        client.pop("app_store_core_repo", None)
+        client.pop("core_evidence", None)
+        client["app_store_core_patterns"] = [
+            "(?:Hako builds on|Its core builds on|The core is built on) the open-source mihomo project"
+        ]
+        client["github_discovery"] = {
+            "trusted_text_urls": ["https://clash.md/"],
+            "trusted_owner_ids": [305755057],
+            "repo_patterns": [r"\bHako\b"],
+        }
+        return client
+
+    def test_app_store_core_evidence_success(self):
+        client = self.legacy_description_hako()
         payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z", "description": "Hako builds on the open-source mihomo project"}]}
         text_calls = []
         def fetch_text(url):
@@ -1038,7 +1201,7 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(d.links_for(client, out, NOW), (client["website_url"], client["download_url"]))
 
     def test_app_store_core_evidence_accepts_current_official_wording(self):
-        client = self.by_id["hako"]
+        client = self.legacy_description_hako()
         for description in (
             "Its core builds on the open-source mihomo project and powers the app.",
             "The core is built on the open-source mihomo project.",
@@ -1060,7 +1223,7 @@ class AuditTests(unittest.TestCase):
                 self.assertEqual(out["core_evidence"]["state"], "ok")
 
     def test_app_store_core_evidence_does_not_accept_profile_compatibility(self):
-        client = self.by_id["hako"]
+        client = self.legacy_description_hako()
         payload = {"resultCount": 1, "results": [{
             "trackId": int(client["app_store_id"]),
             "sellerName": client["app_store_seller"],
@@ -1077,7 +1240,7 @@ class AuditTests(unittest.TestCase):
         self.assertTrue(issues)
 
     def test_app_store_core_evidence_mismatch(self):
-        client = self.by_id["hako"]
+        client = self.legacy_description_hako()
         payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z", "description": "Hako is an unrelated proxy engine"}]}
         text_calls = []
         def fetch_text(url):
@@ -1095,7 +1258,7 @@ class AuditTests(unittest.TestCase):
         self.assertTrue(issues)
 
     def test_app_store_core_evidence_missing_description(self):
-        client = self.by_id["hako"]
+        client = self.legacy_description_hako()
         payload = {"resultCount": 1, "results": [{"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "1.0.7", "currentVersionReleaseDate": "2026-09-14T00:00:00Z"}]}
         text_calls = []
         def fetch_text(url):
@@ -1122,7 +1285,7 @@ class AuditTests(unittest.TestCase):
         )
 
     def test_hako_discovery_accepts_new_repo_from_trusted_owner(self):
-        client = self.by_id["hako"]
+        client = self.legacy_description_hako()
         payload = {
             "resultCount": 1,
             "results": [{
@@ -1160,7 +1323,7 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(d.links_for(client, out, NOW)[0], "https://github.com/TokenPLS/Hako-Next")
 
     def test_hako_discovery_accepts_new_owner_when_two_official_sources_agree(self):
-        client = self.by_id["hako"]
+        client = self.legacy_description_hako()
         repo_url = "https://github.com/NewHakoOrg/Hako"
         payload = {
             "resultCount": 1,
@@ -1199,7 +1362,7 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(d.links_for(client, out, NOW)[0], repo_url)
 
     def test_hako_discovery_new_owner_single_source_stays_candidate(self):
-        client = self.by_id["hako"]
+        client = self.legacy_description_hako()
         payload = {
             "resultCount": 1,
             "results": [{
@@ -1236,7 +1399,7 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(d.links_for(client, out, NOW)[0], client["website_url"])
 
     def test_hako_discovery_does_not_accept_unrelated_repo_from_trusted_owner(self):
-        client = self.by_id["hako"]
+        client = self.legacy_description_hako()
         payload = {
             "resultCount": 1,
             "results": [{
@@ -1988,13 +2151,13 @@ class RenderTests(unittest.TestCase):
 
     def test_detail_sections_use_consistent_fields_without_freeform_notes(self):
         text = d.render_readme(self.clients, self.base_observations(), NOW)
-        hako = text.split("### Clash（Hako）\n", 1)[1].split("\n### ", 1)[0]
+        hako = text.split("### Clash\n", 1)[1].split("\n### ", 1)[0]
         for label in ("分类", "状态", "平台", "内核", "官方来源", "下载", "版本"):
             self.assertIn(f"- {label}：", hako)
-        self.assertNotIn("- 说明：", hako)
+        self.assertIn("- 说明：原 Hako 已更名为 Clash", hako)
         self.assertNotIn("- 核验：", hako)
         self.assertIn("- 平台：macOS / iOS / tvOS", hako)
-        self.assertIn("- 内核：Hako（基于 Mihomo）", hako)
+        self.assertIn("- 内核：Clash（基于 Mihomo）", hako)
         self.assertNotIn("- 备注：", text)
         self.assertNotIn("- 最低系统：", text)
         self.assertNotIn("- 定位/兼容性：", text)
