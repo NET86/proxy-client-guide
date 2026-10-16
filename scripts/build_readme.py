@@ -89,6 +89,10 @@ class ObservationError(RuntimeError):
     pass
 
 
+class CoreRepoIdentityError(ObservationError):
+    """A pinned core repository changed identity or became inactive."""
+
+
 class DiscoveryBudgetExceeded(RuntimeError):
     def __init__(self, reason: str):
         super().__init__(reason)
@@ -215,6 +219,8 @@ def core_evidence_scope(client: dict[str, Any]) -> str:
     }
     if client.get("app_store_core_patterns"):
         payload["app_store_core_patterns"] = client["app_store_core_patterns"]
+    if client.get("app_store_core_repo"):
+        payload["app_store_core_repo"] = client["app_store_core_repo"]
     return _scope_hash(payload)
 
 
@@ -362,7 +368,7 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
         if github_discovery is not None:
             if source_type not in {"github", "app_store"} or not isinstance(github_discovery, dict):
                 raise ValueError(f"{name}: github_discovery requires a GitHub/App Store source and object config")
-            allowed_discovery_keys = {"trusted_text_urls", "trusted_owner_ids", "repo_patterns"}
+            allowed_discovery_keys = {"trusted_text_urls", "trusted_owner_ids", "repo_patterns", "target_repo_id"}
             if set(github_discovery) - allowed_discovery_keys:
                 raise ValueError(f"{name}: github_discovery contains unsupported fields")
             trusted_text_urls = github_discovery.get("trusted_text_urls", [])
@@ -384,6 +390,10 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
                 raise ValueError(f"{name}: github_discovery repo_patterns must be a non-empty string list")
             for pattern in repo_patterns:
                 re.compile(pattern)
+            if "target_repo_id" in github_discovery and (
+                type(github_discovery["target_repo_id"]) is not int or github_discovery["target_repo_id"] <= 0
+            ):
+                raise ValueError(f"{name}: target_repo_id must be a positive GitHub repository ID")
             if not trusted_text_urls and not trusted_owner_ids:
                 raise ValueError(f"{name}: github_discovery requires an independent trust path")
             if source_type == "github" and not trusted_text_urls:
@@ -414,6 +424,18 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
                 re.compile(pattern)
         if "core_evidence" in client and "app_store_core_patterns" in client:
             raise ValueError(f"{name}: core_evidence and app_store_core_patterns cannot both be configured")
+        pinned_core = client.get("app_store_core_repo")
+        if pinned_core is not None:
+            if source_type != "app_store" or not core_evidence or not isinstance(pinned_core, dict) or set(pinned_core) != {"id", "repository"}:
+                raise ValueError(f"{name}: app_store_core_repo requires a pinned App Store core evidence repository")
+            if type(pinned_core["id"]) is not int or pinned_core["id"] <= 0:
+                raise ValueError(f"{name}: app_store_core_repo id must be a positive integer")
+            if not isinstance(pinned_core["repository"], str) or re.fullmatch(
+                r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})/[A-Za-z0-9_.-]+", pinned_core["repository"]
+            ) is None:
+                raise ValueError(f"{name}: app_store_core_repo repository must be canonical")
+        if source_type == "app_store" and core_evidence and pinned_core is None:
+            raise ValueError(f"{name}: App Store raw core evidence requires a repository ID pin")
         if source_type == "github" and client["category"] != "legacy" and "core" in client:
             if not isinstance(core_evidence, list) or not core_evidence:
                 raise ValueError(f"{name}: active GitHub core claim requires non-empty core_evidence")
@@ -427,6 +449,11 @@ def load_clients(path: Path = DEFAULT_CATALOG) -> list[dict[str, Any]]:
             parsed = urllib.parse.urlparse(str(url))
             if parsed.scheme != "https" or parsed.hostname != "raw.githubusercontent.com":
                 raise ValueError(f"{name}: core evidence must be a raw.githubusercontent.com HTTPS URL")
+            if pinned_core is not None:
+                required_prefix = f"/{pinned_core['repository']}/"
+                suffix = parsed.path[len(required_prefix):] if parsed.path.casefold().startswith(required_prefix.casefold()) else ""
+                if parsed.query or parsed.fragment or not suffix or "/" not in suffix or ".." in suffix.split("/"):
+                    raise ValueError(f"{name}: App Store core evidence must remain in the pinned repository")
             if not isinstance(patterns, list) or not patterns or any(not isinstance(p, str) or not p for p in patterns):
                 raise ValueError(f"{name}: invalid core evidence patterns")
             for pattern in patterns:
@@ -957,9 +984,10 @@ def audit_core_evidence(
     try:
         for item in evidence:
             evidence_url = item["url"]
-            if canonical_repo and canonical_repo.casefold() != client["github_repo"].casefold():
+            configured_repo = client.get("github_repo") or client.get("app_store_core_repo", {}).get("repository")
+            if canonical_repo and configured_repo and canonical_repo.casefold() != configured_repo.casefold():
                 for base in ("https://raw.githubusercontent.com/", "https://raw.githubusercontent.com/wiki/", "https://github.com/"):
-                    configured = f"{base}{client['github_repo']}/"
+                    configured = f"{base}{configured_repo}/"
                     if evidence_url.casefold().startswith(configured.casefold()):
                         evidence_url = f"{base}{canonical_repo}/{evidence_url[len(configured):]}"
                         break
@@ -991,7 +1019,79 @@ def audit_core_evidence(
                 )
                 return record, [f"{client['id']}: core evidence no longer matches"], False
         return positive_record(previous, stamp, scope, state="ok", evidence_snapshots=snapshots, **identity_fields), [], True
+    except CoreRepoIdentityError as exc:
+        return negative_record(previous, stamp, scope, "identity_mismatch"), [f"{client['id']}: {exc}"], False
     except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, re.error, ObservationError, ValueError) as exc:
+        return failure_record(previous, stamp, str(exc), scope), [], False
+
+
+def audit_app_store_pinned_core_evidence(
+    client: dict[str, Any],
+    old: dict[str, Any],
+    now: dt.datetime,
+    request: Callable[..., dict[str, Any] | None],
+    fetch_text: Callable[[str], str | None],
+    token: str | None,
+) -> tuple[dict[str, Any] | None, list[str], bool]:
+    """Verify a manually pinned official core repository, not App Store copy."""
+    pin = client["app_store_core_repo"]
+    pin_id = pin["id"]
+    stamp = iso(now)
+    scope = core_evidence_scope(client)
+    previous = old.get("core_evidence") if isinstance(old, dict) else None
+
+    def repo_by_id() -> dict[str, Any]:
+        metadata = request(f"https://api.github.com/repositories/{pin_id}", token)
+        if metadata is None:
+            raise ObservationError("pinned core repository unavailable")
+        require_repo_schema(metadata)
+        if metadata["id"] != pin_id or metadata["archived"] or metadata["disabled"]:
+            raise CoreRepoIdentityError("pinned core repository identity or lifecycle changed")
+        return metadata
+
+    try:
+        canonical_repo = repo_by_id()["full_name"]
+        resolved_refs: dict[str, str] = {}
+
+        def verify_identity() -> None:
+            if repo_by_id()["full_name"].casefold() != canonical_repo.casefold():
+                raise CoreRepoIdentityError("pinned core repository moved during audit")
+
+        def resolve_evidence_url(url: str) -> str:
+            prefix = f"https://raw.githubusercontent.com/{canonical_repo}/"
+            if not url.casefold().startswith(prefix.casefold()):
+                raise ObservationError("core evidence URL escaped pinned repository")
+            ref, separator, path = url[len(prefix):].partition("/")
+            if not separator or not ref or not path or ".." in path.split("/"):
+                raise ObservationError("core evidence URL lacks a safe revision/path")
+            if re.fullmatch(r"[0-9a-fA-F]{40}", ref):
+                sha = ref.lower()
+            else:
+                if ref not in resolved_refs:
+                    data = request(
+                        f"https://api.github.com/repos/{canonical_repo}/commits/"
+                        + urllib.parse.quote(urllib.parse.unquote(ref), safe=""),
+                        token,
+                    )
+                    if not isinstance(data, dict) or not isinstance(data.get("sha"), str) or not re.fullmatch(r"[0-9a-fA-F]{40}", data["sha"]):
+                        raise ObservationError("pinned core revision did not resolve")
+                    resolved_refs[ref] = data["sha"].lower()
+                sha = resolved_refs[ref]
+            return f"{prefix}{sha}/{path}"
+
+        return audit_core_evidence(
+            client,
+            old,
+            now,
+            fetch_text,
+            canonical_repo,
+            pin_id,
+            verify_identity,
+            resolve_evidence_url,
+        )
+    except CoreRepoIdentityError as exc:
+        return negative_record(previous, stamp, scope, "identity_mismatch"), [f"{client['id']}: {exc}"], False
+    except (OSError, urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, ObservationError, ValueError) as exc:
         return failure_record(previous, stamp, str(exc), scope), [], False
 
 
@@ -1037,6 +1137,9 @@ def discovery_source_identity(source_name: str) -> str:
 
 
 def github_candidate_matches(config: dict[str, Any], metadata: dict[str, Any]) -> bool:
+    pinned_id = config.get("target_repo_id")
+    if pinned_id is not None and metadata.get("id") != pinned_id:
+        return False
     topics = metadata.get("topics", [])
     topic_text = " ".join(str(topic) for topic in topics) if isinstance(topics, list) else ""
     searchable = " ".join(
@@ -1681,7 +1784,12 @@ def audit_app_store_source(
         result = {"source": source, "release": release}
         core, core_issues, core_ok = audit_app_store_core_evidence(client, old, now, entry)
         if core is None:
-            core, core_issues, core_ok = audit_core_evidence(client, old, now, fetch_text)
+            if client.get("app_store_core_repo"):
+                core, core_issues, core_ok = audit_app_store_pinned_core_evidence(
+                    client, old, now, request, fetch_text, token
+                )
+            else:
+                core, core_issues, core_ok = audit_core_evidence(client, old, now, fetch_text)
         if core is not None:
             result["core_evidence"] = core
         discovery = audit_github_discovery(client, old, now, entry, token, request, fetch_text)

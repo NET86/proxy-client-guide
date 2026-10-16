@@ -45,6 +45,7 @@ Refresh 自动处理新版本、同一 GitHub repository ID 的改名或迁移�
 - GitHub 固定 repository ID；owner/name 返回 404 时再按固定 repository ID 查询后才视为缺失；App Store 固定 app ID 与 sellerName。同一 GitHub 仓库改名或迁移自动跟随。
 - 身份冲突会隐藏下载入口；404、Latest 缺失或短期失败只标记待确认。已确认的身份冲突只能由同一 scope 的正向核验或人工更新配置恢复。
 - `scope` 绑定核验所依据的身份和下载目标；相关配置变化后不沿用旧核验结果。
+- 对经过人工核准的 App Store 内核源码，可用 `app_store_core_repo` 固定真实 GitHub repository ID，再以该仓库实际 commit SHA 读取 `core_evidence`；营销文案不作为唯一内核证据，内核仓库归档或身份不符仍拒绝确认。`github_discovery.target_repo_id` 仅允许指定 ID 的候选成为官方来源，防止将内核、客户端及历史仓库混淆。
 - 元数据请求、最终响应及 urllib 记录的重定向链必须保持 HTTPS；降级正文和降级后的 404 不作为官方证据，保留旧有效记录并标记本次失败。正常 HTTPS 跳转不受影响。
 - release/core 缓存另外绑定实际 repository ID。可信新仓库获准恢复时不继承旧仓同 tag 的 release ID；同一仓库同 tag 重发仍须人工核准。通过固定 ID 找回仓库后，实际用于发布和内容读取的路径仍须在读取前后核验；确认路径身份冲突时立即记录 source 冲突并隐藏入口，不能降格成普通网络错误。
 - 普通 GitHub raw 内核证据先将 ref 解析为完整 commit SHA，再读取该不可变 URL，并记录正文 SHA-256。同仓同 ref 一轮只解析一次；解析失败不退回可变分支。静态配置明确引用其他仓库时，在该仓库内固定提交，不改写到客户端仓库。Wiki 和非仓库网页只记录正文摘要，不声称绑定主仓 commit；这些读取与前后身份检查不能提供跨 API 请求的原子快照保证。

@@ -11,9 +11,11 @@ import build_readme as directory
 
 class AppStoreEvidenceRetentionTests(unittest.TestCase):
     def setUp(self):
-        self.client = next(c for c in directory.load_clients()
-                           if c['source_type'] == 'app_store' and c.get('app_store_core_patterns')
-                           and c.get('github_discovery'))
+        # Exercise backward-compatible App Store-copy evidence retention on a fixture.
+        self.client = copy.deepcopy(next(c for c in directory.load_clients() if c['id'] == 'hako'))
+        self.client.pop('core_evidence', None)
+        self.client.pop('app_store_core_repo', None)
+        self.client['app_store_core_patterns'] = ['Hako builds on the open-source mihomo project']
         self.now = dt.datetime(2026, 10, 9, 2, tzinfo=dt.timezone.utc)
         self.stamp = directory.iso(self.now - dt.timedelta(days=1))
         self.old = {

@@ -1,5 +1,6 @@
 """Synthetic HTTP fixtures; no external requests or production data writes."""
 import argparse
+import copy
 import datetime as dt
 import http.client
 import io
@@ -152,7 +153,11 @@ class ResponseIsolationTests(unittest.TestCase):
                 self.assertEqual(old["clients"][good["id"]]["release"]["version"], "v1")
 
     def test_hako_discovery_failure_preserves_completed_app_store_components(self):
-        client = next(client for client in d.load_clients() if client["id"] == "hako")
+        client = copy.deepcopy(next(client for client in d.load_clients() if client["id"] == "hako"))
+        # Keep this HTTP isolation test on the legacy text-only evidence adapter.
+        client.pop("core_evidence", None)
+        client.pop("app_store_core_repo", None)
+        client["app_store_core_patterns"] = ["Hako builds on the open-source mihomo project"]
         entry = {"trackId": int(client["app_store_id"]), "sellerName": client["app_store_seller"], "version": "v2", "currentVersionReleaseDate": STAMP, "description": "Hako builds on the open-source mihomo project"}
         for mode in ("charset", "header", "status", "chunk-length", "https-downgrade"):
             with self.subTest(mode=mode):
