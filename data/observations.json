@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-16T17:08:39Z",
+        "last_activity_at": "2026-10-16T22:22:34Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-16T19:27:51Z",
-        "last_success_at": "2026-10-16T19:27:51Z",
+        "observed_at": "2026-10-17T00:13:24Z",
+        "last_success_at": "2026-10-17T00:13:24Z",
         "confirmed_archived": false
       },
       "release": {
@@ -320,11 +320,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-16T19:27:51Z",
-        "last_success_at": "2026-10-16T19:27:51Z",
+        "observed_at": "2026-10-17T00:13:24Z",
+        "last_success_at": "2026-10-17T00:13:24Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/685042aaedaea26a591900be0b494dfe8efd79b0/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/9a04ceb4a770326a966724a26a42cad0f9c852a7/README.md",
             "sha256": "8ce2b3f283a7ae563076fa1a3b68696df09361e4e7e23cb6885572387a299c0b"
           }
         ],
