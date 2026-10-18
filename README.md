@@ -83,7 +83,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
-- 版本：v1.2.18（2026-10-16）
+- 版本：v1.2.19（2026-10-18）
 
 ### Bettbox
 
@@ -238,7 +238,7 @@
 - 内核：多内核（Mihomo / Smart Core）
 - 官方来源：[https://github.com/mihomo-party-org/clash-party](https://github.com/mihomo-party-org/clash-party)
 - 下载：[https://github.com/mihomo-party-org/clash-party/releases](https://github.com/mihomo-party-org/clash-party/releases)
-- 版本：v2.0.3（2026-09-20）
+- 版本：v2.0.4（2026-10-18）
 
 ### v2rayN
 
