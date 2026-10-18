@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-17T21:03:19Z",
+        "last_activity_at": "2026-10-18T08:43:30Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-17T23:53:24Z",
-        "last_success_at": "2026-10-17T23:53:24Z",
+        "observed_at": "2026-10-18T08:44:14Z",
+        "last_success_at": "2026-10-18T08:44:14Z",
         "confirmed_archived": false
       },
       "release": {
@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-17T22:22:53Z",
+        "last_activity_at": "2026-10-18T08:33:26Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-17T23:53:24Z",
-        "last_success_at": "2026-10-17T23:53:24Z",
+        "observed_at": "2026-10-18T08:44:14Z",
+        "last_success_at": "2026-10-18T08:44:14Z",
         "confirmed_archived": false
       },
       "release": {
@@ -320,11 +320,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-17T23:53:24Z",
-        "last_success_at": "2026-10-17T23:53:24Z",
+        "observed_at": "2026-10-18T08:44:14Z",
+        "last_success_at": "2026-10-18T08:44:14Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/7c27879bb34d7ae0a406f414c03c502d6b225cc5/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/cb4ff9423431f2c690f9b0b026b1143c0cce58d7/README.md",
             "sha256": "8ce2b3f283a7ae563076fa1a3b68696df09361e4e7e23cb6885572387a299c0b"
           }
         ],
@@ -514,12 +514,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-10-17T18:22:59Z",
+        "last_activity_at": "2026-10-18T00:49:57Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-17T23:53:24Z",
-        "last_success_at": "2026-10-17T23:53:24Z",
+        "observed_at": "2026-10-18T08:44:14Z",
+        "last_success_at": "2026-10-18T08:44:14Z",
         "confirmed_archived": false
       },
       "release": {
@@ -540,11 +540,11 @@
         "scope": "sha256:a3b22259f2a783b61759954ec656d3c29ea030964e69929a93e9d602fdeba5f1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-17T23:53:24Z",
-        "last_success_at": "2026-10-17T23:53:24Z",
+        "observed_at": "2026-10-18T08:44:14Z",
+        "last_success_at": "2026-10-18T08:44:14Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/0f2ae57b222c4456d5568ad5c11a34a01f690bda/README.md",
+            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/d0cc92e4bc12885ec1934153da2929dd26ded06d/README.md",
             "sha256": "9e6295a81ed3a96b797091b34330ac29fee2e276bd6c18602b9312274598cc07"
           }
         ],
