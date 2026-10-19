@@ -298,7 +298,7 @@
 - 内核：未公开
 - 官方来源：[https://stash.ws/](https://stash.ws/)
 - 下载：[https://stash.ws/download](https://stash.ws/download)
-- 版本：3.6.3（2026-10-15）
+- 版本：3.6.4（2026-10-19）
 - 说明：完整兼容 Clash Premium 配置格式。
 
 ### Surge

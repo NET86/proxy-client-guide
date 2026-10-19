@@ -96,13 +96,13 @@
         "repo_id": 966153123,
         "owner_id": 131734194,
         "full_name": "KaringX/clashmi",
-        "last_activity_at": "2026-10-16T09:48:38Z",
+        "last_activity_at": "2026-10-19T05:26:29Z",
         "rediscovered_repo": false,
         "scope": "sha256:c6d635e584c29b3325ecd25a64a7a4f1ba14892cdb04034886c005cdd21c7c1d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-18T18:32:10Z",
-        "observed_at": "2026-10-16T12:07:52Z",
+        "last_success_at": "2026-10-19T09:44:49Z",
+        "observed_at": "2026-10-19T09:44:49Z",
         "confirmed_archived": false
       },
       "release": {
@@ -123,11 +123,11 @@
         "scope": "sha256:539d0dae6ea8918247c0359585c6bfc893a0926135aea89a3b15210b4d6a11bb",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-18T18:32:10Z",
-        "observed_at": "2026-10-16T12:07:52Z",
+        "last_success_at": "2026-10-19T09:44:49Z",
+        "observed_at": "2026-10-19T09:44:49Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/KaringX/clashmi/aa8604282ccb847abd5840cd6050da302ddde1ed/README.md",
+            "url": "https://raw.githubusercontent.com/KaringX/clashmi/35c1b88722932204aaf9b16532314cb25b55058f/README.md",
             "sha256": "09aebeb1841c85319ac5ab1e0d0869bd355cd9775cd664b73d396462e50743c4"
           }
         ],
@@ -163,11 +163,11 @@
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/ProjectClash/Clash/3891cc46092029c23f7fd0bfa1fe29e0e6e1dffb/README.md",
+            "url": "https://raw.githubusercontent.com/ProjectClash/Clash/31c2931a1834ce82f452d648fdd05b94aba6c8f9/README.md",
             "sha256": "ae6a64f886ca49ec97d040316147549df84107e33fc00cea77fca8434bd01200"
           },
           {
-            "url": "https://raw.githubusercontent.com/ProjectClash/Clash/3891cc46092029c23f7fd0bfa1fe29e0e6e1dffb/UPSTREAM_VERSION",
+            "url": "https://raw.githubusercontent.com/ProjectClash/Clash/31c2931a1834ce82f452d648fdd05b94aba6c8f9/UPSTREAM_VERSION",
             "sha256": "6822f5ed6bde4ec7e0bf345f84fee947ff7e4101e0ef81a349426f49366ecced"
           }
         ],
@@ -176,8 +176,8 @@
         "scope": "sha256:cd48ba5abc27895a0e7d79a502362490d69fd2ae7715fbf9372dce621e2eb4c1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-18T18:32:10Z",
-        "observed_at": "2026-10-16T12:07:52Z"
+        "last_success_at": "2026-10-19T09:44:49Z",
+        "observed_at": "2026-10-19T09:44:49Z"
       },
       "github_discovery": {
         "state": "verified",
@@ -192,12 +192,12 @@
           "app_store",
           "clash.md"
         ],
-        "last_activity_at": "2026-10-13T13:55:17Z",
+        "last_activity_at": "2026-10-19T09:39:23Z",
         "scope": "sha256:07d7a7b572f84acbb32ff0aacf8fbc6d3c8c5bbdfe238daca5dce2889630716d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-18T18:32:10Z",
-        "observed_at": "2026-10-16T12:07:52Z"
+        "last_success_at": "2026-10-19T09:44:49Z",
+        "observed_at": "2026-10-19T09:44:49Z"
       }
     },
     "clashx-meta": {
@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-18T22:21:16Z",
+        "last_activity_at": "2026-10-19T05:42:57Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-19T00:01:32Z",
-        "last_success_at": "2026-10-19T00:01:32Z",
+        "observed_at": "2026-10-19T09:44:49Z",
+        "last_success_at": "2026-10-19T09:44:49Z",
         "confirmed_archived": false
       },
       "release": {
@@ -338,12 +338,12 @@
         "repo_id": 836976013,
         "owner_id": 181477152,
         "full_name": "mihomo-party-org/clash-party",
-        "last_activity_at": "2026-10-18T23:44:41Z",
+        "last_activity_at": "2026-10-19T00:04:50Z",
         "scope": "sha256:9812e1fa09efc3deaf6302785129fb60e57f2631f52559d22ced794ab780b986",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-19T00:01:32Z",
-        "last_success_at": "2026-10-19T00:01:32Z",
+        "observed_at": "2026-10-19T09:44:49Z",
+        "last_success_at": "2026-10-19T09:44:49Z",
         "confirmed_archived": false
       },
       "release": {
@@ -364,11 +364,11 @@
         "scope": "sha256:66275462b3789475b7cc6edce3d0244488598c8c1fb1517cd4dd570a53ec7a0e",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-19T00:01:32Z",
-        "last_success_at": "2026-10-19T00:01:32Z",
+        "observed_at": "2026-10-19T09:44:49Z",
+        "last_success_at": "2026-10-19T09:44:49Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/mihomo-party-org/clash-party/536ad116d108e8f92eb78a1d3ab146b0d13d39a5/README.md",
+            "url": "https://raw.githubusercontent.com/mihomo-party-org/clash-party/0ad0acf8b55599cdf9d891dfa469deb53a3a9e84/README.md",
             "sha256": "b0765998e798cdb43048b1a09ff0d7bd6b4ee6e262fdcedc3267f3a051669974"
           }
         ],
@@ -426,12 +426,12 @@
         "repo_id": 664925328,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/metacubexd",
-        "last_activity_at": "2026-10-14T19:06:58Z",
+        "last_activity_at": "2026-10-19T04:08:44Z",
         "scope": "sha256:48bb697e216f1dd711e37c63b2f446ef2b08cac6bcd9da03d3ce4f506374a411",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-14T20:04:26Z",
-        "last_success_at": "2026-10-18T18:32:10Z",
+        "observed_at": "2026-10-19T09:44:49Z",
+        "last_success_at": "2026-10-19T09:44:49Z",
         "confirmed_archived": false
       },
       "release": {
@@ -514,12 +514,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-10-18T21:09:52Z",
+        "last_activity_at": "2026-10-19T08:05:18Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-19T00:01:32Z",
-        "last_success_at": "2026-10-19T00:01:32Z",
+        "observed_at": "2026-10-19T09:44:49Z",
+        "last_success_at": "2026-10-19T09:44:49Z",
         "confirmed_archived": false
       },
       "release": {
@@ -540,11 +540,11 @@
         "scope": "sha256:a3b22259f2a783b61759954ec656d3c29ea030964e69929a93e9d602fdeba5f1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-19T00:01:32Z",
-        "last_success_at": "2026-10-19T00:01:32Z",
+        "observed_at": "2026-10-19T09:44:49Z",
+        "last_success_at": "2026-10-19T09:44:49Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/cbd6fd4abbaf41c9d9cb579f47f9ea1ab41847c0/README.md",
+            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/6ee1297d4631e0104f47cdaf4c36dc7e1fe10f8e/README.md",
             "sha256": "9e6295a81ed3a96b797091b34330ac29fee2e276bd6c18602b9312274598cc07"
           }
         ],
@@ -810,24 +810,24 @@
         "state": "ok",
         "seller": "Stash Networks Limited",
         "track_id": 1596063349,
-        "last_activity_at": "2026-10-14T18:28:49Z",
+        "last_activity_at": "2026-10-19T06:27:11Z",
         "scope": "sha256:a0097f0ccb7bb6e2839881effbec36e29da612f9372c24047b63ba30d7765286",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-14T20:04:26Z",
-        "last_success_at": "2026-10-18T18:32:10Z"
+        "observed_at": "2026-10-19T09:44:49Z",
+        "last_success_at": "2026-10-19T09:44:49Z"
       },
       "release": {
         "state": "ok",
-        "version": "3.6.3",
-        "published_at": "2026-10-14T18:28:49Z",
+        "version": "3.6.4",
+        "published_at": "2026-10-19T06:27:11Z",
         "seller": "Stash Networks Limited",
         "track_id": 1596063349,
         "scope": "sha256:b1f28eeabfda1e5f7867acfcffeb890581974246d5d8f701b0a5b04dc23c3f84",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-14T20:04:26Z",
-        "last_success_at": "2026-10-18T18:32:10Z"
+        "observed_at": "2026-10-19T09:44:49Z",
+        "last_success_at": "2026-10-19T09:44:49Z"
       }
     },
     "quantumult-x": {
