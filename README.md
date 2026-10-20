@@ -38,10 +38,10 @@
 
 | 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
-| Karing | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/karing) | [下载页](https://github.com/KaringX/karing/releases) |
 | sing-box | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/SagerNet/sing-box) | [下载页](https://github.com/SagerNet/sing-box/releases) |
 | Hiddify | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/hiddify/hiddify-app) | [下载页](https://github.com/hiddify/hiddify-app/releases) |
 | NekoBox for Android | 🟡 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MatsuriDayo/NekoBoxForAndroid) | [下载页](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases) |
+| Karing | ❓ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/karing) | [下载页](https://github.com/KaringX/karing/releases) |
 
 ## 多内核客户端
 
@@ -191,13 +191,14 @@
 ### Karing
 
 - 分类：sing-box 内核客户端
-- 状态：🟢 近半年有更新
+- 状态：❓ 待确认｜来源或版本异常
 - 平台：macOS / iOS / tvOS / Windows / Android / Linux
 - 内核：sing-box
 - 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
 - 版本：v1.2.25.2802（2026-09-10）
 - 说明：支持完整 Clash 和部分 Clash.Meta 配置。
+- 核验：已确认版本不可用；保留原记录。
 
 ### NekoBox for Android
 
