@@ -8,12 +8,12 @@
         "repo_id": 678716433,
         "owner_id": 66918471,
         "full_name": "chen08209/FlClash",
-        "last_activity_at": "2026-10-21T11:33:33Z",
+        "last_activity_at": "2026-10-22T08:33:03Z",
         "scope": "sha256:57603ccb6b4313954bad34fbefa67748e7704ddee845f950f4f3b673187f7006",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-21T14:58:33Z",
-        "last_success_at": "2026-10-21T19:59:12Z",
+        "observed_at": "2026-10-22T09:17:30Z",
+        "last_success_at": "2026-10-22T09:17:30Z",
         "confirmed_archived": false
       },
       "release": {
@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-21T21:56:20Z",
+        "last_activity_at": "2026-10-22T05:27:37Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-22T00:31:07Z",
-        "last_success_at": "2026-10-22T00:31:07Z",
+        "observed_at": "2026-10-22T09:17:30Z",
+        "last_success_at": "2026-10-22T09:17:30Z",
         "confirmed_archived": false
       },
       "release": {
@@ -163,12 +163,12 @@
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/ProjectClash/Clash/a5cb38dab6123ff1dded608b0d7fdceca9027421/README.md",
-            "sha256": "a4c372d4f2c36e1abb01fc698f726756aa183938b177c10e068b9f53fd147c91"
+            "url": "https://raw.githubusercontent.com/ProjectClash/Clash/1ad52a03e37dbd1a2653d7bb5b8a5ce11f815c71/README.md",
+            "sha256": "2bdad3984311ee536fb2e86c0edf515d979356d16b47dcbc7ff7fb451df2db9c"
           },
           {
-            "url": "https://raw.githubusercontent.com/ProjectClash/Clash/a5cb38dab6123ff1dded608b0d7fdceca9027421/UPSTREAM_VERSION",
-            "sha256": "6822f5ed6bde4ec7e0bf345f84fee947ff7e4101e0ef81a349426f49366ecced"
+            "url": "https://raw.githubusercontent.com/ProjectClash/Clash/1ad52a03e37dbd1a2653d7bb5b8a5ce11f815c71/UPSTREAM_VERSION",
+            "sha256": "58fc14cd916c3232b09cfd1cfc0f8ab7df35f9a428775cda690e0f62bc3a4c99"
           }
         ],
         "repo_id": 1390230283,
@@ -176,8 +176,8 @@
         "scope": "sha256:cd48ba5abc27895a0e7d79a502362490d69fd2ae7715fbf9372dce621e2eb4c1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-21T19:59:12Z",
-        "observed_at": "2026-10-21T09:14:43Z"
+        "last_success_at": "2026-10-22T09:17:30Z",
+        "observed_at": "2026-10-22T09:17:30Z"
       },
       "github_discovery": {
         "state": "verified",
@@ -192,12 +192,12 @@
           "app_store",
           "clash.md"
         ],
-        "last_activity_at": "2026-10-21T01:27:29Z",
+        "last_activity_at": "2026-10-22T07:33:30Z",
         "scope": "sha256:07d7a7b572f84acbb32ff0aacf8fbc6d3c8c5bbdfe238daca5dce2889630716d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-10-21T19:59:12Z",
-        "observed_at": "2026-10-21T09:14:43Z"
+        "last_success_at": "2026-10-22T09:17:30Z",
+        "observed_at": "2026-10-22T09:17:30Z"
       }
     },
     "clashx-meta": {
@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-21T22:23:19Z",
+        "last_activity_at": "2026-10-22T09:14:59Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-22T00:31:07Z",
-        "last_success_at": "2026-10-22T00:31:07Z",
+        "observed_at": "2026-10-22T09:17:30Z",
+        "last_success_at": "2026-10-22T09:17:30Z",
         "confirmed_archived": false
       },
       "release": {
@@ -320,12 +320,12 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-22T00:31:07Z",
-        "last_success_at": "2026-10-22T00:31:07Z",
+        "observed_at": "2026-10-22T09:17:30Z",
+        "last_success_at": "2026-10-22T09:17:30Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/ea042bbef174f5c6c063ae3e2bc65dcec7b3d241/README.md",
-            "sha256": "8ce2b3f283a7ae563076fa1a3b68696df09361e4e7e23cb6885572387a299c0b"
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/1845d2a40648d8ed113e6a8e2ccf0a6bb825acc2/README.md",
+            "sha256": "646b90fa62613f7b6e6775c3499a37b220b23a9c4774a4aeafcbe8ff698c579a"
           }
         ],
         "repo_id": 716838500,
@@ -470,34 +470,34 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-10-21T12:37:19Z",
+        "last_activity_at": "2026-10-22T07:05:24Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-21T14:58:33Z",
-        "last_success_at": "2026-10-21T19:59:12Z",
+        "observed_at": "2026-10-22T09:17:30Z",
+        "last_success_at": "2026-10-22T09:17:30Z",
         "confirmed_archived": false
       },
       "release": {
         "state": "ok",
-        "version": "v1.19.6",
-        "published_at": "2026-10-16T07:14:30Z",
-        "release_id": 414656052,
+        "version": "v1.19.7",
+        "published_at": "2026-10-22T06:24:18Z",
+        "release_id": 420372490,
         "asset_count": 17,
         "scope": "sha256:042e7d1b6adb0c8b6d4db3757751d13360fbac485c763f6b3a16f1f3fd4b2539",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-16T08:54:10Z",
-        "last_success_at": "2026-10-21T19:59:12Z",
+        "observed_at": "2026-10-22T09:17:30Z",
+        "last_success_at": "2026-10-22T09:17:30Z",
         "repo_id": 1088809592
       },
       "core_evidence": {
-        "state": "ok",
+        "state": "mismatch",
         "scope": "sha256:ed464acccd63c2a38f34c300a218f355e7334547c6bfbfa7eb5b94a31143addb",
-        "observation_state": "fresh",
+        "observation_state": "verified_negative",
         "consecutive_failures": 0,
         "last_success_at": "2026-10-21T19:59:12Z",
-        "observed_at": "2026-10-16T19:27:51Z",
+        "observed_at": "2026-10-22T09:17:30Z",
         "evidence_snapshots": [
           {
             "url": "https://raw.githubusercontent.com/appshubcc/Bettbox/7006a02635107fcecd1bc77093e9aee23c4f0022/README.md",
@@ -505,7 +505,10 @@
           }
         ],
         "repo_id": 1088809592,
-        "repo_full_name": "appshubcc/Bettbox"
+        "repo_full_name": "appshubcc/Bettbox",
+        "observed_missing_patterns": [
+          "Another Better Mihomo Client"
+        ]
       }
     },
     "asteriskmeta": {
@@ -514,12 +517,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-10-21T20:16:59Z",
+        "last_activity_at": "2026-10-22T09:02:49Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-22T00:31:07Z",
-        "last_success_at": "2026-10-22T00:31:07Z",
+        "observed_at": "2026-10-22T09:17:30Z",
+        "last_success_at": "2026-10-22T09:17:30Z",
         "confirmed_archived": false
       },
       "release": {
@@ -540,12 +543,12 @@
         "scope": "sha256:a3b22259f2a783b61759954ec656d3c29ea030964e69929a93e9d602fdeba5f1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-22T00:31:07Z",
-        "last_success_at": "2026-10-22T00:31:07Z",
+        "observed_at": "2026-10-22T09:17:30Z",
+        "last_success_at": "2026-10-22T09:17:30Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/fe0ef79a8027282868eedf0b40a4ab198070ad25/README.md",
-            "sha256": "9e6295a81ed3a96b797091b34330ac29fee2e276bd6c18602b9312274598cc07"
+            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/6e01da10c6e0fce4bffa507ac8dc33d4cf3aa1d8/README.md",
+            "sha256": "fdc09ca835d186d3c4d5f7733d5575294f4e28ca972bc09a7c62135d63a93925"
           }
         ],
         "repo_id": 1262202400,
@@ -953,10 +956,12 @@
   },
   "health": {
     "attempted": 24,
-    "succeeded": 24,
-    "coverage": 1.0,
-    "anomalies": [],
+    "succeeded": 23,
+    "coverage": 0.9583,
+    "anomalies": [
+      "bettbox: unresolved core_evidence state mismatch"
+    ],
     "attempted_last_run": 24,
-    "succeeded_last_run": 24
+    "succeeded_last_run": 23
   }
 }
