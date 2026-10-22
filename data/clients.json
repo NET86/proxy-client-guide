@@ -332,7 +332,7 @@
         {
           "url": "https://raw.githubusercontent.com/appshubcc/Bettbox/main/README.md",
           "patterns": [
-            "Another Better Mihomo Client",
+            "https://github\\.com/MetaCubeX/mihomo",
             "Mihomo.*内核"
           ]
         }

@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-22T05:27:37Z",
+        "last_activity_at": "2026-10-22T10:12:11Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-22T09:17:30Z",
-        "last_success_at": "2026-10-22T09:17:30Z",
+        "observed_at": "2026-10-22T10:47:14Z",
+        "last_success_at": "2026-10-22T10:47:14Z",
         "confirmed_archived": false
       },
       "release": {
@@ -78,11 +78,11 @@
         "scope": "sha256:d03d777f723bc2cb2761e2eebe03667aac5a2b4795eab5c8d8ccbcd111d26eed",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-21T19:59:12Z",
-        "last_success_at": "2026-10-21T19:59:12Z",
+        "observed_at": "2026-10-22T10:47:14Z",
+        "last_success_at": "2026-10-22T10:47:14Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/8b88ddb7f24fbf9890a44f5a32bd13e6d2095069/docs/README_en.md",
+            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/3d9a79a3fb4d324ac66033cd3e27413eb6331e66/docs/README_en.md",
             "sha256": "7beb89da0519b75bd4f2de081440991a65526df57b93878ba36f9f46d9a2f377"
           }
         ],
@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-22T09:14:59Z",
+        "last_activity_at": "2026-10-22T10:19:06Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-22T09:17:30Z",
-        "last_success_at": "2026-10-22T09:17:30Z",
+        "observed_at": "2026-10-22T10:40:30Z",
+        "last_success_at": "2026-10-22T10:40:30Z",
         "confirmed_archived": false
       },
       "release": {
@@ -492,23 +492,20 @@
         "repo_id": 1088809592
       },
       "core_evidence": {
-        "state": "mismatch",
-        "scope": "sha256:ed464acccd63c2a38f34c300a218f355e7334547c6bfbfa7eb5b94a31143addb",
-        "observation_state": "verified_negative",
-        "consecutive_failures": 0,
-        "last_success_at": "2026-10-21T19:59:12Z",
-        "observed_at": "2026-10-22T09:17:30Z",
+        "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/appshubcc/Bettbox/7006a02635107fcecd1bc77093e9aee23c4f0022/README.md",
-            "sha256": "07232fe1554a96189e92eded72cc10e288a48bedb1ac4e6770d10b70a83f299a"
+            "url": "https://raw.githubusercontent.com/appshubcc/Bettbox/1fb8806fdf8275a3694cda31eec7ed2062330aee/README.md",
+            "sha256": "69de93298b04f6ac4d1d1270357f4fba9f8a69d548cf62f0fde009fb8c67b780"
           }
         ],
         "repo_id": 1088809592,
         "repo_full_name": "appshubcc/Bettbox",
-        "observed_missing_patterns": [
-          "Another Better Mihomo Client"
-        ]
+        "scope": "sha256:d896f89dd0e098cdfce51a43cd8e8af8574f8118914103c6ead6c26f036f6e55",
+        "observation_state": "fresh",
+        "consecutive_failures": 0,
+        "last_success_at": "2026-10-22T10:40:30Z",
+        "observed_at": "2026-10-22T10:40:30Z"
       }
     },
     "asteriskmeta": {
@@ -956,12 +953,10 @@
   },
   "health": {
     "attempted": 24,
-    "succeeded": 23,
-    "coverage": 0.9583,
-    "anomalies": [
-      "bettbox: unresolved core_evidence state mismatch"
-    ],
+    "succeeded": 24,
+    "coverage": 1.0,
+    "anomalies": [],
     "attempted_last_run": 24,
-    "succeeded_last_run": 23
+    "succeeded_last_run": 24
   }
 }
