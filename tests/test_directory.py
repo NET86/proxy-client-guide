@@ -82,6 +82,37 @@ class CatalogTests(unittest.TestCase):
         pattern = self.by_id["bettbox"]["core_evidence"][0]["patterns"][1]
         self.assertRegex("Bettbox 基于强大的 Mihomo(Clash Meta) 内核深度打造", pattern)
 
+    def test_bettbox_core_evidence_survives_branding_change(self):
+        client = self.by_id["bettbox"]
+        for slogan in ("Another Better Mihomo Client", "Another Better Network Toolbox"):
+            with self.subTest(slogan=slogan):
+                readme = (
+                    f"<strong>{slogan}</strong>\n"
+                    "Bettbox 基于强大的 Mihomo 内核深度打造。\n"
+                    "[Mihomo Core](https://github.com/MetaCubeX/mihomo)\n"
+                )
+                record, issues, ok = d.audit_core_evidence(
+                    client, {}, NOW, lambda _url: readme,
+                )
+                self.assertTrue(ok)
+                self.assertEqual(issues, [])
+                self.assertEqual(record["state"], "ok")
+
+    def test_bettbox_core_evidence_rejects_missing_core_claim_or_link(self):
+        client = self.by_id["bettbox"]
+        for readme in (
+            "Another Better Network Toolbox\nBettbox 基于强大的 Mihomo 内核深度打造。",
+            "Another Better Network Toolbox\n[Mihomo Core](https://github.com/MetaCubeX/mihomo)\n"
+            "仅支持 Mihomo 配置导入，实际核心未公开。",
+        ):
+            with self.subTest(readme=readme):
+                record, issues, ok = d.audit_core_evidence(
+                    client, {}, NOW, lambda _url: readme,
+                )
+                self.assertFalse(ok)
+                self.assertEqual(record["state"], "mismatch")
+                self.assertTrue(issues)
+
     def test_core_labels_follow_display_convention(self):
         simple = {"Mihomo", "Clash", "sing-box", "Clash（基于 Mihomo）", "未公开"}
         for client in self.clients:
