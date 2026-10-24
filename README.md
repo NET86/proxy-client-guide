@@ -156,7 +156,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/chen08209/FlClash](https://github.com/chen08209/FlClash)
 - 下载：[https://github.com/chen08209/FlClash/releases](https://github.com/chen08209/FlClash/releases)
-- 版本：v0.9.1（2026-10-17）
+- 版本：v0.9.2（2026-10-24）
 
 ### MetaCubeXD
 
@@ -218,7 +218,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 - 下载：[https://github.com/SagerNet/sing-box/releases](https://github.com/SagerNet/sing-box/releases)
-- 版本：v1.14.3（2026-10-09）
+- 版本：v1.14.4（2026-10-24）
 
 ### Clash Nyanpasu
 
