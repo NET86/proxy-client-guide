@@ -288,7 +288,7 @@
 - 内核：未公开
 - 官方来源：[https://shadowlaunch.com/](https://shadowlaunch.com/)
 - 下载：[https://apps.apple.com/us/app/shadowrocket/id932747118](https://apps.apple.com/us/app/shadowrocket/id932747118)
-- 版本：2.2.92（2026-09-07）
+- 版本：2.2.93（2026-10-29）
 
 ### Stash
 
