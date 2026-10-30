@@ -268,7 +268,7 @@
 - 内核：未公开
 - 官方来源：[https://docs.nsloon.com/](https://docs.nsloon.com/)
 - 下载：[https://apps.apple.com/us/app/id1373567447](https://apps.apple.com/us/app/id1373567447)
-- 版本：3.5.2（2026-10-02）
+- 版本：3.5.3（2026-10-30）
 
 ### Quantumult X
 
