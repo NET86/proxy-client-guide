@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-10-31T01:03:22Z",
+        "last_activity_at": "2026-10-31T09:46:19Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-31T01:28:35Z",
-        "last_success_at": "2026-10-31T01:28:35Z",
+        "observed_at": "2026-10-31T10:16:18Z",
+        "last_success_at": "2026-10-31T10:16:18Z",
         "confirmed_archived": false
       },
       "release": {
@@ -294,25 +294,25 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-10-31T01:17:43Z",
+        "last_activity_at": "2026-10-31T07:54:09Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-31T01:28:35Z",
-        "last_success_at": "2026-10-31T01:28:35Z",
+        "observed_at": "2026-10-31T10:16:18Z",
+        "last_success_at": "2026-10-31T10:16:18Z",
         "confirmed_archived": false
       },
       "release": {
         "state": "ok",
-        "version": "v2.0.0",
-        "published_at": "2026-10-27T08:40:48Z",
-        "release_id": 425199589,
-        "asset_count": 38,
+        "version": "v2.0.1",
+        "published_at": "2026-10-31T07:45:15Z",
+        "release_id": 429783232,
+        "asset_count": 37,
         "scope": "sha256:46a12bead5118ca8aa64a064869a8cd770faf158ceac067c0dca2037e6463439",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-27T15:47:55Z",
-        "last_success_at": "2026-10-30T20:36:11Z",
+        "observed_at": "2026-10-31T10:16:18Z",
+        "last_success_at": "2026-10-31T10:16:18Z",
         "repo_id": 716838500
       },
       "core_evidence": {
@@ -320,11 +320,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-10-31T01:28:35Z",
-        "last_success_at": "2026-10-31T01:28:35Z",
+        "observed_at": "2026-10-31T10:16:18Z",
+        "last_success_at": "2026-10-31T10:16:18Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/0668afa0af0ef19d7e29a71034d75321c52d6754/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/518bf49843e1f735380e11da1ebe2a85eb8ce8c6/README.md",
             "sha256": "646b90fa62613f7b6e6775c3499a37b220b23a9c4774a4aeafcbe8ff698c579a"
           }
         ],
