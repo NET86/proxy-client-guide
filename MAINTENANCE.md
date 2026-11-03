@@ -45,7 +45,7 @@ Refresh 自动处理新版本、同一 GitHub repository ID 的改名或迁移�
 - GitHub 固定 repository ID；owner/name 返回 404 时再按固定 repository ID 查询后才视为缺失；App Store 固定 app ID 与 sellerName。同一 GitHub 仓库改名或迁移自动跟随。
 - 身份冲突会隐藏下载入口；404、Latest 缺失或短期失败只标记待确认。已确认的身份冲突只能由同一 scope 的正向核验或人工更新配置恢复。
 - `scope` 绑定核验所依据的身份和下载目标；相关配置变化后不沿用旧核验结果。
-- 对经过人工核准的 App Store 内核源码，可用 `app_store_core_repo` 固定真实 GitHub repository ID，再以该仓库实际 commit SHA 读取 `core_evidence`；营销文案不作为唯一内核证据，内核仓库归档或身份不符仍拒绝确认。`github_discovery.target_repo_id` 仅允许指定 ID 的候选成为官方来源，防止将内核、客户端及历史仓库混淆。
+- 对经过人工核准的 App Store 内核源码，可用 `app_store_core_repo` 固定真实 GitHub repository ID，再以该仓库实际 commit SHA 读取 `core_evidence`；每次正文读取前后同时核对数字 ID 和实际仓库路径，路径缺失或网络失败保留旧证据但不刷新成功时间，身份或生命周期冲突记录为拒绝确认。营销文案不作为唯一内核证据。`github_discovery.target_repo_id` 仅允许指定 ID 的候选成为官方来源，防止将内核、客户端及历史仓库混淆。
 - 元数据请求、最终响应及 urllib 记录的重定向链必须保持 HTTPS；降级正文和降级后的 404 不作为官方证据，保留旧有效记录并标记本次失败。正常 HTTPS 跳转不受影响。
 - release/core 缓存另外绑定实际 repository ID。可信新仓库获准恢复时不继承旧仓同 tag 的 release ID；同一仓库同 tag 重发仍须人工核准。通过固定 ID 找回仓库后，实际用于发布和内容读取的路径仍须在读取前后核验；确认路径身份冲突时立即记录 source 冲突并隐藏入口，不能降格成普通网络错误。
 - 普通 GitHub raw 内核证据先将 ref 解析为完整 commit SHA，再读取该不可变 URL，并记录正文 SHA-256。同仓同 ref 一轮只解析一次；解析失败不退回可变分支。静态配置明确引用其他仓库时，在该仓库内固定提交，不改写到客户端仓库。Wiki 和非仓库网页只记录正文摘要，不声称绑定主仓 commit；这些读取与前后身份检查不能提供跨 API 请求的原子快照保证。
@@ -54,6 +54,7 @@ Refresh 自动处理新版本、同一 GitHub repository ID 的改名或迁移�
 - 不因同名、相似 README、同一官网下的多个页面或单一新来源自动替换为新仓库、fork、第三方镜像或继任项目；仓库重建只有在可信开发者身份或两个不同官方来源域交叉确认后才自动恢复。Discovery 的请求预算按真实 HTTP attempt（含重试及每一跳重定向）计数，每次发送前检查预算并按剩余 deadline 限制 timeout，最终响应体分块读取也受剩余 deadline 约束，重定向正文直接关闭而不读取，非 HTTPS 跳转在发送前拒绝；超预算只保留候选状态，不把部分结果当成完成发现。
 - 主分支保持 linear history，禁止删除和强推。Refresh 只使用短期 `contents: write`，不保存长期写密钥；刷新开始与发布前核对当前 `main`；旧 SHA 的运行按 superseded 跳过，推送失败时只在确认主分支已前进后才视作 superseded，其他失败保持报错。
 - CI 只允许预期的 NET86 / GitHub / github-actions 提交身份：拉取完整历史，检查 PR/Push 引入的全部提交及当前检出提交；事件元数据或提交对象缺失时拒绝通过。空白检查使用同一事件确定的变更范围，PR 从 merge-base 比较，首次 Push 从空树比较。
+- 同一提交范围内，CI 还用 Git 解析提交消息的 `Co-authored-by` trailers；逐项核对共同作者的姓名与邮箱，拒绝未授权或格式不完整的声明。重复声明、大小写不同的字段名及续行不能绕过检查。
 - Discovery 对返回同一 repository ID 的新旧路径先合并官方来源，再核对信任与候选唯一性；同名但不同 ID 的仓库仍分开处理。别名解析中身份、项目证据或归档状态不一致时保留失败状态，不自动认领。
 
 ## 本地验证

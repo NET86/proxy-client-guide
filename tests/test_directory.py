@@ -1209,7 +1209,10 @@ class AuditTests(unittest.TestCase):
         sha = "b" * 40
 
         def api(url, token=None):
-            if url == "https://api.github.com/repositories/1390230283":
+            if url in {
+                "https://api.github.com/repositories/1390230283",
+                "https://api.github.com/repos/ProjectClash/Clash",
+            }:
                 return self.clash_core_metadata()
             if url == "https://api.github.com/repos/ProjectClash/Clash/commits/main":
                 return {"sha": sha}
