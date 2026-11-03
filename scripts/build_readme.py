@@ -15,6 +15,7 @@ import copy
 import datetime as dt
 import hashlib
 import http.client
+import io
 import json
 import os
 import re
@@ -603,6 +604,68 @@ class _RedirectBudgetProcessor(urllib.request.BaseHandler):
     ftp_request = http_request
 
 
+class _DeadlineReader(io.RawIOBase):
+    """Enforce a shared deadline at each receive, below HTTP buffering."""
+
+    def __init__(self, raw, sock, budget: DiscoveryBudget):
+        self.raw = raw
+        self._sock = sock
+        self.budget = budget
+
+    def readable(self):
+        return True
+
+    def readinto(self, target):
+        self._sock.settimeout(self.budget.check_deadline())
+        count = self.raw.readinto(target)
+        self.budget.check_deadline()
+        return count
+
+    def close(self):
+        try:
+            self.raw.close()
+        finally:
+            super().close()
+
+
+class _DeadlineHTTPResponse(http.client.HTTPResponse):
+    def __init__(self, sock, *args, budget: DiscoveryBudget, **kwargs):
+        super().__init__(sock, *args, **kwargs)
+        # No bytes have been read yet. Keep the standard HTTP parser, but put
+        # the deadline below its buffered status/header/chunk/body reads.
+        self.fp = io.BufferedReader(_DeadlineReader(self.fp.detach(), sock, budget))
+
+
+class _DeadlineHTTPSHandler(urllib.request.HTTPSHandler):
+    def __init__(self, budget: DiscoveryBudget | None):
+        super().__init__()
+        self.budget = budget
+
+    def do_open(self, http_class, request, **kwargs):
+        if self.budget is None:
+            return super().do_open(http_class, request, **kwargs)
+        connections = []
+
+        def connection_factory(*args, **options):
+            connection = http_class(*args, **options)
+            connections.append(connection)
+
+            def response_factory(*args, **options):
+                return _DeadlineHTTPResponse(*args, budget=self.budget, **options)
+
+            connection.response_class = response_factory
+            return connection
+
+        try:
+            return super().do_open(connection_factory, request, **kwargs)
+        except BaseException:
+            # urllib closes on OSError, but our budget exception is not one.
+            # Also release a connection if the deadline fires during headers.
+            for connection in connections:
+                connection.close()
+            raise
+
+
 def _open_request(request, *, timeout):
     budget = getattr(request, "_discovery_budget", None)
     # Every request skips redirect bodies, even outside discovery. A local
@@ -610,7 +673,8 @@ def _open_request(request, *, timeout):
     # The standard redirect handler still owns history, loop limits and the
     # exclusion of unredirected Authorization headers from redirected requests.
     opener = urllib.request.build_opener(
-        _BudgetRedirectHandler(), _RedirectBudgetProcessor(budget)
+        _BudgetRedirectHandler(), _RedirectBudgetProcessor(budget),
+        _DeadlineHTTPSHandler(budget),
     )
     return opener.open(request, timeout=timeout)
 
