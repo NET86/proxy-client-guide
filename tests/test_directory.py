@@ -81,6 +81,7 @@ class CatalogTests(unittest.TestCase):
         for unsupported in (
             "Android Mihomo/Meow GUI client.\n"
             "https://github.com/MetaCubeX/mihomo\nhttps://github.com/meow-rs/meow-rs",
+            build.replace('.orElse("mihomo")', '.orElse("other")'),
             build.replace('bundledCoreId == "meow"', 'bundledCoreId == "other"'),
             build.replace('"libclash-rs"', '"unrelated-core"'),
             build.replace("com.github.Asterisk4Magisk:$bundledCoreArtifact:", "example:other:"),
