@@ -203,4 +203,3 @@ class CIBoundaryTests(unittest.TestCase):
         self.assertEqual(len(requested), 2)
         self.assertEqual(record["state"], "verified", record)
         self.assertEqual(record["repo_id"], 990002)
-
