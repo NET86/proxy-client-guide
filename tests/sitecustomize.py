@@ -7,6 +7,10 @@ Set NET86_ALLOW_LIVE_TEST_NETWORK=1 only for a separately designated live test j
 import os
 import urllib.request
 
+# Socket-level fixtures may explicitly restore the parser/dispatcher while
+# replacing connection establishment and guarding against real sockets.
+STDLIB_HTTP_DO_OPEN = urllib.request.AbstractHTTPHandler.do_open
+
 if os.environ.get("NET86_ALLOW_LIVE_TEST_NETWORK") != "1":
     def _deny_live_network(request, *args, **kwargs):
         url = getattr(request, "full_url", request)
