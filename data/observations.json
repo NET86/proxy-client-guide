@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-11-03T13:15:59Z",
+        "last_activity_at": "2026-11-03T13:38:41Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-03T13:18:37Z",
-        "last_success_at": "2026-11-03T13:18:37Z",
+        "observed_at": "2026-11-03T13:47:27Z",
+        "last_success_at": "2026-11-03T13:47:27Z",
         "confirmed_archived": false
       },
       "release": {
