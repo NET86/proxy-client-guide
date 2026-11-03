@@ -43,9 +43,54 @@ class CatalogTests(unittest.TestCase):
         self.assertNotIn("commercial", {client["category"] for client in self.clients})
 
     def test_mihomo_candidates_added(self):
-        for cid in ("sparkle", "metacubexd", "bettbox", "asteriskmeta"):
+        for cid in ("sparkle", "metacubexd", "bettbox"):
             self.assertIn(cid, self.by_id)
             self.assertEqual(self.by_id[cid]["category"], "mihomo")
+
+    def test_asteriskmeta_catalogues_both_bundled_core_variants(self):
+        client = self.by_id["asteriskmeta"]
+        self.assertEqual(client["category"], "multi_core")
+        self.assertEqual(client["core"], "多内核（Mihomo / Meow）")
+        self.assertIn("每个 APK 仅内置一个内核", client["compatibility_note"])
+
+    def test_asteriskmeta_core_evidence_uses_build_dependency(self):
+        # Relevant build lines from upstream bfa4070cf22ea34d299391581a438342b3e2212a.
+        build = (
+            'val bundledCoreId = providers.gradleProperty("core").orElse("mihomo").get()\n'
+            'require(bundledCoreId == "mihomo" || bundledCoreId == "meow")\n'
+            'val bundledCoreArtifact = if (bundledCoreId == "meow") "libclash-rs" else "libclash"\n'
+            'implementation("com.github.Asterisk4Magisk:$bundledCoreArtifact:'
+            '${ProjectConfig.ANDROID_LIB_CLASH_LITE_VERSION}@aar")\n'
+        )
+        client = self.by_id["asteriskmeta"]
+        expected_url = (
+            "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/main/app/build.gradle.kts"
+        )
+        requested = []
+
+        def fetch_text(url):
+            requested.append(url)
+            return build if url == expected_url else "Android Mihomo/Meow GUI client."
+
+        record, issues, ok = d.audit_core_evidence(client, {}, NOW, fetch_text)
+        self.assertTrue(ok, issues)
+        self.assertEqual(issues, [])
+        self.assertEqual(record["state"], "ok")
+        self.assertEqual(requested, [expected_url])
+
+        for unsupported in (
+            "Android Mihomo/Meow GUI client.\n"
+            "https://github.com/MetaCubeX/mihomo\nhttps://github.com/meow-rs/meow-rs",
+            build.replace('.orElse("mihomo")', '.orElse("other")'),
+            build.replace('bundledCoreId == "meow"', 'bundledCoreId == "other"'),
+            build.replace('"libclash-rs"', '"unrelated-core"'),
+            build.replace("com.github.Asterisk4Magisk:$bundledCoreArtifact:", "example:other:"),
+        ):
+            with self.subTest(unsupported=unsupported):
+                record, issues, ok = d.audit_core_evidence(client, {}, NOW, lambda _url: unsupported)
+                self.assertFalse(ok)
+                self.assertEqual(record["state"], "mismatch")
+                self.assertTrue(issues)
 
     def test_representative_clients_are_normalized(self):
         self.assertEqual(self.by_id["hako"]["source_type"], "app_store")

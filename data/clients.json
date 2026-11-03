@@ -341,7 +341,7 @@
     {
       "id": "asteriskmeta",
       "name": "AsteriskMETA",
-      "category": "mihomo",
+      "category": "multi_core",
       "platforms": {
         "windows": false,
         "macos": false,
@@ -354,13 +354,15 @@
       "github_repo": "Asterisk4Magisk/AsteriskMETA",
       "official_repo_id": 1262202400,
       "download_url": "https://github.com/Asterisk4Magisk/AsteriskMETA/releases",
-      "core": "Mihomo",
+      "core": "多内核（Mihomo / Meow）",
+      "compatibility_note": "每个 APK 仅内置一个内核；带 -meow 后缀的版本使用 Meow，覆盖安装可切换内核。",
       "core_evidence": [
         {
-          "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/main/README.md",
+          "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/main/app/build.gradle.kts",
           "patterns": [
-            "Android Mihomo GUI client",
-            "Runs the local Mihomo executable"
+            "providers\\.gradleProperty\\(\"core\"\\)\\.orElse\\(\"mihomo\"\\)",
+            "bundledCoreId\\s*==\\s*\"meow\"\\)\\s*\"libclash-rs\"\\s+else\\s*\"libclash\"",
+            "implementation\\(\"com\\.github\\.Asterisk4Magisk:\\$bundledCoreArtifact:"
           ]
         }
       ]
