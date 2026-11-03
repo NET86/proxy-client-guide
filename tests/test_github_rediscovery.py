@@ -320,6 +320,73 @@ class GithubRediscoveryTests(unittest.TestCase):
         )
         self.assertEqual(len(out["github_discovery"]["candidates"]), 2)
 
+    def alias_discovery(self, urls, metadata, old=None):
+        client = copy.deepcopy(self.by_id["karing"])
+        client["github_discovery"]["trusted_text_urls"] = urls
+        client["github_discovery"]["trusted_owner_ids"] = []
+        names = ("NewKaringOrg/karing-old", "NewKaringOrg/karing-next")
+
+        def text(url):
+            return f"https://github.com/{names[urls.index(url)]}"
+
+        def api(url, token=None):
+            name = url.removeprefix("https://api.github.com/repos/")
+            return copy.deepcopy(metadata[names.index(name)])
+
+        previous = {}
+        if old:
+            previous["github_discovery"] = d.positive_record(
+                None, d.iso(NOW - dt.timedelta(hours=1)), d.github_discovery_scope(client),
+                **old["github_discovery"],
+            )
+        return d.audit_github_discovery(client, previous, NOW, None, None, api, text)
+
+    def test_aliases_merge_two_independent_domains_before_new_owner_trust_check(self):
+        metadata = self.repo(990020, 777003, "NewKaringOrg/karing-next", "Karing proxy utility")
+        record = self.alias_discovery(
+            ["https://official.example/source", "https://store.example/source"],
+            [metadata, metadata],
+        )
+        self.assertEqual(record["state"], "verified", record)
+        self.assertEqual(record["repo_id"], 990020)
+        self.assertEqual(record["source_identities"], ["official.example", "store.example"])
+        self.assertEqual(record["sources"], ["https://official.example/source", "https://store.example/source"])
+
+    def test_aliases_on_one_domain_do_not_create_independent_trust(self):
+        metadata = self.repo(990020, 777003, "NewKaringOrg/karing-next", "Karing proxy utility")
+        record = self.alias_discovery(
+            ["https://official.example/one", "https://official.example/two"],
+            [metadata, metadata],
+        )
+        self.assertEqual(record["state"], "candidate")
+        self.assertEqual(len(record["candidates"]), 1)
+        self.assertEqual(record["candidates"][0]["reason"], "single_source_new_owner")
+
+    def test_sources_for_distinct_ids_are_never_merged_even_with_same_name(self):
+        first = self.repo(990020, 777003, "NewKaringOrg/karing-next", "Karing proxy utility")
+        second = {**copy.deepcopy(first), "id": 990021}
+        record = self.alias_discovery(
+            ["https://official.example/source", "https://store.example/source"],
+            [first, second],
+        )
+        self.assertEqual(record["state"], "candidate")
+        self.assertEqual(len(record["candidates"]), 2)
+        self.assertTrue(all(candidate["reason"] == "single_source_new_owner" for candidate in record["candidates"]))
+
+    def test_conflicting_alias_metadata_cannot_reuse_cached_verified_claim(self):
+        first = self.repo(990020, 777003, "NewKaringOrg/karing-next", "Karing proxy utility")
+        old = {"github_discovery": {"state": "verified", "repo_id": 990020, "full_name": first["full_name"]}}
+        for field, value in (("archived", True), ("owner", {"id": 777004}),
+                             ("description", "Unrelated utility")):
+            with self.subTest(field=field):
+                second = {**copy.deepcopy(first), field: value}
+                record = self.alias_discovery(
+                    ["https://official.example/source", "https://store.example/source"],
+                    [first, second], old,
+                )
+                self.assertEqual(record["state"], "candidate")
+                self.assertEqual(record["reason"], "repository_changed_during_alias_resolution")
+
     def test_original_repository_recovery_clears_stale_discovery(self):
         client = self.by_id["karing"]
         old = {

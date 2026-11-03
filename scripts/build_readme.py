@@ -1246,6 +1246,8 @@ def audit_github_discovery(
     previous_success = parse_time(previous_source.get('last_success_at'))
     verified: list[dict[str, Any]] = []
     candidates: list[dict[str, Any]] = []
+    repositories: dict[int, tuple[dict[str, Any], set[str]]] = {}
+    inspected_count = 0
     try:
         for key in sorted(candidate_sources):
             reason = budget_reason()
@@ -1253,10 +1255,11 @@ def audit_github_discovery(
                 return budget_record(
                     reason,
                     candidate_count=len(candidate_sources),
-                    inspected_count=len(candidates) + len(verified),
+                    inspected_count=inspected_count,
                 )
             requested_name = candidate_display_names[key]
             metadata = discovery_json(f"https://api.github.com/repos/{requested_name}", token)
+            inspected_count += 1
             if metadata is None:
                 candidates.append(
                     {
@@ -1267,8 +1270,31 @@ def audit_github_discovery(
                 )
                 continue
             require_repo_schema(metadata)
+            repo_id = metadata["id"]
+            if repo_id in repositories:
+                previous_metadata, sources = repositories[repo_id]
+                # Aliases must agree on current identity, lifecycle and project
+                # evidence. A rename or ownership change during this audit is
+                # incomplete evidence, not permission to choose either result.
+                if previous_metadata["owner"]["id"] != metadata["owner"]["id"] or any(
+                    previous_metadata.get(field) != metadata.get(field) for field in (
+                        "full_name", "archived", "disabled", "name", "description", "homepage", "topics",
+                    )
+                ):
+                    return positive_record(
+                        previous, stamp, scope, state="candidate",
+                        reason="repository_changed_during_alias_resolution",
+                    )
+                sources.update(candidate_sources[key])
+            else:
+                repositories[repo_id] = (metadata, set(candidate_sources[key]))
+
+        # GitHub redirects old paths to the same repository. Merge official
+        # anchors by immutable ID before applying trust and uniqueness rules.
+        budget.check_deadline()
+        for metadata, source_names in repositories.values():
             owner_id = metadata["owner"]["id"]
-            sources = sorted(candidate_sources[key])
+            sources = sorted(source_names)
             source_identities = sorted({discovery_source_identity(source) for source in sources})
             evidence_match = github_candidate_matches(config, metadata)
             trust_match = owner_id in trusted_owner_ids or len(source_identities) >= 2
@@ -1310,7 +1336,7 @@ def audit_github_discovery(
         return budget_record(
             exc.reason,
             candidate_count=len(candidate_sources),
-            inspected_count=len(candidates) + len(verified),
+            inspected_count=inspected_count,
         )
     except (OSError, urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, ObservationError, ValueError, re.error) as exc:
         return failure_record(previous, stamp, str(exc), scope)
