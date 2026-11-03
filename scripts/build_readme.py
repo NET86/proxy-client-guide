@@ -1056,6 +1056,18 @@ def audit_app_store_pinned_core_evidence(
         def verify_identity() -> None:
             if repo_by_id()["full_name"].casefold() != canonical_repo.casefold():
                 raise CoreRepoIdentityError("pinned core repository moved during audit")
+            # Numeric-ID metadata can lag a rename/path reuse. Check the path
+            # actually used for commit resolution and raw content as well.
+            current = request(f"https://api.github.com/repos/{canonical_repo}", token)
+            if current is None:
+                raise ObservationError("pinned core repository path unavailable")
+            require_repo_schema(current)
+            if (
+                current["id"] != pin_id
+                or current["full_name"].casefold() != canonical_repo.casefold()
+                or current["archived"] or current["disabled"]
+            ):
+                raise CoreRepoIdentityError("pinned core repository path identity or lifecycle changed")
 
         def resolve_evidence_url(url: str) -> str:
             prefix = f"https://raw.githubusercontent.com/{canonical_repo}/"

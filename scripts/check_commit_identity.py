@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Allow only expected author and committer identities for this repository."""
+"""Allow only expected author, committer and coauthor identities."""
 
 from __future__ import annotations
 
@@ -84,6 +84,21 @@ def validate_identity(author: tuple[str, str], committer: tuple[str, str]) -> No
         raise ValueError("unexpected commit committer identity")
 
 
+def validate_coauthors(message: str) -> None:
+    # Git unfolds continuation lines and preserves repeated input trailers.
+    # --no-divider treats the input as a commit message, not an emailed patch.
+    trailers = git("-c", "trailer.separators=:", "interpret-trailers", "--parse", "--no-divider", input=message)
+    for trailer in trailers.splitlines():
+        key, separator, value = trailer.partition(":")
+        if not separator or key.strip().casefold() != "co-authored-by":
+            continue
+        match = re.fullmatch(r"([^<>\r\n]+?)\s*<([^<>\s]+)>", value.strip())
+        if match is None:
+            raise ValueError("malformed commit coauthor identity")
+        if (match[1].strip(), match[2]) not in ALLOWED_AUTHORS:
+            raise ValueError("unexpected commit coauthor identity")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--github-output", type=Path, help="Export checked base/head for the whitespace gate")
@@ -96,6 +111,7 @@ def main() -> int:
         revisions.append(git("rev-parse", "HEAD"))
         for revision in dict.fromkeys(revisions):
             validate_identity(*current_identity(revision))
+            validate_coauthors(git("show", "-s", "--format=%B", revision))
         if args.github_output:
             whitespace_base = git("merge-base", base, head) if is_pr else base
             if whitespace_base is None:
