@@ -16,10 +16,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Check commit identity
-        run: python3 scripts/check_commit_identity.py
+        id: identity
+        run: python3 scripts/check_commit_identity.py --github-output "$GITHUB_OUTPUT"
 
       - name: Run tests
         run: PYTHONPATH=tests python3 -m unittest discover -s tests -v
@@ -31,4 +33,7 @@ jobs:
         run: python3 scripts/build_readme.py --check
 
       - name: Check whitespace
-        run: git diff --check
+        env:
+          CI_BASE_SHA: ${{ steps.identity.outputs.base }}
+          CI_HEAD_SHA: ${{ steps.identity.outputs.head }}
+        run: git diff --check "$CI_BASE_SHA" "$CI_HEAD_SHA"
