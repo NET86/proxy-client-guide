@@ -1,5 +1,7 @@
 """Real urllib/HTTP buffering over deterministic, virtual-time socket receives."""
 import io
+import sitecustomize
+import socket
 import unittest
 from unittest.mock import patch
 
@@ -71,6 +73,8 @@ class ReceiveDeadlineTests(unittest.TestCase):
 
         with patch.object(d.time, "monotonic", side_effect=lambda: clock[0]), \
              patch.object(d.urllib.request, "getproxies", return_value={}), \
+             patch.object(d.urllib.request.AbstractHTTPHandler, "do_open", sitecustomize.STDLIB_HTTP_DO_OPEN), \
+             patch.object(socket, "socket", side_effect=AssertionError("live socket forbidden")), \
              patch.object(d.http.client.HTTPSConnection, "connect", connect):
             budget = d.DiscoveryBudget(2, seconds) if budgeted else None
             try:
