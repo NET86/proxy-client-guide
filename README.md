@@ -146,7 +146,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/chen08209/FlClash](https://github.com/chen08209/FlClash)
 - 下载：[https://github.com/chen08209/FlClash/releases](https://github.com/chen08209/FlClash/releases)
-- 版本：v0.9.2（2026-10-24）
+- 版本：v0.9.3（2026-11-04）
 
 ### MetaCubeXD
 
