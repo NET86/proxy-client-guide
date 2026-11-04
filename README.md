@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-11-04（北京时间，下同）。
+核验：最近成功日期 2026-11-05（北京时间，下同）。
 > 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -156,7 +156,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/MetaCubeX/metacubexd](https://github.com/MetaCubeX/metacubexd)
 - 下载：[https://github.com/MetaCubeX/metacubexd/releases](https://github.com/MetaCubeX/metacubexd/releases)
-- 版本：v1.274.3（2026-11-01）
+- 版本：v1.274.4（2026-11-05）
 
 ### Sparkle
 
@@ -259,7 +259,7 @@
 - 内核：未公开
 - 官方来源：[https://egernapp.com/](https://egernapp.com/)
 - 下载：[https://apps.apple.com/us/app/id1616105820](https://apps.apple.com/us/app/id1616105820)
-- 版本：2.20.0（2026-07-24）
+- 版本：2.21.0（2026-11-05）
 
 ### Loon
 
