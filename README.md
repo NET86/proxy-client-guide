@@ -176,7 +176,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/hiddify/hiddify-app](https://github.com/hiddify/hiddify-app)
 - 下载：[https://github.com/hiddify/hiddify-app/releases](https://github.com/hiddify/hiddify-app/releases)
-- 版本：v4.1.1（2026-03-06）
+- 版本：v5.5.5（2026-11-05）
 
 ### Karing
 
