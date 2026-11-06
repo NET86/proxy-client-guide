@@ -250,12 +250,12 @@
         "repo_id": 500719319,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/ClashMetaForAndroid",
-        "last_activity_at": "2026-11-05T13:49:27Z",
+        "last_activity_at": "2026-11-06T01:29:06Z",
         "scope": "sha256:4543876f0b18d44b652905be8ccb5c577ac38a64a5c1dd93a0dbab67be2a9c6a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-05T21:50:41Z",
-        "last_success_at": "2026-11-05T21:50:41Z",
+        "observed_at": "2026-11-06T02:06:32Z",
+        "last_success_at": "2026-11-06T02:06:32Z",
         "confirmed_archived": false
       },
       "release": {
@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-11-05T21:02:39Z",
+        "last_activity_at": "2026-11-06T02:05:15Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-05T21:50:41Z",
-        "last_success_at": "2026-11-05T21:50:41Z",
+        "observed_at": "2026-11-06T02:06:32Z",
+        "last_success_at": "2026-11-06T02:06:32Z",
         "confirmed_archived": false
       },
       "release": {
@@ -320,11 +320,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-05T21:50:41Z",
-        "last_success_at": "2026-11-05T21:50:41Z",
+        "observed_at": "2026-11-06T02:06:32Z",
+        "last_success_at": "2026-11-06T02:06:32Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/29a34a234f318f705bea142b3b3cb474c6f41dd3/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/a624758d4cdc1b5fa5bf11d7dd9e2f8b0c6eaba2/README.md",
             "sha256": "2324acc8c2f68b90f41c60bbfb06f0ed96ad8c471e13e61288b9e4dc8783167f"
           }
         ],
