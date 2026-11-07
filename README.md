@@ -156,7 +156,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/MetaCubeX/metacubexd](https://github.com/MetaCubeX/metacubexd)
 - 下载：[https://github.com/MetaCubeX/metacubexd/releases](https://github.com/MetaCubeX/metacubexd/releases)
-- 版本：v1.274.4（2026-11-05）
+- 版本：v1.274.5（2026-11-07）
 
 ### Sparkle
 
