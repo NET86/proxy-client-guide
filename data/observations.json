@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-11-06T21:19:33Z",
+        "last_activity_at": "2026-11-07T00:50:45Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-06T21:23:36Z",
-        "last_success_at": "2026-11-06T21:23:36Z",
+        "observed_at": "2026-11-07T01:43:35Z",
+        "last_success_at": "2026-11-07T01:43:35Z",
         "confirmed_archived": false
       },
       "release": {
@@ -320,11 +320,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-06T21:23:36Z",
-        "last_success_at": "2026-11-06T21:23:36Z",
+        "observed_at": "2026-11-07T01:43:35Z",
+        "last_success_at": "2026-11-07T01:43:35Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/65a2c04e553a04435a08c5d3a2932d2934f576e3/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/74c60750967808347d283a7bbfdd2951ed90d1f0/README.md",
             "sha256": "2324acc8c2f68b90f41c60bbfb06f0ed96ad8c471e13e61288b9e4dc8783167f"
           }
         ],
@@ -338,12 +338,12 @@
         "repo_id": 836976013,
         "owner_id": 181477152,
         "full_name": "mihomo-party-org/clash-party",
-        "last_activity_at": "2026-11-05T11:03:17Z",
+        "last_activity_at": "2026-11-06T23:58:33Z",
         "scope": "sha256:9812e1fa09efc3deaf6302785129fb60e57f2631f52559d22ced794ab780b986",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-05T12:00:27Z",
-        "last_success_at": "2026-11-06T21:23:36Z",
+        "observed_at": "2026-11-07T01:43:35Z",
+        "last_success_at": "2026-11-07T01:43:35Z",
         "confirmed_archived": false
       },
       "release": {
@@ -364,11 +364,11 @@
         "scope": "sha256:66275462b3789475b7cc6edce3d0244488598c8c1fb1517cd4dd570a53ec7a0e",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-05T12:00:27Z",
-        "last_success_at": "2026-11-06T21:23:36Z",
+        "observed_at": "2026-11-07T01:43:35Z",
+        "last_success_at": "2026-11-07T01:43:35Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/mihomo-party-org/clash-party/2da9705c91bd883e39c5162b85a979b43f0fe452/README.md",
+            "url": "https://raw.githubusercontent.com/mihomo-party-org/clash-party/240ea4292f0671cbeb4dc2039d29831d96cc6806/README.md",
             "sha256": "b0765998e798cdb43048b1a09ff0d7bd6b4ee6e262fdcedc3267f3a051669974"
           }
         ],
@@ -426,12 +426,12 @@
         "repo_id": 664925328,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/metacubexd",
-        "last_activity_at": "2026-11-04T17:43:15Z",
+        "last_activity_at": "2026-11-06T22:02:49Z",
         "scope": "sha256:48bb697e216f1dd711e37c63b2f446ef2b08cac6bcd9da03d3ce4f506374a411",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-04T21:46:14Z",
-        "last_success_at": "2026-11-06T21:23:36Z",
+        "observed_at": "2026-11-07T01:43:35Z",
+        "last_success_at": "2026-11-07T01:43:35Z",
         "confirmed_archived": false
       },
       "release": {
