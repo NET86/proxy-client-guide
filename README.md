@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-11-07（北京时间，下同）。
+核验：最近成功日期 2026-11-08（北京时间，下同）。
 > 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -93,7 +93,7 @@
 - 内核：Clash（基于 Mihomo）
 - 官方来源：[https://github.com/ProjectClash/Clash](https://github.com/ProjectClash/Clash)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
-- 版本：1.0.13（2026-10-29）
+- 版本：1.0.14（2026-11-08）
 - 官网：[https://clash.md/](https://clash.md/)
 - 说明：原 Hako 已更名为 Clash；旧源码仓库已归档，现由 ProjectClash 维护内核与 Apple 客户端源码。
 
