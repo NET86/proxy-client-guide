@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-11-08T17:12:51Z",
+        "last_activity_at": "2026-11-09T00:41:13Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-08T20:18:42Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "observed_at": "2026-11-09T01:31:40Z",
+        "last_success_at": "2026-11-09T01:31:40Z",
         "confirmed_archived": false
       },
       "release": {
@@ -320,11 +320,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-08T20:18:42Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "observed_at": "2026-11-09T01:31:40Z",
+        "last_success_at": "2026-11-09T01:31:40Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/542edeac4964bddbb74074d8a84f4e6b4f8ea08e/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/d64940ba2cc869f419368144617c0425f84d5da3/README.md",
             "sha256": "2324acc8c2f68b90f41c60bbfb06f0ed96ad8c471e13e61288b9e4dc8783167f"
           }
         ],
@@ -648,12 +648,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-11-08T12:35:03Z",
+        "last_activity_at": "2026-11-09T00:28:32Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-08T20:18:42Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "observed_at": "2026-11-09T01:31:40Z",
+        "last_success_at": "2026-11-09T01:31:40Z",
         "confirmed_archived": false
       },
       "release": {
