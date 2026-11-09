@@ -126,7 +126,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/KaringX/clashmi](https://github.com/KaringX/clashmi)
 - 下载：[https://github.com/KaringX/clashmi/releases](https://github.com/KaringX/clashmi/releases)
-- 版本：v1.0.31.1703（2026-10-09）
+- 版本：v1.0.32.1803（2026-11-03）
 
 ### ClashX Meta
 
@@ -156,7 +156,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/MetaCubeX/metacubexd](https://github.com/MetaCubeX/metacubexd)
 - 下载：[https://github.com/MetaCubeX/metacubexd/releases](https://github.com/MetaCubeX/metacubexd/releases)
-- 版本：v1.274.5（2026-11-07）
+- 版本：v1.274.6（2026-11-09）
 
 ### Sparkle
 
@@ -186,7 +186,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
-- 版本：v1.2.25.2802（2026-09-10）
+- 版本：v1.2.26.2923（2026-11-09）
 - 说明：支持完整 Clash 和部分 Clash.Meta 配置。
 
 ### NekoBox for Android
