@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "last_run_at": "2026-11-08T20:18:42Z",
+  "last_run_at": "2026-11-10T00:02:09Z",
   "clients": {
     "flclash": {
       "source": {
@@ -13,7 +13,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-04T11:57:10Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -26,7 +26,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-04T11:57:10Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 678716433
       },
       "core_evidence": {
@@ -42,7 +42,7 @@
         "scope": "sha256:6bf785a1ced89cbed246238daea2abb4b1463881d3eb071529bcb06d8e3fd75d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-04T11:57:10Z"
       }
     },
@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-11-09T12:37:54Z",
+        "last_activity_at": "2026-11-09T23:54:35Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-09T12:40:58Z",
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "observed_at": "2026-11-10T00:02:09Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -70,7 +70,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-03T11:45:05Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 721767116
       },
       "core_evidence": {
@@ -78,11 +78,11 @@
         "scope": "sha256:d03d777f723bc2cb2761e2eebe03667aac5a2b4795eab5c8d8ccbcd111d26eed",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-09T12:40:58Z",
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "observed_at": "2026-11-10T00:02:09Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/d51e4a95d6a70c43036e2756e6ac0615223e8004/docs/README_en.md",
+            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/9d0bee4af9a81565ca24637bebe4485ac485a690/docs/README_en.md",
             "sha256": "7beb89da0519b75bd4f2de081440991a65526df57b93878ba36f9f46d9a2f377"
           }
         ],
@@ -101,7 +101,7 @@
         "scope": "sha256:c6d635e584c29b3325ecd25a64a7a4f1ba14892cdb04034886c005cdd21c7c1d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-06T11:56:40Z",
         "confirmed_archived": false
       },
@@ -114,7 +114,7 @@
         "scope": "sha256:3afcc460803a2f71177d4512747c5ce13ceea2ae4c10aae56f75aa6d4dd8655c",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-09T12:40:58Z",
         "repo_id": 966153123
       },
@@ -123,7 +123,7 @@
         "scope": "sha256:539d0dae6ea8918247c0359585c6bfc893a0926135aea89a3b15210b4d6a11bb",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-06T11:56:40Z",
         "evidence_snapshots": [
           {
@@ -144,7 +144,7 @@
         "scope": "sha256:4d4e51a481203322259a4fc4a6554561be8146968d1e9de68fbad623451fef5a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-07T20:01:35Z"
       },
       "release": {
@@ -156,7 +156,7 @@
         "scope": "sha256:1bc03a3b458728c6982287164117d9fc197490d8771fe3557e474209d8fc6d92",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-07T20:01:35Z"
       },
       "core_evidence": {
@@ -176,7 +176,7 @@
         "scope": "sha256:cd48ba5abc27895a0e7d79a502362490d69fd2ae7715fbf9372dce621e2eb4c1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-07T10:56:45Z"
       },
       "github_discovery": {
@@ -196,7 +196,7 @@
         "scope": "sha256:07d7a7b572f84acbb32ff0aacf8fbc6d3c8c5bbdfe238daca5dce2889630716d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-07T10:56:45Z"
       }
     },
@@ -211,7 +211,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-21T19:59:12Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -224,7 +224,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-21T19:59:12Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 502510490
       },
       "core_evidence": {
@@ -233,7 +233,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-07T03:24:17Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
             "url": "https://raw.githubusercontent.com/MetaCubeX/ClashX.Meta/471b3e04153655374516b8589cacdb6db373d913/ClashX/goClash/go.mod",
@@ -255,7 +255,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-06T11:56:40Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -268,7 +268,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-21T19:59:12Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 500719319
       },
       "core_evidence": {
@@ -277,7 +277,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-21T19:59:12Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
             "url": "https://raw.githubusercontent.com/MetaCubeX/ClashMetaForAndroid/1a4f949213fcbb7f0c9e2a4a21138642d84b8f22/README.md",
@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-11-09T12:36:38Z",
+        "last_activity_at": "2026-11-09T22:16:25Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-09T12:40:58Z",
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "observed_at": "2026-11-10T00:02:09Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -312,7 +312,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-31T19:48:38Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 716838500
       },
       "core_evidence": {
@@ -320,11 +320,11 @@
         "scope": "sha256:df9110cd4c6f3219b93721291b80abc1df676e058610dd3743608d9caf19e52d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-09T12:40:58Z",
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "observed_at": "2026-11-10T00:02:09Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/8398242cbee972dacaccad5c1a6d9c0c2181b2e0/README.md",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/231e3866cb9ae0390519a22835f6a1e98e484cbf/README.md",
             "sha256": "2324acc8c2f68b90f41c60bbfb06f0ed96ad8c471e13e61288b9e4dc8783167f"
           }
         ],
@@ -343,7 +343,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-08T20:18:42Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -356,7 +356,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-18T13:51:43Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 836976013
       },
       "core_evidence": {
@@ -365,7 +365,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-08T20:18:42Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
             "url": "https://raw.githubusercontent.com/mihomo-party-org/clash-party/72af7d82cc217a64d6cd6c147ac70534c0eb8308/README.md",
@@ -387,7 +387,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-04T11:57:10Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -400,7 +400,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-31T19:48:38Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 838206019
       },
       "core_evidence": {
@@ -409,7 +409,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-04T11:57:10Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
             "url": "https://raw.githubusercontent.com/xishang0128/sparkle/b87b39419212afe230499229a8509b48dbac9722/README.md",
@@ -426,12 +426,12 @@
         "repo_id": 664925328,
         "owner_id": 84378451,
         "full_name": "MetaCubeX/metacubexd",
-        "last_activity_at": "2026-11-09T05:17:58Z",
+        "last_activity_at": "2026-11-09T22:03:13Z",
         "scope": "sha256:48bb697e216f1dd711e37c63b2f446ef2b08cac6bcd9da03d3ce4f506374a411",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-09T12:40:58Z",
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "observed_at": "2026-11-10T00:02:09Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -444,7 +444,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-09T12:40:58Z",
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 664925328
       },
       "core_evidence": {
@@ -453,7 +453,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-09T12:40:58Z",
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
             "url": "https://raw.githubusercontent.com/MetaCubeX/metacubexd/3cbbaa327969134468a9417e407f650ce9512093/README.md",
@@ -475,7 +475,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-06T21:23:36Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -488,7 +488,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-22T09:17:30Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 1088809592
       },
       "core_evidence": {
@@ -504,7 +504,7 @@
         "scope": "sha256:d896f89dd0e098cdfce51a43cd8e8af8574f8118914103c6ead6c26f036f6e55",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-06T21:23:36Z"
       }
     },
@@ -514,12 +514,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-11-09T07:32:08Z",
+        "last_activity_at": "2026-11-09T14:54:01Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-09T12:40:58Z",
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "observed_at": "2026-11-10T00:02:09Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -532,14 +532,14 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-05T21:50:41Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 1262202400
       },
       "core_evidence": {
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/f91a7224a3117a45a116b60adb28db3e28cb7a41/app/build.gradle.kts",
+            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/9745165878ba720cc7b2783e7c604cc13e73b2f6/app/build.gradle.kts",
             "sha256": "f56f69f7bb45a2106a78f74101d4a56e782fd28fa99e8e9be3ac4fd7866f025d"
           }
         ],
@@ -548,8 +548,8 @@
         "scope": "sha256:3ded82275b3579a8557fea9bade166557a7efcec5272ebabe4b0f6f3611ddee1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-09T12:40:58Z",
-        "observed_at": "2026-11-09T12:40:58Z"
+        "last_success_at": "2026-11-10T00:02:09Z",
+        "observed_at": "2026-11-10T00:02:09Z"
       }
     },
     "hiddify": {
@@ -558,13 +558,13 @@
         "repo_id": 643504282,
         "owner_id": 126981719,
         "full_name": "hiddify/hiddify-app",
-        "last_activity_at": "2026-11-07T10:07:04Z",
+        "last_activity_at": "2026-11-09T16:08:36Z",
         "rediscovered_repo": false,
         "scope": "sha256:6ae09388286d3444b119befaac87e283f2823d1f1789ff6ed6da4525c56605d4",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
-        "observed_at": "2026-11-07T10:56:45Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
+        "observed_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -576,7 +576,7 @@
         "scope": "sha256:866075ff72d1f1677b7c926dcd10d14b47546527ee4a2d0950fdde33cd23c50b",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-05T02:05:13Z",
         "repo_id": 643504282
       },
@@ -585,11 +585,11 @@
         "scope": "sha256:cf28b170e533b76cfff6ad6aa0d0510c9c28b6634d37c61b64b21965b2216fcf",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
-        "observed_at": "2026-11-07T10:56:45Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
+        "observed_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/hiddify/hiddify-app/0d6eb8826635babf392f34572727a3f9f6ef6316/README.md",
+            "url": "https://raw.githubusercontent.com/hiddify/hiddify-app/49ee8a7792d7867e2ae7082086cb9217e3722cc5/README.md",
             "sha256": "b1fa91fd15a7ae222059fab039422087c3456254db247c04e664e38c7e048381"
           }
         ],
@@ -608,7 +608,7 @@
         "scope": "sha256:c39ea26d192b995e29a69563fc67c8c3e7678eb2e92e6d1995c2cca14bb0edab",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-09T12:40:58Z",
         "confirmed_archived": false
       },
@@ -621,7 +621,7 @@
         "scope": "sha256:c6eed4a5f898741cb6973be0bdd74933116914c3875b7bc97693fac885210c19",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-09T12:40:58Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-09T12:40:58Z",
         "repo_id": 714929749
       },
@@ -630,7 +630,7 @@
         "scope": "sha256:56368b69986b483d3fd2529393349b100b7e009f53bc7c3a2c9860947b931368",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-11-05T12:00:27Z",
         "evidence_snapshots": [
           {
@@ -648,12 +648,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-11-09T00:28:32Z",
+        "last_activity_at": "2026-11-09T18:47:48Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-09T01:31:40Z",
-        "last_success_at": "2026-11-09T01:31:40Z",
+        "observed_at": "2026-11-10T00:02:09Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -666,7 +666,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-14T08:05:16Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 199570071
       },
       "core_evidence": {
@@ -675,7 +675,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-07T03:24:17Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
             "url": "https://raw.githubusercontent.com/wiki/2dust/v2rayN/List-of-supported-cores.md",
@@ -697,7 +697,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -710,7 +710,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-07T03:24:17Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "repo_id": 609535399
       },
       "core_evidence": {
@@ -719,7 +719,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-07T03:24:17Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
             "url": "https://raw.githubusercontent.com/MatsuriDayo/NekoBoxForAndroid/5768494d8ae3c74a057bb6d46c0f8dc071b0d821/README.md",
@@ -740,7 +740,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-29T10:47:03Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       },
       "release": {
         "state": "ok",
@@ -752,7 +752,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-29T10:47:03Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       }
     },
     "surge": {
@@ -765,7 +765,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-13T11:34:31Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       },
       "release": {
         "state": "ok",
@@ -777,7 +777,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-13T11:34:31Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       }
     },
     "clash-verge-legacy": {
@@ -791,7 +791,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": true
       },
       "historical_release": {
@@ -802,7 +802,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       }
     },
     "stash": {
@@ -815,7 +815,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-21T19:59:12Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       },
       "release": {
         "state": "ok",
@@ -827,7 +827,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-21T19:59:12Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       }
     },
     "quantumult-x": {
@@ -840,7 +840,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-07T13:31:21Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       },
       "release": {
         "state": "ok",
@@ -852,7 +852,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-07T13:31:21Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       }
     },
     "loon": {
@@ -865,7 +865,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-30T10:45:55Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       },
       "release": {
         "state": "ok",
@@ -877,7 +877,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-10-30T10:45:55Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       }
     },
     "egern": {
@@ -890,7 +890,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-04T21:46:14Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       },
       "release": {
         "state": "ok",
@@ -902,7 +902,7 @@
         "observation_state": "fresh",
         "consecutive_failures": 0,
         "observed_at": "2026-11-04T21:46:14Z",
-        "last_success_at": "2026-11-08T20:18:42Z"
+        "last_success_at": "2026-11-10T00:02:09Z"
       }
     },
     "sing-box": {
@@ -911,13 +911,13 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-11-09T12:36:03Z",
+        "last_activity_at": "2026-11-09T15:18:09Z",
         "rediscovered_repo": false,
         "scope": "sha256:d43580a20948f70665c6a6dc980ed9fee8e5a57efedc0aeb9c3150331bd399d3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-09T12:40:58Z",
-        "observed_at": "2026-11-09T12:40:58Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
+        "observed_at": "2026-11-10T00:02:09Z",
         "confirmed_archived": false
       },
       "release": {
@@ -929,7 +929,7 @@
         "scope": "sha256:9211d89c228ddb0377b6dfe44847f46f19c124f4fdcaecac4416b207962445e4",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-08T20:18:42Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
         "observed_at": "2026-10-24T08:46:24Z",
         "repo_id": 509091576
       },
@@ -938,11 +938,11 @@
         "scope": "sha256:923cb51e8e03c6292e4a5d8ac0f2eda72cf0e3ac999ff4fe39cf64e16d698978",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-09T12:40:58Z",
-        "observed_at": "2026-11-09T12:40:58Z",
+        "last_success_at": "2026-11-10T00:02:09Z",
+        "observed_at": "2026-11-10T00:02:09Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/SagerNet/sing-box/28d15eec33764413a96b18f95c117b9d14a9d947/README.md",
+            "url": "https://raw.githubusercontent.com/SagerNet/sing-box/12d19446f9e45cfeb0f9b1a0f3eaf6834c01c97f/README.md",
             "sha256": "6f1cd1e2a47fdb431c0ea18c45b355056530b635112de106f58ed2db477b93ed"
           }
         ],
