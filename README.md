@@ -105,7 +105,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/MetaCubeX/ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid)
 - 下载：[https://github.com/MetaCubeX/ClashMetaForAndroid/releases](https://github.com/MetaCubeX/ClashMetaForAndroid/releases)
-- 版本：v2.11.36（2026-10-22）
+- 版本：v2.11.37（2026-11-11）
 - 说明：Fork 自 xuhaoyang/ClashForAndroid，当前由 MetaCubeX 维护。
 
 ### Clash Verge Rev
@@ -186,7 +186,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
-- 版本：v1.2.26.2925（2026-11-10）
+- 版本：v1.2.26.2927（2026-11-11）
 - 说明：支持完整 Clash 和部分 Clash.Meta 配置。
 
 ### NekoBox for Android
@@ -218,7 +218,7 @@
 - 内核：多内核（Mihomo / Meow）
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
-- 版本：v1.2.26（2026-11-06）
+- 版本：v1.2.27（2026-11-11）
 - 说明：每个 APK 仅内置一个内核；带 -meow 后缀的版本使用 Meow，覆盖安装可切换内核。
 
 ### Clash Nyanpasu
