@@ -46,10 +46,10 @@
 
 | 客户端 | 状态 | macOS | iOS | tvOS | Windows | Android | Linux | 官方来源 | 下载 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
-| Clash Nyanpasu | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/libnyanpasu/clash-nyanpasu) | [下载页](https://github.com/libnyanpasu/clash-nyanpasu/releases) |
 | Clash-Party | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/mihomo-party-org/clash-party) | [下载页](https://github.com/mihomo-party-org/clash-party/releases) |
 | v2rayN | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/2dust/v2rayN) | [下载页](https://github.com/2dust/v2rayN/releases) |
 | AsteriskMETA | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/Asterisk4Magisk/AsteriskMETA) | [下载页](https://github.com/Asterisk4Magisk/AsteriskMETA/releases) |
+| Clash Nyanpasu | ❓ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/libnyanpasu/clash-nyanpasu) | [下载页](https://github.com/libnyanpasu/clash-nyanpasu/releases) |
 
 ## 闭源客户端
 
@@ -136,7 +136,7 @@
 - 内核：Clash
 - 官方来源：[https://github.com/MetaCubeX/ClashX.Meta](https://github.com/MetaCubeX/ClashX.Meta)
 - 下载：[https://github.com/MetaCubeX/ClashX.Meta/releases](https://github.com/MetaCubeX/ClashX.Meta/releases)
-- 版本：v1.4.47（2026-10-22）
+- 版本：v1.4.48（2026-11-13）
 
 ### FlClash
 
@@ -186,7 +186,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
-- 版本：v1.2.26.2929（2026-11-12）
+- 版本：v1.2.26.2930（2026-11-13）
 - 说明：支持完整 Clash 和部分 Clash.Meta 配置。
 
 ### NekoBox for Android
@@ -224,12 +224,13 @@
 ### Clash Nyanpasu
 
 - 分类：多内核客户端
-- 状态：🟢 近半年有更新
+- 状态：❓ 待确认｜来源或版本异常
 - 平台：macOS / Windows / Linux
 - 内核：多内核（Mihomo / Clash Premium / Clash Rust / Meow）
 - 官方来源：[https://github.com/libnyanpasu/clash-nyanpasu](https://github.com/libnyanpasu/clash-nyanpasu)
 - 下载：[https://github.com/libnyanpasu/clash-nyanpasu/releases](https://github.com/libnyanpasu/clash-nyanpasu/releases)
 - 版本：v2.0.1（2026-10-31）
+- 核验：内核说明发生变化；保留原记录。
 
 ### Clash-Party
 
