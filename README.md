@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-11-13（北京时间，下同）。
+核验：成功记录 2026-11-13 至 2026-11-14（北京时间，下同）。
 > 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -39,8 +39,8 @@
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- | --- |
 | Karing | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/karing) | [下载页](https://github.com/KaringX/karing/releases) |
 | sing-box | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/SagerNet/sing-box) | [下载页](https://github.com/SagerNet/sing-box/releases) |
-| Hiddify | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/hiddify/hiddify-app) | [下载页](https://github.com/hiddify/hiddify-app/releases) |
 | NekoBox for Android | 🟡 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MatsuriDayo/NekoBoxForAndroid) | [下载页](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases) |
+| Hiddify | ❓ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/hiddify/hiddify-app) | [下载页](https://github.com/hiddify/hiddify-app/releases) |
 
 ## 多内核客户端
 
@@ -171,12 +171,13 @@
 ### Hiddify
 
 - 分类：sing-box 内核客户端
-- 状态：🟢 近半年有更新
+- 状态：❓ 待确认｜来源或版本异常
 - 平台：macOS / iOS / Windows / Android / Linux
 - 内核：sing-box
 - 官方来源：[https://github.com/hiddify/hiddify-app](https://github.com/hiddify/hiddify-app)
 - 下载：[https://github.com/hiddify/hiddify-app/releases](https://github.com/hiddify/hiddify-app/releases)
 - 版本：v5.5.5（2026-11-05）
+- 核验：内核说明发生变化；保留原记录。
 
 ### Karing
 
@@ -186,7 +187,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
-- 版本：v1.2.26.2930（2026-11-13）
+- 版本：v1.2.26.2931（2026-11-13）
 - 说明：支持完整 Clash 和部分 Clash.Meta 配置。
 
 ### NekoBox for Android
