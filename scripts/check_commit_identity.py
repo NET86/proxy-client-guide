@@ -21,9 +21,13 @@ ALLOWED_COMMITTERS = ALLOWED_AUTHORS | {
 
 
 def git(*args: str, input: str | None = None) -> str:
-    return subprocess.run(
-        ["git", *args], input=input, check=True, capture_output=True, text=True,
-    ).stdout.strip()
+    result = subprocess.run(
+        ["git", *args],
+        input=input.encode("utf-8") if input is not None else None,
+        check=True,
+        capture_output=True,
+    )
+    return result.stdout.decode("utf-8").strip()
 
 
 def event_sha(value: object) -> str:
@@ -65,13 +69,8 @@ def validation_range() -> tuple[str | None, str, bool]:
 
 
 def current_identity(revision: str = "HEAD") -> tuple[tuple[str, str], tuple[str, str]]:
-    result = subprocess.run(
-        ["git", "show", "-s", "--format=%an%x00%ae%x00%cn%x00%ce", revision],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    parts = result.stdout.strip().split("\x00")
+    identity = git("show", "-s", "--encoding=UTF-8", "--format=%an%x00%ae%x00%cn%x00%ce", revision)
+    parts = identity.split("\x00")
     if len(parts) != 4:
         raise ValueError("unexpected git identity format")
     return (parts[0], parts[1]), (parts[2], parts[3])
@@ -85,9 +84,12 @@ def validate_identity(author: tuple[str, str], committer: tuple[str, str]) -> No
 
 
 def validate_coauthors(message: str) -> None:
-    # Git unfolds continuation lines and preserves repeated input trailers.
+    # Pass LF through the binary pipe so Git unfolds continuation lines on Windows.
     # --no-divider treats the input as a commit message, not an emailed patch.
-    trailers = git("-c", "trailer.separators=:", "interpret-trailers", "--parse", "--no-divider", input=message)
+    trailers = git(
+        "-c", "trailer.separators=:", "interpret-trailers", "--parse", "--no-divider",
+        input=message.replace("\r\n", "\n"),
+    )
     for trailer in trailers.splitlines():
         key, separator, value = trailer.partition(":")
         if not separator or key.strip().casefold() != "co-authored-by":
@@ -111,7 +113,7 @@ def main() -> int:
         revisions.append(git("rev-parse", "HEAD"))
         for revision in dict.fromkeys(revisions):
             validate_identity(*current_identity(revision))
-            validate_coauthors(git("show", "-s", "--format=%B", revision))
+            validate_coauthors(git("show", "-s", "--encoding=UTF-8", "--format=%B", revision))
         if args.github_output:
             whitespace_base = git("merge-base", base, head) if is_pr else base
             if whitespace_base is None:
