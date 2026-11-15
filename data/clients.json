@@ -218,18 +218,18 @@
       "github_repo": "libnyanpasu/clash-nyanpasu",
       "official_repo_id": 716838500,
       "download_url": "https://github.com/libnyanpasu/clash-nyanpasu/releases",
-      "core": "多内核（Mihomo / Clash Premium / Clash Rust / Meow）",
+      "core": "多内核（Mihomo / Clash Rust / Meow）",
       "core_evidence": [
         {
-          "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/main/README.md",
+          "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/main/backend/tauri/tauri.conf.json",
           "patterns": [
-            "Clash Premium",
-            "Mihomo",
-            "Clash Rust",
-            "Meow"
+            "\"sidecar/mihomo\"",
+            "\"sidecar/clash-rs\"",
+            "\"sidecar/meow\""
           ]
         }
-      ]
+      ],
+      "compatibility_note": "内核列表以官方主分支为准；已发布的 v2.0.1 仍包含 Clash Premium。"
     },
     {
       "id": "clash-party",
@@ -386,9 +386,15 @@
       "core": "sing-box",
       "core_evidence": [
         {
-          "url": "https://raw.githubusercontent.com/hiddify/hiddify-app/main/README.md",
+          "url": "https://raw.githubusercontent.com/hiddify/hiddify-app/main/Makefile",
           "patterns": [
-            "based on.*Sing-box"
+            "(?m)^[ \\t]*CORE_URL[ \\t]*=[ \\t]*https://github\\.com/hiddify/hiddify-core/releases/download/"
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/hiddify/hiddify-core/main/go.mod",
+          "patterns": [
+            "(?m)^[ \\t]+github\\.com/sagernet/sing-box[ \\t]+v\\S+[ \\t]*\\r?$"
           ]
         }
       ],

@@ -115,7 +115,7 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(self.by_id["loon"]["core"], "未公开")
         self.assertEqual(self.by_id["egern"]["core"], "未公开")
         self.assertEqual(self.by_id["sing-box"]["core"], "sing-box")
-        self.assertEqual(self.by_id["clash-nyanpasu"]["core"], "多内核（Mihomo / Clash Premium / Clash Rust / Meow）")
+        self.assertEqual(self.by_id["clash-nyanpasu"]["core"], "多内核（Mihomo / Clash Rust / Meow）")
         self.assertEqual(self.by_id["clash-party"]["core"], "多内核（Mihomo / Smart Core）")
         self.assertEqual(self.by_id["v2rayn"]["core"], "多内核（Xray / v2fly / Mihomo / sing-box 等）")
         self.assertEqual(self.by_id["nekobox-android"]["source_note"], "Google Play 版本自 2024 年 5 月起不再由原项目维护。")
@@ -126,6 +126,40 @@ class CatalogTests(unittest.TestCase):
     def test_bettbox_core_evidence_accepts_current_wording(self):
         pattern = self.by_id["bettbox"]["core_evidence"][0]["patterns"][1]
         self.assertRegex("Bettbox 基于强大的 Mihomo(Clash Meta) 内核深度打造", pattern)
+
+    def test_nyanpasu_core_evidence_requires_stable_sidecars(self):
+        client = self.by_id["clash-nyanpasu"]
+        url = (
+            "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/"
+            "main/backend/tauri/tauri.conf.json"
+        )
+        required_sidecars = ["sidecar/mihomo", "sidecar/clash-rs", "sidecar/meow"]
+        for bins, expected in (
+            (required_sidecars, True),
+            (["sidecar/mihomo", "sidecar/clash-rs", "sidecar/meow-alpha"], False),
+        ):
+            with self.subTest(bins=bins):
+                evidence = {url: json.dumps({"bundle": {"externalBin": bins}})}
+                record, issues, ok = d.audit_core_evidence(client, {}, NOW, evidence.__getitem__)
+                self.assertEqual(ok, expected, issues)
+                self.assertEqual(record["state"], "ok" if expected else "mismatch")
+
+    def test_hiddify_core_evidence_requires_app_binding_and_direct_dependency(self):
+        client = self.by_id["hiddify"]
+        app = "https://raw.githubusercontent.com/hiddify/hiddify-app/main/Makefile"
+        core = "https://raw.githubusercontent.com/hiddify/hiddify-core/main/go.mod"
+        build = "\tCORE_URL=https://github.com/hiddify/hiddify-core/releases/download/v$(core.version)\n"
+        module = "require (\n\tgithub.com/sagernet/sing-box v1.13.0\n)\n"
+        for build_text, module_text, expected in (
+            (build, module, True),
+            (build.replace("CORE_URL", "# CORE_URL"), module, False),
+            (build, module.replace("v1.13.0", "v1.13.0 // indirect"), False),
+        ):
+            with self.subTest(build_text=build_text, module_text=module_text):
+                evidence = {app: build_text, core: module_text}
+                record, issues, ok = d.audit_core_evidence(client, {}, NOW, evidence.__getitem__)
+                self.assertEqual(ok, expected, issues)
+                self.assertEqual(record["state"], "ok" if expected else "mismatch")
 
     def test_bettbox_core_evidence_survives_branding_change(self):
         client = self.by_id["bettbox"]
@@ -2296,11 +2330,11 @@ class RenderTests(unittest.TestCase):
         section = text.split("## 多内核客户端\n", 1)[1].split("\n## 闭源客户端", 1)[0]
         self.assertIn("| 客户端 | 状态 | macOS |", section)
         self.assertNotIn("| 客户端 | 状态 | 内核 |", section)
-        self.assertNotIn("Mihomo / Clash Premium / Clash Rust / Meow", section)
+        self.assertNotIn("Mihomo / Clash Rust / Meow", section)
         self.assertNotIn("Mihomo / Smart Core", section)
         self.assertNotIn("Xray / v2fly / Mihomo / sing-box 等", section)
         details = text.split("## 项目详情\n", 1)[1]
-        self.assertIn("- 内核：多内核（Mihomo / Clash Premium / Clash Rust / Meow）", details)
+        self.assertIn("- 内核：多内核（Mihomo / Clash Rust / Meow）", details)
         self.assertIn("- 内核：多内核（Mihomo / Smart Core）", details)
         self.assertIn("- 内核：多内核（Xray / v2fly / Mihomo / sing-box 等）", details)
 
