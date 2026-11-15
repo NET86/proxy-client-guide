@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：成功记录 2026-11-13 至 2026-11-15（北京时间，下同）。
+核验：最近成功日期 2026-11-15；2 项待成功核验（北京时间，下同）。
 > 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -171,7 +171,7 @@
 ### Hiddify
 
 - 分类：sing-box 内核客户端
-- 状态：❓ 待确认｜来源或版本异常
+- 状态：❓ 待确认｜配置已变更，待重新核验
 - 平台：macOS / iOS / Windows / Android / Linux
 - 内核：sing-box
 - 官方来源：[https://github.com/hiddify/hiddify-app](https://github.com/hiddify/hiddify-app)
@@ -225,12 +225,13 @@
 ### Clash Nyanpasu
 
 - 分类：多内核客户端
-- 状态：❓ 待确认｜来源或版本异常
+- 状态：❓ 待确认｜配置已变更，待重新核验
 - 平台：macOS / Windows / Linux
-- 内核：多内核（Mihomo / Clash Premium / Clash Rust / Meow）
+- 内核：多内核（Mihomo / Clash Rust / Meow）
 - 官方来源：[https://github.com/libnyanpasu/clash-nyanpasu](https://github.com/libnyanpasu/clash-nyanpasu)
 - 下载：[https://github.com/libnyanpasu/clash-nyanpasu/releases](https://github.com/libnyanpasu/clash-nyanpasu/releases)
 - 版本：v2.0.1（2026-10-31）
+- 说明：内核列表以官方主分支为准；已发布的 v2.0.1 仍包含 Clash Premium。
 - 核验：内核说明发生变化；保留原记录。
 
 ### Clash-Party
