@@ -68,6 +68,12 @@ class CommitIdentityTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "malformed commit coauthor identity"):
                     c.validate_coauthors("Subject\n\nCo-authored-by: " + value + "\n")
 
+    def test_crlf_coauthor_continuations_keep_full_identity_checks(self):
+        message = "Subject\r\n\r\nCo-authored-by: NET86\r\n <43442823+NET86@users.noreply.github.com>\r\n"
+        c.validate_coauthors(message)
+        with self.assertRaisesRegex(ValueError, "unexpected commit coauthor identity"):
+            c.validate_coauthors(message.replace("43442823+NET86@users.noreply.github.com", "other@example.invalid"))
+
     def test_commit_message_divider_does_not_hide_unauthorized_coauthor(self):
         with self.assertRaisesRegex(ValueError, "unexpected commit coauthor identity"):
             c.validate_coauthors("Subject\n\n---\n\nCo-authored-by: Other User <other@example.invalid>\n")

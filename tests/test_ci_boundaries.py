@@ -36,7 +36,7 @@ class CIBoundaryTests(unittest.TestCase):
         self.git(directory, "config", "user.name", "NET86")
         self.git(directory, "config", "user.email", "43442823+NET86@users.noreply.github.com")
         self.git(directory, "config", "commit.gpgsign", "false")
-        (directory / "fixture.txt").write_text("base\n", encoding="utf-8")
+        (directory / "fixture.txt").write_bytes(b"base\n")
         self.git(directory, "add", "fixture.txt")
         self.git(directory, "commit", "-m", "base")
         return self.git(directory, "rev-parse", "HEAD")
@@ -58,11 +58,11 @@ class CIBoundaryTests(unittest.TestCase):
         workflow = (ROOT / ".github/workflows/validate.yml").read_text(encoding="utf-8")
         step = workflow.split("- name: Check whitespace", 1)[1]
         command = re.search(r"\brun: ([^\n]+)", step).group(1)
+        self.assertEqual(command, 'git diff --check "$CI_BASE_SHA" "$CI_HEAD_SHA"')
         self.assertIn("CI_BASE_SHA: ${{ steps.identity.outputs.base }}", step)
         self.assertIn("CI_HEAD_SHA: ${{ steps.identity.outputs.head }}", step)
         return subprocess.run(
-            command, shell=True, cwd=directory,
-            env=dict(self.fixture_env, CI_BASE_SHA=base, CI_HEAD_SHA=head),
+            ["git", "diff", "--check", base, head], cwd=directory, env=self.fixture_env,
             capture_output=True, text=True, timeout=20,
         )
 
@@ -90,7 +90,7 @@ class CIBoundaryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             directory = Path(td)
             base = self.init_fixture(directory)
-            (directory / "fixture.txt").write_text("committed trailing spaces  \n", encoding="utf-8")
+            (directory / "fixture.txt").write_bytes(b"committed trailing spaces  \n")
             self.git(directory, "add", "fixture.txt")
             self.git(directory, "commit", "-m", "whitespace defect")
             self.assertEqual(self.git(directory, "status", "--porcelain"), "")
@@ -140,12 +140,12 @@ class CIBoundaryTests(unittest.TestCase):
             directory = Path(td)
             common = self.init_fixture(directory)
             self.git(directory, "switch", "-c", "proposal")
-            (directory / "fixture.txt").write_text("proposal\n", encoding="utf-8")
+            (directory / "fixture.txt").write_bytes(b"proposal\n")
             self.git(directory, "add", "fixture.txt")
             self.git(directory, "commit", "-m", "allowed feature")
             head = self.git(directory, "rev-parse", "HEAD")
             self.git(directory, "switch", "main")
-            (directory / "unrelated.txt").write_text("unrelated base whitespace  \n", encoding="utf-8")
+            (directory / "unrelated.txt").write_bytes(b"unrelated base whitespace  \n")
             self.git(directory, "add", "unrelated.txt")
             author_env = dict(self.fixture_env, GIT_AUTHOR_NAME="Other User", GIT_AUTHOR_EMAIL="other@example.invalid")
             self.git(directory, "commit", "-m", "trusted existing base history", env=author_env)
