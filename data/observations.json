@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-11-15T01:52:39Z",
+        "last_activity_at": "2026-11-15T02:05:54Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-15T01:59:29Z",
-        "last_success_at": "2026-11-15T01:59:29Z",
+        "observed_at": "2026-11-15T02:07:32Z",
+        "last_success_at": "2026-11-15T02:07:32Z",
         "confirmed_archived": false
       },
       "release": {
@@ -78,11 +78,11 @@
         "scope": "sha256:d03d777f723bc2cb2761e2eebe03667aac5a2b4795eab5c8d8ccbcd111d26eed",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-15T01:59:29Z",
-        "last_success_at": "2026-11-15T01:59:29Z",
+        "observed_at": "2026-11-15T02:07:32Z",
+        "last_success_at": "2026-11-15T02:07:32Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/423b51e78059981db827af76cbee67fe8e347423/docs/README_en.md",
+            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/5321eb44b8c73a146cdc44cbd66fc24b498e5f79/docs/README_en.md",
             "sha256": "7beb89da0519b75bd4f2de081440991a65526df57b93878ba36f9f46d9a2f377"
           }
         ],
