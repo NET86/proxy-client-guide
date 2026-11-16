@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-11-15T14:38:27Z",
+        "last_activity_at": "2026-11-16T01:10:51Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-15T20:55:04Z",
-        "last_success_at": "2026-11-15T20:55:04Z",
+        "observed_at": "2026-11-16T01:41:22Z",
+        "last_success_at": "2026-11-16T01:41:22Z",
         "confirmed_archived": false
       },
       "release": {
@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-11-15T20:01:54Z",
+        "last_activity_at": "2026-11-15T22:16:24Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-15T20:55:04Z",
-        "last_success_at": "2026-11-15T20:55:04Z",
+        "observed_at": "2026-11-16T01:41:22Z",
+        "last_success_at": "2026-11-16T01:41:22Z",
         "confirmed_archived": false
       },
       "release": {
@@ -319,7 +319,7 @@
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/ce276b55594a9856c283baa6e73c66e7b4a915b8/backend/tauri/tauri.conf.json",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/2dc62a7fbe4abb07d8bc77882257978935f763b2/backend/tauri/tauri.conf.json",
             "sha256": "3859eb7718f8193fb5da9e2e65706f1bc48e1dc29c99440554888db4d342f922"
           }
         ],
@@ -328,8 +328,8 @@
         "scope": "sha256:afbabdfba2697f8ae4cc2ca58155bb0544e39cc781a992d8f0b32b592ca519bb",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-15T20:55:04Z",
-        "observed_at": "2026-11-15T20:55:04Z"
+        "last_success_at": "2026-11-16T01:41:22Z",
+        "observed_at": "2026-11-16T01:41:22Z"
       }
     },
     "clash-party": {
@@ -514,12 +514,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-11-15T19:51:25Z",
+        "last_activity_at": "2026-11-15T21:40:52Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-15T20:55:04Z",
-        "last_success_at": "2026-11-15T20:55:04Z",
+        "observed_at": "2026-11-16T01:41:22Z",
+        "last_success_at": "2026-11-16T01:41:22Z",
         "confirmed_archived": false
       },
       "release": {
@@ -539,7 +539,7 @@
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/f69a8506324877ad6fa19814c2343e2b34d53dcc/app/build.gradle.kts",
+            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/20bfe6861271ab464540b7b7c5df55c6e3c2e05e/app/build.gradle.kts",
             "sha256": "c6bbcff4ac317e1a3b209c0b05070bdba18abb47a4ede2e6c509278afe7ed9a3"
           }
         ],
@@ -548,8 +548,8 @@
         "scope": "sha256:3ded82275b3579a8557fea9bade166557a7efcec5272ebabe4b0f6f3611ddee1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-15T20:55:04Z",
-        "observed_at": "2026-11-15T20:55:04Z"
+        "last_success_at": "2026-11-16T01:41:22Z",
+        "observed_at": "2026-11-16T01:41:22Z"
       }
     },
     "hiddify": {
