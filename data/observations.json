@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-11-16T01:10:51Z",
+        "last_activity_at": "2026-11-16T08:31:29Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-16T01:41:22Z",
-        "last_success_at": "2026-11-16T01:41:22Z",
+        "observed_at": "2026-11-16T12:32:33Z",
+        "last_success_at": "2026-11-16T12:32:33Z",
         "confirmed_archived": false
       },
       "release": {
@@ -78,11 +78,11 @@
         "scope": "sha256:d03d777f723bc2cb2761e2eebe03667aac5a2b4795eab5c8d8ccbcd111d26eed",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-15T11:50:07Z",
-        "last_success_at": "2026-11-15T20:55:04Z",
+        "observed_at": "2026-11-16T12:32:33Z",
+        "last_success_at": "2026-11-16T12:32:33Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/b2689b4220fd4cb8255b1f55331254a469870aff/docs/README_en.md",
+            "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/11340794e1beb85f02974745cca0f7562c23c745/docs/README_en.md",
             "sha256": "7beb89da0519b75bd4f2de081440991a65526df57b93878ba36f9f46d9a2f377"
           }
         ],
@@ -140,24 +140,24 @@
         "state": "ok",
         "seller": "OmniWide Media Limited",
         "track_id": 6794257189,
-        "last_activity_at": "2026-11-07T17:43:36Z",
+        "last_activity_at": "2026-11-16T07:16:55Z",
         "scope": "sha256:4d4e51a481203322259a4fc4a6554561be8146968d1e9de68fbad623451fef5a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-15T20:55:04Z",
-        "observed_at": "2026-11-07T20:01:35Z"
+        "last_success_at": "2026-11-16T12:32:33Z",
+        "observed_at": "2026-11-16T12:32:33Z"
       },
       "release": {
         "state": "ok",
-        "version": "1.0.14",
-        "published_at": "2026-11-07T17:43:36Z",
+        "version": "1.0.18",
+        "published_at": "2026-11-16T07:16:55Z",
         "seller": "OmniWide Media Limited",
         "track_id": 6794257189,
         "scope": "sha256:1bc03a3b458728c6982287164117d9fc197490d8771fe3557e474209d8fc6d92",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-15T20:55:04Z",
-        "observed_at": "2026-11-07T20:01:35Z"
+        "last_success_at": "2026-11-16T12:32:33Z",
+        "observed_at": "2026-11-16T12:32:33Z"
       },
       "core_evidence": {
         "state": "ok",
@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-11-15T22:16:24Z",
+        "last_activity_at": "2026-11-16T12:29:20Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-16T01:41:22Z",
-        "last_success_at": "2026-11-16T01:41:22Z",
+        "observed_at": "2026-11-16T12:32:33Z",
+        "last_success_at": "2026-11-16T12:32:33Z",
         "confirmed_archived": false
       },
       "release": {
@@ -319,7 +319,7 @@
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/2dc62a7fbe4abb07d8bc77882257978935f763b2/backend/tauri/tauri.conf.json",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/34ca07bcef0ef2ad02d62788b90e8bf765e2dbd3/backend/tauri/tauri.conf.json",
             "sha256": "3859eb7718f8193fb5da9e2e65706f1bc48e1dc29c99440554888db4d342f922"
           }
         ],
@@ -328,8 +328,8 @@
         "scope": "sha256:afbabdfba2697f8ae4cc2ca58155bb0544e39cc781a992d8f0b32b592ca519bb",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-16T01:41:22Z",
-        "observed_at": "2026-11-16T01:41:22Z"
+        "last_success_at": "2026-11-16T12:32:33Z",
+        "observed_at": "2026-11-16T12:32:33Z"
       }
     },
     "clash-party": {
@@ -514,12 +514,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-11-15T21:40:52Z",
+        "last_activity_at": "2026-11-16T12:23:40Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-16T01:41:22Z",
-        "last_success_at": "2026-11-16T01:41:22Z",
+        "observed_at": "2026-11-16T12:32:33Z",
+        "last_success_at": "2026-11-16T12:32:33Z",
         "confirmed_archived": false
       },
       "release": {
@@ -539,8 +539,8 @@
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/20bfe6861271ab464540b7b7c5df55c6e3c2e05e/app/build.gradle.kts",
-            "sha256": "c6bbcff4ac317e1a3b209c0b05070bdba18abb47a4ede2e6c509278afe7ed9a3"
+            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/91b0becdff09fbed05983ffd7c045aadfa0cdef8/app/build.gradle.kts",
+            "sha256": "6ddebb5ad74443f22eed33a7546e4034161d83a6a29a8e2a3ee92f163b7f8aab"
           }
         ],
         "repo_id": 1262202400,
@@ -548,8 +548,8 @@
         "scope": "sha256:3ded82275b3579a8557fea9bade166557a7efcec5272ebabe4b0f6f3611ddee1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-16T01:41:22Z",
-        "observed_at": "2026-11-16T01:41:22Z"
+        "last_success_at": "2026-11-16T12:32:33Z",
+        "observed_at": "2026-11-16T12:32:33Z"
       }
     },
     "hiddify": {
@@ -607,26 +607,26 @@
         "repo_id": 714929749,
         "owner_id": 131734194,
         "full_name": "KaringX/karing",
-        "last_activity_at": "2026-11-13T12:03:33Z",
+        "last_activity_at": "2026-11-16T04:33:49Z",
         "rediscovered_repo": false,
         "scope": "sha256:c39ea26d192b995e29a69563fc67c8c3e7678eb2e92e6d1995c2cca14bb0edab",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-15T20:55:04Z",
-        "observed_at": "2026-11-13T21:51:00Z",
+        "last_success_at": "2026-11-16T12:32:33Z",
+        "observed_at": "2026-11-16T12:32:33Z",
         "confirmed_archived": false
       },
       "release": {
         "state": "ok",
-        "version": "v1.2.26.2931",
-        "published_at": "2026-11-13T12:03:34Z",
-        "release_id": 444153644,
+        "version": "v1.2.26.2932",
+        "published_at": "2026-11-16T03:42:41Z",
+        "release_id": 446567079,
         "asset_count": 10,
         "scope": "sha256:c6eed4a5f898741cb6973be0bdd74933116914c3875b7bc97693fac885210c19",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-15T20:55:04Z",
-        "observed_at": "2026-11-13T21:51:00Z",
+        "last_success_at": "2026-11-16T12:32:33Z",
+        "observed_at": "2026-11-16T12:32:33Z",
         "repo_id": 714929749
       },
       "core_evidence": {
@@ -634,11 +634,11 @@
         "scope": "sha256:56368b69986b483d3fd2529393349b100b7e009f53bc7c3a2c9860947b931368",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-15T20:55:04Z",
-        "observed_at": "2026-11-13T21:51:00Z",
+        "last_success_at": "2026-11-16T12:32:33Z",
+        "observed_at": "2026-11-16T12:32:33Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/KaringX/karing/94e0f1ff620f2353692979984082a78d1d6e0c4d/README.md",
+            "url": "https://raw.githubusercontent.com/KaringX/karing/ab9a747104140fde1ae37138efa9b7aca9c516d2/README.md",
             "sha256": "13ebff27d894aebf71a721ee72a6e5f2ba074f708072c8a47b2e2f21ec808e2c"
           }
         ],
@@ -652,12 +652,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-11-15T11:03:57Z",
+        "last_activity_at": "2026-11-16T11:16:39Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-15T11:50:07Z",
-        "last_success_at": "2026-11-15T20:55:04Z",
+        "observed_at": "2026-11-16T12:32:33Z",
+        "last_success_at": "2026-11-16T12:32:33Z",
         "confirmed_archived": false
       },
       "release": {
@@ -915,13 +915,13 @@
         "repo_id": 509091576,
         "owner_id": 83217677,
         "full_name": "SagerNet/sing-box",
-        "last_activity_at": "2026-11-14T08:23:30Z",
+        "last_activity_at": "2026-11-16T07:08:49Z",
         "rediscovered_repo": false,
         "scope": "sha256:d43580a20948f70665c6a6dc980ed9fee8e5a57efedc0aeb9c3150331bd399d3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-15T20:55:04Z",
-        "observed_at": "2026-11-14T11:17:51Z",
+        "last_success_at": "2026-11-16T12:32:33Z",
+        "observed_at": "2026-11-16T12:32:33Z",
         "confirmed_archived": false
       },
       "release": {
@@ -942,11 +942,11 @@
         "scope": "sha256:923cb51e8e03c6292e4a5d8ac0f2eda72cf0e3ac999ff4fe39cf64e16d698978",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-15T20:55:04Z",
-        "observed_at": "2026-11-14T11:17:51Z",
+        "last_success_at": "2026-11-16T12:32:33Z",
+        "observed_at": "2026-11-16T12:32:33Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/SagerNet/sing-box/3dd8aa48d403f50cced084f46b4b0d5758bd4bd1/README.md",
+            "url": "https://raw.githubusercontent.com/SagerNet/sing-box/3cc357d1bd40a104cf4b2207e85ea8f3fd64c207/README.md",
             "sha256": "6f1cd1e2a47fdb431c0ea18c45b355056530b635112de106f58ed2db477b93ed"
           }
         ],

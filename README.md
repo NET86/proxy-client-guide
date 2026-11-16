@@ -93,7 +93,7 @@
 - 内核：Clash（基于 Mihomo）
 - 官方来源：[https://github.com/ProjectClash/Clash](https://github.com/ProjectClash/Clash)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
-- 版本：1.0.14（2026-11-08）
+- 版本：1.0.18（2026-11-16）
 - 官网：[https://clash.md/](https://clash.md/)
 - 说明：原 Hako 已更名为 Clash；旧源码仓库已归档，现由 ProjectClash 维护内核与 Apple 客户端源码。
 
@@ -186,7 +186,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
-- 版本：v1.2.26.2931（2026-11-13）
+- 版本：v1.2.26.2932（2026-11-16）
 - 说明：支持完整 Clash 和部分 Clash.Meta 配置。
 
 ### NekoBox for Android
