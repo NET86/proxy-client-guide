@@ -186,7 +186,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
-- 版本：v1.2.26.2932（2026-11-16）
+- 版本：v1.2.26.2933（2026-11-17）
 - 说明：支持完整 Clash 和部分 Clash.Meta 配置。
 
 ### NekoBox for Android
