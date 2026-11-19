@@ -146,7 +146,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/chen08209/FlClash](https://github.com/chen08209/FlClash)
 - 下载：[https://github.com/chen08209/FlClash/releases](https://github.com/chen08209/FlClash/releases)
-- 版本：v0.9.3（2026-11-04）
+- 版本：v0.9.4（2026-11-19）
 
 ### MetaCubeXD
 
@@ -186,7 +186,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/KaringX/karing](https://github.com/KaringX/karing)
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
-- 版本：v1.2.26.2933（2026-11-17）
+- 版本：v1.2.26.2934（2026-11-19）
 - 说明：支持完整 Clash 和部分 Clash.Meta 配置。
 
 ### NekoBox for Android
@@ -311,7 +311,7 @@
 - 内核：未公开
 - 官方来源：[https://nssurge.com/](https://nssurge.com/)
 - 下载：[https://apps.apple.com/us/app/surge-5/id1442620678](https://apps.apple.com/us/app/surge-5/id1442620678)
-- 版本：5.23.0（2026-10-13）
+- 版本：6.0.1（2026-11-19）
 
 ### Clash for Android
 
