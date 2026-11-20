@@ -240,7 +240,7 @@
 - 内核：多内核（Mihomo / Smart Core）
 - 官方来源：[https://github.com/mihomo-party-org/clash-party](https://github.com/mihomo-party-org/clash-party)
 - 下载：[https://github.com/mihomo-party-org/clash-party/releases](https://github.com/mihomo-party-org/clash-party/releases)
-- 版本：v2.0.4（2026-10-18）
+- 版本：v2.0.5（2026-11-20）
 
 ### v2rayN
 
