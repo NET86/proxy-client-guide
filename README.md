@@ -40,7 +40,6 @@
 | Karing | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/karing) | [下载页](https://github.com/KaringX/karing/releases) |
 | sing-box | 🟢 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/SagerNet/sing-box) | [下载页](https://github.com/SagerNet/sing-box/releases) |
 | Hiddify | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/hiddify/hiddify-app) | [下载页](https://github.com/hiddify/hiddify-app/releases) |
-| NekoBox for Android | 🟡 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MatsuriDayo/NekoBoxForAndroid) | [下载页](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases) |
 
 ## 多内核客户端
 
@@ -72,6 +71,7 @@
 | ClashX Pro | 🔴 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | — | — |
 | ClashN | 🔴 | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | [原项目](https://github.com/2dust/clashN) | — |
 | Clash for Android | 🔴 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | — | — |
+| NekoBox for Android | 🔴 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [原官方仓库](https://github.com/MatsuriDayo/NekoBoxForAndroid) | [原官方下载页](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases) |
 
 ## 项目详情
 
@@ -83,7 +83,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/appshubcc/Bettbox](https://github.com/appshubcc/Bettbox)
 - 下载：[https://github.com/appshubcc/Bettbox/releases](https://github.com/appshubcc/Bettbox/releases)
-- 版本：v1.19.8（2026-11-12）
+- 版本：v1.19.9（2026-11-21）
 
 ### Clash
 
@@ -188,17 +188,6 @@
 - 下载：[https://github.com/KaringX/karing/releases](https://github.com/KaringX/karing/releases)
 - 版本：v1.2.26.2934（2026-11-19）
 - 说明：支持完整 Clash 和部分 Clash.Meta 配置。
-
-### NekoBox for Android
-
-- 分类：sing-box 内核客户端
-- 状态：🟡 最近更新距今半年至一年
-- 平台：Android
-- 内核：sing-box
-- 官方来源：[https://github.com/MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid)
-- 下载：[https://github.com/MatsuriDayo/NekoBoxForAndroid/releases](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases)
-- 版本：1.4.2（2026-02-09）
-- 说明：Google Play 版本自 2024 年 5 月起不再由原项目维护。
 
 ### sing-box
 
@@ -359,6 +348,17 @@
 - 平台：macOS
 - 说明：未找到可对应第三方历史包的原项目源码。
 - 第三方下载：[https://github.com/clashdownload/ClashX_Pro/releases/tag/1.97.0.4](https://github.com/clashdownload/ClashX_Pro/releases/tag/1.97.0.4)
+
+### NekoBox for Android
+
+- 分类：历史项目
+- 状态：🔴 历史项目｜官方仓库已归档
+- 平台：Android
+- 内核：sing-box
+- 原官方来源：[https://github.com/MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid)
+- 原官方下载：[https://github.com/MatsuriDayo/NekoBoxForAndroid/releases](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases)
+- 最后版本：1.4.2
+- 说明：Google Play 版本自 2024 年 5 月起不再由原项目维护；GitHub 官方仓库已归档，已自动归入历史项目。
 
 ## 核验规则
 

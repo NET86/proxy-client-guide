@@ -52,12 +52,12 @@
         "repo_id": 721767116,
         "owner_id": 152534467,
         "full_name": "clash-verge-rev/clash-verge-rev",
-        "last_activity_at": "2026-11-20T21:52:11Z",
+        "last_activity_at": "2026-11-21T07:11:15Z",
         "scope": "sha256:6608a10ac7543fdd27b4d85912f9b6d8b96eb7e6646b2771f2ead053daec8b89",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-20T22:33:25Z",
-        "last_success_at": "2026-11-20T22:33:25Z",
+        "observed_at": "2026-11-21T12:20:13Z",
+        "last_success_at": "2026-11-21T12:20:13Z",
         "confirmed_archived": false
       },
       "release": {
@@ -96,13 +96,13 @@
         "repo_id": 966153123,
         "owner_id": 131734194,
         "full_name": "KaringX/clashmi",
-        "last_activity_at": "2026-11-20T11:11:31Z",
+        "last_activity_at": "2026-11-21T10:01:14Z",
         "rediscovered_repo": false,
         "scope": "sha256:c6d635e584c29b3325ecd25a64a7a4f1ba14892cdb04034886c005cdd21c7c1d",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-20T22:33:25Z",
-        "observed_at": "2026-11-20T12:39:16Z",
+        "last_success_at": "2026-11-21T12:20:13Z",
+        "observed_at": "2026-11-21T12:20:13Z",
         "confirmed_archived": false
       },
       "release": {
@@ -123,11 +123,11 @@
         "scope": "sha256:539d0dae6ea8918247c0359585c6bfc893a0926135aea89a3b15210b4d6a11bb",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-20T22:33:25Z",
-        "observed_at": "2026-11-20T12:39:16Z",
+        "last_success_at": "2026-11-21T12:20:13Z",
+        "observed_at": "2026-11-21T12:20:13Z",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/KaringX/clashmi/a3b3af8ea6f8be68e733f8ec2a35070e81c74b68/README.md",
+            "url": "https://raw.githubusercontent.com/KaringX/clashmi/0c86490a2aa648e40fc582ae835ca97b9ddb2c7d/README.md",
             "sha256": "09aebeb1841c85319ac5ab1e0d0869bd355cd9775cd664b73d396462e50743c4"
           }
         ],
@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-11-20T22:16:29Z",
+        "last_activity_at": "2026-11-21T03:04:23Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-20T22:33:25Z",
-        "last_success_at": "2026-11-20T22:33:25Z",
+        "observed_at": "2026-11-21T12:20:13Z",
+        "last_success_at": "2026-11-21T12:20:13Z",
         "confirmed_archived": false
       },
       "release": {
@@ -319,7 +319,7 @@
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/eb9608b1d04075c90328ec8e81080bf6b464e990/backend/tauri/tauri.conf.json",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/aed8e360900faf042207883408bc0c72846f99a0/backend/tauri/tauri.conf.json",
             "sha256": "05d6083889c87d9eca8910b4a4c73dbc1dbfb3e584dc41ac722063b72d5d76a1"
           }
         ],
@@ -328,8 +328,8 @@
         "scope": "sha256:afbabdfba2697f8ae4cc2ca58155bb0544e39cc781a992d8f0b32b592ca519bb",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-20T22:33:25Z",
-        "observed_at": "2026-11-20T22:33:25Z"
+        "last_success_at": "2026-11-21T12:20:13Z",
+        "observed_at": "2026-11-21T12:20:13Z"
       }
     },
     "clash-party": {
@@ -470,33 +470,33 @@
         "repo_id": 1088809592,
         "owner_id": 197630331,
         "full_name": "appshubcc/Bettbox",
-        "last_activity_at": "2026-11-20T12:34:27Z",
+        "last_activity_at": "2026-11-21T06:41:54Z",
         "scope": "sha256:97360f56419b3ed41fe10f6a1c57e3e56fb4e1b7118fd46a81269abef008dd64",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-20T12:39:16Z",
-        "last_success_at": "2026-11-20T22:33:25Z",
+        "observed_at": "2026-11-21T12:20:13Z",
+        "last_success_at": "2026-11-21T12:20:13Z",
         "confirmed_archived": false
       },
       "release": {
         "state": "ok",
-        "version": "v1.19.8",
-        "published_at": "2026-11-12T02:11:55Z",
-        "release_id": 442028660,
-        "asset_count": 33,
+        "version": "v1.19.9",
+        "published_at": "2026-11-21T07:22:26Z",
+        "release_id": 453515905,
+        "asset_count": 34,
         "scope": "sha256:042e7d1b6adb0c8b6d4db3757751d13360fbac485c763f6b3a16f1f3fd4b2539",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-12T12:24:02Z",
-        "last_success_at": "2026-11-20T22:33:25Z",
+        "observed_at": "2026-11-21T12:20:13Z",
+        "last_success_at": "2026-11-21T12:20:13Z",
         "repo_id": 1088809592
       },
       "core_evidence": {
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/appshubcc/Bettbox/991496275a8e879e2c48f10191951e5582598ec0/README.md",
-            "sha256": "1226b8bf3196499d7d7e215575afefe6aef59c2bedb616804ac0a7f25bcb0d7b"
+            "url": "https://raw.githubusercontent.com/appshubcc/Bettbox/1f5318f7938baeef5fe4c0c3e3db14154f931d1e/README.md",
+            "sha256": "02a8a3c4a546f608daac8ef2ef83e72bb66bf13eaf9fc6d2030f647de29c91d6"
           }
         ],
         "repo_id": 1088809592,
@@ -504,8 +504,8 @@
         "scope": "sha256:d896f89dd0e098cdfce51a43cd8e8af8574f8118914103c6ead6c26f036f6e55",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-20T22:33:25Z",
-        "observed_at": "2026-11-20T12:39:16Z"
+        "last_success_at": "2026-11-21T12:20:13Z",
+        "observed_at": "2026-11-21T12:20:13Z"
       }
     },
     "asteriskmeta": {
@@ -514,12 +514,12 @@
         "repo_id": 1262202400,
         "owner_id": 85885147,
         "full_name": "Asterisk4Magisk/AsteriskMETA",
-        "last_activity_at": "2026-11-20T22:29:10Z",
+        "last_activity_at": "2026-11-21T08:41:25Z",
         "scope": "sha256:8ade34b910b17740edcf145aadfb2b9f8e6994ea9bad5a670fd91760aff0ecc3",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-20T22:33:25Z",
-        "last_success_at": "2026-11-20T22:33:25Z",
+        "observed_at": "2026-11-21T12:20:13Z",
+        "last_success_at": "2026-11-21T12:20:13Z",
         "confirmed_archived": false
       },
       "release": {
@@ -539,7 +539,7 @@
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/3c81043c688aa9304e5f1b2b20512607ae77dfc6/app/build.gradle.kts",
+            "url": "https://raw.githubusercontent.com/Asterisk4Magisk/AsteriskMETA/236d9d3fba21be4f22f24647658d252cb35d78c2/app/build.gradle.kts",
             "sha256": "6ddebb5ad74443f22eed33a7546e4034161d83a6a29a8e2a3ee92f163b7f8aab"
           }
         ],
@@ -548,8 +548,8 @@
         "scope": "sha256:3ded82275b3579a8557fea9bade166557a7efcec5272ebabe4b0f6f3611ddee1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-20T22:33:25Z",
-        "observed_at": "2026-11-20T22:33:25Z"
+        "last_success_at": "2026-11-21T12:20:13Z",
+        "observed_at": "2026-11-21T12:20:13Z"
       }
     },
     "hiddify": {
@@ -652,12 +652,12 @@
         "repo_id": 199570071,
         "owner_id": 31833384,
         "full_name": "2dust/v2rayN",
-        "last_activity_at": "2026-11-20T18:47:01Z",
+        "last_activity_at": "2026-11-21T09:23:25Z",
         "scope": "sha256:16df62b9c2eec50e4de675c72aea322e5cbac09da39c1470ae760e2a6b0f8be1",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-20T22:33:25Z",
-        "last_success_at": "2026-11-20T22:33:25Z",
+        "observed_at": "2026-11-21T12:20:13Z",
+        "last_success_at": "2026-11-21T12:20:13Z",
         "confirmed_archived": false
       },
       "release": {
@@ -692,7 +692,7 @@
     },
     "nekobox-android": {
       "source": {
-        "state": "ok",
+        "state": "archived",
         "repo_id": 609535399,
         "owner_id": 95122236,
         "full_name": "MatsuriDayo/NekoBoxForAndroid",
@@ -700,9 +700,9 @@
         "scope": "sha256:42f49a409be97af93a92f5e6588c329d338db3aecfccebf6f128ab4850762763",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-09-21T22:01:09Z",
-        "last_success_at": "2026-11-20T22:33:25Z",
-        "confirmed_archived": false
+        "observed_at": "2026-11-21T12:20:13Z",
+        "last_success_at": "2026-11-21T12:20:13Z",
+        "confirmed_archived": true
       },
       "release": {
         "state": "ok",
