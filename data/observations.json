@@ -294,12 +294,12 @@
         "repo_id": 716838500,
         "owner_id": 159686715,
         "full_name": "libnyanpasu/clash-nyanpasu",
-        "last_activity_at": "2026-11-21T21:22:10Z",
+        "last_activity_at": "2026-11-22T01:56:57Z",
         "scope": "sha256:7a9a9e89b5bd4d43ccba3146ff42230a0c80bf2f119925cb77fd6cf9860d765a",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "observed_at": "2026-11-21T21:31:08Z",
-        "last_success_at": "2026-11-21T21:31:08Z",
+        "observed_at": "2026-11-22T01:58:57Z",
+        "last_success_at": "2026-11-22T01:58:57Z",
         "confirmed_archived": false
       },
       "release": {
@@ -319,7 +319,7 @@
         "state": "ok",
         "evidence_snapshots": [
           {
-            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/d7b3648f1e1de9550fe58b6ce09778b422fa42b9/backend/tauri/tauri.conf.json",
+            "url": "https://raw.githubusercontent.com/libnyanpasu/clash-nyanpasu/481f231c4a6949743875d33f42817e06615882e9/backend/tauri/tauri.conf.json",
             "sha256": "05d6083889c87d9eca8910b4a4c73dbc1dbfb3e584dc41ac722063b72d5d76a1"
           }
         ],
@@ -328,8 +328,8 @@
         "scope": "sha256:afbabdfba2697f8ae4cc2ca58155bb0544e39cc781a992d8f0b32b592ca519bb",
         "observation_state": "fresh",
         "consecutive_failures": 0,
-        "last_success_at": "2026-11-21T21:31:08Z",
-        "observed_at": "2026-11-21T21:31:08Z"
+        "last_success_at": "2026-11-22T01:58:57Z",
+        "observed_at": "2026-11-22T01:58:57Z"
       }
     },
     "clash-party": {
