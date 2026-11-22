@@ -126,7 +126,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/KaringX/clashmi](https://github.com/KaringX/clashmi)
 - 下载：[https://github.com/KaringX/clashmi/releases](https://github.com/KaringX/clashmi/releases)
-- 版本：v1.0.32.1803（2026-11-03）
+- 版本：v1.0.33.1905（2026-11-22）
 
 ### ClashX Meta
 
