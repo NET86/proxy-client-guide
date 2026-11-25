@@ -83,7 +83,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/appshubcc/Bettbox](https://github.com/appshubcc/Bettbox)
 - 下载：[https://github.com/appshubcc/Bettbox/releases](https://github.com/appshubcc/Bettbox/releases)
-- 版本：v1.20.0（2026-11-24）
+- 版本：v1.20.1（2026-11-25）
 
 ### Clash
 
