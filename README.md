@@ -83,7 +83,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/appshubcc/Bettbox](https://github.com/appshubcc/Bettbox)
 - 下载：[https://github.com/appshubcc/Bettbox/releases](https://github.com/appshubcc/Bettbox/releases)
-- 版本：v1.20.1（2026-11-25）
+- 版本：v1.20.2（2026-11-26）
 
 ### Clash
 
@@ -146,7 +146,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/chen08209/FlClash](https://github.com/chen08209/FlClash)
 - 下载：[https://github.com/chen08209/FlClash/releases](https://github.com/chen08209/FlClash/releases)
-- 版本：v0.9.4（2026-11-19）
+- 版本：v0.9.5（2026-11-26）
 
 ### MetaCubeXD
 
@@ -156,7 +156,7 @@
 - 内核：Mihomo
 - 官方来源：[https://github.com/MetaCubeX/metacubexd](https://github.com/MetaCubeX/metacubexd)
 - 下载：[https://github.com/MetaCubeX/metacubexd/releases](https://github.com/MetaCubeX/metacubexd/releases)
-- 版本：v1.277.0（2026-11-25）
+- 版本：v1.277.1（2026-11-26）
 
 ### Sparkle
 
@@ -207,7 +207,7 @@
 - 内核：多内核（Mihomo / Meow）
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
-- 版本：v1.2.27（2026-11-11）
+- 版本：v1.3.0（2026-11-26）
 - 说明：每个 APK 仅内置一个内核；带 -meow 后缀的版本使用 Meow，覆盖安装可切换内核。
 
 ### Clash Nyanpasu
