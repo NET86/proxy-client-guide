@@ -4,7 +4,7 @@
 
 收录常见代理客户端，并按主要内核或实现方式分类。
 状态基于官方来源与维护时间，仅用于导航参考，不代表安全背书。
-核验：最近成功日期 2026-11-27（北京时间，下同）。
+核验：最近成功日期 2026-11-28（北京时间，下同）。
 > 核验异常会标记为待确认；除身份冲突或配置变更外，保留已配置官方入口。
 
 > 🟢 近半年有更新；🟡 最近更新距今半年至一年；🕒 最近更新距今一年以上；❓ 待确认；🔴 历史项目。
@@ -26,12 +26,12 @@
 | Clash | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/ProjectClash/Clash) | [App Store](https://apps.apple.com/app/id6794257189) |
 | ClashMi | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/clashmi) | [下载页](https://github.com/KaringX/clashmi/releases) |
 | Bettbox | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/appshubcc/Bettbox) | [下载页](https://github.com/appshubcc/Bettbox/releases) |
+| FlClash | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/Vialibrex/FlClash) | [下载页](https://github.com/Vialibrex/FlClash/releases) |
 | Clash Verge Rev | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/clash-verge-rev/clash-verge-rev) | [下载页](https://github.com/clash-verge-rev/clash-verge-rev/releases) |
 | MetaCubeXD | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/MetaCubeX/metacubexd) | [下载页](https://github.com/MetaCubeX/metacubexd/releases) |
 | Sparkle | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/xishang0128/sparkle) | [下载页](https://github.com/xishang0128/sparkle/releases) |
 | ClashX Meta | 🟢 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashX.Meta) | [下载页](https://github.com/MetaCubeX/ClashX.Meta/releases) |
 | Clash Meta for Android | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashMetaForAndroid) | [下载页](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
-| FlClash | ❓ | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/chen08209/FlClash) | [下载页](https://github.com/chen08209/FlClash/releases) |
 
 ## sing-box 内核客户端
 
@@ -141,13 +141,12 @@
 ### FlClash
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：❓ 待确认｜核验暂时失败
+- 状态：🟢 近半年有更新
 - 平台：macOS / Windows / Android / Linux
 - 内核：Mihomo
-- 官方来源：[https://github.com/chen08209/FlClash](https://github.com/chen08209/FlClash)
-- 下载：[https://github.com/chen08209/FlClash/releases](https://github.com/chen08209/FlClash/releases)
+- 官方来源：[https://github.com/Vialibrex/FlClash](https://github.com/Vialibrex/FlClash)
+- 下载：[https://github.com/Vialibrex/FlClash/releases](https://github.com/Vialibrex/FlClash/releases)
 - 版本：v0.9.5（2026-11-26）
-- 核验：项目来源核验失败；最近成功核验 2026-11-27。保留已确认记录。
 
 ### MetaCubeXD
 
@@ -208,7 +207,7 @@
 - 内核：多内核（Mihomo / Meow）
 - 官方来源：[https://github.com/Asterisk4Magisk/AsteriskMETA](https://github.com/Asterisk4Magisk/AsteriskMETA)
 - 下载：[https://github.com/Asterisk4Magisk/AsteriskMETA/releases](https://github.com/Asterisk4Magisk/AsteriskMETA/releases)
-- 版本：v1.3.0（2026-11-26）
+- 版本：v1.3.1（2026-11-28）
 - 说明：每个 APK 仅内置一个内核；带 -meow 后缀的版本使用 Meow，覆盖安装可切换内核。
 
 ### Clash Nyanpasu
