@@ -26,12 +26,12 @@
 | Clash | 🟢 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/ProjectClash/Clash) | [App Store](https://apps.apple.com/app/id6794257189) |
 | ClashMi | 🟢 | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/KaringX/clashmi) | [下载页](https://github.com/KaringX/clashmi/releases) |
 | Bettbox | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/appshubcc/Bettbox) | [下载页](https://github.com/appshubcc/Bettbox/releases) |
-| FlClash | 🟢 | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/chen08209/FlClash) | [下载页](https://github.com/chen08209/FlClash/releases) |
 | Clash Verge Rev | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/clash-verge-rev/clash-verge-rev) | [下载页](https://github.com/clash-verge-rev/clash-verge-rev/releases) |
 | MetaCubeXD | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/MetaCubeX/metacubexd) | [下载页](https://github.com/MetaCubeX/metacubexd/releases) |
 | Sparkle | 🟢 | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | [官方仓库](https://github.com/xishang0128/sparkle) | [下载页](https://github.com/xishang0128/sparkle/releases) |
 | ClashX Meta | 🟢 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashX.Meta) | [下载页](https://github.com/MetaCubeX/ClashX.Meta/releases) |
 | Clash Meta for Android | 🟢 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | [官方仓库](https://github.com/MetaCubeX/ClashMetaForAndroid) | [下载页](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
+| FlClash | ❓ | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | [官方仓库](https://github.com/chen08209/FlClash) | [下载页](https://github.com/chen08209/FlClash/releases) |
 
 ## sing-box 内核客户端
 
@@ -93,7 +93,7 @@
 - 内核：Clash（基于 Mihomo）
 - 官方来源：[https://github.com/ProjectClash/Clash](https://github.com/ProjectClash/Clash)
 - 下载：[https://apps.apple.com/app/id6794257189](https://apps.apple.com/app/id6794257189)
-- 版本：1.0.18（2026-11-16）
+- 版本：1.0.19（2026-11-27）
 - 官网：[https://clash.md/](https://clash.md/)
 - 说明：原 Hako 已更名为 Clash；旧源码仓库已归档，现由 ProjectClash 维护内核与 Apple 客户端源码。
 
@@ -141,12 +141,13 @@
 ### FlClash
 
 - 分类：Mihomo / Clash 内核客户端
-- 状态：🟢 近半年有更新
+- 状态：❓ 待确认｜核验暂时失败
 - 平台：macOS / Windows / Android / Linux
 - 内核：Mihomo
 - 官方来源：[https://github.com/chen08209/FlClash](https://github.com/chen08209/FlClash)
 - 下载：[https://github.com/chen08209/FlClash/releases](https://github.com/chen08209/FlClash/releases)
 - 版本：v0.9.5（2026-11-26）
+- 核验：项目来源核验失败；最近成功核验 2026-11-27。保留已确认记录。
 
 ### MetaCubeXD
 
@@ -197,7 +198,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 - 下载：[https://github.com/SagerNet/sing-box/releases](https://github.com/SagerNet/sing-box/releases)
-- 版本：v1.14.4（2026-10-24）
+- 版本：v1.14.5（2026-11-27）
 
 ### AsteriskMETA
 
