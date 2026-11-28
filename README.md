@@ -197,7 +197,7 @@
 - 内核：sing-box
 - 官方来源：[https://github.com/SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 - 下载：[https://github.com/SagerNet/sing-box/releases](https://github.com/SagerNet/sing-box/releases)
-- 版本：v1.14.5（2026-11-27）
+- 版本：v1.14.6（2026-11-28）
 
 ### AsteriskMETA
 
